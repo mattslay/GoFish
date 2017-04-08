@@ -3,6 +3,8 @@ _ver 5.0.162   released 2017-12-06_
 
 ## GoFish is an advanced code search tool for fast searching and replacing of Visual FoxPro source code.
 
+![Screenshot](Screenshots/GoFishScreenshot01.png?raw=true "Title")
+
 What’s new in version 5:
 
 * Saved Search History – You can now save the history of your searches, either automatically (for all searches) or selectively, and can restore the search parameters and results grid from these saved searches.  You can also selectively delete your saved searches or use the GF Janitor to automatically delete old ones.
