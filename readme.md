@@ -1,5 +1,5 @@
 ﻿# GoFish 5.0 
-_ver 5.0.162   released 2017-12-06_
+_ver 5.0.163   released 2017-02-12_
 
 ## GoFish is an advanced code search tool for fast searching and replacing of Visual FoxPro source code.
 
@@ -131,7 +131,8 @@ Can specify a filename temple (i.e.  `job*` )
 
 ## Release history
 
-* Ver 5.0.162 -2016-12-06
+* Ver 5.0.163 - released 2017-02-12
+* Ver 5.0.162 - 2016-12-06
 * Ver 4.3.012 – 2012-06-11
 * Ver 4.3.011 – 2012-06-03
 * Ver 4.3 - 2012-05-07
