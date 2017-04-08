@@ -1,0 +1,45 @@
+GoFish 4.1 Alpha 2 - Build nnn    Update Notes                  2011-mm-dd
+------------------------------------------------------------------------------------------
+ 1. Added FFC classes to source codebase. See (lib\VFP\FFC).
+
+
+GoFish 4.1 Alpha 1 - Build 191    Update Notes                  2011-08-30
+------------------------------------------------------------------------------------------
+ 1. Matches from DBF tables will be marked as Risk Level 3 matches.
+    (You can search the contents of DBF tables if you use a custom file mask template like *.dbf)
+ 2. Improved the details returned in match results from DBC's.
+ 3. Added a new Folder button to open an Explorer window and location of selected row.
+ 4. Can now open DBC matches with Modify Database by double clicking row.
+ 5. Fixed glitch when resolving property matches inside of PRG-based classes that have
+ weird code comments (i.e. Rick Strahl's Help Builder syntax caused problems.)
+ 6. Added new button on Options->Advanced	page to clear out XML files to reset GoFish.
+
+    
+
+GoFish 4.1 Alpa 1 Update Notes:
+----------------------------------------------------------------------------------
+New features in 4.1 Alpha 1
+ 1. Added a Progress Bar to the main form to show progress of search.
+ 2. The Search Expression can now contain preceding and trailing spaces.
+ 3. Added new feature to perform mass Replaces on code search matches.
+ 4. Added new feature to perform single line edits on code search matches.
+ 5. Added new fields to results cursor to support Replace feature.
+ 6. Enhanced search results are now gathered when searching FRX Report files.
+
+
+Changes / Fixes from Ver 4 Beta 1:
+
+ 1. Fixed FileDate info on text-based files.
+ 2. Fixed Ascending/Descending sorting when clicking on column headers.
+ 3. Now using BindEvent to bind grid headers to SortColumn() method.
+ 4. Fixed small bug in file template matching on Advanced page.
+ 5. The Results form and the Search form now use an EditBox for the Search text, rather than TextBoxes.
+ 6. The My.Settings.Load() method has a custom code line from the publicly released version to prevent 
+    the Load() method from stripping of whitespaces. 
+ 7. Added new MatchType to replace Reserved7 with <Class Desc>
+ 8. Added new MatchType to replace Reserved8 with <Include File>
+ 9. Fixed a bug to prevent crashing when attempting to search a text file that is locked by some other app.
+ 10. Fixed Regular Expression searching to automatically include 'beginning of line' and 'end of line' to the entered search expression.
+ 
+
+

@@ -1,0 +1,6 @@
+/Source/DeployGoFish.ps1
+/Source/DeployGoFish_Source.ps1
+/Source/DeployGoFish.bat
+*.bak
+FOXUSER.*
+*_ref.*

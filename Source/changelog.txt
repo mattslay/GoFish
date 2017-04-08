@@ -1,0 +1,186 @@
+=== Build 4.4.446 BETA (2015-04-28) ===
+  * Added checkbox on Options form to disable saving of search results history
+  * Changed timestamp of search results history to 24-hour format
+  
+=== Build 4.4.445 BETA (2015-04-28) ===
+  * Previous build incorrectly used older version of Sedna My.
+  * Updated Sedna My to latest VFPx version of 2015-01-23
+  * Recompiled to fix bug in using the Filter form.
+
+=== Build 4.4.444 BETA (2015-02-02) ===
+  * Restoring previous search will no longer leave Search History DBC open.
+  * Restored warning message if search phrase contains leaded or trailing spaces.
+  * Updated Thor Check For Updates menu image on Options-> Update page.
+
+=== Build 4.4.443 BETA (2015-01-26) ===
+  * Fixed anchor on folder icon on Search History form.
+	
+=== Build 4.4.442 BETA (2015-01-26) ===
+  * Fixed sound being made in some cases when starting a new search.
+
+=== Build 4.4.441 BETA (2015-01-26) ===
+  * Fixed bug where LockScreen was not getting cleared.
+	
+=== Build 4.4.440 BETA (2015-01-24) ===
+  * Fixed startup sequence if Saved Search Folder does not exist.
+
+=== Build 4.4.438 BETA (2015-01-24) ===
+  * Now making a copy of the Filter form settings with each saved search.
+  * Added folder icon button on Search History form to open the folder, if needed.
+
+=== Build 4.4.437 BETA (2015-01-24) ===
+  * Added short key for Restore button
+  * Can now Right-Click on Restore button to restore last search.
+  * Can now double-click on row in Search History click to select and close form.
+  * Search History form now remembers form size and positions between use.
+
+=== Build 4.4.436 BETA (2015-01-24) ===
+  * Speed improvements when restoring a previous search result.
+  * Made the "Load" button default button on Search History form.
+
+=== Build 4.4.434 BETA (2015-01-24) ===
+  * Added UI form to select and restore earlier search results.
+
+=== Build 4.4.431 BETA (2015-01-23) ===
+  * Added Restore Previous Searches feature.
+
+=== Build 4.4.429 BETA (2015-01-21) ===
+  * Added feature to restore previous search results when GoFish starts up.
+  * Converted SSC format to use FoxBin2Prg
+
+=== Build 4.3.055 BETA (2013-06-06) ===
+  * Added code to browse DBFs with SuperBrowse if Thor is present
+
+=== Build 4.3.054 BETA (2013-06-06) ===
+  * Fixed bug where DBFs could not be searched in Project scope.
+
+=== Build 4.3.053 BETA (2012-11-15) ===
+  * Added handling for files with corrupted memo fields.
+  
+=== Build 4.3.052 BETA (2012-10-06) ===
+	* Fixed bug when searching old reports from FoxPro 2.6 
+	* Added support for exporting to Excel.
+	
+=== Build 4.3.050 BETA (2012-10-06) ===
+  * Improved sorting capabilities for grid. Click columns headers as follows:
+    [1] Left click always selects primary sort, pushes previous primary and secondary sorts down to second and third.
+    [2] Right click selects secondary, leaves primary untouched, pushes current secondary down to third.
+
+=== Build 4.3.049 BETA (2012-10-05) ===
+  * Added Right-Click on Header for Secondary Sorting
+  * Sorting in columns is now case insensitive
+
+=== Build 4.3.048 BETA (2012-10-04) ===
+  * Fixed bug which prevented matches from being found in PRG files in certain cases. (Reported by JRN 2012-10-04)
+
+=== Build 4.3.047 BETA (2012-09-10) ===
+  * Fixed bug which prevented double-clicking from opening methods on Forms.
+  
+=== Build 4.3.046 BETA (2012-09-03) ===
+  * Now using BindEvent() to handle double clicks from main grid
+
+=== Build 4.3.045 BETA (2012-08-30) ===
+  * Added handler for 'dot' so GoFish will work properly with 'IntellisenseX by Dot' from Thor
+
+=== Build 4.3.027 BETA (2012-07-01) ===
+ * Fixed call in main form Init() that was resetting grid to defaults.\\
+   (Switched it from FormatGrid() to FormatGridForReplaceMode(), which also\\
+   fixed the case where the form was closed while Replace mode columns were visible)
+ * Extracted some code from FormatGridForReplaceMode() to ShowGridColumn()
+
+=== Build 4.3.026 BETA (2012-07-01) ===
+* Fixed column ordering on grid to better handle hidden columns. Columns on options
+form are now sorted by visible first.
+* Fixed bug that caused columns to get jumbled up when showing columns related to Replace Mode.
+
+=== Build 4.3.024 BETA (2012-07-01) ===
+ * Added code to migrate the Replace Detail table to the new structure of the Results cursor.
+ * Added Options spinner for setting the html code view zoom factor.
+ * Now show all Replace Detail fields when browsing replace history.
+ 
+=== Build 4.3.022 BETA (2012-06-29) ===
+ * Added ClassLoc column to search results grid
+ * Rename several columns in the search results related to class, baseclass, parent, and object names
+ * Added dialog to notify user if there were any Error during Replace operation
+ * Updated image for Replace errors to a larger image so it's earlier to see.
+
+=== Build 4.3.014 (2012-06-18) ===
+ * Fixed bug in Edit Line Replace Mode when deleting the entire line.
+ * Fixed bug which prevented GF from opening the correct method when editing file from GF.
+
+=== Build 4.3.012 (2012-06-08) ===
+ * Fixed Editing of SCX and VCX from within GoFish so it will open to the correct method and object.\\
+ (This bug only affected non-Thor users)
+
+=== Build 4.3.011 (2012-06-03) ===
+ * Filter Form: Added support for wildcards (* and ?) and the Not operator (!) in string match fields.
+ * Added option for confirming 'Whole Word' search if it is marked when starting a new search.
+ * Added option for clearing the 'Apply Filter' checkbox with each new search
+ * Added option to specify number of MRU entries to display in Scope/Search Expression dropdowns.
+ * Fixed Report so that it will correctly use the same filter that is in place on the main grid.
+
+ === Build 4.3.002 (2012-05-07) ===
+ * Added new Search Mode: Uses wildcard matching (uses the FoxPro LIKE() function)
+ * Added radio buttons on Advanced form to select Search Mode
+ * Restored match word highlighting in Html code view
+ * Enhanced File Template filter to accept '?' in filename or ext.
+ * Fixed some other misc html code rendering things.
+ * Fixed issue where Browser Zoom factor can get corrupted.
+ * Big-A and Little-A buttons will now be hidden when Html code browser panel is collapsed.
+ * Enhanced PropNvl() function to return default value if data type of stored value is does not match default value data type
+ * Added initial code to prepare for support of Google Chrome Frame to render html view.
+
+=== Build 4.2.068 (2012-03-30) ===
+ * Fixed bug when double-clicking to view a match from a dbf (Browse is called)
+      (Fixed in TreeView and in Grid)
+ 
+=== Build 4.2.067 (2012-03-29) ===
+ * Fixed searching so it will find matches in the .h include filename in SCX forms 
+ * Can now be compiled to a free-standing .exe for use outside of VFP IDE
+ * Adjusted some label captions on main and Advanced form
+
+=== Build 4.2.066 (2012-02-24) ===
+ * Added necessary file extensions to backup DBCs and Labels during Replace
+
+=== Build 4.2.065 (2012-02-21) ===
+ * Fixed Search Scope to work with UNC paths i.e.  \\server_name\folder_name
+
+=== Build 4.2.064 (2012-02-21) ===
+ * Fixed Search Scope to work with mapped drive letters
+ 
+=== Build 4.2.063 (2012-02-21) ===
+ * Fixed SetScope() method to properly allow Search Scope to be set from an external call
+
+=== Build 4.2.062 (2012-02-20) ===
+ * Fixed Search Scope History combo to remember <<Active Project>> and <<Current Dir>>
+
+=== Build 4.2.061 (2012-02-14) ===
+ * Fixed bug in Search Scope combo when choosing <<Active Project>> or <<Current Dir>>
+ * Added <Include File> to the list of MatchTypes that can be replaced
+
+=== Build 4.2.060 (2012-02-10) ===
+ * Fixed Search Scope combo to better handle clicking, editing, pasting
+ * Added Try/Catch SearchInTable() method to guard against corrupt dbf/fpt files
+ 
+=== Build 4.2.059 (2012-02-08) ===
+ * You can now click to set focus into the Search Scope combo box
+ 
+=== Build 4.2.057 (2012-02-02) ===
+ * Set AllowOutput = .f. on main GoFish for to prevent from appearing in form.
+ * Added .Category setting to Thor_Tool_GoFish.prg to work with Thor 1.20 'Thor Tools' menu
+  
+=== Build 4.2.056 (2012-02-02) ===
+ * Bug fixed in constructing Replace line text
+ 
+=== Build 4.2.055 (2012-02-01) ===
+ * Public release - See notes for 4.2.054 and 4.2.052
+
+=== Build 4.2.054 (2012-01-30) ===
+ * Corrected error message that is displayed when RegEx expression fails.
+ 
+=== Build 4.2.052 (2012-01-25) ===
+ * Corrected the way matches are found on Property Names and Property Values
+ * Added support to Browse a dbf when you double click a row in the grid. [GF_PEME_BaseTools.EditSourceX()]
+ * Added "Data" node to the TreeView to host matches from DBF tables. 
+ * Fixed Progress Bar UI control so the meter bar would not expand beyond themframe.
+ * Added Up Arrow image to Project so it will build into the .app file. 

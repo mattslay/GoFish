@@ -1,0 +1,86 @@
+<style type="text/css">
+
+		.matchline {
+			border-width: 1px;
+			border-style: solid;
+			border-color: gray;
+			background-color: FFFF80;
+			margin-top: -17px;
+			margin-bottom: -32px;
+			padding-top: 0px;
+			padding-bottom: 1px;
+		}
+		
+		.matchline pre {
+			margin-top: -15px;
+			margin-bottom: 0px;
+			padding-top: 0px;
+			padding-bottom: -5px;
+		}
+
+		.strikeout {
+			border-width: 1px;
+			border-style: solid;
+			border-color: gray;
+			background-color: lightgrey;
+			margin-top: -17px;
+			margin-bottom: -32px;
+			padding-top: 0px;
+			padding-bottom: 1px;
+		}
+		
+		.strikeout pre {
+			margin-top: -15px;
+			margin-bottom: 0px;
+			padding-top: 0px;
+			padding-bottom: -5px;
+		}
+
+		
+		.replaceline {
+			border-width: 1px;
+			border-style: solid;
+			border-color: gray;
+			background-color: FFFF80;
+			margin-top: 35px;
+			margin-bottom: -32px;
+			padding-top: -20px;
+			padding-bottom: 0px;
+		}
+
+		.replaceline pre {
+			margin-top: -15px;
+			margin-bottom: 0px;
+			padding-top: 0px;
+			padding-bottom: 0px;
+		}
+		
+		.matchword {
+			background-color: #99FF99;
+			font-weight:bold;
+		}
+		
+		.vfpcode{
+			color: black;
+		}
+		
+		.vfpreserved{
+			color: blue;
+		}
+		
+		.vfpcomment{
+			color: green;
+		}
+		
+		.vfpliteral{
+			color: red;
+		}
+		
+		.vfpstring{
+			color: red;
+		}
+			
+</style>
+
+
+
