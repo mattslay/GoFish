@@ -189,10 +189,10 @@ form are now sorted by visible first.
  * Added Up Arrow image to Project so it will build into the .app file.
 EndText 
 
-AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 5.0.163 - February 12, 2017 - 20170212')
-AddProperty(toUpdateInfo, 'SourceFileUrl', 'http://bit.ly/GoFish4Zip')
+AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 5.0.164 - March 19, 2021 - 20210319')
+AddProperty(toUpdateInfo, 'SourceFileUrl', 'http://bit.ly/GoFish5')
 AddProperty(toUpdateInfo, 'LinkPrompt', 'GoFish Home Page')
-AddProperty(toUpdateInfo, 'Link', 'http://vfpx.codeplex.com/wikipage?title=GoFish')
+AddProperty(toUpdateInfo, 'Link', 'https://github.com/mattslay/GoFish')
 AddProperty(toUpdateInfo, 'Notes', lcNote)
 
 Execscript (_Screen.cThorDispatcher, 'Result=', toUpdateInfo)

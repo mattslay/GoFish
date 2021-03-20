@@ -1,3 +1,8 @@
+* Change log:
+* 2021-03-19	See RemoveFolder() function.
+*=======================================================================
+
+
 *---------------------------------------------------------------------------
 Define Class GF_FileResult as Custom
 
@@ -242,11 +247,19 @@ EndFunc
 
 
 * --------------------------------------------------------------------------------
+*-- This method is used by the Delete button on the Search History Form.
+*-- Revised 2021-03-19: 
+*--   As as safety measure, it will only delete a folder path which contains "gf_saved_search_results".
+* --------------------------------------------------------------------------------
 Procedure RemoveFolder(lcFolderName)
 	Local laFiles[1], lcFileName, lcFileNameWithPath, llFailure, lnFileCount, lnI, loException
 
 	Declare Integer SetFileAttributes In kernel32 String, Integer
 	lcFolderName = Trim(m.lcFolderName)
+	
+	If Empty(lcFolderName) Or !("gf_saved_search_results" $ Lower(lcFolderName))
+		Return .f.
+	Endif
 
 	Try
 		lnFileCount = Adir(laFiles, m.lcFolderName + '\*', 'DH')
