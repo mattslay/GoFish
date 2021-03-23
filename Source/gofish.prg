@@ -72,7 +72,11 @@ Procedure SetupEnvironment
 	*-- older version of GoFish
 	Clear Class 'GoFishSearchEngine'
 	Clear Class 'GoFishSearchOptions'
-
+	
+	Set Procedure To "lib\GoFishSearchEngine.prg" Addi
+	Set Procedure To "lib\GoFishSearchOptions.prg" Addi
+	Set Classlib To "lib\VFP\My\My.vcx" Addi
+	
 	For x = Program(-1) To 1 Step -1 && Look up through run stack to find the name of the running .APP file
 		lcAppName = Sys(16, x)
 		If '.APP' $ Upper(lcAppName)
@@ -88,6 +92,8 @@ Procedure SetupEnvironment
 		lcAppPath = Addbs(JustPath(lcAppName))
 	Endif
 	lcAppName = Justfname(lcAppName)
+
+Suspend
 
 	If '.FXP' $ lcAppName
 		SetPathsForDevelopmentMode(lcAppPath)
@@ -118,7 +124,7 @@ Endproc
 *--------------------------------------------------------------------------------
 Procedure SetPathsForDevelopmentMode(tcAppPath)
 
-	*-- If running this bootstrap in dev mode,	we need to setup these paths
+	*-- If running this bootstrap in dev mode,we need to setup these paths
 	*--  Note: This is not required when the compiled .app file is running
 	Set Path To (tcAppPath) Additive
 	Set Path To (tcAppPath + 'Prg') Additive
