@@ -1,5 +1,6 @@
 #Include GoFish.h
 
+
 Define Class GoFishSearchEngine As Custom
 
 	cBackupPRG                       = 'GoFishBackup.prg'
@@ -876,7 +877,6 @@ Define Class GoFishSearchEngine As Custom
 	*----------------------------------------------------------------------------------
 	Procedure CreateMenuDisplay(tcMenu)
 
-		#Define CRLF Chr[13] + Chr[10]
 		#Define SPACING 3
 		#Define Prefix '*'
 
@@ -1467,9 +1467,7 @@ Define Class GoFishSearchEngine As Custom
 
 
 	*----------------------------------------------------------------------------------
-	Procedure FindsStatement(loObject)
-
-		#Define Tab Chr[9]
+	Procedure FindStatement(loObject)
 
 		Local lcLastLine, lcMatchLine, lcPreceding, lcProcCode, lcResult, lnCRPos, lnLen, lnLength, lnStart
 		Local lnTextStart
@@ -1850,9 +1848,6 @@ Define Class GoFishSearchEngine As Custom
 
 	*----------------------------------------------------------------------------------
 	Procedure GetProcedureStartPositions(tcCode, tcName)
-
-		#Define CR Chr(13)
-		#Define lf Chr(10)
 
 		Local loObject As 'Empty'
 		Local loRegExp As 'VBScript.RegExp'
@@ -2284,8 +2279,6 @@ Define Class GoFishSearchEngine As Custom
 
 	*----------------------------------------------------------------------------------
 	Procedure IsContinuation(lcLine)
-
-		#Define Tab Chr[9]
 
 		Local lnAT
 		
@@ -4210,7 +4203,6 @@ Define Class GoFishSearchEngine As Custom
 	*----------------------------------------------------------------------------------
 	*-- Read a user file set the the cFilesToSkip property
 	Procedure SetFilesToSkip
-		#Define CR Chr(13)
 
 		Local lcExclusionFile, lcFilesToSkip, lcLeft, lcLine, lcRight, lnI
 

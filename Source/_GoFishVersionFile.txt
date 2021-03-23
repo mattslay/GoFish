@@ -189,7 +189,7 @@ form are now sorted by visible first.
  * Added Up Arrow image to Project so it will build into the .app file.
 EndText 
 
-AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 5.0.165 - March 23, 2021 - 20210323')
+AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 5.0.167 - March 23, 2021 - 20210323')
 AddProperty(toUpdateInfo, 'SourceFileUrl', 'http://bit.ly/GoFish5')
 AddProperty(toUpdateInfo, 'LinkPrompt', 'GoFish Home Page')
 AddProperty(toUpdateInfo, 'Link', 'https://github.com/mattslay/GoFish')

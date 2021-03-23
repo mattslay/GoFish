@@ -51,6 +51,10 @@
 #DEFINE GF_SEARCH_MODE_REGEX	3
 
 #DEFINE CRLH Chr(13) + Chr(10)
+#DEFINE CRLF Chr[13] + Chr[10]
+#DEFINE CR Chr(13)
+#DEFINE LF Chr(10)
+#DEFINE Tab Chr[9]
 
 
 *-----------------------------------------------------------------------------------
