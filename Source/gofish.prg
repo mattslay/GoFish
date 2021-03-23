@@ -41,11 +41,9 @@ Endif
 
 Set Procedure To 'GoFishProc' Additive
 Set Procedure To 'mhHtmlCode' Additive
+Set Procedure To 'GoFishSearchEngine.prg' Addi
+Set Procedure To 'GoFishSearchOptions.prg' Addi
 
-Try
-	Set Classlib To 'GoFishSearchEngine' Additive
-Catch
-EndTry
 
 Try
 	Set Classlib To 'GF_PEME_BaseTools' Additive
@@ -73,10 +71,6 @@ Procedure SetupEnvironment
 	Clear Class 'GoFishSearchEngine'
 	Clear Class 'GoFishSearchOptions'
 	
-	Set Procedure To "lib\GoFishSearchEngine.prg" Addi
-	Set Procedure To "lib\GoFishSearchOptions.prg" Addi
-	Set Classlib To "lib\VFP\My\My.vcx" Addi
-	
 	For x = Program(-1) To 1 Step -1 && Look up through run stack to find the name of the running .APP file
 		lcAppName = Sys(16, x)
 		If '.APP' $ Upper(lcAppName)
@@ -92,8 +86,6 @@ Procedure SetupEnvironment
 		lcAppPath = Addbs(JustPath(lcAppName))
 	Endif
 	lcAppName = Justfname(lcAppName)
-
-Suspend
 
 	If '.FXP' $ lcAppName
 		SetPathsForDevelopmentMode(lcAppPath)

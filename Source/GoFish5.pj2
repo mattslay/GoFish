@@ -154,7 +154,8 @@ WITH loProject.FILES
 	.ADD('images\zoom-out-2-16.png')		&& *< FileMetadata: Type="x" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('lib\gf_peme_basetools.vcx')		&& *< FileMetadata: Type="V" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" User="" />
 	.ADD('lib\gofish.h')		&& *< FileMetadata: Type="T" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
-	.ADD('lib\gofishsearchengine.vcx')		&& *< FileMetadata: Type="V" Cpid="0" Timestamp="0" ID="0" ObjRev="544" User="" />
+	.ADD('lib\gofishsearchengine.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" User="" />
+	.ADD('lib\gofishsearchoptions.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" User="" />
 	.ADD('lib\gofishui.vcx')		&& *< FileMetadata: Type="V" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" User="" />
 	.ADD('lib\gofishwebtools.vcx')		&& *< FileMetadata: Type="V" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" User="" />
 	.ADD('lib\peme_basetools.h')		&& *< FileMetadata: Type="x" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />

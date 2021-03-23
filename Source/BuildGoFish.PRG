@@ -18,13 +18,13 @@ Cd (lcSourceLoc)
 
 *== Most of these local variables will make their way into BuildGoFish.h
 lcVersion = '5.0'
-lcBuild = '164' && <---- Set your desired version level of the tool here
+lcBuild = '165' && <---- Set your desired version level of the tool here
 								&& This will be used on the GoFish form and will live on the
 								&& the _GoFish object that gets attached to _Screen at run time.
 
 lcApplicationName	= 'GoFish5'
 lcVersionLocalFile	= 'GoFishVersionFile.txt'
-lcVersionFileURL	= 'http://foxpro.mattslay.com/GoFish4/Beta/_GoFishVersionFile.txt'
+lcVersionFileURL	= 'http://foxpro.mattslay.com/GoFish5/_GoFishVersionFile.txt'
 lcDownloadUrl		= 'http://bit.ly/GoFish5'
 lcGoFishHomePage	= 'https://github.com/mattslay/GoFish'
 
@@ -142,17 +142,6 @@ If File(lcProject)
 		? FileToStr(lcErrorFile)
 	EndIf
 	
-	*!* ******************** Removed 11/01/2015 *****************
-	*!* ? ''
-	*!* ? 'Version file contents:'
-	*!* ? '============================================='
-	*!* ? FileToStr(lcVersionLocalFile)
-	*!* ? ''
-	*!* ? 'Cloud Version file contents:'
-	*!* ? '============================================='
-	*!* ? FileToStr('_' + lcVersionLocalFile)
-	
-
 Else
 	MessageBox('Error locating Project file [' + lcProject + ']',16, lcApplicationName + ' - Building App')
 Endif
