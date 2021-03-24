@@ -639,7 +639,7 @@ Define Class GoFishSearchEngine As Custom
 	*----------------------------------------------------------------------------------
 	Procedure BuildProjectsCollection
 	
-		Local loPEME_BaseTools As 'GF_PEME_BaseTools' Of 'Lib\GF_PEME_BaseTools.vcx'
+		Local loPEME_BaseTools As 'GF_PEME_BaseTools' Of 'Lib\GF_PEME_BaseTools.prg'
 		Local laProjects[1], lcCurrentDir, lcProject, loMRU_Project, loMRU_Projects, loProject, lnX
 
 		lcCurrentDir = Addbs(Sys(5) + Sys(2003)) && Current Default Drive and path
@@ -669,8 +669,8 @@ Define Class GoFishSearchEngine As Custom
 		Endfor
 
 		*-- Add MRU Projects to the Collection...
-		loPEME_BaseTools = NewObject('GF_PEME_BaseTools', 'Lib\GF_PEME_BaseTools.vcx')
-
+		loPEME_BaseTools = CreateObject('GF_PEME_BaseTools')
+		
 		loMRU_Projects = loPEME_BaseTools.GetMRUList('PJX')
 
 		For Each loMRU_Project In loMRU_Projects
@@ -1171,7 +1171,9 @@ Define Class GoFishSearchEngine As Custom
 
 		EndIf
 		
-		*** JRN 2021-03-21 : If match is to a name of a file in a project, open that file
+		loPBT = CreateObject('GF_PEME_BaseTools')
+
+		*** JRN 2021-03-21 : If match is to a name of a file in a Project, open that file
 		If &tcCursor..FileType = 'PJX' And &tcCursor..MatchType = MatchType_Name
 			lcFileToEdit = FullPath(Upper(Addbs(JustPath(Trim(&tcCursor..FilePath))) + Trim(&tcCursor..TrimmedMatchLine)))
 			m.loPBT.EditSourceX(m.lcFileToEdit)
@@ -1180,8 +1182,6 @@ Define Class GoFishSearchEngine As Custom
 			lcFileToEdit = Upper(Alltrim(&tcCursor..FilePath))
 		EndIf
 		* --------------------------------------------------------------------------------
-
-		loPBT = Createobject('GF_PEME_BaseTools')
 
 		*-- 2011-12-28 (As requested by JRN) -------------
 		*-- The following code will automatically select the actual Object on the form or class, or select the Property name.
@@ -1287,7 +1287,7 @@ Define Class GoFishSearchEngine As Custom
 		lcClass		 = Alltrim(&tcCursor..Class)
 		lcName		 = Alltrim(&tcCursor..Name)
 
-		loPBT = Createobject('GF_PEME_BaseTools')
+		loPBT = CreateObject('GF_PEME_BaseTools')
 		m.loPBT.EditSourceX(m.lcFileToEdit, m.lcClass)
 
 		If Type('_Screen.cThorDispatcher') = 'C'

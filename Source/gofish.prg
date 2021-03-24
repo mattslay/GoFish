@@ -41,14 +41,9 @@ Endif
 
 Set Procedure To 'GoFishProc' Additive
 Set Procedure To 'mhHtmlCode' Additive
-Set Procedure To 'GoFishSearchEngine.prg' Addi
-Set Procedure To 'GoFishSearchOptions.prg' Addi
-
-
-Try
-	Set Classlib To 'GF_PEME_BaseTools' Additive
-Catch
-EndTry
+Set Procedure To 'GoFishSearchEngine.prg' Additive
+Set Procedure To 'GoFishSearchOptions.prg' Additive
+Set Procedure To 'GF_PEME_BaseTools.prg' Additive
 
 Do Form GoFish_Results With lcInitialSource
 
@@ -70,6 +65,7 @@ Procedure SetupEnvironment
 	*-- older version of GoFish
 	Clear Class 'GoFishSearchEngine'
 	Clear Class 'GoFishSearchOptions'
+	Clear Class 'GF_PEME_BaseTools'
 	
 	For x = Program(-1) To 1 Step -1 && Look up through run stack to find the name of the running .APP file
 		lcAppName = Sys(16, x)

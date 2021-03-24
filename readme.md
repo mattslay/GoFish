@@ -127,13 +127,15 @@ Can specify a filename temple (i.e.  `job*` )
 
 ## Release history
 
-* **Ver 5.0.167** Released 2021-03-23
+* **Ver 5.0.168** Released 2021-03-23
 
 | | Description                              |
 |----------|------------------------------------------|
 | 1.       | In the search results grid, if **Match Type** is `<<<Filename>>>` (i.e. matching a filename in a Project), then double-clicking on the row will now open the file with correct editor. (Contributed by Jim Nelson)|
 | 2. | In the search results treeview, the results are now ordered by Class, Filename, FilePath. (Contributed by Jim Nelson) |
 | 3. | `GoFishSearchEngine.vcx` has been converted to PRGs file. The 2 classes in the VCX are replaced by `GoFishSearchEngine.prg` and `GoFishSearchOptions.prg`. This was done to remove binaries (VCX) from the code base, in hopes of making it easier to maintain the source code in a more source control friendly style.|
+| 4. | Converted `GF_PEME_BaseTools.vcx` to prg. |
+
 
 * **Ver 5.0.164** - Released 2021-03-19
 
