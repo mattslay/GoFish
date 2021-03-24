@@ -70,6 +70,7 @@ MODIFY PROJECT 'GoFish5.pjx' NOWAIT NOSHOW NOPROJECTHOOK
 loProject = _VFP.Projects('GoFish5.pjx')
 
 WITH loProject.FILES
+	.ADD('..\readme.md')		&& *< FileMetadata: Type="T" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('_gofishversionfile.txt')		&& *< FileMetadata: Type="T" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('buildgofish.h')		&& *< FileMetadata: Type="T" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('buildgofish.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" User="" />
