@@ -3,6 +3,10 @@ Lparameters toUpdateInfo
 Text to lcNote NoShow
 GoFish Change Log
 
+** Ver 5.0.170 ** Released 2021-03-24
+1. GoFishSearchEngine class: Fixed folder paths for cFilesToSkipFile, cReplaceDetailTable, cReplaceDetailTable.
+2. Options Form-> Replace tab: Added read-only fields to show values for cReplaceDetailTable and cReplaceDetailTable.
+
 ** Ver 5.0.169 ** Released 2021-03-24
 1. Removed matches from a Project PJX on the "Key" field (i.e. Match Type = "<Key>" in the results grid.)
 
