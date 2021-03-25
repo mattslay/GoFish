@@ -18,7 +18,7 @@ Cd (lcSourceLoc)
 
 *== Most of these local variables will make their way into BuildGoFish.h
 lcVersion = '5.0'
-lcBuild = '168' && <---- Set your desired version level of the tool here
+lcBuild = '169' && <---- Set your desired version level of the tool here
 								&& This will be used on the GoFish form and will live on the
 								&& the _GoFish object that gets attached to _Screen at run time.
 
@@ -47,7 +47,8 @@ lcWindowTitle = 'Building ' + lcApplicationName
 *!* Activate Window talkWindow
 *!* ******************** Removed 11/01/2015 *****************
 *!* Set Talk On Window talkWindow
-? 'Building ' + lcApplicationName + '  Ver ' + lcVersion + '  Build ' + lcBuild + '...'
+? 'Building ' + lcApplicationName + '  Ver ' + lcVersion + '  Build ' + lcBuild
+?? " (" + lcVersion + '.' + lcBuild + ")..."
 ? ' '
 
 *------------------------------------------------------------------------------------
@@ -148,5 +149,9 @@ Endif
     
 Set Safety &lcSafety
 
-
+? ""
+? "Generation source code text files with FoxBin2Prg."
+? "  Working..."
+Do GoFishGenerateSCC.prg
+? "Done."
            

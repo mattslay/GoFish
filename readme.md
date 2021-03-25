@@ -1,5 +1,5 @@
 # GoFish 5.0 
-_ver 5.0.168   released 2021-03-23_
+_ver 5.0.169   released 2021-03-24_
 
 ## GoFish is an advanced code search tool for fast searching and replacing of Visual FoxPro source code.
 
@@ -114,7 +114,7 @@ Can specify a filename temple (i.e.  `job*` )
 * Thor – Explains that GoFish will self-register with Thor to create a launch tool and Thor menu for GoFish.
 * Update – Explains that GoFish can be updated using Thor “Check for Updates” feature.
 
-    _{TODO: Insert screeshot here}_
+    _{TODO: Insert screenshot here}_
     
 ## About screen contains additional links to the GoFish project
 
@@ -127,7 +127,11 @@ Can specify a filename temple (i.e.  `job*` )
 
 ## Release history
 
-* **Ver 5.0.168** Released 2021-03-23
+**Ver 5.0.169** Released 2021-03-24
+
+* Removed matches from a Project PJX on the "Key" field (i.e. Match Type = "< Key >" in the results grid.)
+
+**Ver 5.0.168** Released 2021-03-23
 
 | | Description                              |
 |----------|------------------------------------------|
@@ -137,7 +141,7 @@ Can specify a filename temple (i.e.  `job*` )
 | 4. | Converted `GF_PEME_BaseTools.vcx` to prg. |
 
 
-* **Ver 5.0.164** - Released 2021-03-19
+**Ver 5.0.164** - Released 2021-03-19
 
 | | Description|
 |-----|-----------------|
@@ -146,7 +150,7 @@ Can specify a filename temple (i.e.  `job*` )
 | 3. | Thor maintainers will need to release a new `Thor_Update_GoFish5.prg` updater to distribute this update. |
 
 
-
+**Previous releases:**
 * Ver 5.0.163 - Released 2017-02-12
 * Ver 5.0.162 - 2016-12-06
 * Ver 4.3.012 – 2012-06-11

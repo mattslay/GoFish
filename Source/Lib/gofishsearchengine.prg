@@ -178,8 +178,8 @@ Define Class GoFishSearchEngine As Custom
 		lcTrimmedMatchLine = This.TrimWhiteSpace(toObject.MatchLine)&& Trimmed version for display in the grid
 		toObject.TrimmedMatchLine = lcTrimmedMatchLine
 
-		*-- We read MatchType of of UserField, but from here on, until the result row is created, we will
-		*-- moved this value of to toObject.MatchType, and do some tweaking on it to make it the right value.
+		*-- We read MatchType of UserField, but from here on, until the result row is created, we will
+		*-- move this value to toObject.MatchType, and do some tweaking on it to make it the right value.
 		*-- We'll never change the value that was passed in on toObject.UserField.MatchType
 		lcMatchType = toObject.UserField.MatchType
 		toObject.MatchType = lcMatchType
@@ -241,7 +241,7 @@ Define Class GoFishSearchEngine As Custom
 		Endif
 
 		If Upper(lcMatchType) # 'RESERVED3' And This.IsFullLineComment(lcTrimmedMatchLine)
-			toObject.MatchType = MatchType_Comment
+			toObject.MatchType = MATCHTYPE_COMMENT
 			This.CreateResult(toObject)
 			Return .Null. && Exit out, we're done with this record!
 		Endif
@@ -253,23 +253,23 @@ Define Class GoFishSearchEngine As Custom
 
 		Do Case
 
-		*-- A TimeStamp only search, with no search expression...
-		Case Isnull(toObject.oMatch)
-			If This.oSearchOptions.lTimeStamp And Empty(This.oSearchOptions.cSearchExpression)
-				If Empty(toObject.UserField._Name) And Empty(toObject.UserField.ContainingClass) And Empty(toObject.UserField._Class)
-					toObject.MatchType =  MatchType_FileDate
+			*-- A TimeStamp only search, with no search expression...
+			Case Isnull(toObject.oMatch)
+				If This.oSearchOptions.lTimeStamp And Empty(This.oSearchOptions.cSearchExpression)
+					If Empty(toObject.UserField._Name) And Empty(toObject.UserField.ContainingClass) And Empty(toObject.UserField._Class)
+						toObject.MatchType =  MATCHTYPE_FILEDATE
+					Else
+						toObject.MatchType =  MATCHTYPE_TIMESTAMP
+					Endif
 				Else
-					toObject.MatchType =  MatchType_TimeStamp
+					toObject.MatchType = MATCHTYPE_FILENAME
 				Endif
-			Else
-				toObject.MatchType = MatchType_Filename
-			Endif
 
-		Case Inlist(lcFileType, 'SCX', 'VCX', 'FRX')&& And lcMatchType # MATCHTYPE_FILENAME
-			This.AssignMatchTypeForScxVcx(toObject)
+			Case Inlist(lcFileType, 'SCX', 'VCX', 'FRX')&& And lcMatchType # MATCHTYPE_FILENAME
+				This.AssignMatchTypeForScxVcx(toObject)
 
-		Case lcFileType = 'PRG'
-			This.AssignMatchTypeForPrg(toObject)
+			Case lcFileType = 'PRG'
+				This.AssignMatchTypeForPrg(toObject)
 
 		Endcase
 
@@ -277,81 +277,81 @@ Define Class GoFishSearchEngine As Custom
 		lcMatchType = toObject.MatchType
 
 		Do Case
-		Case Empty(lcMatchType)
-			lcMatchType = MatchType_Code
+			Case Empty(lcMatchType)
+				lcMatchType = MATCHTYPE_CODE
 
-		Case Upper(Getwordnum(lcTrimmedMatchLine, 1)) = '#DEFINE'
-			lcMatchType = MatchType_Constant
+			Case Upper(Getwordnum(lcTrimmedMatchLine, 1)) = '#DEFINE'
+				lcMatchType = MATCHTYPE_CONSTANT
 
-		Case lcMatchType = MATCHTYPE_PROPERTY_DESC Or lcMatchType = MATCHTYPE_PROPERTY_DEF
-			toObject.UserField.ContainingClass = ''
-			toObject.UserField._Name = ''
-			toObject.MethodName = Getwordnum(toObject.MatchLine, 1, ' ')
+			Case lcMatchType = MATCHTYPE_PROPERTY_DESC Or lcMatchType = MATCHTYPE_PROPERTY_DEF
+				toObject.UserField.ContainingClass = ''
+				toObject.UserField._Name = ''
+				toObject.MethodName = Getwordnum(toObject.MatchLine, 1, ' ')
 
-		Case lcMatchType = MATCHTYPE_PROPERTY
+			Case lcMatchType = MATCHTYPE_PROPERTY
 
-			If Atc('=', lcTrimmedMatchLine) = 0
-				toObject.MatchType = MatchType_Code
-				Return toObject
-			Endif
-
-			lcName = Getwordnum(lcTrimmedMatchLine, 1, ' =') && The Property Name only
-			toObject.MethodName = lcName
-
-			Try
-				If Atc('.', lcName) > 0 && Could be ObjectName.ObjectName.ObjectName.PropertyName
-					lcName = Justext(lcName) && Need to pick off just the property name, and make sure that's where the match is.
-					llNameHasDot = .T.
-				Else
-					llNameHasDot = .F.
+				If Atc('=', lcTrimmedMatchLine) = 0
+					toObject.MatchType = MATCHTYPE_CODE
+					Return toObject
 				Endif
 
-				*	toObject.UserField.MethodName = lcName
-				lcName = lcName + ' =' && Need to construct property name like this example:   Caption =
+				lcName = Getwordnum(lcTrimmedMatchLine, 1, ' =') && The Property Name only
+				toObject.MethodName = lcName
 
-				lcValue = Alltrim(Substr(lcTrimmedMatchLine, 1 + At('=', lcTrimmedMatchLine))) && GetWordNum(lcTrimmedMatchLine, 2, '=')
-				loNameMatches = This.oRegExForSearch.Execute(lcName)
-				loValueMatches = This.oRegExForSearch.Execute(lcValue)
-				* loLineMatches = This.oRegExForSearch.Execute(lcTrimmedMatchLine)
-				loLineMatches = This.oRegExForSearch.Execute(lcName + lcValue)
+				Try
+					If Atc('.', lcName) > 0 && Could be ObjectName.ObjectName.ObjectName.PropertyName
+						lcName = Justext(lcName) && Need to pick off just the property name, and make sure that's where the match is.
+						llNameHasDot = .T.
+					Else
+						llNameHasDot = .F.
+					Endif
 
-				With toObject.UserField
-					If llNameHasDot
-						If ._ParentClass <> ._BaseClass
-							._ParentClass = ''
-							._BaseClass = ''
+					*	toObject.UserField.MethodName = lcName
+					lcName = lcName + ' =' && Need to construct property name like this example:   Caption =
+
+					lcValue = Alltrim(Substr(lcTrimmedMatchLine, 1 + At('=', lcTrimmedMatchLine))) && GetWordNum(lcTrimmedMatchLine, 2, '=')
+					loNameMatches = This.oRegExForSearch.Execute(lcName)
+					loValueMatches = This.oRegExForSearch.Execute(lcValue)
+					* loLineMatches = This.oRegExForSearch.Execute(lcTrimmedMatchLine)
+					loLineMatches = This.oRegExForSearch.Execute(lcName + lcValue)
+
+					With toObject.UserField
+						If llNameHasDot
+							If ._ParentClass <> ._BaseClass
+								._ParentClass = ''
+								._BaseClass = ''
+							Else
+								.ContainingClass = ''
+							Endif
 						Else
 							.ContainingClass = ''
 						Endif
-					Else
-						.ContainingClass = ''
-					Endif
-					If Empty(.ClassLoc)
-						._ParentClass = ''
-					Endif
-				Endwith
+						If Empty(.ClassLoc)
+							._ParentClass = ''
+						Endif
+					Endwith
 
-				Do Case
-				Case loNameMatches.Count > 0 And loValueMatches.Count > 0 && If match on both sides, make an extra call here for the Name
-					toObject.MatchType = MATCHTYPE_PROPERTY_NAME
-					This.CreateResult(toObject)
-					lcMatchType = MATCHTYPE_PROPERTY_VALUE
-				Case loNameMatches.Count > 0 Or loValueMatches.Count > 0 && Only matched on one side
-					If loValueMatches.Count > 0 And This.oSearchOptions.lIgnoreMemberData And Lower(lcName) = '_memberdata ='
-						llError = .T. && so this is skipped
-					Else
-						lcMatchType = Iif(loNameMatches.Count > 0, MATCHTYPE_PROPERTY_NAME, MATCHTYPE_PROPERTY_VALUE)
-					Endif
-				Case loLineMatches.Count > 0 && Matched SOMEWHERE on the line. Can span " = " this way
-				*-- No modification to matchtype required. Will record as MATCHTYPE_PROPERTY
-				Case loNameMatches.Count = 0 And loValueMatches.Count = 0 && Possible that there is not match at all, so we record nothing
-					llError = .T.
-				Otherwise
-					* lcMatchType = Iif(loNameMatches.count > 0, MATCHTYPE_PROPERTY_NAME, MATCHTYPE_PROPERTY_VALUE)
-				Endcase
-			Catch
-				lcMatchType = MatchType_Code && IF anything above failed, then just consider this a regular code match
-			Endtry
+					Do Case
+						Case loNameMatches.Count > 0 And loValueMatches.Count > 0 && If match on both sides, make an extra call here for the Name
+							toObject.MatchType = MATCHTYPE_PROPERTY_NAME
+							This.CreateResult(toObject)
+							lcMatchType = MATCHTYPE_PROPERTY_VALUE
+						Case loNameMatches.Count > 0 Or loValueMatches.Count > 0 && Only matched on one side
+							If loValueMatches.Count > 0 And This.oSearchOptions.lIgnoreMemberData And Lower(lcName) = '_memberdata ='
+								llError = .T. && so this is skipped
+							Else
+								lcMatchType = Iif(loNameMatches.Count > 0, MATCHTYPE_PROPERTY_NAME, MATCHTYPE_PROPERTY_VALUE)
+							Endif
+						Case loLineMatches.Count > 0 && Matched SOMEWHERE on the line. Can span " = " this way
+						*-- No modification to matchtype required. Will record as MATCHTYPE_PROPERTY
+						Case loNameMatches.Count = 0 And loValueMatches.Count = 0 && Possible that there is not match at all, so we record nothing
+							llError = .T.
+						Otherwise
+							* lcMatchType = Iif(loNameMatches.count > 0, MATCHTYPE_PROPERTY_NAME, MATCHTYPE_PROPERTY_VALUE)
+					Endcase
+				Catch
+					lcMatchType = MATCHTYPE_CODE && IF anything above failed, then just consider this a regular code match
+				Endtry
 
 		Endcase
 
@@ -360,7 +360,7 @@ Define Class GoFishSearchEngine As Custom
 		Endif
 
 		*-- Wrap MatchType in brackets (if not already set), and if it's not MATCHTYPE_CODE ...
-		If lcMatchType # MatchType_Code And Left(lcMatchType, 1) # '<'
+		If lcMatchType # MATCHTYPE_CODE And Left(lcMatchType, 1) # '<'
 			lcMatchType = '<' + lcMatchType + '>'
 		Endif
 
@@ -878,7 +878,7 @@ Define Class GoFishSearchEngine As Custom
 	Procedure CreateMenuDisplay(tcMenu)
 
 		#Define SPACING 3
-		#Define Prefix '*'
+		#Define PREFIX '*'
 
 		Local laLevels[1], lcPrompt, lcResult, lnLevel, lnSelect
 
@@ -902,14 +902,14 @@ Define Class GoFishSearchEngine As Custom
 					lnLevel	 = Ascan(m.laLevels, Trim(LevelName))
 
 				Case objCode = 0
-					lcResult = m.lcResult + Prefix + Space(SPACING * m.lnLevel) + Strtran(m.lcPrompt, '\-', '-----') + CR
+					lcResult = m.lcResult + PREFIX + Space(SPACING * m.lnLevel) + Strtran(m.lcPrompt, '\-', '-----') + CR
 					lnLevel	 = m.lnLevel + 1
 					Dimension m.laLevels[m.lnLevel]
 					laLevels[m.lnLevel]	= Name
 
 				Otherwise
 					lnLevel	 = Ascan(m.laLevels, Trim(LevelName))
-					lcResult = m.lcResult + Prefix + Space(SPACING * m.lnLevel) + Strtran(Prompt, '\-', '-----') + CR
+					lcResult = m.lcResult + PREFIX + Space(SPACING * m.lnLevel) + Strtran(Prompt, '\-', '-----') + CR
 			Endcase
 		Endscan
 
@@ -1018,7 +1018,7 @@ Define Class GoFishSearchEngine As Custom
 	Procedure CreateResultsRow(toObject)
 
 		*-- This set of mem vars is required to insert a new row into the local results cursor.
-		*-- The passed in toObject must be an object which has the reference prooperties on it, so
+		*-- The passed in toObject must be an object which has the reference properties on it, so
 		*-- that a complete record can be created.
 
 		Local lIsText, lcObjectNameFromProperty, lcProperty, lcResultsAlias, lnWords
@@ -1060,6 +1060,10 @@ Define Class GoFishSearchEngine As Custom
 			Timestamp		= .Timestamp
 			Column			= .Column
 		Endwith
+
+		If "key" $ Lower(m.MatchType)
+			Suspend
+		Endif
 
 		* *-- Removed 07/07/2012
 		* *--- Clean up / doctor up the Object Name
@@ -1174,7 +1178,7 @@ Define Class GoFishSearchEngine As Custom
 		loPBT = CreateObject('GF_PEME_BaseTools')
 
 		*** JRN 2021-03-21 : If match is to a name of a file in a Project, open that file
-		If &tcCursor..FileType = 'PJX' And &tcCursor..MatchType = MatchType_Name
+		If &tcCursor..FileType = 'PJX' And &tcCursor..MatchType = MATCHTYPE_NAME
 			lcFileToEdit = FullPath(Upper(Addbs(JustPath(Trim(&tcCursor..FilePath))) + Trim(&tcCursor..TrimmedMatchLine)))
 			m.loPBT.EditSourceX(m.lcFileToEdit)
 			Return
@@ -1517,8 +1521,8 @@ Define Class GoFishSearchEngine As Custom
 		Enddo
 
 		*** JRN 12/05/2015 : within Text / Endtext
-		If 0 # Atc('text', Left(m.lcProcCode, m.lnStart))		;
-				And 0 # Atc('endtext', Substr(m.lcProcCode, m.lnStart + m.lnLength))
+		If Atc('text', Left(m.lcProcCode, m.lnStart)) != 0 And ;
+				Atc('endtext', Substr(m.lcProcCode, m.lnStart + m.lnLength)) != 0
 
 			lnTextStart = m.lnStart
 			Do While m.lnTextStart > 1
@@ -1564,9 +1568,9 @@ Define Class GoFishSearchEngine As Custom
 	*----------------------------------------------------------------------------------
 	Procedure FixPropertyName(lcProperty)
 
-		* gets rid of dimensions and leading '*^'
+		* Gets rid of dimensions and leading '*^'
 
-		Return Chrtran(Getwordnum(m.lcProperty, 1, '(['), '*^', '')
+		Return ChrTran(Getwordnum(m.lcProperty, 1, '(['), '*^', '')
 		
 	EndProc
 
@@ -1594,16 +1598,16 @@ Define Class GoFishSearchEngine As Custom
 
 		If !Empty(tcMatchLine)
 
-		*-- Dress up the code that comes before the match line...
+			*-- Dress up the code that comes before the match line...
 			lcBr = '<br />'
 			lcLeft = Left(tcCode, tnMatchStart)
 			lcLeft = Evl(This.HtmlEncode(lcLeft), lcBr)
 
-		*-- Dress up the matchline...
+			*-- Dress up the matchline...
 			lnMatchLineLength = Len(tcMatchLine)
 			lnReplaceLineLength = Len(Rtrim(tcReplaceLine))
 
-		*=====================Colorize the Replace Preview line, if passed ==============================
+			*===================== Colorize the Replace Preview line, if passed ==============================
 			If !Empty(tcReplaceLine)
 				lcColorizedCode = This.HtmlEncode(tcReplaceLine)
 				lcReplaceLine = lcReplaceLinePrefix + lcColorizedCode + lcReplaceLineSuffix
@@ -1614,23 +1618,23 @@ Define Class GoFishSearchEngine As Custom
 				lcReplaceLine = ''
 			Endif
 
-		*=====================COLORIZE THE MATCH LINE ============================================================================
-		*-- Mark the match WORD(s), so I can find them after the VFP code is colorized...
+			*===================== Colorize the match line ====================================================
+			*-- Mark the match WORD(s), so I can find them after the VFP code is colorized...
 			lcReplaceExpression = '[:GOFISHMATCHWORDSTART:] + lcMatch + [:GOFISHMATCHWORDEND:]'
 			lcColorizedCode = This.RegExReplace(tcMatchLine, '', lcReplaceExpression, .T.)
 
 			lcColorizedCode = This.HtmlEncode(lcColorizedCode)
 
-		*-- Next, add <span> tags around previously marked match Word(s)
+			*-- Next, add <span> tags around previously marked match Word(s)
 			lcColorizedCode = Strtran(lcColorizedCode, ':GOFISHMATCHWORDSTART:', lcMatchWordPrefix)
 			lcColorizedCode = Strtran(lcColorizedCode, ':GOFISHMATCHWORDEND:', lcMatchWordSuffix)
 
-		*-- Finally, add <div> tags around the entire Matched Line -------------------
+			*-- Finally, add <div> tags around the entire Matched Line -------------------
 			lcMatchLine = lcMatchLinePrefix + lcColorizedCode + lcMatchLineSuffix
-		*=================================================================================================
+			*=================================================================================================
 
-		*-- Dress up the code that comes after the match line...
-		*-- (Look for EndProc to know where to end the code)---
+			*-- Dress up the code that comes after the match line...
+			*-- (Look for EndProc to know where to end the code)---
 			If tlAlreadyReplaced = .T.
 				lcRightCode = Substr(tcCode, tnMatchStart + 1 + lnReplaceLineLength)
 			Else
@@ -3425,7 +3429,7 @@ Define Class GoFishSearchEngine As Custom
 
 				*	Assert Upper(JustExt(Trim(loobject.uSERFIELD.FILENAME)))  # 'PRG' 
 
-				This.findstatement(loObject)
+				This.FindStatement(loObject)
 
 				This.ProcessSearchResult(loObject)
 
@@ -3469,7 +3473,7 @@ Define Class GoFishSearchEngine As Custom
 		Endif
 
 		If !This.IsFileTypeIncluded(Justext(tcFile)) And !tlForce
-		*This.ReduceProgressBarMaxValue(1)
+			*This.ReduceProgressBarMaxValue(1)
 			Return 0
 		Endif
 
@@ -3751,7 +3755,7 @@ Define Class GoFishSearchEngine As Custom
 
 			lcFile = laProjectFiles(lnX)
 			lcFile = Fullpath(lcFile, lcProjectPath)
-			lcFile = Strtran(lcFile, Chr(0), '') && Stip out junk char from the end
+			lcFile = Strtran(lcFile, Chr(0), '') && Strip out junk char from the end
 
 			If This.oSearchOptions.lLimitToProjectFolder
 				If !(Upper(lcProjectPath) $ Upper(Addbs(Justpath(lcFile))))
@@ -4046,9 +4050,11 @@ Define Class GoFishSearchEngine As Custom
 							Endcase
 					Endcase
 
-					*-- Here is where we can skip the processing of certain record that we want to ignore, even though we found a match in them...
-					If (Empty(m.lcClass) And m.lcExt = 'VCX') Or		; && This is the ending row of a Class def in a vcx. Need to skip over it.
-						(m.lcField = 'TAG2' And m.lcExt = 'FRX' And Recno() = 1) && Tag2 on first record in a FRX is binary and I want to skip it
+					*-- Here is where we can skip the processing of certain records that we want to ignore, even though we found a match in them.
+					If (m.lcExt = 'VCX' And Empty(m.lcClass)) Or ;					 	&& This is the ending row of a Class def in a vcx. Need to skip over it.
+					   (m.lcExt = 'FRX' And m.lcField = 'TAG2' And Recno() = 1) Or ;	&& Tag2 on first record in a FRX is binary and I want to skip it.
+					   (m.lcExt = 'PJX' and m.lcField = 'KEY') 					  		&& Added this filter on 2021-03-24, as requested by Jim Nelson.
+
 						llProcessThisMatch = .F.
 					Endif
 
@@ -4062,7 +4068,7 @@ Define Class GoFishSearchEngine As Custom
 					If Not Empty(This.oSearchOptions.cSearchExpression)
 						*lcCode = Evaluate(lcField)
 						llHasMethods = Upper(m.lcField) = 'METHODS' Or		;
-							M.lcExt = 'FRX' And Upper(m.lcField) = 'TAG' And Upper(Name) = 'DATAENVIRONMENT'
+							m.lcExt = 'FRX' And Upper(m.lcField) = 'TAG' And Upper(Name) = 'DATAENVIRONMENT'
 						lnMatchCount = This.SearchInCode(m.lcCode, m.loFileResultObject, m.llHasMethods)
 					Else
 						* Can't search since there is no cSearchExpression, so we just log the file as a result.
@@ -4596,4 +4602,4 @@ Define Class GoFishSearchEngine As Custom
 
 
 EndDefine
- 
+  

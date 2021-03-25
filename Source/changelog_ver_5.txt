@@ -1,5 +1,8 @@
 GoFish Change Log
 
+** Ver 5.0.169 ** Released 2021-03-24
+1. Removed matches from a Project PJX on the "Key" field (i.e. Match Type = "<Key>" in the results grid.)
+
 ** Ver 5.0.168 ** Released 2021-03-23
 1. In the search results grid, if **Match Type** is`<<<Filename>>` (i.e. matching a filename in a Project), then double-clicking on the row will now open the file with correct editor. (Contributed by Jim Nelson)
 2. In the search results treeview, the results are now ordered by Class, Filename, FilePath. (Contributed by Jim Nelson)
