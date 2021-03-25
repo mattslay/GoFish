@@ -259,12 +259,11 @@ Define Class gf_peme_basetools As Custom
 		If Type('_Screen.cThorDispatcher') = 'C' and (lcExt <> 'DBF')
 			* tools home page = http://vfpx.codeplex.com/wikipage?title=thor%20tools%20object
 			loTools = Execscript(_Screen.cThorDispatcher, "Class= tools from pemeditor")
-			If Not Isnull(loTools)
+			If Not IsNull(loTools)
 				loTools.EditSourceX(tcFileName, tcClass, tcMethod, tnStartRange, tnEndRange)
 				Return
 			Endif
 		EndIf
-
 
 		*-- If Thor Tool above was not available, then we will handle it locally...
 		*-- Note: This means we will not get CheckOutSCC support, since that requires Thor/Peme from above.
@@ -291,7 +290,7 @@ Define Class gf_peme_basetools As Custom
 					Local lnDataSession
 					lnDataSession = Set('Datasession')
 					Set DataSession To 1
-					Editsource(lcFileName)
+					EditSource(lcFileName)
 					Set DataSession To &lnDataSession
 
 				Case lcExt $ ' VCX SCX FRX LBX MNX '

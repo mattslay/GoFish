@@ -76,6 +76,11 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 	*< OBJECTDATA: ObjPath="pfSettings.pageReplace.Label3" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.pageReplace.Check1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.pageReplace.Check2" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReplace.Label4" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReplace.Text1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReplace.Label5" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReplace.Text2" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReplace.cmdOpenFolder" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.pageBackups.Check1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.pageBackups.Label2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.pageBackups.Label1" UniqueID="" Timestamp="" />
@@ -117,14 +122,10 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		*p: ntabstospaces
 		*p: ntreeviewfontsize
 		*p: ooptions		&& A reference to the oSearchOptions object on GF main form.
-		*p: zlshownomatchesdialog
-		*p: zndropdowndisplaycount
-		*p: zngridfontsize
-		*p: znhtmlmatchlinecolor
 	*</DefinedPropArrayMethod>
 
 	AlwaysOnTop = .T.
-	BorderStyle = 2
+	BorderStyle = 3
 	Caption = "GoFish Options"
 	dlastjanitorrundate = /  /  
 	DoCreate = .T.
@@ -150,10 +151,6 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 	Visible = .T.
 	Width = 652
 	WindowType = 1
-	zlshownomatchesdialog = .F.
-	zndropdowndisplaycount = 0
-	zngridfontsize = 0
-	znhtmlmatchlinecolor = 0
 	_memberdata = <VFPData>
 		<memberdata name="buildcolumncheckboxes" display="BuildColumnCheckBoxes"/>
 		<memberdata name="oform" display="oForm"/>
@@ -169,10 +166,6 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		<memberdata name="saveoptions" display="SaveOptions"/>
 		<memberdata name="loadoptions" display="LoadOptions"/>
 		<memberdata name="validate" display="Validate"/>
-		<memberdata name="zndropdowndisplaycount" display="znDropDownDisplayCount"/>
-		<memberdata name="zngridfontsize" display="znGridFontSize"/>
-		<memberdata name="znhtmlmatchlinecolor" display="znHtmlMatchLineColor"/>
-		<memberdata name="zlshownomatchesdialog" display="zlShowNoMatchesDialog"/>
 		<memberdata name="ndockable" display="nDockable"/>
 		<memberdata name="nreplacerisk" display="nReplaceRisk"/>
 		<memberdata name="lwarnwholeword" display="lWarnWholeWord"/>
@@ -1017,11 +1010,21 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Caption = "Do not show replace warning dialog box with each replace", ;
 		ControlSource = "Thisform.oSearchOptions.lDoNotShowReplaceWarning", ;
 		Height = 17, ;
-		Left = 22, ;
+		Left = 7, ;
 		Name = "Check2", ;
-		Top = 441, ;
+		Top = 421, ;
 		Width = 336
 		*< END OBJECT: BaseClass="checkbox" />
+
+	ADD OBJECT 'pfSettings.pageReplace.cmdOpenFolder' AS commandbutton WITH ;
+		Anchor = 8, ;
+		Caption = "Open Folder", ;
+		Height = 21, ;
+		Left = 550, ;
+		Name = "cmdOpenFolder", ;
+		Top = 421, ;
+		Width = 80
+		*< END OBJECT: BaseClass="commandbutton" />
 
 	ADD OBJECT 'pfSettings.pageReplace.Image1' AS image WITH ;
 		Height = 296, ;
@@ -1029,7 +1032,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Name = "Image1", ;
 		Picture = ..\images\replacelevels.bmp, ;
 		Stretch = 0, ;
-		Top = 127, ;
+		Top = 124, ;
 		Width = 619
 		*< END OBJECT: BaseClass="image" />
 
@@ -1067,8 +1070,32 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Height = 17, ;
 		Left = 10, ;
 		Name = "Label3", ;
-		Top = 81, ;
+		Top = 79, ;
 		Width = 385
+		*< END OBJECT: BaseClass="label" />
+
+	ADD OBJECT 'pfSettings.pageReplace.Label4' AS label WITH ;
+		AutoSize = .F., ;
+		BackStyle = 0, ;
+		Caption = "Replace Detail Table:", ;
+		Height = 19, ;
+		Left = 6, ;
+		Name = "Label4", ;
+		Top = 446, ;
+		Width = 121, ;
+		WordWrap = .T.
+		*< END OBJECT: BaseClass="label" />
+
+	ADD OBJECT 'pfSettings.pageReplace.Label5' AS label WITH ;
+		AutoSize = .F., ;
+		BackStyle = 0, ;
+		Caption = "Replace History Table:", ;
+		Height = 19, ;
+		Left = 6, ;
+		Name = "Label5", ;
+		Top = 473, ;
+		Width = 126, ;
+		WordWrap = .T.
 		*< END OBJECT: BaseClass="label" />
 
 	ADD OBJECT 'pfSettings.pageReplace.optiongroupReplaceSafetyLevel' AS optiongroup WITH ;
@@ -1077,9 +1104,9 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Height = 25, ;
 		Left = 121, ;
 		Name = "optiongroupReplaceSafetyLevel", ;
-		Top = 103, ;
+		Top = 100, ;
 		Value = 0, ;
-		Width = 348, ;
+		Width = 355, ;
 		Option1.AutoSize = .T., ;
 		Option1.BackStyle = 0, ;
 		Option1.Caption = "1= Pretty Safe", ;
@@ -1100,11 +1127,37 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Option3.BackStyle = 0, ;
 		Option3.Caption = "3 = Dangerous", ;
 		Option3.Height = 17, ;
-		Option3.Left = 241, ;
+		Option3.Left = 246, ;
 		Option3.Name = "Option4", ;
 		Option3.Top = 4, ;
 		Option3.Width = 100
 		*< END OBJECT: BaseClass="optiongroup" />
+
+	ADD OBJECT 'pfSettings.pageReplace.Text1' AS textbox WITH ;
+		Anchor = 10, ;
+		ControlSource = "Thisform.oSearchEngine.cReplaceDetailTable", ;
+		Enabled = .F., ;
+		Height = 25, ;
+		Left = 132, ;
+		Name = "Text1", ;
+		ReadOnly = .T., ;
+		TabIndex = 14, ;
+		Top = 443, ;
+		Width = 498
+		*< END OBJECT: BaseClass="textbox" />
+
+	ADD OBJECT 'pfSettings.pageReplace.Text2' AS textbox WITH ;
+		Anchor = 10, ;
+		ControlSource = "Thisform.oSearchEngine.cReplaceHistoryTable", ;
+		Enabled = .F., ;
+		Height = 25, ;
+		Left = 132, ;
+		Name = "Text2", ;
+		ReadOnly = .T., ;
+		TabIndex = 14, ;
+		Top = 470, ;
+		Width = 498
+		*< END OBJECT: BaseClass="textbox" />
 
 	ADD OBJECT 'pfSettings.pageThor.Label1' AS label WITH ;
 		Anchor = 10, ;
@@ -1247,16 +1300,15 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 	PROCEDURE Init
 		Lparameters toForm
 		
-		If Vartype(m.toForm) # 'O'
+		If VarType(m.toForm) != 'O'
 			Messagebox('Must pass a reference to GoFish Results Form when calling this form.', 0, 'GoFish')
 			Return .F.
 		Endif
 		
-		* following needed because form originally was resizable 
 		This.MinHeight = This.Height
-		This.MaxHeight = This.Height
+		This.MaxHeight = Int(This.Height * 1.5)
 		This.MinWidth  = This.Width
-		This.MaxWidth  = This.Width
+		This.MaxWidth  = Int(This.Width * 1.5)
 		
 		DoDefault(m.toForm)
 		
@@ -1593,6 +1645,14 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		This.Parent.Refresh()
 	ENDPROC
 
+	PROCEDURE pfSettings.pageReplace.cmdOpenFolder.Click
+		Local lcPath
+		
+		lcPath = JustPath(Thisform.oSearchEngine.cReplaceDetailTable)
+		
+		OpenExplorerWindow(lcPath) 
+	ENDPROC
+
 	PROCEDURE pfSettings.pageReplace.Label2.Click
 		Shell('http://vfpx.codeplex.com/wikipage?title=GoFish%20Replace%20Help')
 		
@@ -1656,6 +1716,24 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		this.Parent.pageBackups.Enabled = Thisform.oSearchOptions.lEnableReplaceMode
 		
 		DoDefault()
+	ENDPROC
+
+	PROCEDURE pfSettings.pageReplace.Text1.Valid
+		If this.Value <= 0
+			MessageBox('Please enter a value greater than zero.', 64, 'GoFish')
+			Return .f.
+		Endif
+		
+			
+	ENDPROC
+
+	PROCEDURE pfSettings.pageReplace.Text2.Valid
+		If this.Value <= 0
+			MessageBox('Please enter a value greater than zero.', 64, 'GoFish')
+			Return .f.
+		Endif
+		
+			
 	ENDPROC
 
 	PROCEDURE pfSettings.pageThor.Activate

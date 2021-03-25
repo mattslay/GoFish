@@ -1,5 +1,5 @@
 # GoFish 5.0 
-_ver 5.0.169   released 2021-03-24_
+_ver 5.0.170   released 2021-03-24_
 
 ## GoFish is an advanced code search tool for fast searching and replacing of Visual FoxPro source code.
 
@@ -126,6 +126,13 @@ Can specify a filename temple (i.e.  `job*` )
 * Thanks to Jim Nelson for features and enhancements in Version 5.0
 
 ## Release history
+
+**Ver 5.0.170** Released 2021-03-24
+
+| | Description                              |
+|----------|------------------------------------------|
+| 1. | GoFishSearchEngine class: Fixed folder paths for cFilesToSkipFile, cReplaceDetailTable, cReplaceDetailTable.|
+| 2. | Options Form-> Replace tab: Added read-only fields to show values for cReplaceDetailTable and cReplaceDetailTable.|
 
 **Ver 5.0.169** Released 2021-03-24
 

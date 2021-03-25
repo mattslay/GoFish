@@ -20,7 +20,7 @@ GoFish Change Log
 
 EndText 
 
-AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 5.0.169 - March 24, 2021 - 20210324')
+AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 5.0.170 - March 24, 2021 - 20210324')
 AddProperty(toUpdateInfo, 'SourceFileUrl', 'http://bit.ly/GoFish5')
 AddProperty(toUpdateInfo, 'LinkPrompt', 'GoFish Home Page')
 AddProperty(toUpdateInfo, 'Link', 'https://github.com/mattslay/GoFish')

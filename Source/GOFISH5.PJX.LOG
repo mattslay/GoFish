@@ -1,5 +1,5 @@
 ****************************************************************************************************
-FoxBin2Prg INIT  -  2021-03-24T19:47:01
+FoxBin2Prg INIT  -  2021-03-24T22:14:38
 ****************************************************************************************************
 FoxBin2Prg: [H:\WORK\UTIL\THOR\THOR\TOOLS\COMPONENTS\FOXBIN2PRG\FOXBIN2PRG.FXP] (EXE Version: v1.19.51, FoxPro Version: 09.00.0000.7423)
 - Internal CFG:  / External CFG:  / CodePage Used: 1252)
@@ -10,7 +10,7 @@ FoxBin2Prg: [H:\WORK\UTIL\THOR\THOR\TOOLS\COMPONENTS\FOXBIN2PRG\FOXBIN2PRG.FXP] 
 	FOXBIN2PRG.CFG > tcDebug:                    1
 
 ****************************************************************************************************
-MAIN EXECUTION  2021-03-24T19:47:01
+MAIN EXECUTION  2021-03-24T22:14:38
 ****************************************************************************************************
 > EXTERNAL PARAMETERS:
 	tc_InputFile:                 H:\WORK\REPOS\GOFISH\SOURCE\GOFISH5.PJX
@@ -64,7 +64,7 @@ MAIN EXECUTION  2021-03-24T19:47:01
 
 > Convert all files in a Project: Binary to Text
 ****************************************************************************************************
-CONVERSION PROCESS  2021-03-24T19:47:01
+CONVERSION PROCESS  2021-03-24T22:14:38
 ****************************************************************************************************
 > USING THIS SETTINGS: H:\WORK\UTIL\THOR\THOR\TOOLS\COMPONENTS\FOXBIN2PRG\FOXBIN2PRG.CFG  => H:\Work\Repos\GoFish\Source\GoFish5.pjx
 	c_OriginalFileName:           H:\Work\Repos\GoFish\Source\GoFish5.pjx
@@ -77,7 +77,7 @@ CONVERSION PROCESS  2021-03-24T19:47:01
 
 
 ****************************************************************************************************
-CONVERSION PROCESS  2021-03-24T19:47:01
+CONVERSION PROCESS  2021-03-24T22:14:38
 ****************************************************************************************************
 > USING THIS SETTINGS: H:\WORK\UTIL\THOR\THOR\TOOLS\COMPONENTS\FOXBIN2PRG\FOXBIN2PRG.CFG  => H:\
 > USING THIS SETTINGS: H:\WORK\UTIL\THOR\THOR\TOOLS\COMPONENTS\FOXBIN2PRG\FOXBIN2PRG.CFG  => H:\WORK
@@ -119,7 +119,7 @@ CONVERSION PROCESS  2021-03-24T19:47:01
 
 
 ****************************************************************************************************
-CONVERSION PROCESS  2021-03-24T19:47:02
+CONVERSION PROCESS  2021-03-24T22:14:39
 ****************************************************************************************************
 > USING THIS SETTINGS: H:\WORK\UTIL\THOR\THOR\TOOLS\COMPONENTS\FOXBIN2PRG\FOXBIN2PRG.CFG  => H:\Work\Repos\GoFish\Source\Forms\gofish_filter.scx
 	c_OriginalFileName:           H:\Work\Repos\GoFish\Source\Forms\gofish_filter.scx
@@ -131,7 +131,7 @@ CONVERSION PROCESS  2021-03-24T19:47:02
 
 
 ****************************************************************************************************
-CONVERSION PROCESS  2021-03-24T19:47:02
+CONVERSION PROCESS  2021-03-24T22:14:39
 ****************************************************************************************************
 > USING THIS SETTINGS: H:\WORK\UTIL\THOR\THOR\TOOLS\COMPONENTS\FOXBIN2PRG\FOXBIN2PRG.CFG  => H:\
 > USING THIS SETTINGS: H:\WORK\UTIL\THOR\THOR\TOOLS\COMPONENTS\FOXBIN2PRG\FOXBIN2PRG.CFG  => H:\WORK
@@ -173,7 +173,7 @@ CONVERSION PROCESS  2021-03-24T19:47:02
 
 
 ****************************************************************************************************
-CONVERSION PROCESS  2021-03-24T19:47:03
+CONVERSION PROCESS  2021-03-24T22:14:40
 ****************************************************************************************************
 > USING THIS SETTINGS: H:\WORK\UTIL\THOR\THOR\TOOLS\COMPONENTS\FOXBIN2PRG\FOXBIN2PRG.CFG  => H:\Work\Repos\GoFish\Source\Lib\sfsplitter.vcx
 	c_OriginalFileName:           H:\Work\Repos\GoFish\Source\Lib\sfsplitter.vcx
@@ -185,7 +185,7 @@ CONVERSION PROCESS  2021-03-24T19:47:03
 
 
 ****************************************************************************************************
-CONVERSION PROCESS  2021-03-24T19:47:03
+CONVERSION PROCESS  2021-03-24T22:14:40
 ****************************************************************************************************
 > USING THIS SETTINGS: H:\WORK\UTIL\THOR\THOR\TOOLS\COMPONENTS\FOXBIN2PRG\FOXBIN2PRG.CFG  => H:\
 > USING THIS SETTINGS: H:\WORK\UTIL\THOR\THOR\TOOLS\COMPONENTS\FOXBIN2PRG\FOXBIN2PRG.CFG  => H:\WORK
@@ -227,7 +227,7 @@ CONVERSION PROCESS  2021-03-24T19:47:03
 
 
 ****************************************************************************************************
-CONVERSION PROCESS  2021-03-24T19:47:03
+CONVERSION PROCESS  2021-03-24T22:14:40
 ****************************************************************************************************
 > USING THIS SETTINGS: H:\WORK\UTIL\THOR\THOR\TOOLS\COMPONENTS\FOXBIN2PRG\FOXBIN2PRG.CFG  => H:\
 > USING THIS SETTINGS: H:\WORK\UTIL\THOR\THOR\TOOLS\COMPONENTS\FOXBIN2PRG\FOXBIN2PRG.CFG  => H:\WORK
@@ -272,7 +272,7 @@ CONVERSION PROCESS  2021-03-24T19:47:03
 
 
 ****************************************************************************************************
-CONVERSION PROCESS  2021-03-24T19:47:03
+CONVERSION PROCESS  2021-03-24T22:14:40
 ****************************************************************************************************
 > USING THIS SETTINGS: H:\WORK\UTIL\THOR\THOR\TOOLS\COMPONENTS\FOXBIN2PRG\FOXBIN2PRG.CFG  => H:\Work\Repos\GoFish\Source\Lib\gofishwebtools.vcx
 	c_OriginalFileName:           H:\Work\Repos\GoFish\Source\Lib\gofishwebtools.vcx
@@ -284,19 +284,21 @@ CONVERSION PROCESS  2021-03-24T19:47:03
 
 
 ****************************************************************************************************
-CONVERSION PROCESS  2021-03-24T19:47:03
+CONVERSION PROCESS  2021-03-24T22:14:40
 ****************************************************************************************************
 > USING THIS SETTINGS: H:\WORK\UTIL\THOR\THOR\TOOLS\COMPONENTS\FOXBIN2PRG\FOXBIN2PRG.CFG  => H:\Work\Repos\GoFish\Source\Forms\gofish_options.scx
 	c_OriginalFileName:           H:\Work\Repos\GoFish\Source\Forms\gofish_options.scx
 
 	c_foxbin2prg.changefileattribute >> [H:\Work\Repos\GoFish\Source\Forms\gofish_options.SC2] lnRet = 1, dwFileAttributes_Orig = 32
+	Doing Backup of: H:\Work\Repos\GoFish\Source\Forms\gofish_options.SC2
+	c_foxbin2prg.changefileattribute >> [H:\Work\Repos\GoFish\Source\Forms\gofish_options.SC2] lnRet = 1, dwFileAttributes_Orig = 32
 
 	Converting file H:\Work\Repos\GoFish\Source\Forms\gofish_options.SC2...
-		* Optimization: output file [H:\Work\Repos\GoFish\Source\Forms\gofish_options.SC2] was not overwritten because it is the same as the existing one.
+		- File: H:\Work\Repos\GoFish\Source\Forms\gofish_options.SC2 (52.57/52.57 KiB)
 
 
 ****************************************************************************************************
-CONVERSION PROCESS  2021-03-24T19:47:03
+CONVERSION PROCESS  2021-03-24T22:14:41
 ****************************************************************************************************
 > USING THIS SETTINGS: H:\WORK\UTIL\THOR\THOR\TOOLS\COMPONENTS\FOXBIN2PRG\FOXBIN2PRG.CFG  => H:\Work\Repos\GoFish\Source\Forms\gofish_advanced.scx
 	c_OriginalFileName:           H:\Work\Repos\GoFish\Source\Forms\gofish_advanced.scx
@@ -308,7 +310,7 @@ CONVERSION PROCESS  2021-03-24T19:47:03
 
 
 ****************************************************************************************************
-CONVERSION PROCESS  2021-03-24T19:47:04
+CONVERSION PROCESS  2021-03-24T22:14:41
 ****************************************************************************************************
 > USING THIS SETTINGS: H:\WORK\UTIL\THOR\THOR\TOOLS\COMPONENTS\FOXBIN2PRG\FOXBIN2PRG.CFG  => H:\Work\Repos\GoFish\Source\Forms\gofish_about.scx
 	c_OriginalFileName:           H:\Work\Repos\GoFish\Source\Forms\gofish_about.scx
@@ -320,7 +322,7 @@ CONVERSION PROCESS  2021-03-24T19:47:04
 
 
 ****************************************************************************************************
-CONVERSION PROCESS  2021-03-24T19:47:04
+CONVERSION PROCESS  2021-03-24T22:14:41
 ****************************************************************************************************
 > USING THIS SETTINGS: H:\WORK\UTIL\THOR\THOR\TOOLS\COMPONENTS\FOXBIN2PRG\FOXBIN2PRG.CFG  => H:\
 > USING THIS SETTINGS: H:\WORK\UTIL\THOR\THOR\TOOLS\COMPONENTS\FOXBIN2PRG\FOXBIN2PRG.CFG  => H:\WORK
@@ -364,7 +366,7 @@ CONVERSION PROCESS  2021-03-24T19:47:04
 
 
 ****************************************************************************************************
-CONVERSION PROCESS  2021-03-24T19:47:04
+CONVERSION PROCESS  2021-03-24T22:14:42
 ****************************************************************************************************
 > USING THIS SETTINGS: H:\WORK\UTIL\THOR\THOR\TOOLS\COMPONENTS\FOXBIN2PRG\FOXBIN2PRG.CFG  => H:\Work\Repos\GoFish\Source\Lib\VFP\FFC\_environ.vcx
 	c_OriginalFileName:           H:\Work\Repos\GoFish\Source\Lib\VFP\FFC\_environ.vcx
@@ -376,7 +378,7 @@ CONVERSION PROCESS  2021-03-24T19:47:04
 
 
 ****************************************************************************************************
-CONVERSION PROCESS  2021-03-24T19:47:05
+CONVERSION PROCESS  2021-03-24T22:14:42
 ****************************************************************************************************
 > USING THIS SETTINGS: H:\WORK\UTIL\THOR\THOR\TOOLS\COMPONENTS\FOXBIN2PRG\FOXBIN2PRG.CFG  => H:\Work\Repos\GoFish\Source\Lib\VFP\My\my.vcx
 	c_OriginalFileName:           H:\Work\Repos\GoFish\Source\Lib\VFP\My\my.vcx
@@ -388,7 +390,7 @@ CONVERSION PROCESS  2021-03-24T19:47:05
 
 
 ****************************************************************************************************
-CONVERSION PROCESS  2021-03-24T19:47:05
+CONVERSION PROCESS  2021-03-24T22:14:42
 ****************************************************************************************************
 > USING THIS SETTINGS: H:\WORK\UTIL\THOR\THOR\TOOLS\COMPONENTS\FOXBIN2PRG\FOXBIN2PRG.CFG  => H:\Work\Repos\GoFish\Source\Forms\gofish_advaccedreplacehelp.scx
 	c_OriginalFileName:           H:\Work\Repos\GoFish\Source\Forms\gofish_advaccedreplacehelp.scx
@@ -400,7 +402,7 @@ CONVERSION PROCESS  2021-03-24T19:47:05
 
 
 ****************************************************************************************************
-CONVERSION PROCESS  2021-03-24T19:47:05
+CONVERSION PROCESS  2021-03-24T22:14:42
 ****************************************************************************************************
 > USING THIS SETTINGS: H:\WORK\UTIL\THOR\THOR\TOOLS\COMPONENTS\FOXBIN2PRG\FOXBIN2PRG.CFG  => H:\Work\Repos\GoFish\Source\Lib\VFP\FFC\_frxcursor.vcx
 	c_OriginalFileName:           H:\Work\Repos\GoFish\Source\Lib\VFP\FFC\_frxcursor.vcx
@@ -412,7 +414,7 @@ CONVERSION PROCESS  2021-03-24T19:47:05
 
 
 ****************************************************************************************************
-CONVERSION PROCESS  2021-03-24T19:47:05
+CONVERSION PROCESS  2021-03-24T22:14:43
 ****************************************************************************************************
 > USING THIS SETTINGS: H:\WORK\UTIL\THOR\THOR\TOOLS\COMPONENTS\FOXBIN2PRG\FOXBIN2PRG.CFG  => H:\Work\Repos\GoFish\Source\Forms\gofish_searchhistory.scx
 	c_OriginalFileName:           H:\Work\Repos\GoFish\Source\Forms\gofish_searchhistory.scx
@@ -424,7 +426,7 @@ CONVERSION PROCESS  2021-03-24T19:47:05
 
 
 ****************************************************************************************************
-CONVERSION PROCESS  2021-03-24T19:47:05
+CONVERSION PROCESS  2021-03-24T22:14:43
 ****************************************************************************************************
 > USING THIS SETTINGS: H:\WORK\UTIL\THOR\THOR\TOOLS\COMPONENTS\FOXBIN2PRG\FOXBIN2PRG.CFG  => H:\Work\Repos\GoFish\Source\Forms\gofish_filterpf.scx
 	c_OriginalFileName:           H:\Work\Repos\GoFish\Source\Forms\gofish_filterpf.scx
@@ -436,7 +438,7 @@ CONVERSION PROCESS  2021-03-24T19:47:05
 
 
 ****************************************************************************************************
-CONVERSION PROCESS  2021-03-24T19:47:06
+CONVERSION PROCESS  2021-03-24T22:14:43
 ****************************************************************************************************
 > USING THIS SETTINGS: H:\WORK\UTIL\THOR\THOR\TOOLS\COMPONENTS\FOXBIN2PRG\FOXBIN2PRG.CFG  => H:\Work\Repos\GoFish\Source\Forms\gf_collection_explorer.scx
 	c_OriginalFileName:           H:\Work\Repos\GoFish\Source\Forms\gf_collection_explorer.scx
@@ -448,7 +450,7 @@ CONVERSION PROCESS  2021-03-24T19:47:06
 
 
 ****************************************************************************************************
-CONVERSION PROCESS  2021-03-24T19:47:06
+CONVERSION PROCESS  2021-03-24T22:14:43
 ****************************************************************************************************
 > USING THIS SETTINGS: H:\WORK\UTIL\THOR\THOR\TOOLS\COMPONENTS\FOXBIN2PRG\FOXBIN2PRG.CFG  => H:\Work\Repos\GoFish\Source\Forms\gofish_extendsearch.scx
 	c_OriginalFileName:           H:\Work\Repos\GoFish\Source\Forms\gofish_extendsearch.scx
@@ -459,7 +461,7 @@ CONVERSION PROCESS  2021-03-24T19:47:06
 		* Optimization: output file [H:\Work\Repos\GoFish\Source\Forms\gofish_extendsearch.SC2] was not overwritten because it is the same as the existing one.
 
 
-FoxBin2Prg UNLOAD  -  2021-03-24T19:47:06
+FoxBin2Prg UNLOAD  -  2021-03-24T22:14:43
 ****************************************************************************************************
 
 
