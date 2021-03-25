@@ -41,16 +41,9 @@ Endif
 
 Set Procedure To 'GoFishProc' Additive
 Set Procedure To 'mhHtmlCode' Additive
-
-Try
-	Set Classlib To 'GoFishSearchEngine' Additive
-Catch
-EndTry
-
-Try
-	Set Classlib To 'GF_PEME_BaseTools' Additive
-Catch
-EndTry
+Set Procedure To 'GoFishSearchEngine.prg' Additive
+Set Procedure To 'GoFishSearchOptions.prg' Additive
+Set Procedure To 'GF_PEME_BaseTools.prg' Additive
 
 Do Form GoFish_Results With lcInitialSource
 
@@ -72,7 +65,8 @@ Procedure SetupEnvironment
 	*-- older version of GoFish
 	Clear Class 'GoFishSearchEngine'
 	Clear Class 'GoFishSearchOptions'
-
+	Clear Class 'GF_PEME_BaseTools'
+	
 	For x = Program(-1) To 1 Step -1 && Look up through run stack to find the name of the running .APP file
 		lcAppName = Sys(16, x)
 		If '.APP' $ Upper(lcAppName)
@@ -118,7 +112,7 @@ Endproc
 *--------------------------------------------------------------------------------
 Procedure SetPathsForDevelopmentMode(tcAppPath)
 
-	*-- If running this bootstrap in dev mode,	we need to setup these paths
+	*-- If running this bootstrap in dev mode,we need to setup these paths
 	*--  Note: This is not required when the compiled .app file is running
 	Set Path To (tcAppPath) Additive
 	Set Path To (tcAppPath + 'Prg') Additive

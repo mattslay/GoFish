@@ -18,13 +18,13 @@ Cd (lcSourceLoc)
 
 *== Most of these local variables will make their way into BuildGoFish.h
 lcVersion = '5.0'
-lcBuild = '164' && <---- Set your desired version level of the tool here
+lcBuild = '169' && <---- Set your desired version level of the tool here
 								&& This will be used on the GoFish form and will live on the
 								&& the _GoFish object that gets attached to _Screen at run time.
 
 lcApplicationName	= 'GoFish5'
 lcVersionLocalFile	= 'GoFishVersionFile.txt'
-lcVersionFileURL	= 'http://foxpro.mattslay.com/GoFish4/Beta/_GoFishVersionFile.txt'
+lcVersionFileURL	= 'http://foxpro.mattslay.com/GoFish5/_GoFishVersionFile.txt'
 lcDownloadUrl		= 'http://bit.ly/GoFish5'
 lcGoFishHomePage	= 'https://github.com/mattslay/GoFish'
 
@@ -47,7 +47,8 @@ lcWindowTitle = 'Building ' + lcApplicationName
 *!* Activate Window talkWindow
 *!* ******************** Removed 11/01/2015 *****************
 *!* Set Talk On Window talkWindow
-? 'Building ' + lcApplicationName + '  Ver ' + lcVersion + '  Build ' + lcBuild + '...'
+? 'Building ' + lcApplicationName + '  Ver ' + lcVersion + '  Build ' + lcBuild
+?? " (" + lcVersion + '.' + lcBuild + ")..."
 ? ' '
 
 *------------------------------------------------------------------------------------
@@ -97,7 +98,7 @@ Text to lcCloudVersionFileContents NoShow TextMerge PRETEXT 3
 	Lparameters toUpdateInfo
 
 		###Text to lcNote NoShow
-			<<FileToStr('Changelog.txt')>>
+			<<FileToStr('Changelog_ver_5.txt')>>
 		###EndText 
 
 		AddProperty(toUpdateInfo, 'AvailableVersion', '<<lcVersionStringForVersionFile>>')
@@ -142,22 +143,15 @@ If File(lcProject)
 		? FileToStr(lcErrorFile)
 	EndIf
 	
-	*!* ******************** Removed 11/01/2015 *****************
-	*!* ? ''
-	*!* ? 'Version file contents:'
-	*!* ? '============================================='
-	*!* ? FileToStr(lcVersionLocalFile)
-	*!* ? ''
-	*!* ? 'Cloud Version file contents:'
-	*!* ? '============================================='
-	*!* ? FileToStr('_' + lcVersionLocalFile)
-	
-
 Else
 	MessageBox('Error locating Project file [' + lcProject + ']',16, lcApplicationName + ' - Building App')
 Endif
     
 Set Safety &lcSafety
 
-
+? ""
+? "Generation source code text files with FoxBin2Prg."
+? "  Working..."
+Do GoFishGenerateSCC.prg
+? "Done."
            
