@@ -2,5 +2,11 @@
 /Source/DeployGoFish_Source.ps1
 /Source/DeployGoFish.bat
 *.bak
+*.BAK
 FOXUSER.*
 *_ref.*
+*.err
+*.fxp
+*.fxp
+*.zip
+*.ZIP
