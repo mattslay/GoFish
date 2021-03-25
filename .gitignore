@@ -10,3 +10,5 @@ FOXUSER.*
 *.fxp
 *.zip
 *.ZIP
+/Source/tempview.*
+/Source/temptext.*
