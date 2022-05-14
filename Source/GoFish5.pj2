@@ -69,7 +69,6 @@ MODIFY PROJECT 'GoFish5.pjx' NOWAIT NOSHOW NOPROJECTHOOK
 loProject = _VFP.Projects('GoFish5.pjx')
 
 WITH loProject.FILES
-	.ADD('..\readme.md')		&& *< FileMetadata: Type="T" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('buildgofish.h')		&& *< FileMetadata: Type="T" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('buildgofish.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" User="" />
 	.ADD('changelog_ver_4.txt')		&& *< FileMetadata: Type="T" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
@@ -78,8 +77,6 @@ WITH loProject.FILES
 	.ADD('css\gofish - color.css')		&& *< FileMetadata: Type="x" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('css\gofish css readme.txt')		&& *< FileMetadata: Type="x" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('css\gofish.css')		&& *< FileMetadata: Type="x" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
-	.ADD('documentation\gofish 4 beta 2 update notes.txt')		&& *< FileMetadata: Type="T" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
-	.ADD('documentation\replacegroups.xlsx')		&& *< FileMetadata: Type="x" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('forms\gf_collection_explorer.scx')		&& *< FileMetadata: Type="K" Cpid="0" Timestamp="0" ID="0" ObjRev="544" User="" />
 	.ADD('forms\gofish_about.scx')		&& *< FileMetadata: Type="K" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" User="" />
 	.ADD('forms\gofish_advaccedreplacehelp.scx')		&& *< FileMetadata: Type="K" Cpid="0" Timestamp="0" ID="0" ObjRev="544" User="" />
@@ -179,12 +176,10 @@ WITH loProject.FILES
 	*</FileComments>
 
 	*<ExcludedFiles>
-	.ITEM(lcCurdir + '..\readme.md').Exclude = .T.
 	.ITEM(lcCurdir + 'buildgofish.h').Exclude = .T.
 	.ITEM(lcCurdir + 'buildgofish.prg').Exclude = .T.
 	.ITEM(lcCurdir + 'changelog_ver_4.txt').Exclude = .T.
 	.ITEM(lcCurdir + 'changelog_ver_5.txt').Exclude = .T.
-	.ITEM(lcCurdir + 'documentation\gofish 4 beta 2 update notes.txt').Exclude = .T.
 	.ITEM(lcCurdir + 'gofishgeneratescc.prg').Exclude = .T.
 	.ITEM(lcCurdir + 'lib\gofish.h').Exclude = .T.
 	*</ExcludedFiles>
