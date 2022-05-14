@@ -125,6 +125,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 	*</DefinedPropArrayMethod>
 
 	AlwaysOnTop = .T.
+	BindControls = .F.
 	BorderStyle = 3
 	Caption = "GoFish Options"
 	dlastjanitorrundate = /  /  
@@ -1313,6 +1314,8 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		DoDefault(m.toForm)
 		
 		Thisform.LoadOptions()
+		
+		This.BindControls = .T.
 		
 		Thisform.pfSettings.pageBackups.Enabled = Thisform.oSearchOptions.lEnableReplaceMode
 		

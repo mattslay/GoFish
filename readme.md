@@ -127,6 +127,13 @@ Can specify a filename temple (i.e.  `job*` )
 
 ## Release history
 
+**Ver 5.0.200** Released 2022-05-14
+* Changed CodePlex references to VFPX and removed reference to BitBucket
+* Fixed "constant already defined issue" when building app
+* Removed unneeded files from the repository
+* Fixed an error displaying the options dialog
+* Improved the build process
+
 **Ver 5.0.170** Released 2021-03-24
 
 | | Description                              |
