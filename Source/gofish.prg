@@ -175,7 +175,6 @@ Procedure RegisterWithThor
 
 	RegisterVfpxLinkWithThor()
 	RegisterDiscussionGroupWithThor()
-	RegisterBitBucketLinkWithThor()
 	
 	Return (llRegisterApp and llRegisterUpdater)
 
@@ -310,7 +309,7 @@ Return
 		* Optional
 		.StatusBarText = GOFISH_APP_NAME
 		.Summary	   = 'Code Search Tool' && if empty, first line of .Description is used
-		.Classes	   = 'loGoFish = gofishsearchengine of lib\gofishsearchengine.vcx|http://vfpx.codeplex.com/wikipage?title=GoFishSearchEngine'
+		.Classes	   = 'loGoFish = gofishsearchengine of lib\gofishsearchengine.vcx'
 
 		* For public tools, such as PEM Editor, etc.
 		.Source	 = 'GoFish' && e.g., 'PEM Editor'
@@ -367,7 +366,7 @@ Procedure RegisterVfpxLinkWithThor()
 
 		Text To .Code Noshow Textmerge
 			oShell = Createobject("wscript.shell")
-			oShell.Run('http://vfpx.codeplex.com/wikipage?title=GoFish')
+			oShell.Run('https://github.com/VFPX/GoFish')
 		Endtext
 
 		* Optional
@@ -378,7 +377,7 @@ Procedure RegisterVfpxLinkWithThor()
 		.Source	 = 'GoFish' && e.g., 'PEM Editor'
 		.Version = '' && e.g., 'Version 7, May 18, 2011'
 		.Sort	 = 3 && the sort order for all items from the same .Source
-		.Link	 = 'http://vfpx.codeplex.com/wikipage?title=GoFish'
+		.Link	 = 'https://github.com/VFPX/GoFish'
 
 		llRegister = .Register()
 
@@ -429,7 +428,7 @@ Procedure RegisterDiscussionGroupWithThor()
 		.Source	 = 'GoFish' && e.g., 'PEM Editor'
 		.Version = '' && e.g., 'Version 7, May 18, 2011'
 		.Sort	 = 2 && the sort order for all items from the same .Source
-		.Link	 = 'http://vfpx.codeplex.com/wikipage?title=GoFish'
+		.Link	 = 'https://github.com/VFPX/GoFish'
 
 		llRegister = .Register()
 
@@ -437,58 +436,6 @@ Procedure RegisterDiscussionGroupWithThor()
 
 	Return llRegister
 Endproc
-
-*--------------------------------------------------------------------------------------
-Procedure RegisterBitBucketLinkWithThor()
-
-	Local lcFolderName, lcFullAppName, loThorInfo
-
-	Try
-		loThorInfo = Execscript (_Screen.cThorDispatcher, 'Thor Register=')
-	Catch
-		loThorInfo = .Null.
-	Endtry
-
-	If Isnull (loThorInfo)
-		Return .F.
-	Endif
-
-	lcCommonText = 'GoFish repository on BitBucket.org'
-
-	With loThorInfo
-		* Required
-		.Prompt		 = lcCommonText && used when tool appears in a menu
-		.Description = lcCommonText && may be lengthy, including CRs, etc
-		.Author 	 = 'Matt Slay'
-		.PRGName	 = 'Thor_Tool_GoFish_On_BitBucket'  && a unique name for the tool; note the required prefix
-		.Category 	 = 'Applications|GoFish'
-
-		.AppName     = GOFISH_APP_FILE && no path, but include the extension; for example, GoFish4.App
-		lcFolderName = .FolderName
-		lcFullAppName = .FullAppName
-
-		Text To .Code Noshow Textmerge
-			oShell = Createobject("wscript.shell")
-			oShell.Run('https://bitbucket.org/mattslay/gofish4/wiki/Home')
-		Endtext
-
-		* Optional
-		.StatusBarText = lcCommonText
-		.Summary	   = lcCommonText && if empty, first line of .Description is used
-
-		* For public tools, such as PEM Editor, etc.
-		.Source	 = 'GoFish' && e.g., 'PEM Editor'
-		.Version = '' && e.g., 'Version 7, May 18, 2011'
-		.Sort	 = 4 && the sort order for all items from the same .Source
-		.Link	 = 'https://bitbucket.org/mattslay/gofish4/wiki/Home'
-
-		llRegister = .Register()
-
-	Endwith
-
-	Return llRegister
-EndProc
-
 
 *-----------------------------------------------------------------------------------------
 Procedure CreateVersionFile

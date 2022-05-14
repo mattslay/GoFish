@@ -257,7 +257,6 @@ Define Class gf_peme_basetools As Custom
 		*** From JRN 11/21/2011 : Use EditSourceX from IDE Tools, if available,
 		*** which provides for source control and maintains MRU lists
 		If Type('_Screen.cThorDispatcher') = 'C' and (lcExt <> 'DBF')
-			* tools home page = http://vfpx.codeplex.com/wikipage?title=thor%20tools%20object
 			loTools = Execscript(_Screen.cThorDispatcher, "Class= tools from pemeditor")
 			If Not IsNull(loTools)
 				loTools.EditSourceX(tcFileName, tcClass, tcMethod, tnStartRange, tnEndRange)

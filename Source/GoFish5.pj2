@@ -53,7 +53,6 @@ _Interface = '{2A143BCB-9F65-4E7E-9C30-8E0955A38E8E}'
 *</ServerData>
 
 *<BuildProj>
-*<.HomeDir = 'h:\work\repos\gofish\source' />
 
 FOR EACH loProject IN _VFP.Projects FOXOBJECT
 	loProject.Close()
@@ -71,7 +70,6 @@ loProject = _VFP.Projects('GoFish5.pjx')
 
 WITH loProject.FILES
 	.ADD('..\readme.md')		&& *< FileMetadata: Type="T" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
-	.ADD('_gofishversionfile.txt')		&& *< FileMetadata: Type="T" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('buildgofish.h')		&& *< FileMetadata: Type="T" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('buildgofish.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" User="" />
 	.ADD('changelog_ver_4.txt')		&& *< FileMetadata: Type="T" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
@@ -93,7 +91,7 @@ WITH loProject.FILES
 	.ADD('forms\gofish_results.scx')		&& *< FileMetadata: Type="K" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" User="" />
 	.ADD('forms\gofish_searchhistory.scx')		&& *< FileMetadata: Type="K" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" User="" />
 	.ADD('gofish.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" User="" />
-	.ADD('gofishversionfile.txt')		&& *< FileMetadata: Type="T" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
+	.ADD('gofishgeneratescc.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" User="" />
 	.ADD('html\gofish.js')		&& *< FileMetadata: Type="x" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('images\browsefolder.bmp')		&& *< FileMetadata: Type="x" Cpid="0" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('images\browsefolder.msk')		&& *< FileMetadata: Type="x" Cpid="0" Timestamp="0" ID="0" ObjRev="0" User="" />
@@ -168,7 +166,6 @@ WITH loProject.FILES
 	.ADD('lib\vfp\ffc\setobjrf.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" User="" />
 	.ADD('lib\vfp\my\my.dbf')		&& *< FileMetadata: Type="D" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('lib\vfp\my\my.vcx')		&& *< FileMetadata: Type="V" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" User="" />
-	.ADD('prg\gofishgeneratescc.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" User="" />
 	.ADD('prg\gofishproc.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" User="" />
 	.ADD('prg\mhhtmlcode.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" User="" />
 	.ADD('prg\words.dbf')		&& *< FileMetadata: Type="D" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
@@ -182,6 +179,14 @@ WITH loProject.FILES
 	*</FileComments>
 
 	*<ExcludedFiles>
+	.ITEM(lcCurdir + '..\readme.md').Exclude = .T.
+	.ITEM(lcCurdir + 'buildgofish.h').Exclude = .T.
+	.ITEM(lcCurdir + 'buildgofish.prg').Exclude = .T.
+	.ITEM(lcCurdir + 'changelog_ver_4.txt').Exclude = .T.
+	.ITEM(lcCurdir + 'changelog_ver_5.txt').Exclude = .T.
+	.ITEM(lcCurdir + 'documentation\gofish 4 beta 2 update notes.txt').Exclude = .T.
+	.ITEM(lcCurdir + 'gofishgeneratescc.prg').Exclude = .T.
+	.ITEM(lcCurdir + 'lib\gofish.h').Exclude = .T.
 	*</ExcludedFiles>
 
 	*<TextFiles>

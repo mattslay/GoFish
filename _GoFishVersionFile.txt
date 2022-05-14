@@ -3,6 +3,10 @@ Lparameters toUpdateInfo
 Text to lcNote NoShow
 GoFish Change Log
 
+** Ver 5.0.200 ** Released 2022-05-12
+1. Changed CodePlex references to VFPX
+2. Fixed "constant already defined issue" when building app
+
 ** Ver 5.0.170 ** Released 2021-03-24
 1. GoFishSearchEngine class: Fixed folder paths for cFilesToSkipFile, cReplaceDetailTable, cReplaceDetailTable.
 2. Options Form-> Replace tab: Added read-only fields to show values for cReplaceDetailTable and cReplaceDetailTable.
@@ -24,7 +28,7 @@ GoFish Change Log
 
 EndText 
 
-AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 5.0.170 - March 24, 2021 - 20210324')
+AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 5.0.200 - May 14, 2022 - 20220514')
 AddProperty(toUpdateInfo, 'SourceFileUrl', 'https://raw.githubusercontent.com/VFPX/GoFish/master/Source/Source.zip')
 AddProperty(toUpdateInfo, 'LinkPrompt', 'GoFish Home Page')
 AddProperty(toUpdateInfo, 'Link', 'https://github.com/VFPX/GoFish')

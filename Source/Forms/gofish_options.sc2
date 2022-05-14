@@ -1443,12 +1443,12 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 	ENDPROC
 
 	PROCEDURE pfSettings.Page1.Label3.Click
-		Shell('http://vfpx.codeplex.com/wikipage?title=Thor')
+		Shell('https://github.com/VFPX/Thor')
 		
 	ENDPROC
 
 	PROCEDURE pfSettings.Page1.Label5.Click
-		Shell('http://vfpx.codeplex.com/wikipage?title=GoFish')
+		Shell('https://github.com/VFPX/GoFish')
 		
 	ENDPROC
 
@@ -1531,7 +1531,8 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 	ENDPROC
 
 	PROCEDURE pfSettings.pageBackups.Label2.Click
-		Shell('http://vfpx.codeplex.com/wikipage?title=GoFish%20Backup%20Help')
+		messagebox('No help available at this time.', 0, 'GoFish')
+		*** TODO: Shell('URL for backup help')
 		
 	ENDPROC
 
@@ -1654,7 +1655,8 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 	ENDPROC
 
 	PROCEDURE pfSettings.pageReplace.Label2.Click
-		Shell('http://vfpx.codeplex.com/wikipage?title=GoFish%20Replace%20Help')
+		messagebox('No help available at this time.', 0, 'GoFish')
+		*** TODO: Shell('URL for replace help')
 		
 	ENDPROC
 
@@ -1751,7 +1753,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 	ENDPROC
 
 	PROCEDURE pfSettings.pageThor.Label2.Click
-		Shell('http://vfpx.codeplex.com/wikipage?title=Thor')
+		Shell('https://github.com/VFPX/Thor')
 		
 	ENDPROC
 

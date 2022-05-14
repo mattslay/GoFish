@@ -1,5 +1,9 @@
 GoFish Change Log
 
+** Ver 5.0.200 ** Released 2022-05-12
+1. Changed CodePlex references to VFPX
+2. Fixed "constant already defined issue" when building app
+
 ** Ver 5.0.170 ** Released 2021-03-24
 1. GoFishSearchEngine class: Fixed folder paths for cFilesToSkipFile, cReplaceDetailTable, cReplaceDetailTable.
 2. Options Form-> Replace tab: Added read-only fields to show values for cReplaceDetailTable and cReplaceDetailTable.

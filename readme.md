@@ -1,5 +1,5 @@
 # GoFish 5.0 
-_ver 5.0.170   released 2021-03-24_
+_ver 5.0.200   released 2022-03-12_
 
 ## GoFish is an advanced code search tool for fast searching and replacing of Visual FoxPro source code.
 
@@ -7,17 +7,17 @@ _ver 5.0.170   released 2021-03-24_
 
 ![Screenshot](Screenshots/GoFishScreenshot01.png?raw=true "Title")
 
-What’s new in version 5:
+What's new in version 5:
 
 * Saved Search History – You can now save the history of your searches, either automatically (for all searches) or selectively, and can restore the search parameters and results grid from these saved searches.  You can also selectively delete your saved searches or use the GF Janitor to automatically delete old ones.
 
-* More powerful filter options – You can filter on secondary matches in the code “in the neighborhood” (that is, in the same statement or same procedure) of the original match; the filter form has been re-organized to provide clarity; and filters can be combined using logical operators AND or OR.
+* More powerful filter options – You can filter on secondary matches in the code "in the neighborhood" (that is, in the same statement or same procedure) of the original match; the filter form has been re-organized to provide clarity; and filters can be combined using logical operators AND or OR.
 
-* Handling of PRG-based classes – Special attention has been paid to matches in PRG-based classes, which now are treated as much as possible like VCX-based classes. Their names appear in the “Class”, “Base Class”, and “Parent Class” columns in the grid and also in the new category “Classes” in the Treeview.
+* Handling of PRG-based classes – Special attention has been paid to matches in PRG-based classes, which now are treated as much as possible like VCX-based classes. Their names appear in the "Class", "Base Class", and "Parent Class" columns in the grid and also in the new category "Classes" in the Treeview.
 
-* Treeview changes – There are a few new categories: “Classes”, “Menus”, and “Projects”. The “Classes” category, unlike all the other categories which have files as sub-nodes, has classes as sub-nodes. 
+* Treeview changes – There are a few new categories: "Classes", "Menus", and "Projects". The "Classes" category, unlike all the other categories which have files as sub-nodes, has classes as sub-nodes. 
 
-* Column Changes  – There are two new columns, “Parent Class VCX” and “Containing Class”; the column headings for some of the other columns have been reworded; and the contents of some of the class-related columns have been enhanced.
+* Column Changes  – There are two new columns, "Parent Class VCX" and "Containing Class"; the column headings for some of the other columns have been reworded; and the contents of some of the class-related columns have been enhanced.
 
 * Plug-In to control the grid display – You can set the use the plug-in to set the Dynamic* (or any other) properties of the grid. The sample provided changes the colors used for each row.
 
@@ -62,7 +62,6 @@ Post questions, bug reports, discussions in the <a href="http://groups.google.co
 * Double-click a row to open the file and edit the code in native FoxPro method windows.
 * Integrates with PEM Editor IDE Tools to open files through Source Code Control Checkout.
 
-
 ## Learn more about...
 
 * Searching in Reports: _{Link and page needed: GoFish 4 Searching in FoxPro Reports}_
@@ -92,7 +91,6 @@ Can specify a filename temple (i.e.  `job*` )
 
     _{TODO: Insert screenshot here}_
     
-    
 ### Filename template
 
 * Supports wildcard matching (`*` and `?`) on filename pattern to be searched.
@@ -114,7 +112,7 @@ Can specify a filename temple (i.e.  `job*` )
 * Replace – To enable Replace Mode _{Line and page needed}_ and learn how it works.
 * Backups – To enable GoFish Backups _{Line and page needed}_ and learn how they work.
 * Thor – Explains that GoFish will self-register with Thor to create a launch tool and Thor menu for GoFish.
-* Update – Explains that GoFish can be updated using Thor “Check for Updates” feature.
+* Update – Explains that GoFish can be updated using Thor "Check for Updates" feature.
 
     _{TODO: Insert screenshot here}_
     

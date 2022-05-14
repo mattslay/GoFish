@@ -30,8 +30,6 @@ DEFINE CLASS gf_help AS gf_baseform OF "..\lib\gofishui.vcx"
 	*< OBJECTDATA: ObjPath="lblCredits1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="lblCredits2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Label3" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="Label4" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="Label5" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Gf_versionlabel1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Image2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Label6" UniqueID="" Timestamp="" />
@@ -40,7 +38,7 @@ DEFINE CLASS gf_help AS gf_baseform OF "..\lib\gofishui.vcx"
 	Caption = "GoFish - Help"
 	Closable = .T.
 	DoCreate = .T.
-	Height = 288
+	Height = 238
 	Left = 0
 	MaxButton = .F.
 	MinButton = .F.
@@ -106,40 +104,8 @@ DEFINE CLASS gf_help AS gf_baseform OF "..\lib\gofishui.vcx"
 		Height = 55, ;
 		Left = 21, ;
 		Name = "Label3", ;
-		Top = 248, ;
+		Top = 198, ;
 		Width = 385, ;
-		WordWrap = .T.
-		*< END OBJECT: BaseClass="label" />
-
-	ADD OBJECT 'Label4' AS label WITH ;
-		Alignment = 0, ;
-		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "Visit the GoFish Repository on BitBucket.org", ;
-		FontBold = .F., ;
-		FontName = "Tahoma", ;
-		FontSize = 8, ;
-		FontUnderline = .T., ;
-		ForeColor = 0,0,255, ;
-		Height = 15, ;
-		Left = 31, ;
-		MousePointer = 15, ;
-		Name = "Label4", ;
-		TabIndex = 11, ;
-		Top = 156, ;
-		Width = 212
-		*< END OBJECT: BaseClass="label" />
-
-	ADD OBJECT 'Label5' AS label WITH ;
-		AutoSize = .F., ;
-		BackStyle = 0, ;
-		Caption = "BitBucket (Repository, Wiki, Issue Tracker)", ;
-		FontBold = .T., ;
-		Height = 17, ;
-		Left = 20, ;
-		Name = "Label5", ;
-		Top = 138, ;
-		Width = 401, ;
 		WordWrap = .T.
 		*< END OBJECT: BaseClass="label" />
 
@@ -151,7 +117,7 @@ DEFINE CLASS gf_help AS gf_baseform OF "..\lib\gofishui.vcx"
 		Height = 19, ;
 		Left = 180, ;
 		Name = "Label6", ;
-		Top = 270, ;
+		Top = 220, ;
 		Width = 229, ;
 		WordWrap = .T.
 		*< END OBJECT: BaseClass="label" />
@@ -163,7 +129,7 @@ DEFINE CLASS gf_help AS gf_baseform OF "..\lib\gofishui.vcx"
 		Height = 19, ;
 		Left = 15, ;
 		Name = "lblCredits", ;
-		Top = 186, ;
+		Top = 136, ;
 		Width = 121, ;
 		WordWrap = .T.
 		*< END OBJECT: BaseClass="label" />
@@ -175,7 +141,7 @@ DEFINE CLASS gf_help AS gf_baseform OF "..\lib\gofishui.vcx"
 		Height = 19, ;
 		Left = 21, ;
 		Name = "lblCredits1", ;
-		Top = 205, ;
+		Top = 155, ;
 		Width = 411, ;
 		WordWrap = .T.
 		*< END OBJECT: BaseClass="label" />
@@ -186,7 +152,7 @@ DEFINE CLASS gf_help AS gf_baseform OF "..\lib\gofishui.vcx"
 		Height = 55, ;
 		Left = 21, ;
 		Name = "lblCredits2", ;
-		Top = 226, ;
+		Top = 176, ;
 		Width = 385, ;
 		WordWrap = .T.
 		*< END OBJECT: BaseClass="label" />
@@ -257,11 +223,6 @@ DEFINE CLASS gf_help AS gf_baseform OF "..\lib\gofishui.vcx"
 		This.caption = 'and Mike Potjer.  Thanks to all the testers, too!!'
 	ENDPROC
 
-	PROCEDURE Label4.Click
-		Shell('https://bitbucket.org/mattslay/gofish4/wiki/Home')
-		
-	ENDPROC
-
 	PROCEDURE Label6.Init
 		This.caption = _screen._gofish.cbuilddate
 	ENDPROC
@@ -275,7 +236,7 @@ DEFINE CLASS gf_help AS gf_baseform OF "..\lib\gofishui.vcx"
 	ENDPROC
 
 	PROCEDURE lblGoFishOnVFPx.Click
-		Shell('http://vfpx.codeplex.com/wikipage?title=GoFish')
+		Shell('https://github.com/VFPX/GoFish')
 		
 	ENDPROC
 

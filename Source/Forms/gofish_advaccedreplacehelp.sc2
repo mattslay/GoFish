@@ -141,7 +141,8 @@ DEFINE CLASS gf_baseform1 AS gf_baseform OF "..\lib\gofishui.vcx"
 	ENDPROC
 
 	PROCEDURE lblGoFishOnVFPx.Click
-		Shell('http://vfpx.codeplex.com/wikipage?title=GoFish%20Replace%20Help')
+		messagebox('No help available at this time.', 0, 'GoFish')
+		*** TODO: Shell('URL for replace help')
 		
 	ENDPROC
 
