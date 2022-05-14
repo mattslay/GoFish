@@ -302,7 +302,8 @@ m.toGrid.SetAll ('DynamicFontBold', m.lcBolds)
 
 Return
 		End***TEXT***
-  		  
+		endproc
+	enddefine  		  
 		EndText
 		.Code = Strtran(lcCode + Evl(lcPlugIn, ''), '***TEXT***', 'Text')
 
