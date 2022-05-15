@@ -125,6 +125,10 @@ Can specify a filename temple (i.e.  `job*` )
 * Thanks to original GoFish author, Peter Diotte, for granting me permission to create the version 4 update.
 * Thanks to Jim Nelson for features and enhancements in Version 5.0
 
+## Helping with this project
+
+See [How to contribute to GoFish](.github/CONTRIBUTING.md) for details on how to help with this project.
+
 ## Release history
 
 **Ver 5.0.200** Released 2022-05-14
