@@ -131,7 +131,7 @@ See [How to contribute to GoFish](.github/CONTRIBUTING.md) for details on how to
 
 ## Release history
 
-**Ver 5.0.201** Released 2022-05-18
+**Ver 5.0.201** Released 2022-05-19
 * Set Desktop to .T. for the main GoFish form so it can be moved outside the VFP window
 
 **Ver 5.0.200** Released 2022-05-14
