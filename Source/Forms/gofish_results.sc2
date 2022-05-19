@@ -351,6 +351,7 @@ DEFINE CLASS gofish AS form
 	ctreeviewfilter = 
 	cuisettingsfile = GF_Results_Form_Settings.xml
 	DataSession = 2
+	Desktop = .T.
 	dlastjanitorrundate = ({//})
 	Dockable = 0
 	DoCreate = .T.
@@ -940,7 +941,7 @@ DEFINE CLASS gofish AS form
 		Name = "oTreeView", ;
 		Top = 0, ;
 		Width = 186
-		*< END OBJECT: BaseClass="olecontrol" OLEObject="c:\windows\syswow64\mscomctl.ocx" Value="0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAEAAAAgAAAAEAAAD+////AAAAAAAAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9/////v////7///8EAAAA/v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////1IAbwBvAHQAIABFAG4AdAByAHkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAUA//////////8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAtScRLZtgBAwAAAEACAAAAAAAAAwBPAGwAZQBPAGIAagBlAGMAdABEAGEAdABhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAgEDAAAAAgAAAP////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAagAAAAAAAAADAEEAYwBjAGUAcwBzAE8AYgBqAFMAaQB0AGUARABhAHQAYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgACAP///////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABcAAAAAAAAAAMAQwBoAGEAbgBnAGUAZABQAHIAbwBwAHMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAIA////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAACABAAAAAAAABAAAAAIAAAD+////BQAAAP7///8GAAAABwAAAAgAAAD+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+2kEHHiYXREbFqAMDwKDYoIUM0EggAAAA5EwAABTUAALE8wWoBAAYAIgAAABkAAAARAgAACgAAAAEAAAAB782rXAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACQAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5MzY4MjY1RS04NUZFLTExZDEtOEJFMy0wMDAwRjg3NTREQTEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACADgAAAEhpZGVTZWxlY3Rpb24ABQAAAEwAAAAADAAAAEluZGVudGF0aW9uABEAAABODQAAAAcAAAAAAAAAAAAFAPBi2gkGAAAAAAAAAAUAAIAE6BkAAQAAAFwAH97svQEABQBM6BkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANEAKAAAATGluZVN0eWxlAAkAAABJCgAAAAEAAAANAAAATW91c2VQb2ludGVyAAkAAABJCgAAAAAAAAAOAAAAUGF0aFNlcGFyYXRvcgAKAAAASAAAAAABAAAAXAYAAABTdHlsZQAJAAAASQoAAAAGAAAADAAAAE9MRURyYWdNb2RlAAkAAABJCgAAAAAAAAAMAAAAT0xFRHJvcE1vZGUACQAAAEkKAAAAAAAAAA4AAABGdWxsUm93U2VsZWN0AAUAAABMAQAAAAoAAABTaW5nbGVTZWwABQAAAEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+		*< END OBJECT: BaseClass="olecontrol" OLEObject="c:\windows\syswow64\mscomctl.ocx" Value="0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAEAAAAgAAAAEAAAD+////AAAAAAAAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9/////v////7///8EAAAA/v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////1IAbwBvAHQAIABFAG4AdAByAHkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAUA//////////8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMBfu53Na9gBAwAAAEACAAAAAAAAAwBPAGwAZQBPAGIAagBlAGMAdABEAGEAdABhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAgEDAAAAAgAAAP////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAagAAAAAAAAADAEEAYwBjAGUAcwBzAE8AYgBqAFMAaQB0AGUARABhAHQAYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgACAP///////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABcAAAAAAAAAAMAQwBoAGEAbgBnAGUAZABQAHIAbwBwAHMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAIA////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAACABAAAAAAAABAAAAAIAAAD+////BQAAAP7///8GAAAABwAAAAgAAAD+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+2kEHHiYXREbFqAMDwKDYoIUM0EggAAAA5EwAABTUAALE8wWoBAAYAIgAAABkAAAARAgAACgAAAAEAAAAB782rXAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACQAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5MzY4MjY1RS04NUZFLTExZDEtOEJFMy0wMDAwRjg3NTREQTEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACADgAAAEhpZGVTZWxlY3Rpb24ABQAAAEwAAAAADAAAAEluZGVudGF0aW9uABEAAABODQAAAAcAAAAAAAAAAAAFANir6gAGAAAAAAAAAAUAAID85xkAAQAAAFwAH97svQEABQBE6BkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANEAKAAAATGluZVN0eWxlAAkAAABJCgAAAAEAAAANAAAATW91c2VQb2ludGVyAAkAAABJCgAAAAAAAAAOAAAAUGF0aFNlcGFyYXRvcgAKAAAASAAAAAABAAAAXAYAAABTdHlsZQAJAAAASQoAAAAGAAAADAAAAE9MRURyYWdNb2RlAAkAAABJCgAAAAAAAAAMAAAAT0xFRHJvcE1vZGUACQAAAEkKAAAAAAAAAA4AAABGdWxsUm93U2VsZWN0AAUAAABMAQAAAAoAAABTaW5nbGVTZWwABQAAAEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
 
 	ADD OBJECT 'containerRight' AS container WITH ;
 		Anchor = 15, ;
@@ -2272,27 +2273,27 @@ DEFINE CLASS gofish AS form
 		TabIndex = 14, ;
 		Top = 357, ;
 		Width = 800, ;
-		GRIPPER.GRIPPERDOT1.Name = "GRIPPERDOT1", ;
-		GRIPPER.GRIPPERDOT1.SHAPEDARK.Name = "SHAPEDARK", ;
-		GRIPPER.GRIPPERDOT1.SHAPELIGHT.Name = "SHAPELIGHT", ;
-		GRIPPER.GRIPPERDOT1.SHAPEMIDDLE.Name = "SHAPEMIDDLE", ;
-		GRIPPER.GRIPPERDOT2.Name = "GRIPPERDOT2", ;
-		GRIPPER.GRIPPERDOT2.SHAPEDARK.Name = "SHAPEDARK", ;
-		GRIPPER.GRIPPERDOT2.SHAPELIGHT.Name = "SHAPELIGHT", ;
-		GRIPPER.GRIPPERDOT2.SHAPEMIDDLE.Name = "SHAPEMIDDLE", ;
-		GRIPPER.GRIPPERDOT3.Name = "GRIPPERDOT3", ;
-		GRIPPER.GRIPPERDOT3.SHAPEDARK.Name = "SHAPEDARK", ;
-		GRIPPER.GRIPPERDOT3.SHAPELIGHT.Name = "SHAPELIGHT", ;
-		GRIPPER.GRIPPERDOT3.SHAPEMIDDLE.Name = "SHAPEMIDDLE", ;
-		GRIPPER.GRIPPERDOT4.Name = "GRIPPERDOT4", ;
-		GRIPPER.GRIPPERDOT4.SHAPEDARK.Name = "SHAPEDARK", ;
-		GRIPPER.GRIPPERDOT4.SHAPELIGHT.Name = "SHAPELIGHT", ;
-		GRIPPER.GRIPPERDOT4.SHAPEMIDDLE.Name = "SHAPEMIDDLE", ;
-		GRIPPER.GRIPPERDOT5.Name = "GRIPPERDOT5", ;
-		GRIPPER.GRIPPERDOT5.SHAPEDARK.Name = "SHAPEDARK", ;
-		GRIPPER.GRIPPERDOT5.SHAPELIGHT.Name = "SHAPELIGHT", ;
-		GRIPPER.GRIPPERDOT5.SHAPEMIDDLE.Name = "SHAPEMIDDLE", ;
-		GRIPPER.Name = "GRIPPER"
+		gripper.GripperDot1.Name = "GripperDot1", ;
+		gripper.GripperDot1.ShapeDark.Name = "ShapeDark", ;
+		gripper.GripperDot1.ShapeLight.Name = "ShapeLight", ;
+		gripper.GripperDot1.ShapeMiddle.Name = "ShapeMiddle", ;
+		gripper.GripperDot2.Name = "GripperDot2", ;
+		gripper.GripperDot2.ShapeDark.Name = "ShapeDark", ;
+		gripper.GripperDot2.ShapeLight.Name = "ShapeLight", ;
+		gripper.GripperDot2.ShapeMiddle.Name = "ShapeMiddle", ;
+		gripper.GripperDot3.Name = "GripperDot3", ;
+		gripper.GripperDot3.ShapeDark.Name = "ShapeDark", ;
+		gripper.GripperDot3.ShapeLight.Name = "ShapeLight", ;
+		gripper.GripperDot3.ShapeMiddle.Name = "ShapeMiddle", ;
+		gripper.GripperDot4.Name = "GripperDot4", ;
+		gripper.GripperDot4.ShapeDark.Name = "ShapeDark", ;
+		gripper.GripperDot4.ShapeLight.Name = "ShapeLight", ;
+		gripper.GripperDot4.ShapeMiddle.Name = "ShapeMiddle", ;
+		gripper.GripperDot5.Name = "GripperDot5", ;
+		gripper.GripperDot5.ShapeDark.Name = "ShapeDark", ;
+		gripper.GripperDot5.ShapeLight.Name = "ShapeLight", ;
+		gripper.GripperDot5.ShapeMiddle.Name = "ShapeMiddle", ;
+		gripper.Name = "gripper"
 		*< END OBJECT: ClassLib="..\lib\sfsplitter.vcx" BaseClass="control" />
 
 	ADD OBJECT 'containerRight.splitter3' AS sfsplitterh WITH ;
@@ -2308,27 +2309,27 @@ DEFINE CLASS gofish AS form
 		Top = 2, ;
 		Visible = .F., ;
 		Width = 10, ;
-		GRIPPER.GRIPPERDOT1.Name = "GRIPPERDOT1", ;
-		GRIPPER.GRIPPERDOT1.SHAPEDARK.Name = "SHAPEDARK", ;
-		GRIPPER.GRIPPERDOT1.SHAPELIGHT.Name = "SHAPELIGHT", ;
-		GRIPPER.GRIPPERDOT1.SHAPEMIDDLE.Name = "SHAPEMIDDLE", ;
-		GRIPPER.GRIPPERDOT2.Name = "GRIPPERDOT2", ;
-		GRIPPER.GRIPPERDOT2.SHAPEDARK.Name = "SHAPEDARK", ;
-		GRIPPER.GRIPPERDOT2.SHAPELIGHT.Name = "SHAPELIGHT", ;
-		GRIPPER.GRIPPERDOT2.SHAPEMIDDLE.Name = "SHAPEMIDDLE", ;
-		GRIPPER.GRIPPERDOT3.Name = "GRIPPERDOT3", ;
-		GRIPPER.GRIPPERDOT3.SHAPEDARK.Name = "SHAPEDARK", ;
-		GRIPPER.GRIPPERDOT3.SHAPELIGHT.Name = "SHAPELIGHT", ;
-		GRIPPER.GRIPPERDOT3.SHAPEMIDDLE.Name = "SHAPEMIDDLE", ;
-		GRIPPER.GRIPPERDOT4.Name = "GRIPPERDOT4", ;
-		GRIPPER.GRIPPERDOT4.SHAPEDARK.Name = "SHAPEDARK", ;
-		GRIPPER.GRIPPERDOT4.SHAPELIGHT.Name = "SHAPELIGHT", ;
-		GRIPPER.GRIPPERDOT4.SHAPEMIDDLE.Name = "SHAPEMIDDLE", ;
-		GRIPPER.GRIPPERDOT5.Name = "GRIPPERDOT5", ;
-		GRIPPER.GRIPPERDOT5.SHAPEDARK.Name = "SHAPEDARK", ;
-		GRIPPER.GRIPPERDOT5.SHAPELIGHT.Name = "SHAPELIGHT", ;
-		GRIPPER.GRIPPERDOT5.SHAPEMIDDLE.Name = "SHAPEMIDDLE", ;
-		GRIPPER.Name = "GRIPPER"
+		gripper.GripperDot1.Name = "GripperDot1", ;
+		gripper.GripperDot1.ShapeDark.Name = "ShapeDark", ;
+		gripper.GripperDot1.ShapeLight.Name = "ShapeLight", ;
+		gripper.GripperDot1.ShapeMiddle.Name = "ShapeMiddle", ;
+		gripper.GripperDot2.Name = "GripperDot2", ;
+		gripper.GripperDot2.ShapeDark.Name = "ShapeDark", ;
+		gripper.GripperDot2.ShapeLight.Name = "ShapeLight", ;
+		gripper.GripperDot2.ShapeMiddle.Name = "ShapeMiddle", ;
+		gripper.GripperDot3.Name = "GripperDot3", ;
+		gripper.GripperDot3.ShapeDark.Name = "ShapeDark", ;
+		gripper.GripperDot3.ShapeLight.Name = "ShapeLight", ;
+		gripper.GripperDot3.ShapeMiddle.Name = "ShapeMiddle", ;
+		gripper.GripperDot4.Name = "GripperDot4", ;
+		gripper.GripperDot4.ShapeDark.Name = "ShapeDark", ;
+		gripper.GripperDot4.ShapeLight.Name = "ShapeLight", ;
+		gripper.GripperDot4.ShapeMiddle.Name = "ShapeMiddle", ;
+		gripper.GripperDot5.Name = "GripperDot5", ;
+		gripper.GripperDot5.ShapeDark.Name = "ShapeDark", ;
+		gripper.GripperDot5.ShapeLight.Name = "ShapeLight", ;
+		gripper.GripperDot5.ShapeMiddle.Name = "ShapeMiddle", ;
+		gripper.Name = "gripper"
 		*< END OBJECT: ClassLib="..\lib\sfsplitter.vcx" BaseClass="control" />
 
 	ADD OBJECT 'editSearch' AS editbox WITH ;
@@ -2414,27 +2415,27 @@ DEFINE CLASS gofish AS form
 		TabIndex = 22, ;
 		Top = 58, ;
 		Width = 10, ;
-		GRIPPER.GRIPPERDOT1.Name = "GRIPPERDOT1", ;
-		GRIPPER.GRIPPERDOT1.SHAPEDARK.Name = "SHAPEDARK", ;
-		GRIPPER.GRIPPERDOT1.SHAPELIGHT.Name = "SHAPELIGHT", ;
-		GRIPPER.GRIPPERDOT1.SHAPEMIDDLE.Name = "SHAPEMIDDLE", ;
-		GRIPPER.GRIPPERDOT2.Name = "GRIPPERDOT2", ;
-		GRIPPER.GRIPPERDOT2.SHAPEDARK.Name = "SHAPEDARK", ;
-		GRIPPER.GRIPPERDOT2.SHAPELIGHT.Name = "SHAPELIGHT", ;
-		GRIPPER.GRIPPERDOT2.SHAPEMIDDLE.Name = "SHAPEMIDDLE", ;
-		GRIPPER.GRIPPERDOT3.Name = "GRIPPERDOT3", ;
-		GRIPPER.GRIPPERDOT3.SHAPEDARK.Name = "SHAPEDARK", ;
-		GRIPPER.GRIPPERDOT3.SHAPELIGHT.Name = "SHAPELIGHT", ;
-		GRIPPER.GRIPPERDOT3.SHAPEMIDDLE.Name = "SHAPEMIDDLE", ;
-		GRIPPER.GRIPPERDOT4.Name = "GRIPPERDOT4", ;
-		GRIPPER.GRIPPERDOT4.SHAPEDARK.Name = "SHAPEDARK", ;
-		GRIPPER.GRIPPERDOT4.SHAPELIGHT.Name = "SHAPELIGHT", ;
-		GRIPPER.GRIPPERDOT4.SHAPEMIDDLE.Name = "SHAPEMIDDLE", ;
-		GRIPPER.GRIPPERDOT5.Name = "GRIPPERDOT5", ;
-		GRIPPER.GRIPPERDOT5.SHAPEDARK.Name = "SHAPEDARK", ;
-		GRIPPER.GRIPPERDOT5.SHAPELIGHT.Name = "SHAPELIGHT", ;
-		GRIPPER.GRIPPERDOT5.SHAPEMIDDLE.Name = "SHAPEMIDDLE", ;
-		GRIPPER.Name = "GRIPPER"
+		gripper.GripperDot1.Name = "GripperDot1", ;
+		gripper.GripperDot1.ShapeDark.Name = "ShapeDark", ;
+		gripper.GripperDot1.ShapeLight.Name = "ShapeLight", ;
+		gripper.GripperDot1.ShapeMiddle.Name = "ShapeMiddle", ;
+		gripper.GripperDot2.Name = "GripperDot2", ;
+		gripper.GripperDot2.ShapeDark.Name = "ShapeDark", ;
+		gripper.GripperDot2.ShapeLight.Name = "ShapeLight", ;
+		gripper.GripperDot2.ShapeMiddle.Name = "ShapeMiddle", ;
+		gripper.GripperDot3.Name = "GripperDot3", ;
+		gripper.GripperDot3.ShapeDark.Name = "ShapeDark", ;
+		gripper.GripperDot3.ShapeLight.Name = "ShapeLight", ;
+		gripper.GripperDot3.ShapeMiddle.Name = "ShapeMiddle", ;
+		gripper.GripperDot4.Name = "GripperDot4", ;
+		gripper.GripperDot4.ShapeDark.Name = "ShapeDark", ;
+		gripper.GripperDot4.ShapeLight.Name = "ShapeLight", ;
+		gripper.GripperDot4.ShapeMiddle.Name = "ShapeMiddle", ;
+		gripper.GripperDot5.Name = "GripperDot5", ;
+		gripper.GripperDot5.ShapeDark.Name = "ShapeDark", ;
+		gripper.GripperDot5.ShapeLight.Name = "ShapeLight", ;
+		gripper.GripperDot5.ShapeMiddle.Name = "ShapeMiddle", ;
+		gripper.Name = "gripper"
 		*< END OBJECT: ClassLib="..\lib\sfsplitter.vcx" BaseClass="control" />
 
 	ADD OBJECT 'timerShowAdvancedForm' AS timer WITH ;
