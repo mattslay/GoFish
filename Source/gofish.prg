@@ -45,7 +45,15 @@ Set Procedure To 'GoFishSearchEngine.prg' Additive
 Set Procedure To 'GoFishSearchOptions.prg' Additive
 Set Procedure To 'GF_PEME_BaseTools.prg' Additive
 
-Do Form GoFish_Results With lcInitialSource
+loMy = newobject('My', 'My.vcx')
+loSettings     = loMy.Settings
+lcSettingsFile = addbs(home(7)) + 'GF_Results_Form_Settings.xml'
+m.loSettings.Load(m.lcSettingsFile)
+if pemstatus(m.loSettings, 'lDesktop', 5) and m.loSettings.lDesktop
+	Do Form GoFish_Results_Desktop With lcInitialSource
+else
+	Do Form GoFish_Results With lcInitialSource
+endif pemstatus(m.loSettings, 'lDesktop', 5) ...
 
 If Version(2) = 0 && If running as an .EXE, setup Read Events loop
 	ON SHUTDOWN CLEAR EVENTS

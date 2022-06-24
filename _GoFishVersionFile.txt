@@ -3,6 +3,9 @@ Lparameters toUpdateInfo
 Text to lcNote NoShow
 GoFish Change Log
 
+**Ver 5.0.202** Released 2022-06-24
+* Made the setting of Desktop for the main GoFish form an option
+
 **Ver 5.0.201** Released 2022-05-19
 * Set Desktop to .T. for the main GoFish form so it can be moved outside the VFP window
 
@@ -34,7 +37,7 @@ GoFish Change Log
 
 EndText 
 
-AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 5.0.201 - May 19, 2022 - 20220519')
+AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 5.0.202 - June 24, 2022 - 20220624')
 AddProperty(toUpdateInfo, 'SourceFileUrl', 'https://raw.githubusercontent.com/VFPX/GoFish/master/Source/Source.zip')
 AddProperty(toUpdateInfo, 'LinkPrompt', 'GoFish Home Page')
 AddProperty(toUpdateInfo, 'Link', 'https://github.com/VFPX/GoFish')
