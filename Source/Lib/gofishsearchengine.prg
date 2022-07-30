@@ -100,6 +100,8 @@ Define Class GoFishSearchEngine As Custom
 
 	oRegExForSearch                  = .Null.
 
+	oRegExForCommentSearch           = .Null.
+
 	oReplaceErrors                   = .Null.
 
 	* This is a collection of match objects from the last search. Must set  lCreateResultsCollection if you want this collection to be built.
@@ -454,6 +456,22 @@ Define Class GoFishSearchEngine As Custom
 			Case Alltrim(lcClass) == Alltrim(lcTrimmedMatchLine) And !Empty(lcClass) And Empty(lcName)
 				lcMatchType = MATCHTYPE_CLASS_DEF
 
+			Case lcMatchType = 'PROCEDURE'
+				If lnMatchStart = lnProcedureStart And !Empty(toObject.oProcedure.ParentClass)
+					lcMatchType = MatchType_Method
+				Else
+					lcMatchType = MatchType_Code
+				Endif
+
+			Case lcMatchType = 'PROPERTIES'
+				lcMatchType = MATCHTYPE_PROPERTY
+
+			Case lcMatchType = 'OBJNAME'
+				lcMatchType = Iif(Empty(lcName), MatchType_Class, MatchType_Name)
+
+			Case lcMatchType = 'CLASS'
+				lcMatchType = MatchType_Class
+
 			Case lcMatchType = 'RESERVED3'
 				If Left(lcTrimmedMatchLine, 1) = '*' && A Method Definition line
 					lcMethodName = Substr(lcTrimmedMatchLine, 2, Len(GetWordNum(lcTrimmedMatchLine, 1)) - 1)
@@ -474,22 +492,6 @@ Define Class GoFishSearchEngine As Custom
 
 			Case lcMatchType = 'RESERVED8'
 				lcMatchType = MATCHTYPE_INCLUDE_FILE
-
-			Case lcMatchType = 'OBJNAME'
-				lcMatchType = Iif(Empty(lcName), MatchType_Class, MatchType_Name)
-
-			Case lcMatchType = 'PROCEDURE'
-				If lnMatchStart = lnProcedureStart And !Empty(toObject.oProcedure.ParentClass)
-					lcMatchType = MatchType_Method
-				Else
-					lcMatchType = MatchType_Code
-				Endif
-
-			Case lcMatchType = 'CLASS'
-				lcMatchType = MatchType_Class
-
-			Case lcMatchType = 'PROPERTIES'
-				lcMatchType = MATCHTYPE_PROPERTY
 
 			Otherwise
 				lcMatchType = toObject.MatchType && Restore it back
@@ -2164,6 +2166,13 @@ Define Class GoFishSearchEngine As Custom
 			Messagebox('Error creating oRegExForSearch')
 			Return .F.
 		Endif
+		
+		This.oRegExForCommentSearch = This.GetRegExForSearch()
+		If Isnull(This.oRegExForCommentSearch)
+			Messagebox('Error creating oRegExForCommentSearch')
+			Return .F.
+		Endif
+		This.oRegExForCommentSearch.Pattern = '^\s*(\*|NOTE|&' + '&)'	&& Set default-pattern for searching comments
 
 		This.oRegExForProcedureStartPositions = This.GetRegExForProcedureStartPositions()
 		If Isnull(This.oRegExForProcedureStartPositions)
@@ -2295,69 +2304,110 @@ Define Class GoFishSearchEngine As Custom
 	*----------------------------------------------------------------------------------
 	Procedure IsFileTypeIncluded(tcFileType)
 
-		Local lcFileType, llReturn, loOptions
-
-		lcFileType = Upper(tcFileType)
-		loOptions = This.oSearchOptions
-
-		If loOptions.lIncludeAllFileTypes
+		If This.oSearchOptions.lIncludeAllFileTypes
 			Return .T.
 		Endif
+
+		tcFileType = Upper(tcFileType)
 
 		If !Empty(Justext(This.oSearchOptions.cFileTemplate))
 			Return This.MatchTemplate(tcFileType, Justext(This.oSearchOptions.cFileTemplate))
 		Endif
+ 		
+ 		*** Removed 27.07.2022
+ 		***
+ 		*** If we found a match for the passed on filetype and it should not be included 
+ 		*** in our search then we don´t have to go any further and keep checking this 
+ 		*** filetype against every other possible filetype !
+*!*			Do Case
+*!*				*-- Table-based Files --------------------------------------
+*!*				Case lcFileType = 'SCX' And loOptions.lIncludeSCX
+*!*					llReturn = .T.
+*!*				Case lcFileType = 'VCX' And loOptions.lIncludeVCX
+*!*					llReturn = .T.
+*!*				Case lcFileType = 'FRX' And loOptions.lIncludeFRX
+*!*					llReturn = .T.
+*!*				Case lcFileType = 'DBC'And loOptions.lIncludeDBC
+*!*					llReturn = .T.
+*!*				Case lcFileType = 'MNX' And loOptions.lIncludeMNX
+*!*					llReturn = .T.
+*!*				Case lcFileType = 'LBX' And loOptions.lIncludeLBX
+*!*					llReturn = .T.
+*!*				Case lcFileType = 'PJX' And loOptions.lIncludePJX
+*!*					llReturn = .T.
 
-		Do Case
-			*-- Table-based Files --------------------------------------
-			Case lcFileType = 'SCX' And loOptions.lIncludeSCX
-				llReturn = .T.
-			Case lcFileType = 'VCX' And loOptions.lIncludeVCX
-				llReturn = .T.
-			Case lcFileType = 'FRX' And loOptions.lIncludeFRX
-				llReturn = .T.
-			Case lcFileType = 'DBC'And loOptions.lIncludeDBC
-				llReturn = .T.
-			Case lcFileType = 'MNX' And loOptions.lIncludeMNX
-				llReturn = .T.
-			Case lcFileType = 'LBX' And loOptions.lIncludeLBX
-				llReturn = .T.
-			Case lcFileType = 'PJX' And loOptions.lIncludePJX
-				llReturn = .T.
+*!*				*-- Code based files ----------------------------------
+*!*				Case lcFileType = 'PRG' And loOptions.lIncludePRG
+*!*					llReturn = .T.
+*!*				Case lcFileType = 'SPR' And loOptions.lIncludeSPR
+*!*					llReturn = .T.
+*!*				Case lcFileType = 'MPR' And loOptions.lIncludeMPR
+*!*					llReturn = .T.
+*!*				Case 'HTM' $ lcFileType And loOptions.lIncludeHTML
+*!*					llReturn = .T.
+*!*				Case lcFileType = 'H' And loOptions.lIncludeH
+*!*					llReturn = .T.
+*!*				Case lcFileType = 'ASP' And loOptions.lIncludeASP
+*!*					llReturn = .T.
+*!*				Case lcFileType = 'INI' And loOptions.lIncludeINI
+*!*					llReturn = .T.
+*!*				Case lcFileType = 'JAVA' And loOptions.lIncludeJAVA
+*!*					llReturn = .T.
+*!*				Case lcFileType = 'JSP' And loOptions.lIncludeJSP
+*!*					llReturn = .T.
+*!*				Case lcFileType = 'XML' And loOptions.lIncludeXML
+*!*					llReturn = .T.
+*!*				Case lcFileType = 'TXT' And loOptions.lIncludeTXT
+*!*					llReturn = .T.
 
-			*-- Code based files ----------------------------------
-			Case lcFileType = 'PRG' And loOptions.lIncludePRG
-				llReturn = .T.
-			Case lcFileType = 'SPR' And loOptions.lIncludeSPR
-				llReturn = .T.
-			Case lcFileType = 'MPR' And loOptions.lIncludeMPR
-				llReturn = .T.
-			Case 'HTM' $ lcFileType And loOptions.lIncludeHTML
-				llReturn = .T.
-			Case lcFileType = 'H' And loOptions.lIncludeH
-				llReturn = .T.
-			Case lcFileType = 'ASP' And loOptions.lIncludeASP
-				llReturn = .T.
-			Case lcFileType = 'INI' And loOptions.lIncludeINI
-				llReturn = .T.
-			Case lcFileType = 'JAVA' And loOptions.lIncludeJAVA
-				llReturn = .T.
-			Case lcFileType = 'JSP' And loOptions.lIncludeJSP
-				llReturn = .T.
-			Case lcFileType = 'XML' And loOptions.lIncludeXML
-				llReturn = .T.
-			Case lcFileType = 'TXT' And loOptions.lIncludeTXT
-				llReturn = .T.
+*!*				*-- Lastly, is it match with other includes???
+*!*				Case (lcFileType $ Upper(loOptions.cOtherIncludes)) And !Empty(loOptions.cOtherIncludes)
+*!*					llReturn = .T.
+*!*				Otherwise
+*!*					llReturn = .F.
+*!*			Endcase
 
-			*-- Lastly, is it match with other includes???
-			Case (lcFileType $ Upper(loOptions.cOtherIncludes)) And !Empty(loOptions.cOtherIncludes)
-				llReturn = .T.
-			Otherwise
-				llReturn = .F.
-		Endcase
-
-		Return llReturn
+*!*			Return llReturn
 		
+		*-- Table-based Files --------------------------------------
+		IF INLIST(tcFileType, 'SCX', 'VCX', 'FRX', 'DBC', 'MNX', 'LBX', 'PJX')
+			RETURN ICASE(tcFileType = 'SCX', This.oSearchOptions.lIncludeSCX, ;
+						tcFileType = 'VCX', This.oSearchOptions.lIncludeVCX, ;
+						tcFileType = 'FRX', This.oSearchOptions.lIncludeFRX, ;
+						tcFileType = 'DBC', This.oSearchOptions.lIncludeDBC, ;
+						tcFileType = 'MNX', This.oSearchOptions.lIncludeMNX, ;
+						tcFileType = 'LBX', This.oSearchOptions.lIncludeLBX, ;
+						tcFileType = 'PJX', This.oSearchOptions.lIncludePJX, ;
+						.F.)		&& Last ".F." is a default value, in case one check is missing in this ICASE()
+		ENDIF 
+		
+		*-- Code based files ----------------------------------
+		IF INLIST(tcFileType, 'PRG', 'MPR', 'TXT', 'INI', 'H', 'XML', 'SPR', 'ASP', 'JSP', 'JAVA')
+			RETURN ICASE(tcFileType = 'PRG', This.oSearchOptions.lIncludePRG, ;
+						tcFileType = 'MPR', This.oSearchOptions.lIncludeMPR, ;
+						tcFileType = 'TXT', This.oSearchOptions.lIncludeTXT, ;
+						tcFileType = 'INI', This.oSearchOptions.lIncludeINI, ;
+						tcFileType = 'H', This.oSearchOptions.lIncludeH, ;
+						tcFileType = 'XML', This.oSearchOptions.lIncludeXML, ;
+						tcFileType = 'SPR', This.oSearchOptions.lIncludeSPR, ;
+						tcFileType = 'ASP', This.oSearchOptions.lIncludeASP, ;
+						tcFileType = 'JSP', This.oSearchOptions.lIncludeJSP, ;
+						tcFileType = 'JAVA', This.oSearchOptions.lIncludeJAVA, ;
+						.F.)		&& Last ".F." is a default value, in case one check is missing in this ICASE()
+		ENDIF 
+		
+		*-- Code based files (any HTM* file) ----------------------------------
+		IF 'HTM' $ tcFileType
+			RETURN This.oSearchOptions.lIncludeHTML
+		ENDIF 
+		
+		*-- Lastly, is it match with other includes???
+		IF tcFileType $ Upper(This.oSearchOptions.cOtherIncludes) And !Empty(This.oSearchOptions.cOtherIncludes)
+			RETURN .T.
+		ENDIF 
+		
+		*** No matching filetype found => so don´t include in this search!
+		RETURN .F.
 	EndProc
 
 
@@ -2365,12 +2415,9 @@ Define Class GoFishSearchEngine As Custom
 	Procedure IsFullLineComment(tcLine)
 
 		*-- See if the entire line is a comment
-		Local loMatches, loRegEx
+		Local loMatches
 
-		loRegEx = This.GetRegExForSearch()
-		loRegEx.Pattern = '^\s*(\*|NOTE|&' + '&)'
-
-		loMatches = loRegEx.Execute(tcLine)
+		loMatches = This.oRegExForCommentSearch.Execute(tcLine)
 
 		If loMatches.Count > 0
 			Return .T.
@@ -3533,16 +3580,6 @@ Define Class GoFishSearchEngine As Custom
 			Return 0
 		Endif
 
-		ldFileDate = This.GetFileDateTime(tcFile)
-
-		ldFromDate = Evl(This.oSearchOptions.dTimeStampFrom, {^1900-01-01})
-		ldToDate = Evl(This.oSearchOptions.dTimeStampTo, {^9999-01-01})
-		ldToDate = ldToDate + 1 &&86400 && Must bump into to next day, since TimeStamp from table has time on it
-
-		If This.oSearchOptions.lTimeStamp And !Between(ldFileDate, ldFromDate, ldToDate)
-			Return 0
-		Endif
-
 		*-- Be sure that oRegExForSearch has been setup... Use This.PrepareRegExForSearch() or roll-your-own
 		Try
 			loMatches = This.oRegExForSearch.Execute(Justfname(tcFile))
@@ -3558,6 +3595,16 @@ Define Class GoFishSearchEngine As Custom
 		Endif
 
 		If lnMatchCount = 0 And !Empty(This.oSearchOptions.cSearchExpression)
+			Return 0
+		ENDIF
+		
+		ldFileDate = This.GetFileDateTime(tcFile)
+		
+		ldFromDate = Evl(This.oSearchOptions.dTimeStampFrom, {^1900-01-01})
+		ldToDate = Evl(This.oSearchOptions.dTimeStampTo, {^9999-01-01})
+		ldToDate = ldToDate + 1 &&86400 && Must bump into to next day, since TimeStamp from table has time on it
+
+		If This.oSearchOptions.lTimeStamp And !Between(ldFileDate, ldFromDate, ldToDate)
 			Return 0
 		Endif
 
@@ -3744,6 +3791,10 @@ Define Class GoFishSearchEngine As Custom
 		This.StartTimer()
 		This.StartProgressBar(Alen(laProjectFiles) / 2.0)
 
+		*** Uncomment this code to track the execution time for the result
+*!*			LOCAL nSeconds
+*!*			nSeconds = SECONDS()
+		
 		For lnX = 1 To Alen(laProjectFiles) Step 2
 
 			lcFile = laProjectFiles(lnX)
@@ -3765,6 +3816,9 @@ Define Class GoFishSearchEngine As Custom
 			Endif
 
 		Endfor
+		
+		*** Uncomment this code to show used execution time for the result
+*!*			MESSAGEBOX(ALLTRIM(STR((SECONDS()-nSeconds)*1000)) + " ms")
 
 		This.SearchFinished(lnSelect)
 
