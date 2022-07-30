@@ -1156,9 +1156,6 @@ Define Class GoFishSearchEngine As Custom
 				Do Case
 					Case m.lcExt = 'SCX'
 						lcClass = ''
-						*If Lower(Alltrim(&tcCursor..Baseclass)) <> 'form'
-						lcMethodString = 'x.' + m.lcMethodString
-						*EndIf
 
 					Case m.lcExt = 'VCX'
 						If m.lcName = m.lcClass
@@ -1748,7 +1745,7 @@ Define Class GoFishSearchEngine As Custom
 	*----------------------------------------------------------------------------------
 	Procedure GetFileDateTime(tcFile)
 
-		Local lcFileName, loFile, lcExt
+		Local ldFileDate, loFile, lcExt
 
 		ldFileDate = {// ::}
 		lcExt = Upper(Justext(tcFile))
@@ -3892,9 +3889,7 @@ Define Class GoFishSearchEngine As Custom
 
 			If m.lcExt = 'DBC'
 				lcObjectType = Alltrim(Upper(ObjectType))
-				If Type('objectname') = 'U'&& or;
-					* 'OBJECT' $ Upper(objectname) or		;
-					InList(lcObjectType, 'FIELD', 'VIEW', 'TABLE')
+				If Type('objectname') = 'U'
 					Loop
 				Endif
 			Endif
@@ -3969,12 +3964,6 @@ Define Class GoFishSearchEngine As Custom
 						Case m.lcExt = 'SCX'
 
 							._Class = ''
-
-							If Not Empty(m.lcParent)
-								._Name = Strtran(._Name, m.lcFormName + '.', '', 1, 1) && Trim off Form name from the beginning of object name
-							Else
-								._Name = ''
-							Endif
 
 						Case m.lcExt = 'VCX'
 
@@ -4303,8 +4292,6 @@ Define Class GoFishSearchEngine As Custom
 	*----------------------------------------------------------------------------------
 	Procedure SetSearchError(tcErrorMessage, tnDialogBoxType, tcTitle)
 
-		* This.ShowError(tcErrorMessage, tnDialogBoxType, tcTitle)
-
 		This.oSearchErrors.Add(tcErrorMessage)
 		
 	EndProc
@@ -4321,9 +4308,6 @@ Define Class GoFishSearchEngine As Custom
 
 		lnDialogBoxType	= Evl(tnDialogBoxType, 0)
 		lcTitle					= Evl(tcTitle, 'GoFishSearchEngine Error:')
-
-		*!* ******************** Removed 11/10/2015 *****************
-		*!* MessageBox(tcErrorMessage, lnDialogBoxType, lcTitle)
 		
 	EndProc
 
