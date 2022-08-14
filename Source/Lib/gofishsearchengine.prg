@@ -1653,9 +1653,11 @@ Define Class GoFishSearchEngine As Custom
 
 			lcHtmlBody = lcLeft + lcMatchLine + lcReplaceLine + lcRight &&Build the body
 
-			If 'C' = Vartype(tcSearch) And Not Empty(tcSearch)
-				lcHtmlBody = This.HighlightProcFilter(lcHtmlBody, tcSearch, lcMatchWordPrefix, lcMatchWordSuffix)
-			Endif
+			*!* ******************** Removed 08/14/2022 *****************
+			*!* Highlighting for the search results is already done in "RegExReplace()"
+			*!* If 'C' = Vartype(tcSearch) And Not Empty(tcSearch)
+			*!* 	lcHtmlBody = This.HighlightProcFilter(lcHtmlBody, tcSearch, lcMatchWordPrefix, lcMatchWordSuffix)
+			*!* Endif
 
 			If 'C' = Vartype(tcStatementFilter) And Not Empty(tcStatementFilter)
 				lcHtmlBody = This.HighlightProcFilter(lcHtmlBody, tcStatementFilter, lcMatchWordPrefix, lcMatchWordSuffix)
