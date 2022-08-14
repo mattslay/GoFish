@@ -1,5 +1,9 @@
 GoFish Change Log
 
+** Ver 5.0.205 ** Released 2022-XX-XX
+* - Fixed: When the results are shown and the order of the results is changed by clicking the header of column "Proccode", "Statement" or "Code" then the error "SQL: ORDER BY clause in invalid" was thrown. This was fixed by also excluding these columns in the functions "SortColumn" and "SortColumSecondary".
+* - Fixed: When the search option "Whole word" was active then it could happen that too many higlightings where shown in the HTML preview. This affected only lines with an appropiate result (matching "Whole word") and having another inappropiate result (not matching "Whole word).
+
 ** Ver 5.0.204 ** Released 2022-XX-XX
 * - Improved: Some changes were made to "gofishsearchengine.prg" so that GF can wrap up the results even faster.
 
