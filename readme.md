@@ -1,5 +1,5 @@
 # GoFish 5.0 
-_ver 5.0.201   released 2022-05-19_
+_ver 5.0.205   released 2022-08-16_
 
 ## GoFish is an advanced code search tool for fast searching and replacing of Visual FoxPro source code.
 
@@ -130,6 +130,13 @@ Can specify a filename temple (i.e.  `job*` )
 See [How to contribute to GoFish](.github/CONTRIBUTING.md) for details on how to help with this project.
 
 ## Release history
+**Ver 5.0.205** Released 2022-08-16
+* Fixed: When the results are shown and the order of the results is changed by clicking the header of column "Proccode", "Statement" or "Code" then the error "SQL: ORDER BY clause in invalid" was thrown. This was fixed by also excluding these columns in the functions "SortColumn" and "SortColumSecondary".
+* Fixed: When the search option "Whole word" was active then it could happen that too many higlightings where shown in the HTML preview. This affected only lines with an appropiate result (matching "Whole word") and having another inappropiate result (not matching "Whole word).
+* Improved: Some changes were made to "gofishsearchengine.prg" so that GF can wrap up the results even faster.
+* Fixed: On clicking "Edit" to open the file of the selected result could lead to error "Variable 'CR' is not found.".
+* Fixed: For results that are part of a class-container and used in a form with a formset GF showed a wrong "name" (or you may call it "path") in the results. 
+* Improved: When clicking "Edit" to open a form or class of the selected result and this file could not be opened then nothing happened. From now on GF will tell you that the file can´t be opened and why not.
 
 **Ver 5.0.202** Released 2022-06-24
 * Made the setting of Desktop for the main GoFish form an option
