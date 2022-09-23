@@ -1,5 +1,5 @@
 # GoFish 5.0 
-_ver 5.0.205   released 2022-08-16_
+_ver 5.0.206   released 2022-09-23_
 
 ## GoFish is an advanced code search tool for fast searching and replacing of Visual FoxPro source code.
 
@@ -130,6 +130,10 @@ Can specify a filename temple (i.e.  `job*` )
 See [How to contribute to GoFish](.github/CONTRIBUTING.md) for details on how to help with this project.
 
 ## Release history
+
+**Ver 5.0.206** Released 2022-09-23
+* Fixed: The View Replace History button wasn't working because of a renamed file.
+
 **Ver 5.0.205** Released 2022-08-16
 * Fixed: When the results are shown and the order of the results is changed by clicking the header of column "Proccode", "Statement" or "Code" then the error "SQL: ORDER BY clause in invalid" was thrown. This was fixed by also excluding these columns in the functions "SortColumn" and "SortColumSecondary".
 * Fixed: When the search option "Whole word" was active then it could happen that too many higlightings where shown in the HTML preview. This affected only lines with an appropiate result (matching "Whole word") and having another inappropiate result (not matching "Whole word).
