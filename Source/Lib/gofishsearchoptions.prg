@@ -127,6 +127,46 @@ Define Class GoFishSearchOptions As Custom
 	nSearchScope                           = 1
 
 	*---------------------------------------------------------------------
+
+	
+*SF 120221015 New options
+* colours in result from
+    * frame colour for several containers, in case red is something you do not see
+    nContainerFrameColour                  = RGB(255,  0,  0)
+    
+    * Grid, dynamic fore colour file type SCX
+    nFileSCXDynamicForeColour              = RGB(  0,  0,128)
+    * Grid, dynamic fore colour file type VCX
+    nFileVCXDynamicForeColour              = RGB(  0,128,  0)
+    * Grid, dynamic fore colour file type PRG
+    nFilePRGDynamicForeColour              = RGB(255,  0,  0)
+    * Grid, dynamic fore colour file type Default
+    nFileDefaultDynamicForeColour          = RGB(  0,  0,  0)
+    
+    * Grid, dynamic back colour replaced
+    nReplacedDynamicBackColour             = RGB(149,249,147)
+    * Grid, dynamic back colour replace risk exceeds setting
+    nRiskExceededDynamicBackColour         = Rgb(210,210,210)
+    * Grid, dynamic back colour replace risk value 2
+    nRisk2DynamicBackColour                = Rgb(255,255,128)
+    * Grid, dynamic back colour replace risk value 3
+    nRisk3DynamicBackColour                = Rgb(255,192,  0)
+
+    * Tree colour while searching
+    nTreeSearchColour                      = RGB(  0,128,  0)
+    * Tree colour while updateing?
+    nTreeUpdateColour                      = RGB(128,  0,  0)
+
+    * CSS für tr:even
+    nCSS_tr_even_Colour                    = RGB(0xa8,0xfa,0xf4)
+    * CSS für tr:odd
+    nCSS_tr_odd_Colour                     = RGB(0xD1,0xF1,0xEF)
+
+* switch to prevent moving code window
+	lMoveNewCodeToTopLeft                  = .T.
+
+*/SF 120221015 new options
+	
 	Procedure lRegularExpression_Access
 	
 		Return (This.nSearchMode = GF_SEARCH_MODE_REGEX)

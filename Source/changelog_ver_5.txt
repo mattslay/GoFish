@@ -1,7 +1,13 @@
 GoFish Change Log
 
-**Ver 5.0.206** Released 2022-09-23
+**Ver 5.0.208** Released 2022-10-16
+* Improved: Added options to allow control of several colours
+
+**Ver 5.0.206** Released 2022-10-16
 * Fixed: The View Replace History button wasn't working because of a renamed file.
+
+**Ver 5.0.207** Released 2022-10-16
+* Improved: Added option to allow code window to be opened at stored position. (Option: Open code windows at top left corner)
 
 **Ver 5.0.205** Released 2022-08-16
 * Fixed: When the results are shown and the order of the results is changed by clicking the header of column "Proccode", "Statement" or "Code" then the error "SQL: ORDER BY clause in invalid" was thrown. This was fixed by also excluding these columns in the functions "SortColumn" and "SortColumSecondary".
