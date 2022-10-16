@@ -1128,7 +1128,7 @@ Define Class GoFishSearchEngine As Custom
 
 
 	*----------------------------------------------------------------------------------
-	Procedure EditFromCurrentRow(tcCursor, tlSelectObjectOnly)
+	Procedure EditFromCurrentRow(tcCursor, tlSelectObjectOnly, tlMoveToTopleft)
 
 		Local loPBT As 'GF_PEME_BaseTools'
 		Local lcClass, lcCodeBLock, lcExt, lcFileToEdit, lcMatchType, lcMethod, lcMethodString, lcName
@@ -1218,7 +1218,7 @@ Define Class GoFishSearchEngine As Custom
 
 		m.loPBT.EditSourceX(m.lcFileToEdit, m.lcClass, m.lnStart, m.lnStart, m.lcMethodString, m.lnRecNo)
 
-		If m.lcExt = 'PRG' Or Not Empty(m.lcMethodString)
+		If m.tlMoveToTopleft AND (m.lcExt = 'PRG' Or Not Empty(m.lcMethodString))
 			This.ThorMoveWindow()
 		Endif
 		

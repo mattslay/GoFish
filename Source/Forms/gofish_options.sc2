@@ -55,6 +55,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 	*< OBJECTDATA: ObjPath="pfSettings.pagePreferences.Label9" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.pagePreferences.Spinner6" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.pagePreferences.chkDesktop" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pagePreferences.Check9" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.pageAdvanced.List1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.pageAdvanced.Label1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.pageAdvanced.Label2" UniqueID="" Timestamp="" />
@@ -641,7 +642,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		RowSource = "0 - Does not support docking,0,1 - Supports docking and is dockable,1,2 - Supports docking and is not dockable,2", ;
 		RowSourceType = 1, ;
 		Style = 2, ;
-		TabIndex = 1, ;
+		TabIndex = 2, ;
 		Top = 30, ;
 		Width = 305
 		*< END OBJECT: BaseClass="combobox" />
@@ -753,9 +754,23 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Height = 17, ;
 		Left = 28, ;
 		Name = "Check8", ;
-		TabIndex = 12, ;
+		TabIndex = 11, ;
 		Top = 239, ;
 		Width = 287
+		*< END OBJECT: BaseClass="checkbox" />
+
+	ADD OBJECT 'pfSettings.pagePreferences.Check9' AS checkbox WITH ;
+		Alignment = 0, ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Open code windows at top left corner", ;
+		ControlSource = "Thisform.oSearchOptions.lMoveNewCodeToTopLeft", ;
+		Height = 17, ;
+		Left = 28, ;
+		Name = "Check9", ;
+		TabIndex = 14, ;
+		Top = 287, ;
+		Width = 220
 		*< END OBJECT: BaseClass="checkbox" />
 
 	ADD OBJECT 'pfSettings.pagePreferences.chkDesktop' AS checkbox WITH ;
@@ -778,8 +793,8 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Height = 22, ;
 		Left = 308, ;
 		Name = "cmdZoomDefault", ;
-		TabIndex = 20, ;
-		Top = 330, ;
+		TabIndex = 21, ;
+		Top = 354, ;
 		Width = 71
 		*< END OBJECT: BaseClass="commandbutton" />
 
@@ -791,7 +806,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Picture = ..\..\2015-10-25 beta jrn\images\browsefolder.bmp, ;
 		PicturePosition = 1, ;
 		SpecialEffect = 0, ;
-		TabIndex = 11, ;
+		TabIndex = 12, ;
 		ToolTipText = "Open Explorer window to this path.", ;
 		Top = 235, ;
 		Width = 118
@@ -804,7 +819,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Height = 17, ;
 		Left = 21, ;
 		Name = "Label1", ;
-		TabIndex = 2, ;
+		TabIndex = 1, ;
 		Top = 33, ;
 		Width = 54
 		*< END OBJECT: BaseClass="label" />
@@ -815,8 +830,8 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Height = 18, ;
 		Left = 88, ;
 		Name = "Label2", ;
-		TabIndex = 16, ;
-		Top = 302, ;
+		TabIndex = 17, ;
+		Top = 326, ;
 		Width = 103
 		*< END OBJECT: BaseClass="label" />
 
@@ -826,8 +841,8 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Height = 18, ;
 		Left = 88, ;
 		Name = "Label3", ;
-		TabIndex = 24, ;
-		Top = 364, ;
+		TabIndex = 25, ;
+		Top = 388, ;
 		Width = 311
 		*< END OBJECT: BaseClass="label" />
 
@@ -851,9 +866,9 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Height = 17, ;
 		Left = 84, ;
 		Name = "Label5", ;
-		TabIndex = 28, ;
+		TabIndex = 29, ;
 		ToolTipText = "Search will automatically stop once this number of mached lines it reached.", ;
-		Top = 434, ;
+		Top = 458, ;
 		Width = 191
 		*< END OBJECT: BaseClass="label" />
 
@@ -863,8 +878,8 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Height = 18, ;
 		Left = 88, ;
 		Name = "Label6", ;
-		TabIndex = 26, ;
-		Top = 395, ;
+		TabIndex = 27, ;
+		Top = 419, ;
 		Width = 396
 		*< END OBJECT: BaseClass="label" />
 
@@ -874,8 +889,8 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Height = 18, ;
 		Left = 88, ;
 		Name = "Label7", ;
-		TabIndex = 21, ;
-		Top = 333, ;
+		TabIndex = 22, ;
+		Top = 357, ;
 		Width = 217
 		*< END OBJECT: BaseClass="label" />
 
@@ -885,8 +900,8 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Height = 18, ;
 		Left = 290, ;
 		Name = "Label8", ;
-		TabIndex = 17, ;
-		Top = 303, ;
+		TabIndex = 18, ;
+		Top = 327, ;
 		Width = 103
 		*< END OBJECT: BaseClass="label" />
 
@@ -896,8 +911,8 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Height = 18, ;
 		Left = 482, ;
 		Name = "Label9", ;
-		TabIndex = 22, ;
-		Top = 334, ;
+		TabIndex = 23, ;
+		Top = 358, ;
 		Width = 103
 		*< END OBJECT: BaseClass="label" />
 
@@ -920,8 +935,8 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Name = "Spinner1", ;
 		SpinnerHighValue = 24.00, ;
 		SpinnerLowValue = 6.00, ;
-		TabIndex = 14, ;
-		Top = 297, ;
+		TabIndex = 15, ;
+		Top = 321, ;
 		Width = 59
 		*< END OBJECT: BaseClass="spinner" />
 
@@ -934,8 +949,8 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Name = "Spinner2", ;
 		SpinnerHighValue = 100.00, ;
 		SpinnerLowValue = 5.00, ;
-		TabIndex = 23, ;
-		Top = 359, ;
+		TabIndex = 24, ;
+		Top = 383, ;
 		Width = 59
 		*< END OBJECT: BaseClass="spinner" />
 
@@ -948,8 +963,8 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Name = "Spinner3", ;
 		SpinnerHighValue = 100.00, ;
 		SpinnerLowValue = 1.00, ;
-		TabIndex = 25, ;
-		Top = 390, ;
+		TabIndex = 26, ;
+		Top = 414, ;
 		Width = 59
 		*< END OBJECT: BaseClass="spinner" />
 
@@ -963,8 +978,8 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Name = "Spinner4", ;
 		SpinnerHighValue = 2.00, ;
 		SpinnerLowValue = 0.70, ;
-		TabIndex = 18, ;
-		Top = 328, ;
+		TabIndex = 19, ;
+		Top = 352, ;
 		Value = 0.1, ;
 		Width = 59
 		*< END OBJECT: BaseClass="spinner" />
@@ -978,8 +993,8 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Name = "Spinner5", ;
 		SpinnerHighValue = 24.00, ;
 		SpinnerLowValue = 6.00, ;
-		TabIndex = 15, ;
-		Top = 298, ;
+		TabIndex = 16, ;
+		Top = 322, ;
 		Width = 59
 		*< END OBJECT: BaseClass="spinner" />
 
@@ -992,8 +1007,8 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Name = "Spinner6", ;
 		SpinnerHighValue = 10.00, ;
 		SpinnerLowValue = 0.00, ;
-		TabIndex = 19, ;
-		Top = 329, ;
+		TabIndex = 20, ;
+		Top = 353, ;
 		Width = 59
 		*< END OBJECT: BaseClass="spinner" />
 
@@ -1003,8 +1018,8 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		InputMask = "9999999", ;
 		Left = 22, ;
 		Name = "Text1", ;
-		TabIndex = 27, ;
-		Top = 430, ;
+		TabIndex = 28, ;
+		Top = 454, ;
 		Width = 59
 		*< END OBJECT: BaseClass="textbox" />
 
