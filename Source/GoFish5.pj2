@@ -53,6 +53,7 @@ _Interface = '{2A143BCB-9F65-4E7E-9C30-8E0955A38E8E}'
 *</ServerData>
 
 *<BuildProj>
+*<.HomeDir = 'c:\users\dhenn\desktop\gofish\source' />
 
 FOR EACH loProject IN _VFP.Projects FOXOBJECT
 	loProject.Close()

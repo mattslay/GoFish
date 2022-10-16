@@ -3456,6 +3456,7 @@ DEFINE CLASS gf_resultsform AS form
 		*m: setproject
 		*m: setscope
 		*m: setsearchexpression
+		*m: set_gridcolour		&& Set the colours for the grid, moved to load options
 		*m: showadvancedform
 		*m: showcodeforcurrentrow
 		*m: showerrors
@@ -4176,7 +4177,7 @@ DEFINE CLASS gf_resultsform AS form
 		Name = "oTreeView", ;
 		Top = 0, ;
 		Width = 186
-		*< END OBJECT: BaseClass="olecontrol" OLEObject="c:\windows\syswow64\mscomctl.ocx" Value="0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAEAAAAgAAAAEAAAD+////AAAAAAAAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9/////v////7///8EAAAA/v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////1IAbwBvAHQAIABFAG4AdAByAHkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAUA//////////8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADC2Mo4k4dgBAwAAAEACAAAAAAAAAwBPAGwAZQBPAGIAagBlAGMAdABEAGEAdABhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAgEDAAAAAgAAAP////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAagAAAAAAAAADAEEAYwBjAGUAcwBzAE8AYgBqAFMAaQB0AGUARABhAHQAYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgACAP///////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABcAAAAAAAAAAMAQwBoAGEAbgBnAGUAZABQAHIAbwBwAHMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAIA////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAACABAAAAAAAABAAAAAIAAAD+////BQAAAP7///8GAAAABwAAAAgAAAD+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+2kEHHiYXREbFqAMDwKDYoIUM0EggAAAA5EwAABTUAALE8wWoBAAYAIgAAABkAAAARAgAACgAAAAEAAAAB782rXAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACQAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5MzY4MjY1RS04NUZFLTExZDEtOEJFMy0wMDAwRjg3NTREQTEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACADgAAAEhpZGVTZWxlY3Rpb24ABQAAAEwAAAAADAAAAEluZGVudGF0aW9uABEAAABODQAAAAcAAAAAAAAAAAAFAABH1wAGAAAAAAAAAAUAAIA44BkAAQAAAFwAH97svQEABQCA4BkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANEAKAAAATGluZVN0eWxlAAkAAABJCgAAAAEAAAANAAAATW91c2VQb2ludGVyAAkAAABJCgAAAAAAAAAOAAAAUGF0aFNlcGFyYXRvcgAKAAAASAAAAAABAAAAXAYAAABTdHlsZQAJAAAASQoAAAAGAAAADAAAAE9MRURyYWdNb2RlAAkAAABJCgAAAAAAAAAMAAAAT0xFRHJvcE1vZGUACQAAAEkKAAAAAAAAAA4AAABGdWxsUm93U2VsZWN0AAUAAABMAQAAAAoAAABTaW5nbGVTZWwABQAAAEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+		*< END OBJECT: BaseClass="olecontrol" OLEObject="c:\windows\syswow64\mscomctl.ocx" Value="0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAEAAAAgAAAAEAAAD+////AAAAAAAAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9/////v////7///8EAAAA/v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////1IAbwBvAHQAIABFAG4AdAByAHkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAUA//////////8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFBUveVg4dgBAwAAAEACAAAAAAAAAwBPAGwAZQBPAGIAagBlAGMAdABEAGEAdABhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAgEDAAAAAgAAAP////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAagAAAAAAAAADAEEAYwBjAGUAcwBzAE8AYgBqAFMAaQB0AGUARABhAHQAYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgACAP///////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABcAAAAAAAAAAMAQwBoAGEAbgBnAGUAZABQAHIAbwBwAHMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAIA////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAACABAAAAAAAABAAAAAIAAAD+////BQAAAP7///8GAAAABwAAAAgAAAD+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+2kEHHiYXREbFqAMDwKDYoIUM0EggAAAA5EwAABTUAALE8wWoBAAYAIgAAABkAAAARAgAACgAAAAEAAAAB782rXAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACQAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5MzY4MjY1RS04NUZFLTExZDEtOEJFMy0wMDAwRjg3NTREQTEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACADgAAAEhpZGVTZWxlY3Rpb24ABQAAAEwAAAAADAAAAEluZGVudGF0aW9uABEAAABODQAAAAcAAAAAAAAAAAAFAOgO7AAGAAAAAAAAAAUAAIA44BkAAQAAAFwAH97svQEABQCA4BkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANEAKAAAATGluZVN0eWxlAAkAAABJCgAAAAEAAAANAAAATW91c2VQb2ludGVyAAkAAABJCgAAAAAAAAAOAAAAUGF0aFNlcGFyYXRvcgAKAAAASAAAAAABAAAAXAYAAABTdHlsZQAJAAAASQoAAAAGAAAADAAAAE9MRURyYWdNb2RlAAkAAABJCgAAAAAAAAAMAAAAT0xFRHJvcE1vZGUACQAAAEkKAAAAAAAAAA4AAABGdWxsUm93U2VsZWN0AAUAAABMAQAAAAoAAABTaW5nbGVTZWwABQAAAEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
 
 	ADD OBJECT 'containerRight' AS container WITH ;
 		Anchor = 15, ;
@@ -6247,7 +6248,10 @@ DEFINE CLASS gf_resultsform AS form
 			lcScope = Alltrim(Lower(Thisform.comboSearchScopeHistory.text))
 		
 			lcMessage = 'Searching...'
-			Thisform.PopulateTreeview(lcMessage , 32768)
+		*SF 20221016 added colour options
+		*	Thisform.PopulateTreeview(lcMessage , 32768)
+			Thisform.PopulateTreeview(lcMessage , Thisform.oSearchOptions.nTreeSearchColour)
+		*/ SF 20221016 added colour options
 			Thisform.ShowHtml('<h3>&nbsp;&nbsp;&nbsp;' + lcMessage + '</h3>')
 		
 			loSearchEngine.oProgressBar = ThisForm.ProgressBar 
@@ -6599,9 +6603,15 @@ DEFINE CLASS gf_resultsform AS form
 		
 		loColumn = loGrid.FindColumn('TrimmedReplaceLine')
 		loColumn.Header1.caption = 'Replace Line'
-		lcDynamicBackColor = "ICase(replaced, RGB(149,249,147), replacerisk > Thisform.nReplaceRisk, Rgb(210,210,210), Rgb(255,255,255))"
+		*SF 20221016 added colour options
+		*lcDynamicBackColor = "ICase(replaced, RGB(149,249,147), replacerisk > Thisform.nReplaceRisk, Rgb(210,210,210), Rgb(255,255,255))"
+		lcDynamicBackColor = "ICase(" +;
+		"replaced, " + PADR(Thisform.oSearchOptions.nReplacedDynamicBackColour,8) + ", " +;
+		"replacerisk > Thisform.nReplaceRisk, " + PADR(Thisform.oSearchOptions.nRiskExceededDynamicBackColour,8) + ", " +;
+		"Rgb(255,255,255))"
 		loColumn.DynamicBackColor = lcDynamicBackColor 
 		loColumn.Width = 200
+		*/ SF 20221016 added colour options
 		
 		loColumn = loGrid.FindColumn('Matchtype')
 		loColumn.Header1.caption = 'Match Type'
@@ -6734,7 +6744,13 @@ DEFINE CLASS gf_resultsform AS form
 		Thisform.nReplaceRisk = 99
 		
 		lcReplaceColumnDynamicCurrentControl = "ICase(replaced = .t., 'imageCheck', (replacerisk <= Thisform.nReplaceRisk) and (Thisform.nReplaceMode # 2), 'check1', 'label1')"
-		lcReplaceColumnDynamicBackgroundColor = "ICase(replacerisk = 2, RGB(255,255,128), replacerisk = 3 and Thisform.nReplaceRisk = 3, Rgb(255,192,0), Rgb(255,255,255))"
+		*SF 20221016 added colour options
+		*lcReplaceColumnDynamicBackgroundColor = "ICase(replacerisk = 2, RGB(255,255,128), replacerisk = 3 and Thisform.nReplaceRisk = 3, Rgb(255,192,0), Rgb(255,255,255))"
+		lcReplaceColumnDynamicBackgroundColor = "ICase(" +;
+		"replacerisk = 2, " + PADR(Thisform.oSearchOptions.nRisk2DynamicBackColour,8) + ", " +;
+		"replacerisk = 3 and Thisform.nReplaceRisk = 3, " + PADR(Thisform.oSearchOptions.nRisk3DynamicBackColour,8) + ", " +;
+		"Rgb(255,255,255))"
+		*/ SF 20221016 added colour options
 		
 		If this.lInit
 			Thisform.oGrid.Setfocus() && It's important for the grid to have focus as these next settings below are applied
@@ -7312,46 +7328,59 @@ DEFINE CLASS gf_resultsform AS form
 		*SF 20221015
 		* --- colours used for showing informations ---
 		* should be set in settings dialog
-		#if .F. THEN
-		*Hintergrundfarben Bordercolor
-		*ButtonContainer.Container1	RGB(255,  0,  0)	->	 nContainerFrameColour
-		*ButtonContainer.Container2	RGB(255,  0,  0)	->	 nContainerFrameColour
-		*ButtonContainer.Container3	RGB(255,  0,  0)	->	 nContainerFrameColour
+		THIS.ButtonContainer.Container1.BorderColor = Thisform.oSearchOptions.nContainerFrameColour
+		THIS.ButtonContainer.Container2.BorderColor = Thisform.oSearchOptions.nContainerFrameColour
+		THIS.ButtonContainer.Container3.BorderColor = Thisform.oSearchOptions.nContainerFrameColour
 		
-		*containerRight.Container1.Container1	RGB(255,  0,  0)	->	 nContainerFrameColour
-		*-> schaltbar in containerRight.Container1.Container1.Refresh	RGB(255,  0,  0)/RGB(  0,  0,  0)
-		*containerRight.Container1.Container2	RGB(255,  0,  0)	->	 nContainerFrameColour
+		THIS.containerRight.Container1.Container1.BorderColor = Thisform.oSearchOptions.nContainerFrameColour
+		THIS.containerRight.Container1.Container2.BorderColor = Thisform.oSearchOptions.nContainerFrameColour
+		
+		this.Set_GridColour()
+		This.FormatGrid()
+		
+		#if .F. THEN
+		*Thisform.oSearchOptions.nOption
+		
+		*Hintergrundfarben Bordercolor
+		**ButtonContainer.Container1	RGB(255,  0,  0)	->	 nContainerFrameColour
+		**ButtonContainer.Container2	RGB(255,  0,  0)	->	 nContainerFrameColour
+		**ButtonContainer.Container3	RGB(255,  0,  0)	->	 nContainerFrameColour
+		
+		**containerRight.Container1.Container1	RGB(255,  0,  0)	->	 nContainerFrameColour
+		**-> schaltbar in containerRight.Container1.Container1.Refresh	RGB(255,  0,  0)/RGB(  0,  0,  0)
+		**containerRight.Container1.Container2	RGB(255,  0,  0)	->	 nContainerFrameColour
 		
 		*containerRight.Container1.GridFiles.Init (DynamicForeColor)
-		*	lcSCXColor		RGB(  0,  0,128)	-> nFileSCXDynamicForeColour
-		*	lcVCXColor		RGB(  0,128,  0)	-> nFileVCXDynamicForeColour
-		*	lcPRGColor		RGB(255,  0,  0)	-> nFilePRGDynamicForeColour
-		*	Default Color	RGB(  0,  0,  0)	-> nFileDefaultDynamicForeColour
+		* -> set on change?
+		**	lcSCXColor		RGB(  0,  0,128)	-> nFileSCXDynamicForeColour
+		**	lcVCXColor		RGB(  0,128,  0)	-> nFileVCXDynamicForeColour
+		**	lcPRGColor		RGB(255,  0,  0)	-> nFilePRGDynamicForeColour
+		**	Default Color	RGB(  0,  0,  0)	-> nFileDefaultDynamicForeColour
 		
 		* containerRight.Container1.containerReplaceText BackColor	RGB(199,226,254) (ignored)
 		
-		formatgrid -> loGrid.FindColumn('TrimmedReplaceLine')
-		lcDynamicBackColor = "ICase(replaced, RGB(149,249,147), replacerisk > Thisform.nReplaceRisk, Rgb(210,210,210), Rgb(255,255,255))"
+		**formatgrid -> loGrid.FindColumn('TrimmedReplaceLine')
+		*lcDynamicBackColor = "ICase(replaced, RGB(149,249,147), replacerisk > Thisform.nReplaceRisk, Rgb(210,210,210), Rgb(255,255,255))"
 		
-		*replaced, RGB(149,249,147)								->	nFileReplacedDynamicBackColour
-		*replacerisk > Thisform.nReplaceRisk, Rgb(210,210,210)	->	nFileRiskExceededDynamicBackColour
+		**replaced, RGB(149,249,147)								->	nReplacedDynamicBackColour
+		**replacerisk > Thisform.nReplaceRisk, Rgb(210,210,210)	->	nRiskExceededDynamicBackColour
 		
-		formatprocesscolumn
+		**formatprocesscolumn
 		lcReplaceColumnDynamicBackgroundColor = "ICase(replacerisk = 2, RGB(255,255,128), replacerisk = 3 and Thisform.nReplaceRisk = 3, Rgb(255,192,0), Rgb(255,255,255))"
-		*replacerisk = 2, RGB(255,255,128),								->	nFileRisk2DynamicBackColour
-		*replacerisk = 3 and Thisform.nReplaceRisk = 3, Rgb(255,192,0),	->	nFileRisk3DynamicBackColour
+		**replacerisk = 2, RGB(255,255,128),								->	nRisk2DynamicBackColour
+		**replacerisk = 3 and Thisform.nReplaceRisk = 3, Rgb(255,192,0),	->	nRisk3DynamicBackColour
 		*Rgb(255,255,255))"
 		
 		
 		*PopulateTreeview
-		*from DoSearch 32768 RGB(0,128,0)		->	nTreeSearchColour
-		*from updatetreeview 128 RGB(128,0,0)	->	nTreeUpdateColour
+		**from DoSearch 32768 RGB(0,128,0)		->	nTreeSearchColour
+		**from updatetreeview 128 RGB(128,0,0)	->	nTreeUpdateColour
 		
-		viewreport (script)
-			   $("tr:even").css("background-color", "#F4F4A8");		RGB(0xa8,0xfa,0xf4)
-			   $("tr:odd").css("background-color", "#EFF1D1");})	RGB(0xD1,0xF1,0xEF)
+		**viewreport (script)
+		**	   $("tr:even").css("background-color", "#F4F4A8");		RGB(0xa8,0xfa,0xf4)	->	nCSS_tr_even_Colour
+		**	   $("tr:odd").css("background-color", "#EFF1D1");})	RGB(0xD1,0xF1,0xEF)	->	nCSS_tr_odd_Colour
 		
-		EditFromCurrentRow
+		**EditFromCurrentRow
 		
 		#ENDIF &&.F. 
 		* --- /colours used for showing informations ---
@@ -8465,6 +8494,68 @@ DEFINE CLASS gf_resultsform AS form
 		Thisform.Refresh()
 	ENDPROC
 
+	PROCEDURE set_gridcolour		&& Set the colours for the grid, moved to load options
+		Local lcFormatGridPrg, lcPRG, lcPRGColor, lcResultsCursor, lcSCX, lcSCXColor, lcVCX, lcVCXColor, lcDefaultColor, lcAppPath
+		
+		lcResultsCursor = Thisform.cSearchResultsAlias
+		
+		lcFormatGridPrg = 'GoFish_FormatGrid.PRG'
+		
+		* First choice: Thor
+		If Type('_Screen.cThorDispatcher') = 'C'
+			lcFileName = Execscript(_Screen.cThorDispatcher, 'Full Path=Thor_Proc_GoFish_FormatGrid.PRG')
+			If (Not Isnull(m.lcFileName)) and File(lcFileName)
+				lcFormatGridPrg = m.lcFileName
+			Endif
+		Endif
+		
+		
+		If !File(lcFormatGridPrg) && If not found in the VFP path
+			lcFormatGridPrg = Addbs(_screen._gofish.capppath) + lcFormatGridPrg && Look for it in the GoFish folder.
+		EndIf
+		
+		If File (lcFormatGridPrg) && Call user file to assign colors, if present, otherwise use default
+		      Do (lcFormatGridPrg) with Thisform.oGrid, lcResultsCursor
+		Else
+		
+		*SF 20221016 added colour options
+			lcSCX = 'Upper(' + lcResultsCursor + '.filetype) = "SCX"'
+		*	lcSCXColor = 'RGB(0,0,128)'
+			lcSCXColor = PADR(Thisform.oSearchOptions.nFileSCXDynamicForeColour,8)
+		
+			lcVCX = 'Upper(' + lcResultsCursor + '.filetype) = "VCX"'
+		*	lcVCXColor = 'RGB(0,128,0)'
+			lcVCXColor = PADR(Thisform.oSearchOptions.nFileVCXDynamicForeColour,8)
+		
+			lcPRG = 'Upper(' + lcResultsCursor + '.filetype) $ "PRG TXT H INI XML HTM HTML ASP ASPX"'
+		*	lcPRGColor = 'RGB(255,0,0)'
+			lcPRGColor = PADR(Thisform.oSearchOptions.nFilePRGDynamicForeColour,8)
+			
+			lcDefaultColor = PADR(Thisform.oSearchOptions.nFileDefaultDynamicForeColour,8)
+		
+		*	This.SetAll('DynamicForeColor', 'Iif(' + lcSCX + ', ' + lcSCXColor + ', ' +  ;
+					'Iif(' + lcVCX + ', ' + lcVCXColor + ', ' + ;
+					'Iif(' + lcPRG + ',' + lcPRGColor + ', RGB(0,0,0))' + ;
+					')' + ;
+					')', 'COLUMN')
+			Thisform.oGrid.SetAll('DynamicForeColor', 'Iif(' + lcSCX + ', ' + lcSCXColor + ', ' +  ;
+					'Iif(' + lcVCX + ', ' + lcVCXColor + ', ' + ;
+					'Iif(' + lcPRG + ',' + lcPRGColor + ',  '+ ;
+					lcDefaultColor + ' )'+ ;
+					')' + ;
+					')', 'COLUMN')
+		*/ SF 20221016 added colour options
+		
+		Endif
+		
+		Thisform.oGrid.ReadOnly = .F.
+		Thisform.oGrid.SetAll('Width', 80, 'Column')
+		Thisform.oGrid.SetAll('ReadOnly', .T., 'Column')
+		Thisform.oGrid.colProcess.ReadOnly = .F.
+		
+		Thisform.oGrid.SetAll('Movable', .t., 'Column') 
+	ENDPROC
+
 	PROCEDURE showadvancedform
 		
 		If Thisform.lSearchFormVisible = .f.
@@ -8973,7 +9064,10 @@ DEFINE CLASS gf_resultsform AS form
 			Thisform.oGrid.SetFocus()
 		Else
 			lcResults = Thisform.containerRight.container1.lblResults.Caption
-			Thisform.PopulateTreeview(lcResults, 128)
+		*SF 20221016 added colour options
+		*	Thisform.PopulateTreeview(lcResults, 128)
+			Thisform.PopulateTreeview(lcResults, Thisform.oSearchOptions.nTreeUpdateColour)
+		*/ SF 20221016 added colour options
 			Thisform.ShowHtml('<h3>&nbsp;&nbsp;&nbsp;' + lcResults + '</h3>')
 		Endif
 		
@@ -9172,6 +9266,27 @@ DEFINE CLASS gf_resultsform AS form
 		
 		Goto Top
 		
+		*SF 20221016 added colour options
+		*!*	Text To lcHeader Textmerge Noshow
+		*!*		<Html>
+		*!*		<Head>
+		
+		*!*		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+		
+		*!*		<script>$(document).ready(function(){
+		*!*		   $("tr:even").css("background-color", "#F4F4A8");
+		*!*		   $("tr:odd").css("background-color", "#EFF1D1");});
+		*!*		</script>
+		
+		*!*		</Head>
+		
+		*!*		<Body>
+		*!*			Scope&nbsp;: &nbsp;&nbsp; <<Thisform.GetCurrentScope()>> &nbsp;&nbsp;&nbsp;&nbsp; <<Thisform.cSearchResultsMessage>> &nbsp;&nbsp;&nbsp;&nbsp; <<Ttoc(DateTime())>> <br />
+		*!*			Search: &nbsp;&nbsp; <<Thisform.oSearchEngine.oSearchOptions.cSearchExpression>> <br />
+		*!*			<<Thisform.cResultsMessage>> <br />
+		*!*			<hr />
+		
+		*!*	Endtext
 		Text To lcHeader Textmerge Noshow
 			<Html>
 			<Head>
@@ -9179,7 +9294,7 @@ DEFINE CLASS gf_resultsform AS form
 			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 		
 			<script>$(document).ready(function(){
-			   $("tr:even").css("background-color", "#F4F4A8");
+			   $("tr:even").css("background-color", "#<<RIGHT(TRANSFORM(Thisform.oSearchOptions.,'@0'),6)>>");
 			   $("tr:odd").css("background-color", "#EFF1D1");});
 			</script>
 		
@@ -9192,6 +9307,7 @@ DEFINE CLASS gf_resultsform AS form
 				<hr />
 		
 		Endtext
+		*/ SF 20221016 added colour options
 		
 		lcTable = Thisform.oWebControl.CursorToHtml(lcResultsGridHtmlCursor, 'Results')
 		
@@ -10099,7 +10215,8 @@ DEFINE CLASS gf_resultsform AS form
 	PROCEDURE containerRight.Container1.Container1.Refresh
 		If Thisform.lApplyFilter and Reccount(Thisform.cSearchResultsAlias) > 0 and !Thisform.lSearching
 			This.BorderWidth = 2
-			this.BorderColor = Rgb(255,0,0)
+		*	this.BorderColor = Rgb(255,0,0)
+			this.BorderColor = Thisform.oSearchOptions.nContainerFrameColour
 		Else
 			This.BorderWidth = 1
 			this.BorderColor = Rgb(0,0,0)
@@ -10400,54 +10517,59 @@ DEFINE CLASS gf_resultsform AS form
 	ENDPROC
 
 	PROCEDURE containerRight.Container1.GridFiles.Init
-		Local lcFormatGridPrg, lcPRG, lcPRGColor, lcResultsCursor, lcSCX, lcSCXColor, lcVCX, lcVCXColor, lcAppPath
+		*Local lcFormatGridPrg, lcPRG, lcPRGColor, lcResultsCursor, lcSCX, lcSCXColor, lcVCX, lcVCXColor, lcAppPath
 		
 		Thisform.oGrid = This
 		
-		lcResultsCursor = Thisform.cSearchResultsAlias
+		*SF 20221016 added colour options
+		* moved code to method of the , to allow call from options change
+		THISFORM.Set_GridColour
 		
-		lcFormatGridPrg = 'GoFish_FormatGrid.PRG'
+		*!*	lcResultsCursor = Thisform.cSearchResultsAlias
 		
-		* First choice: Thor
-		If Type('_Screen.cThorDispatcher') = 'C'
-			lcFileName = Execscript(_Screen.cThorDispatcher, 'Full Path=Thor_Proc_GoFish_FormatGrid.PRG')
-			If (Not Isnull(m.lcFileName)) and File(lcFileName)
-				lcFormatGridPrg = m.lcFileName
-			Endif
-		Endif
+		*!*	lcFormatGridPrg = 'GoFish_FormatGrid.PRG'
+		
+		*!*	* First choice: Thor
+		*!*	If Type('_Screen.cThorDispatcher') = 'C'
+		*!*		lcFileName = Execscript(_Screen.cThorDispatcher, 'Full Path=Thor_Proc_GoFish_FormatGrid.PRG')
+		*!*		If (Not Isnull(m.lcFileName)) and File(lcFileName)
+		*!*			lcFormatGridPrg = m.lcFileName
+		*!*		Endif
+		*!*	Endif
 		
 		
-		If !File(lcFormatGridPrg) && If not found in the VFP path
-			lcFormatGridPrg = Addbs(_screen._gofish.capppath) + lcFormatGridPrg && Look for it in the GoFish folder.
-		EndIf
+		*!*	If !File(lcFormatGridPrg) && If not found in the VFP path
+		*!*		lcFormatGridPrg = Addbs(_screen._gofish.capppath) + lcFormatGridPrg && Look for it in the GoFish folder.
+		*!*	EndIf
 		
-		If File (lcFormatGridPrg) && Call user file to assign colors, if present, otherwise use default
-		      Do (lcFormatGridPrg) with This, lcResultsCursor
-		Else
+		*!*	If File (lcFormatGridPrg) && Call user file to assign colors, if present, otherwise use default
+		*!*	      Do (lcFormatGridPrg) with This, lcResultsCursor
+		*!*	Else
 		
-			lcSCX = 'Upper(' + lcResultsCursor + '.filetype) = "SCX"'
-			lcSCXColor = 'RGB(0,0,128)'
+		*!*		lcSCX = 'Upper(' + lcResultsCursor + '.filetype) = "SCX"'
+		*!*		lcSCXColor = 'RGB(0,0,128)'
 		
-			lcVCX = 'Upper(' + lcResultsCursor + '.filetype) = "VCX"'
-			lcVCXColor = 'RGB(0,128,0)'
+		*!*		lcVCX = 'Upper(' + lcResultsCursor + '.filetype) = "VCX"'
+		*!*		lcVCXColor = 'RGB(0,128,0)'
 		
-			lcPRG = 'Upper(' + lcResultsCursor + '.filetype) $ "PRG TXT H INI XML HTM HTML ASP ASPX"'
-			lcPRGColor = 'RGB(255,0,0)'
+		*!*		lcPRG = 'Upper(' + lcResultsCursor + '.filetype) $ "PRG TXT H INI XML HTM HTML ASP ASPX"'
+		*!*		lcPRGColor = 'RGB(255,0,0)'
+		*!*		
+		*!*		This.SetAll('DynamicForeColor', 'Iif(' + lcSCX + ', ' + lcSCXColor + ', ' +  ;
+		*!*				'Iif(' + lcVCX + ', ' + lcVCXColor + ', ' + ;
+		*!*				'Iif(' + lcPRG + ',' + lcPRGColor + ', RGB(0,0,0))' + ;
+		*!*				')' + ;
+		*!*				')', 'COLUMN')
+		*!*	Endif
 		
-			This.SetAll('DynamicForeColor', 'Iif(' + lcSCX + ', ' + lcSCXColor + ', ' +  ;
-					'Iif(' + lcVCX + ', ' + lcVCXColor + ', ' + ;
-					'Iif(' + lcPRG + ',' + lcPRGColor + ', RGB(0,0,0))' + ;
-					')' + ;
-					')', 'COLUMN')
+		*!*	This.ReadOnly = .F.
+		*!*	This.SetAll('Width', 80, 'Column')
+		*!*	This.SetAll('ReadOnly', .T., 'Column')
+		*!*	This.colProcess.ReadOnly = .F.
 		
-		Endif
+		*!*	This.SetAll('Movable', .t., 'Column') 
+		*!*	*SF 20221016 added colour options
 		
-		This.ReadOnly = .F.
-		This.SetAll('Width', 80, 'Column')
-		This.SetAll('ReadOnly', .T., 'Column')
-		This.colProcess.ReadOnly = .F.
-		
-		This.SetAll('Movable', .t., 'Column') 
 	ENDPROC
 
 	PROCEDURE containerRight.Container1.GridFiles.Refresh

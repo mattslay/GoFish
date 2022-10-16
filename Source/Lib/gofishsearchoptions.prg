@@ -157,6 +157,11 @@ Define Class GoFishSearchOptions As Custom
     * Tree colour while updateing?
     nTreeUpdateColour                      = RGB(128,  0,  0)
 
+    * CSS für tr:even
+    nCSS_tr_even_Colour                    = RGB(0xa8,0xfa,0xf4)
+    * CSS für tr:odd
+    nCSS_tr_odd_Colour                     = RGB(0xD1,0xF1,0xEF)
+
 * switch to prevent moving code window
 	lMoveNewCodeToTopLeft                  = .T.
 

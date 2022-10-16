@@ -1,5 +1,5 @@
 # GoFish 5.0 
-_ver 5.0.207   released 2022-10-16_
+_ver 5.0.208   released 2022-10-16_
 
 ## GoFish is an advanced code search tool for fast searching and replacing of Visual FoxPro source code.
 
@@ -8,6 +8,7 @@ _ver 5.0.207   released 2022-10-16_
 ![Screenshot](Screenshots/GoFishScreenshot01.png?raw=true "Title")
 
 What's new in version 5:
+* Added options to allow control of several colours.
 
 * Added option to allow code window to be opened at stored position. (Option: Open code windows at top left corner)
 
