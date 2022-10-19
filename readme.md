@@ -1,5 +1,5 @@
-# GoFish 5.0 
-_ver 5.0.209   released 2022-10-17_
+# GoFish 5.1 
+_ver 5.1.000   released 2022-10-19_
 
 ## GoFish is an advanced code search tool for fast searching and replacing of Visual FoxPro source code.
 
@@ -7,9 +7,15 @@ _ver 5.0.209   released 2022-10-17_
 
 ![Screenshot](Screenshots/GoFishScreenshot01.png?raw=true "Title")
 
-What's new in version 5:
-* Added options to allow control of several colours.
+### What's new
+#### What's new in version 5.1:
+* New: Option for local settings. Allows local settings and history. Select storage location if local.
+* New: Options to allow control of several colours.
+* Improved: Storage of some options separated from search settings.
+* Fixed: Setting Desktop will engage if form is not closed wit *Ok*  issue #19
+* Fixed: Problem with deleted settings file on startup. issue #17
 
+#### What's new in version 5.0:
 * Added option to allow code window to be opened at stored position. (Option: Open code windows at top left corner)
 
 * Saved Search History – You can now save the history of your searches, either automatically (for all searches) or selectively, and can restore the search parameters and results grid from these saved searches.  You can also selectively delete your saved searches or use the GF Janitor to automatically delete old ones.

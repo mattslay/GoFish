@@ -11,8 +11,8 @@ lcSourceLoc =  Addbs(JustPath(Sys(16))) && Change this to location of source fil
 Cd (lcSourceLoc)
 
 *== Most of these local variables will make their way into BuildGoFish.h
-lcVersion = '5.0'
-lcBuild = '209' && <---- Set your desired version level of the tool here
+lcVersion = '5.1'
+lcBuild = '000' && <---- Set your desired version level of the tool here
 								&& This will be used on the GoFish form and will live on the
 								&& the _GoFish object that gets attached to _Screen at run time.
 
