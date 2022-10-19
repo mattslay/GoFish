@@ -1,5 +1,11 @@
 GoFish Change Log
 
+**Ver 5.1.000	** Released 2022-10-19
+* New: Option for local settings. Allows local settings and history. Select storage location if local.
+* Improved: Storage of some options separated from search settings.
+* Fixed: Setting Desktop will engage if form is not closed wit *Ok*  issue #19
+* Fixed: problem with deleted settings file on startup. issue #17
+
 **Ver 5.0.209** Released 2022-10-17
 * Just to force right verison of the app
 

@@ -3,12 +3,14 @@
 
 Define Class GoFishSearchEngine As Custom
 
+	cCR_StoreLocal                   = Addbs(Home(7))
+	
 	cBackupPRG                       = 'GoFishBackup.prg'
 	cFilesToSkip                     = ''
 
 	* This string contains a list of files to be skipped during the search.
 	* One filname on each line. This list is only skipped if lSkipFiles is .t.
-	cFilesToSkipFile                 = Addbs(Home(7)) + 'GF_Files_To_Skip.txt'
+	cFilesToSkipFile                 = 'GF_Files_To_Skip.txt'
 
 	cGraphicsExtensions              = 'PNG ICO JPG JPEG TIF TIFF GIF BMP MSK CUR ANI'
 	cInitialDefaultDir               = ''
@@ -18,10 +20,10 @@ Define Class GoFishSearchEngine As Custom
 	cProjects                        = ''
 
 	* A detail record is stored here for every single match line that is replaced.
-	cReplaceDetailTable              = Addbs(Home(7)) + 'GF_Replace_DetailV5.dbf'
+	cReplaceDetailTable              = 'GF_Replace_DetailV5.dbf'
 
 	* A single header record is stored here for each time the ReplaceFromMarkedRows() method is called.
-	cReplaceHistoryTable             = Addbs(Home(7)) + 'GF_Replace_History.dbf'
+	cReplaceHistoryTable             = 'GF_Replace_History.dbf'
 
 	* Holds the code for a UDF to be used on Replace operations if nReplaceMode is the Advanced Replace mode
 	cReplaceUDFCode                  = ''
@@ -506,7 +508,12 @@ Define Class GoFishSearchEngine As Custom
 	*----------------------------------------------------------------------------------
 	Procedure BackupFile(tcFilePath, tnReplaceHistoryId)
 
-		#Define ccBACKUPFOLDER Addbs(Home(7) + 'GoFishBackups')
+		*SF 20221018 -> local storage
+		*#Define ccBACKUPFOLDER Addbs(Home(7) + 'GoFishBackups')
+		LOCAL ccBACKUPFOLDER
+		ccBACKUPFOLDER = Addbs(Thisform.cCR_StoreLocal + 'GoFishBackups')
+		*/SF 20221018 -> local storage
+		
 
 		Local lcBackupPRG, llCopyError
 		Local laExtensions[1], lcDestFile, lcExt, lcExtensions, lcSourceFile, lcThisBackupFolder, lnI
@@ -2156,9 +2163,19 @@ Define Class GoFishSearchEngine As Custom
 
 
 	*----------------------------------------------------------------------------------
-	Procedure Init(tlPreserveExistingResults)
+	Procedure Init(tlPreserveExistingResults, tcCR_StoreLocal)
 		
 		#Include ..\BuildGoFish.h
+
+	*SF 20221018 -> local storage
+		If !Empty(m.tcCR_StoreLocal) Then
+			THIS.cCR_StoreLocal       = m.tcCR_StoreLocal
+		Endif &&!Empty(m.tcCR_StoreLocal) Then
+
+		THIS.cFilesToSkipFile     = THIS.cCR_StoreLocal + 'GF_Files_To_Skip.txt'
+		THIS.cReplaceDetailTable  = THIS.cCR_StoreLocal + 'GF_Replace_DetailV5.dbf'
+		THIS.cReplaceHistoryTable = THIS.cCR_StoreLocal + 'GF_Replace_History.dbf'
+	*/SF 20221018 -> local storage
 
 		This.cVersion = GOFISH_VERSION  && Comes from include file above
 		This.oFSO = CreateObject("Scripting.FileSystemObject")

@@ -55,8 +55,9 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 	*< OBJECTDATA: ObjPath="Label2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="chkcomment" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="chkMatchWholeWord" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="chkMatchCase" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Check3" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Check2" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="chkMatchCase" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="chkTimeStamp" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Label11" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Label12" UniqueID="" Timestamp="" />
@@ -93,7 +94,6 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 	*< OBJECTDATA: ObjPath="comboSearchExpressionHistoryDropDownArrow" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Command1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdHelp" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="Check3" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Optiongroup1" UniqueID="" Timestamp="" />
 
 	*<DefinedPropArrayMethod>
@@ -1433,7 +1433,7 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 		DoDefault(toGoFishForm)
 		This.Height = lnHeight
 		
-		Thisform.oSearchEngine = Createobject('GoFishSearchEngine')
+		Thisform.oSearchEngine = Createobject('GoFishSearchEngine',,THIS.cCR_StoreLocal)
 		Thisform.oSearchEngine.oProjects = Thisform.oForm.oSearchEngine.oProjects
 		
 		ThisForm.LoadOptions()
@@ -1725,6 +1725,7 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 		
 				** These files and folders will be skipped if the "Skip Files option" is checked on the Advanced form.
 				** The default name and location for this file is: (Home(7) + '\GF_Files_To_Skip.txt')
+				** Might be set to a local directory
 		
 				** Blank lines and lines beginning with ** are not processed.
 				

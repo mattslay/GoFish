@@ -130,7 +130,7 @@ DEFINE CLASS gf_filter AS gf_baseform OF "..\lib\gofishui.vcx"
 	cfiletypefilter = 
 	cfilter = 
 	cfilteroptionsclass = GF_SearchResultsFilter
-	cfilteroptionsxmlfile = (Home(7) + 'GF_Filter_Settings.xml')
+	cfilteroptionsxmlfile = GF_Filter_Settings.xml
 	csearchresults = 
 	DoCreate = .T.
 	Height = 332
@@ -1919,6 +1919,15 @@ DEFINE CLASS gf_filter AS gf_baseform OF "..\lib\gofishui.vcx"
 		
 		Thisform.Refresh()
 		
+		
+	ENDPROC
+
+	PROCEDURE Load
+		DoDefault()
+		
+		*SF 20221018 -> local storage
+		This.cFilterOptionsClass = This.cCR_StoreLocal + This.cFilterOptionsClass
+		*/SF 20221018 -> local storage
 		
 	ENDPROC
 
