@@ -17,11 +17,11 @@
   - *lcVersion* and 
   - *lcBuild* variables   
 
-- run `Source\BuildGoFish.prg` to
+- run `Source\BuildGoFish.prg` **in VFP 9 SP2** to
   - update several files
   - build GoFish5.app,
    - and generate the text equivalents for all VFP binary files (SCX, VCX, DBF, etc.) using FoxBin2PRG.
-   > Note: use VFP 9 SP2 rather than VFP Advanced to run BuildGoFish.prg since GoFish5.app must be built in VFP rather than VFPA for compatibility for all users.
+   > **Note: use VFP 9 SP2 rather than VFP Advanced to run BuildGoFish.prg since GoFish5.app must be built in VFP rather than VFPA for compatibility for all users.**
 
 - In File Explorer, right-click `Source\BuildCloudZip.ps1` and choose *Run with PowerShell* to create Source.zip.
 - Commit the changes.
