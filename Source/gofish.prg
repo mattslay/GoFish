@@ -246,6 +246,7 @@ Procedure RegisterAppWithThor()
 
 		TEXT To lcCode Noshow Textmerge
   		Do '<<lcFullAppName>>'
+
 		ENDTEXT
 
 		TEXT To lcPlugIn Noshow

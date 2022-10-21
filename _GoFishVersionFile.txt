@@ -3,6 +3,9 @@ Lparameters toUpdateInfo
 Text to lcNote NoShow
 GoFish Change Log
 
+**Ver 5.1.001	** Released 2022-10-21
+* Fixed: Problem registring with Thor  issue #23 Can't debug this, please report further problems to issue https://github.com/VFPX/GoFish/issues/23
+
 **Ver 5.1.000	** Released 2022-10-19
 * New: Option for local settings. Allows local settings and history. Select storage location if local.
 * Improved: Storage of some options separated from search settings.
@@ -63,7 +66,7 @@ GoFish Change Log
 
 EndText 
 
-AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 5.1.000 - 19. Oktober 2022,  - 20221019')
+AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 5.1.001 - 21. Oktober 2022,  - 20221021')
 AddProperty(toUpdateInfo, 'SourceFileUrl', 'https://raw.githubusercontent.com/VFPX/GoFish/master/Source/Source.zip')
 AddProperty(toUpdateInfo, 'LinkPrompt', 'GoFish Home Page')
 AddProperty(toUpdateInfo, 'Link', 'https://github.com/VFPX/GoFish')
