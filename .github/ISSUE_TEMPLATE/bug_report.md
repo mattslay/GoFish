@@ -7,6 +7,12 @@ assignees: ''
 
 ---
 
+## ℹ Computer information
+
+- VFP version: 
+- GoFish version:
+- Last GoFish version w/o bug (if available):
+
 ## 📝 Provide detailed reproduction steps (if any)
 
 1. …
