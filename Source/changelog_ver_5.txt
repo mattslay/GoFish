@@ -1,5 +1,9 @@
 GoFish Change Log
 
+**Ver 5.1.002
+* Fixed: problem with deleted settings file on startup. issue #25
+* Improved: Issues bug template.
+
 **Ver 5.1.001	** Released 2022-10-21
 * Fixed: Problem registring with Thor  issue #23 Can't debug this, please report further problems to issue https://github.com/VFPX/GoFish/issues/23
 
