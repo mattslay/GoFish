@@ -12,3 +12,9 @@ FOXUSER.*
 *.ZIP
 /Source/tempview.*
 /Source/temptext.*
+
+#special SF:
+-*.fpw*
+-gofish.prg
+bin2txt.*
+/data/
