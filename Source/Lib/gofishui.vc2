@@ -3140,6 +3140,7 @@ DEFINE CLASS gf_grid AS grid
 			Endif
 		Endfor
 		 
+		Return .NULL.
 		
 	ENDPROC
 
@@ -3741,7 +3742,7 @@ DEFINE CLASS gf_resultsform AS form
 	osearchoptions = .NULL.
 	otree = .NULL.
 	owebcontrol = .NULL.
-	Picture = ..\..\data\default\
+	Picture = ..\
 	ShowTips = .T.
 	TabStop = .T.
 	Top = 0
@@ -4032,7 +4033,7 @@ DEFINE CLASS gf_resultsform AS form
 		Height = 24, ;
 		Left = 118, ;
 		Name = "comboViewPosition", ;
-		Picture = ..\..\data\default\, ;
+		Picture = ..\, ;
 		Style = 2, ;
 		TabIndex = 24, ;
 		TabStop = .F., ;
@@ -4190,7 +4191,7 @@ DEFINE CLASS gf_resultsform AS form
 		Left = 47, ;
 		Name = "comboSearchExpressionHistory", ;
 		nexpressionstostore = 50, ;
-		Picture = ..\..\data\default\, ;
+		Picture = ..\, ;
 		TabIndex = 19, ;
 		TabStop = .F., ;
 		Top = 3, ;
@@ -4204,7 +4205,7 @@ DEFINE CLASS gf_resultsform AS form
 		Height = 26, ;
 		Left = 446, ;
 		Name = "comboSearchExpressionHistoryDropDownArrow", ;
-		Picture = ..\..\data\default\, ;
+		Picture = ..\, ;
 		TabIndex = 24, ;
 		TabStop = .F., ;
 		Top = 14, ;
@@ -4219,7 +4220,7 @@ DEFINE CLASS gf_resultsform AS form
 		Left = 70, ;
 		Name = "comboSearchScopeHistory", ;
 		nexpressionstostore = 40, ;
-		Picture = ..\..\data\default\, ;
+		Picture = ..\, ;
 		SelectOnEntry = .T., ;
 		TabIndex = 10, ;
 		Top = 31, ;
@@ -4283,7 +4284,7 @@ DEFINE CLASS gf_resultsform AS form
 		Name = "oTreeView", ;
 		Top = 0, ;
 		Width = 186
-		*< END OBJECT: BaseClass="olecontrol" OLEObject="c:\windows\syswow64\mscomctl.ocx" Value="0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAEAAAAgAAAAEAAAD+////AAAAAAAAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9/////v////7///8EAAAA/v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////1IAbwBvAHQAIABFAG4AdAByAHkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAUA//////////8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEB3mex849gBAwAAAEACAAAAAAAAAwBPAGwAZQBPAGIAagBlAGMAdABEAGEAdABhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAgEDAAAAAgAAAP////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAagAAAAAAAAADAEEAYwBjAGUAcwBzAE8AYgBqAFMAaQB0AGUARABhAHQAYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgACAP///////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABcAAAAAAAAAAMAQwBoAGEAbgBnAGUAZABQAHIAbwBwAHMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAIA////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAACABAAAAAAAABAAAAAIAAAD+////BQAAAP7///8GAAAABwAAAAgAAAD+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+2kEHHiYXREbFqAMDwKDYoIUM0EggAAAA5EwAABTUAALE8wWoBAAYAIgAAABkAAAARAgAACgAAAAEAAAAB782rXAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACQAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5MzY4MjY1RS04NUZFLTExZDEtOEJFMy0wMDAwRjg3NTREQTEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACADgAAAEhpZGVTZWxlY3Rpb24ABQAAAEwAAAAADAAAAEluZGVudGF0aW9uABEAAABODQAAAAcAAAAAAAAAAAAFALBe4w8GAAAAAAAAAAUAAIC45xkAAQAAAFwAH97svQEABQAA6BkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANEAKAAAATGluZVN0eWxlAAkAAABJCgAAAAEAAAANAAAATW91c2VQb2ludGVyAAkAAABJCgAAAAAAAAAOAAAAUGF0aFNlcGFyYXRvcgAKAAAASAAAAAABAAAAXAYAAABTdHlsZQAJAAAASQoAAAAGAAAADAAAAE9MRURyYWdNb2RlAAkAAABJCgAAAAAAAAAMAAAAT0xFRHJvcE1vZGUACQAAAEkKAAAAAAAAAA4AAABGdWxsUm93U2VsZWN0AAUAAABMAQAAAAoAAABTaW5nbGVTZWwABQAAAEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+		*< END OBJECT: BaseClass="olecontrol" OLEObject="c:\windows\syswow64\mscomctl.ocx" Value="0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAEAAAAgAAAAEAAAD+////AAAAAAAAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9/////v////7///8EAAAA/v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////1IAbwBvAHQAIABFAG4AdAByAHkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAUA//////////8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMBRDxCa69gBAwAAAEACAAAAAAAAAwBPAGwAZQBPAGIAagBlAGMAdABEAGEAdABhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAgEDAAAAAgAAAP////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAagAAAAAAAAADAEEAYwBjAGUAcwBzAE8AYgBqAFMAaQB0AGUARABhAHQAYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgACAP///////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABcAAAAAAAAAAMAQwBoAGEAbgBnAGUAZABQAHIAbwBwAHMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAIA////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAACABAAAAAAAABAAAAAIAAAD+////BQAAAP7///8GAAAABwAAAAgAAAD+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+2kEHHiYXREbFqAMDwKDYoIUM0EggAAAA5EwAABTUAALE8wWoBAAYAIgAAABkAAAARAgAACgAAAAEAAAAB782rXAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACQAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5MzY4MjY1RS04NUZFLTExZDEtOEJFMy0wMDAwRjg3NTREQTEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACADgAAAEhpZGVTZWxlY3Rpb24ABQAAAEwAAAAADAAAAEluZGVudGF0aW9uABEAAABODQAAAAcAAAAAAAAAAAAFAAiHaQQGAAAAAAAAAAUAAIC45xkAAQAAAFwAH97svQEABQAA6BkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANEAKAAAATGluZVN0eWxlAAkAAABJCgAAAAEAAAANAAAATW91c2VQb2ludGVyAAkAAABJCgAAAAAAAAAOAAAAUGF0aFNlcGFyYXRvcgAKAAAASAAAAAABAAAAXAYAAABTdHlsZQAJAAAASQoAAAAGAAAADAAAAE9MRURyYWdNb2RlAAkAAABJCgAAAAAAAAAMAAAAT0xFRHJvcE1vZGUACQAAAEkKAAAAAAAAAA4AAABGdWxsUm93U2VsZWN0AAUAAABMAQAAAAoAAABTaW5nbGVTZWwABQAAAEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
 
 	ADD OBJECT 'containerRight' AS container WITH ;
 		Anchor = 15, ;
@@ -5000,7 +5001,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Process", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\..\data\default\
+		Picture = ..\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.colProcess.imageCheck' AS image WITH ;
@@ -5033,7 +5034,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\..\data\default\
+		Picture = ..\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column1.Text1' AS textbox WITH ;
@@ -5049,7 +5050,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\..\data\default\
+		Picture = ..\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column10.Text1' AS textbox WITH ;
@@ -5067,7 +5068,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\..\data\default\
+		Picture = ..\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column11.Text1' AS textbox WITH ;
@@ -5085,7 +5086,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\..\data\default\
+		Picture = ..\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column12.Text1' AS textbox WITH ;
@@ -5103,7 +5104,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\..\data\default\
+		Picture = ..\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column13.Text1' AS textbox WITH ;
@@ -5119,7 +5120,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\..\data\default\
+		Picture = ..\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column14.Text1' AS textbox WITH ;
@@ -5135,7 +5136,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\..\data\default\
+		Picture = ..\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column15.Text1' AS textbox WITH ;
@@ -5151,7 +5152,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\..\data\default\
+		Picture = ..\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column16.Text1' AS textbox WITH ;
@@ -5173,7 +5174,7 @@ DEFINE CLASS gf_resultsform AS form
 		FontSize = 8, ;
 		ForeColor = 255,255,255, ;
 		Name = "Header1", ;
-		Picture = ..\..\data\default\
+		Picture = ..\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column17.Text1' AS textbox WITH ;
@@ -5197,7 +5198,7 @@ DEFINE CLASS gf_resultsform AS form
 		FontSize = 8, ;
 		ForeColor = 255,255,255, ;
 		Name = "Header1", ;
-		Picture = ..\..\data\default\
+		Picture = ..\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column18.Text1' AS textbox WITH ;
@@ -5218,7 +5219,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\..\data\default\
+		Picture = ..\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column19.Text1' AS textbox WITH ;
@@ -5234,7 +5235,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\..\data\default\
+		Picture = ..\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column2.Text1' AS textbox WITH ;
@@ -5250,7 +5251,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\..\data\default\
+		Picture = ..\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column20.Text1' AS textbox WITH ;
@@ -5265,7 +5266,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\..\data\default\
+		Picture = ..\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column21.Text1' AS textbox WITH ;
@@ -5280,7 +5281,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\..\data\default\
+		Picture = ..\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column22.Text1' AS textbox WITH ;
@@ -5295,7 +5296,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\..\data\default\
+		Picture = ..\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column23.Text1' AS textbox WITH ;
@@ -5310,7 +5311,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\..\data\default\
+		Picture = ..\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column25.Text1' AS textbox WITH ;
@@ -5329,7 +5330,7 @@ DEFINE CLASS gf_resultsform AS form
 		FontSize = 8, ;
 		ForeColor = 255,255,255, ;
 		Name = "Header1", ;
-		Picture = ..\..\data\default\
+		Picture = ..\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column3.Text1' AS textbox WITH ;
@@ -5353,7 +5354,7 @@ DEFINE CLASS gf_resultsform AS form
 		FontSize = 8, ;
 		ForeColor = 255,255,255, ;
 		Name = "Header1", ;
-		Picture = ..\..\data\default\
+		Picture = ..\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column4.Text1' AS textbox WITH ;
@@ -5373,7 +5374,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\..\data\default\
+		Picture = ..\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column5.Text1' AS textbox WITH ;
@@ -5389,7 +5390,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\..\data\default\
+		Picture = ..\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column6.Text1' AS textbox WITH ;
@@ -5407,7 +5408,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\..\data\default\
+		Picture = ..\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column7.Text1' AS textbox WITH ;
@@ -5425,7 +5426,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\..\data\default\
+		Picture = ..\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column8.Text1' AS textbox WITH ;
@@ -5443,7 +5444,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\..\data\default\
+		Picture = ..\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column9.Text1' AS textbox WITH ;
@@ -5575,7 +5576,7 @@ DEFINE CLASS gf_resultsform AS form
 		FontSize = 8, ;
 		Left = 108, ;
 		Name = "comboViewPosition", ;
-		Picture = ..\..\data\default\, ;
+		Picture = ..\, ;
 		Style = 2, ;
 		TabIndex = 24, ;
 		TabStop = .F., ;
@@ -6722,8 +6723,8 @@ DEFINE CLASS gf_resultsform AS form
 		"replacerisk > Thisform.nReplaceRisk, " + PADR(Thisform.nRiskExceededDynamicBackColour,8) + ", " +;
 		"Rgb(255,255,255))"
 		loColumn.DynamicBackColor = lcDynamicBackColor 
-		loColumn.Width = 200
 		*/ SF 20221016 added colour options
+		loColumn.Width = 200
 		
 		loColumn = loGrid.FindColumn('Matchtype')
 		loColumn.Header1.caption = 'Match Type'
@@ -7619,7 +7620,7 @@ DEFINE CLASS gf_resultsform AS form
 		This.Containerright.Container1.Container2.BorderColor = Thisform.nContainerFrameColour
 		
 		This.Set_GridColour()
-		This.FormatGrid()
+		*This.FormatGrid()
 		
 		#If .F. Then
 		*Thisform.oSearchOptions.nOption
@@ -8844,6 +8845,10 @@ DEFINE CLASS gf_resultsform AS form
 	PROCEDURE set_gridcolour		&& Set the colours for the grid, moved to load options
 		Local lcFormatGridPrg, lcPRG, lcPRGColor, lcResultsCursor, lcSCX, lcSCXColor, lcVCX, lcVCXColor, lcDefaultColor, lcAppPath
 		
+		Local;
+			lcDynamicBackColor As String,;
+			loColumn           As Object
+		
 		lcResultsCursor = Thisform.cSearchResultsAlias
 		
 		lcFormatGridPrg = 'GoFish_FormatGrid.PRG'
@@ -8851,48 +8856,59 @@ DEFINE CLASS gf_resultsform AS form
 		* First choice: Thor
 		If Type('_Screen.cThorDispatcher') = 'C'
 			lcFileName = Execscript(_Screen.cThorDispatcher, 'Full Path=Thor_Proc_GoFish_FormatGrid.PRG')
-			If (Not Isnull(m.lcFileName)) and File(lcFileName)
+			If (Not Isnull(m.lcFileName)) And File(lcFileName)
 				lcFormatGridPrg = m.lcFileName
 			Endif
 		Endif
 		
 		
 		If !File(lcFormatGridPrg) && If not found in the VFP path
-			lcFormatGridPrg = Addbs(_screen._gofish.capppath) + lcFormatGridPrg && Look for it in the GoFish folder.
-		EndIf
+			lcFormatGridPrg = Addbs(_Screen._gofish.capppath) + lcFormatGridPrg && Look for it in the GoFish folder.
+		Endif
 		
 		If File (lcFormatGridPrg) && Call user file to assign colors, if present, otherwise use default
-		      Do (lcFormatGridPrg) with Thisform.oGrid, lcResultsCursor
+			Do (lcFormatGridPrg) With Thisform.oGrid, lcResultsCursor
 		Else
 		
 		*SF 20221016 added colour options
 			lcSCX = 'Upper(' + lcResultsCursor + '.filetype) = "SCX"'
 		*	lcSCXColor = 'RGB(0,0,128)'
-			lcSCXColor = PADR(Thisform.nFileSCXDynamicForeColour,8)
+			lcSCXColor = Padr(Thisform.nFileSCXDynamicForeColour,8)
 		
 			lcVCX = 'Upper(' + lcResultsCursor + '.filetype) = "VCX"'
 		*	lcVCXColor = 'RGB(0,128,0)'
-			lcVCXColor = PADR(Thisform.nFileVCXDynamicForeColour,8)
+			lcVCXColor = Padr(Thisform.nFileVCXDynamicForeColour,8)
 		
 			lcPRG = 'Upper(' + lcResultsCursor + '.filetype) $ "PRG TXT H INI XML HTM HTML ASP ASPX"'
 		*	lcPRGColor = 'RGB(255,0,0)'
-			lcPRGColor = PADR(Thisform.nFilePRGDynamicForeColour,8)
-			
-			lcDefaultColor = PADR(Thisform.nFileDefaultDynamicForeColour,8)
+			lcPRGColor = Padr(Thisform.nFilePRGDynamicForeColour,8)
+		
+			lcDefaultColor = Padr(Thisform.nFileDefaultDynamicForeColour,8)
 		
 		*	This.SetAll('DynamicForeColor', 'Iif(' + lcSCX + ', ' + lcSCXColor + ', ' +  ;
-					'Iif(' + lcVCX + ', ' + lcVCXColor + ', ' + ;
-					'Iif(' + lcPRG + ',' + lcPRGColor + ', RGB(0,0,0))' + ;
-					')' + ;
-					')', 'COLUMN')
+		'Iif(' + lcVCX + ', ' + lcVCXColor + ', ' + ;
+		'Iif(' + lcPRG + ',' + lcPRGColor + ', RGB(0,0,0))' + ;
+		')' + ;
+		')', 'COLUMN')
 			Thisform.oGrid.SetAll('DynamicForeColor', 'Iif(' + lcSCX + ', ' + lcSCXColor + ', ' +  ;
-					'Iif(' + lcVCX + ', ' + lcVCXColor + ', ' + ;
-					'Iif(' + lcPRG + ',' + lcPRGColor + ',  '+ ;
-					lcDefaultColor + ' )'+ ;
-					')' + ;
-					')', 'COLUMN')
+				'Iif(' + lcVCX + ', ' + lcVCXColor + ', ' + ;
+				'Iif(' + lcPRG + ',' + lcPRGColor + ',  '+ ;
+				lcDefaultColor + ' )'+ ;
+				')' + ;
+				')', 'COLUMN')
 		*/ SF 20221016 added colour options
 		
+		*SF 20221029 fix column restore
+			loColumn = Thisform.oGrid.FindColumn("TrimmedReplaceLine")
+		*lcDynamicBackColor = "ICase(replaced, RGB(149,249,147), replacerisk > Thisform.nReplaceRisk, Rgb(210,210,210), Rgb(255,255,255))"
+			If Vartype(m.loColumn) = "O" Then
+				lcDynamicBackColor = "ICase(" +;
+					"replaced, " + Padr(Thisform.nReplacedDynamicBackColour,8) + ", " +;
+					"replacerisk > Thisform.nReplaceRisk, " + Padr(Thisform.nRiskExceededDynamicBackColour,8) + ", " +;
+					"Rgb(255,255,255))"
+				loColumn.DynamicBackColor = m.lcDynamicBackColor
+			Endif &&Vartype(m.loColumn) = "O"
+		*SF 20221029 fix column restore
 		Endif
 		
 		Thisform.oGrid.ReadOnly = .F.
@@ -8900,7 +8916,8 @@ DEFINE CLASS gf_resultsform AS form
 		Thisform.oGrid.SetAll('ReadOnly', .T., 'Column')
 		Thisform.oGrid.colProcess.ReadOnly = .F.
 		
-		Thisform.oGrid.SetAll('Movable', .t., 'Column') 
+		Thisform.oGrid.SetAll('Movable', .T., 'Column')
+		
 	ENDPROC
 
 	PROCEDURE showadvancedform
