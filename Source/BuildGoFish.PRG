@@ -4,17 +4,21 @@ Local lcIncludeFileText, lcMercurialVersionFile, lcMonthDay, lcProject, lcSource
 Local lcVersionFileContents, lcVersionFileURL, lcVersionLocalFile, lcVersionStringForVersionFile
 Local lcAppFile, lcWindowTitle, lcYear, llBuildAsBeta, lnCurrentVersion, lcSafety, lcCloudVersionFile
 
+If Version(4) != "09.00.0000.7423" Then
+	Messagebox("Run with VFP9 SP2!")
+Endif &&Version(4)!= "09.00.0000.7423"
+
 lcSafety = Set('Safety')
 Set Safety Off
 
-lcSourceLoc =  Addbs(JustPath(Sys(16))) && Change this to location of source files
+lcSourceLoc =  Addbs(Justpath(Sys(16))) && Change this to location of source files
 Cd (lcSourceLoc)
 
 *== Most of these local variables will make their way into BuildGoFish.h
 lcVersion = '5.1'
-lcBuild = '002' && <---- Set your desired version level of the tool here
-								&& This will be used on the GoFish form and will live on the
-								&& the _GoFish object that gets attached to _Screen at run time.
+lcBuild = '003' && <---- Set your desired version level of the tool here
+&& This will be used on the GoFish form and will live on the
+&& the _GoFish object that gets attached to _Screen at run time.
 
 lcApplicationName	= 'GoFish5'
 lcVersionLocalFile	= 'GoFishVersionFile.txt'
@@ -37,13 +41,13 @@ lcVersion = lcVersion + '.' + lcBuild
 
 *-- Create a file in the source file which contains the Version number
 lcDate = Transform(Date(), '@YL')
-lcMonthDay = Alltrim(GetWordNum(lcDate, 2, ','))
-lcYear = Alltrim(GetWordNum(lcDate, 3, ','))
+lcMonthDay = Alltrim(Getwordnum(lcDate, 2, ','))
+lcYear = Alltrim(Getwordnum(lcDate, 3, ','))
 lcBuildDate = lcMonthDay + ', ' + lcYear
 
 lcVersionStringForVersionFile = lcApplicationName + ' - ' + lcVersion + ' - ' + lcBuildDate + ' - ' + Dtoc (Date(), 1)
 
-Text to lcIncludeFileText NoShow TextMerge 
+TEXT to lcIncludeFileText NoShow TextMerge
 
 	#DEFINE GOFISH_APP_NAME '<<lcApplicationName>>'
 	#DEFINE GOFISH_APP_FILE  '<<lcApplicationName + ".app">>'
@@ -53,25 +57,25 @@ Text to lcIncludeFileText NoShow TextMerge
 	#DEFINE GOFISH_DOWNLOAD_URL '<<lcDownloadUrl>>'
 	#DEFINE GOFISH_VERSION_STRING_FOR_VERSION_FILE '<<lcVersionStringForVersionFile>>'
 	#DEFINE THOR_TOOL_NAME	'<<"Thor_Tool_" + lcApplicationName>>'
-	#DEFINE VERSON_FILE_URL	'<<lcVersionFileURL>>' 
+	#DEFINE VERSON_FILE_URL	'<<lcVersionFileURL>>'
 	#DEFINE VERSION_LOCAL_FILE '<<lcVersionLocalFile>>'
 	#DEFINE GOFISH_HOME_PAGE '<<lcGoFishHomePage>>'
 
-EndText
+ENDTEXT
 
 *=== Create the local version File ======================================================
 lcVersionFileContents = lcApplicationName + Chr(13) + Chr(10) + ;
-						lcVersionStringForVersionFile + Chr(13) + Chr(10) + ;
-						lcDownloadUrl 
+	lcVersionStringForVersionFile + Chr(13) + Chr(10) + ;
+	lcDownloadUrl
 
 *=== Create the Cloud version file ===========================================
-Text to lcCloudVersionFileContents NoShow TextMerge PRETEXT 3
+TEXT to lcCloudVersionFileContents NoShow TextMerge PRETEXT 3
 
 	Lparameters toUpdateInfo
 
 		###Text to lcNote NoShow
 			<<FileToStr('Changelog_ver_5.txt')>>
-		###EndText 
+		###EndText
 
 		AddProperty(toUpdateInfo, 'AvailableVersion', '<<lcVersionStringForVersionFile>>')
 		AddProperty(toUpdateInfo, 'SourceFileUrl', '<<lcDownloadUrl>>')
@@ -82,19 +86,19 @@ Text to lcCloudVersionFileContents NoShow TextMerge PRETEXT 3
 	Execscript (_Screen.cThorDispatcher, 'Result=', toUpdateInfo)
 	Return toUpdateInfo
 
-EndText
+ENDTEXT
 
 lcCode = Strtran(lcCloudVersionFileContents, '###', '')
 lcCloudVersionFile = '..\_' + lcVersionLocalFile
-? "Writing cloud version file: " + lcCloudVersionFile 
-StrToFile(lcCode, lcCloudVersionFile)
+? "Writing cloud version file: " + lcCloudVersionFile
+Strtofile(lcCode, lcCloudVersionFile)
 
 
 *-- Write out the Include file with the current version and build date as contants
 lcBuildGoFishHeaderFile = 'BuildGoFish.h'
-Delete File (lcBuildGoFishHeaderFile)  
+Delete File (lcBuildGoFishHeaderFile)
 ? "Writing include file: " + lcBuildGoFishHeaderFile
-StrToFile(lcIncludeFileText, lcBuildGoFishHeaderFile) 
+Strtofile(lcIncludeFileText, lcBuildGoFishHeaderFile)
 
 lcBootStrap = 'GoFish.prg'
 Compile (lcBootStrap)
@@ -105,20 +109,20 @@ If File(lcProject)
 	Build App (lcApplicationName) From (lcProject)
 	?
 	lcAppFile =  lcApplicationName + '.app'
-	Dir (lcAppFile) 
+	Dir (lcAppFile)
 	? Fdate(lcAppFile, 1)
 
 	lcErrorFile = lcApplicationName + '.err'
 	If File(lcErrorFile)
 		?
-		? ' *** ERRORS ****' 
-		? FileToStr(lcErrorFile)
-	EndIf
-	
+		? ' *** ERRORS ****'
+		? Filetostr(lcErrorFile)
+	Endif
+
 Else
-	MessageBox('Error locating Project file [' + lcProject + ']',16, lcApplicationName + ' - Building App')
+	Messagebox('Error locating Project file [' + lcProject + ']',16, lcApplicationName + ' - Building App')
 Endif
-    
+
 Set Safety &lcSafety
 
 ? ""
@@ -126,4 +130,4 @@ Set Safety &lcSafety
 ? "  Working..."
 Do GoFishGenerateSCC.prg
 ? "Done."
-           
+

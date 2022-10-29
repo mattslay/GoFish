@@ -1,6 +1,10 @@
 GoFish Change Log
 
-**Ver 5.1.002
+**Ver 5.1.003	** Released 2022-10-29
+* Fixed: User preference settings ignored and overwritten. issue #29
+* Fixed: Opening Filter dialog fails with class not found. issue #28
+
+**Ver 5.1.002	** Released 2022-10-23
 * Fixed: problem with deleted settings file on startup. issue #25
 * Improved: Issues bug template.
 
