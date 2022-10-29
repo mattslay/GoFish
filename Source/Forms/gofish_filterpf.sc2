@@ -1922,15 +1922,6 @@ DEFINE CLASS gf_filter AS gf_baseform OF "..\lib\gofishui.vcx"
 		
 	ENDPROC
 
-	PROCEDURE Load
-		DoDefault()
-		
-		*SF 20221018 -> local storage
-		This.cFilterOptionsClass = This.cCR_StoreLocal + This.cFilterOptionsClass
-		*/SF 20221018 -> local storage
-		
-	ENDPROC
-
 	PROCEDURE loadfiltersettings		&& Loads saved settings from XML file.
 		Lparameters tcFile
 		
