@@ -2109,7 +2109,6 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		For each loControl in Thisform.pfSettings.pageColumns.containerColumnCheckBoxes.Controls
 			lcControlSourceField = loControl.tag
 			loColumn = Thisform.oForm.oGrid.FindColumn(lcControlSourceField)
-			ASSERT loColumn.Visible = Iif(loControl.value = 1, .t., .f.)
 			loColumn.Visible = Iif(loControl.value = 1, .t., .f.)
 		EndFor 
 	ENDPROC
