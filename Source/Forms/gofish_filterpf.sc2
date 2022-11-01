@@ -132,6 +132,7 @@ DEFINE CLASS gf_filter AS gf_baseform OF "..\lib\gofishui.vcx"
 	cfilteroptionsclass = GF_SearchResultsFilter
 	cfilteroptionsxmlfile = GF_Filter_Settings.xml
 	csearchresults = 
+	cuisettingsfile = GF_Filter_PF_Form_Settings.xml
 	DoCreate = .T.
 	Height = 332
 	Left = 0

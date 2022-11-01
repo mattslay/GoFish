@@ -123,9 +123,9 @@ DEFINE CLASS gf_baseform AS form
 	PROCEDURE Init
 		Lparameters toForm
 		
-		This.LoadFormSettings()
-		
 		This.oForm = toForm
+		
+		This.LoadFormSettings()
 		
 		If Vartype(toForm) = 'O'
 			This.oSearchEngine = toForm.oSearchEngine

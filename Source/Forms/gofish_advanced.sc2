@@ -55,9 +55,8 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 	*< OBJECTDATA: ObjPath="Label2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="chkcomment" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="chkMatchWholeWord" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="Check3" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="Check2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="chkMatchCase" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Check2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="chkTimeStamp" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Label11" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Label12" UniqueID="" Timestamp="" />
@@ -94,6 +93,7 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 	*< OBJECTDATA: ObjPath="comboSearchExpressionHistoryDropDownArrow" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Command1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdHelp" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Check3" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Optiongroup1" UniqueID="" Timestamp="" />
 
 	*<DefinedPropArrayMethod>
@@ -114,6 +114,7 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 	cactiveproject = 
 	Caption = "GoFish - Advanced Search"
 	ccurrentdir = 
+	cuisettingsfile = GF_Advanced_Form_Settings.xml
 	DataSession = 2
 	DoCreate = .T.
 	HalfHeightCaption = .T.

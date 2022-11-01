@@ -20,8 +20,9 @@ ENDDEFINE
 DEFINE CLASS gf_filterform1 AS gf_filterform OF "..\lib\gofishui.vcx" 
  	*< CLASSDATA: Baseclass="form" Timestamp="" Scale="" Uniqueid="" />
 
+	cuisettingsfile = GF_Filter_Form_Settings.xml
 	DoCreate = .T.
-	Name = "Gf_filterform1"
+	Name = "GF_FilterForm1"
 	Container1.containerClassName.Command1.Name = "Command1"
 	Container1.containerClassName.Command2.Name = "Command2"
 	Container1.containerClassName.Label1.Name = "Label1"

@@ -199,6 +199,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 	BorderStyle = 3
 	Caption = "GoFish Options"
 	ccr_storelocal_option = 		&& Internal storage for new local path, just to display and set.
+	cuisettingsfile = GF_Options_Form_Settings.xml
 	dlastjanitorrundate = /  /  
 	DoCreate = .T.
 	Height = 600

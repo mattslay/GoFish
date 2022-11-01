@@ -29,6 +29,7 @@ DEFINE CLASS gf_filter_extendsearch AS gf_filterform OF "..\lib\gofishui.vcx"
 
 	BorderStyle = 3
 	Caption = "GoFish Extend Search"
+	cuisettingsfile = GF_Filter_ExtendSearch_Form_Settings.xml
 	DoCreate = .T.
 	Height = 184
 	Left = 0
