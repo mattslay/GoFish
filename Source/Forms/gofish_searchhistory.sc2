@@ -216,11 +216,13 @@ DEFINE CLASS form1 AS gf_baseform OF "..\lib\gofishui.vcx"
 
 	PROCEDURE Load
 		If !Used('gf_SearchHistory')
-			MessageBox("Search history cursor is not present.", 0, "Error:")
+			Messagebox("Search history cursor is not present.", 0, "Error:")
 			Return 0
-		EndIf
+		Endif
 		
-		Set Filter to ! Deleted() in gf_SearchHistory
+		Set Filter To ! Deleted() In gf_SearchHistory
+		
+		Return DoDefault()
 		
 	ENDPROC
 

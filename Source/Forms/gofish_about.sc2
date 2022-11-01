@@ -37,6 +37,7 @@ DEFINE CLASS gf_help AS gf_baseform OF "..\lib\gofishui.vcx"
 	BorderStyle = 2
 	Caption = "GoFish - Help"
 	Closable = .T.
+	cuisettingsfile = GF_Help_Form_Settings.xml
 	DoCreate = .T.
 	Height = 238
 	Left = 0
