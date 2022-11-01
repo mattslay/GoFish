@@ -6,6 +6,7 @@ Local lcAppFile, lcWindowTitle, lcYear, llBuildAsBeta, lnCurrentVersion, lcSafet
 
 If Version(4) != "09.00.0000.7423" Then
 	Messagebox("Run with VFP9 SP2!")
+	Return .F.
 Endif &&Version(4)!= "09.00.0000.7423"
 
 lcSafety = Set('Safety')
@@ -16,7 +17,7 @@ Cd (lcSourceLoc)
 
 *== Most of these local variables will make their way into BuildGoFish.h
 lcVersion = '5.1'
-lcBuild = '003' && <---- Set your desired version level of the tool here
+lcBuild = '004' && <---- Set your desired version level of the tool here
 && This will be used on the GoFish form and will live on the
 && the _GoFish object that gets attached to _Screen at run time.
 

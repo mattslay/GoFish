@@ -125,6 +125,21 @@ DEFINE CLASS gf_baseform AS form
 		
 		This.oForm = toForm
 		
+		If Vartype(m.toForm)="O" And Pemstatus(m.toForm, "cCR_StoreLocal", 5) Then
+			This.cCR_StoreLocal = m.toForm.cCR_StoreLocal
+		Endif &&VARTYPE(m.toForm)="O" AND PEMSTATUS(m.toForm, "cCR_StoreLocal", 5)
+		
+		If This.Desktop Or This.Dockable=1 Then
+		*Move forms with this setting into screen, might be odd on multiple monitors
+		
+		*get coords of vfp
+			This.Top  = _Screen.Top
+			This.Left = _Screen.Left
+		*twice, first reads odd values
+			This.Top  = _Screen.Top
+			This.Left = _Screen.Left
+		Endif &&This.Desktop Or This.Dockable=1
+		
 		This.LoadFormSettings()
 		
 		If Vartype(toForm) = 'O'
@@ -138,80 +153,97 @@ DEFINE CLASS gf_baseform AS form
 		Set Talk Off
 		Set Echo Off
 		
-		* SF 20221017
-		* we first got storage location of settings
-		Local loMy As 'My' Of 'My.vcx'
-		Local lcFile, loSettings
-		
-		lcFile = This.cCR_StoreLocal + Strtran(This.Name, ' ', '_') + '_Form_Settings.xml'
-		
-		loMy = Newobject('My', 'My.vcx')
-		loSettings = loMy.Settings
-		
-		Thisform.oMy = loMy
-		
-		If File(lcFile)
-		
-			loSettings.Load(lcFile)
-		
-		* SF 20221017
-		* Special local settings.
-			This.nFirstLoad = 1
-			If m.loSettings.Exists('lCR_Allow') And m.loSettings.lCR_Allow Then
-		*Search local settings, procedure because Go1Fish.prg needs this as well.
-				This.lCR_Allow = loSettings.lCR_Allow
-		
-				Get_LocalSettings(@loSettings,@lcFile)
-		
-				This.lCR_Allowed = loSettings.lCR_Allowed
-				If loSettings.lCR_Allowed Then
-					This.nFirstLoad = 2
-					This.cCR_StoreLocal  = Addbs(Justpath(m.lcFile))
-				Endif &&loSettings.lCR_Allowed
-		
-			Endif &&m.loSettings.Exists('lCR_Allow') And m.loSettings.lCR_Allow
-		Endif
-		
-		This.cUISettingsFile = m.lcFile
-		
-		*/ SF 20221017
-		
 		DoDefault()
 		
 	ENDPROC
 
 	PROCEDURE loadformsettings
-		Local loMy As 'My' Of 'My.vcx'
-		Local lcFile, loSettings
+		Local;
+			lcFile     As String,;
+			loMy       As 'My' Of 'My.vcx',;
+			loSettings As Object
 		
-		lcFile = This.cUISettingsFile
+		Local;
+			lnTop          As Integer,;
+			lnLeft         As Integer,;
+			lnWidth        As Integer,;
+			lnHeight       As Integer,;
+			lnScreenTop    As Integer,;
+			lnScreenBottom As Integer,;
+			lnScreenLeft   As Integer,;
+			lnScreenRight  As Integer,;
+			loMonitor      As Empty
 		
-		loMy = Newobject('My', 'My.vcx')
-		loSettings = loMy.Settings
+		lcFile = Lower(Strtran(This.Name, ' ', '_') + '_Form_Settings.xml')
 		
-		Thisform.oMy = loMy
+		*rename old style settings file
+		If ! m.lcFile==Lower(This.cUISettingsFile);
+				And File(This.cCR_StoreLocal + m.lcFile) Then
 		
-		If !File(lcFile)
+			If File(This.cCR_StoreLocal + This.cUISettingsFile) Then
+				Delete File (This.cCR_StoreLocal + m.lcFile)
+		
+			Else  &&File(This.cCR_StoreLocal + This.cUISettingsFile)
+				Rename (This.cCR_StoreLocal + m.lcFile) To (This.cCR_StoreLocal + This.cUISettingsFile)
+		
+			Endif &&File(This.cCR_StoreLocal + This.cUISettingsFile)
+		Endif &&! m.lcFile==Lower(This.cUISettingsFile) And File(This.cCR_StoreLocal + m.lcFile)
+		
+		lcFile = This.cCR_StoreLocal + This.cUISettingsFile
+		
+		loMy       = Newobject('My', 'My.vcx')
+		loSettings = m.loMy.Settings
+		
+		Thisform.oMy = m.loMy
+		
+		If !File(m.lcFile)
 			Return
 		Endif
 		
-		loSettings.Load(lcFile)
+		loSettings.Load(m.lcFile)
 		
 		*-- Resize form size and position--------------------
 		If loSettings.Exists('FormTop')
-			With loSettings
-				This.Top    = .FormTop
-				This.Left   = .FormLeft
-				This.Height = .FormHeight
-				This.Width  = .FormWidth
+			With m.loSettings
+				lnTop          = 0
+				lnHeight       = This.Height
+				lnLeft         = 0
+				lnWidth        = This.Width
+		
+				lnScreenTop    = 0
+				lnScreenBottom = _Screen.Height
+				lnScreenLeft   = 0
+				lnScreenRight  = _Screen.Width
+		
+				If This.Desktop Or This.Dockable=1 Then
+					loMonitor = GetMonitorStatistics()
+		
+					lnTop          = _Screen.Top
+					lnLeft         = _Screen.Left
+		
+					lnScreenTop    = m.loMonitor.gnVirtualTop
+					lnScreenBottom = m.loMonitor.gnVirtualBottom
+					lnScreenLeft   = m.loMonitor.gnVirtualLeft
+					lnScreenRight  = m.loMonitor.gnVirtualRight
+		
+				Endif &&This.Desktop Or This.Dockable=1
+		
+				If Between(.FormTop , m.lnScreenTop, m.lnScreenBottom) Then
+					lnTop    = .FormTop
+					lnHeight = .FormHeight
+				Endif &&Between(.FormTop , m.lnScreenTop, m.lnScreenBottom)
+		
+				If Between(.FormLeft, m.lnScreenLeft, m.lnScreenRight) Then
+					lnLeft   = .FormLeft
+					lnWidth  = .FormWidth
+				Endif &&Between(.FormLeft, m.lnScreenLeft, m.lnScreenRight)
+		
+				Thisform.Move(m.lnLeft, m.lnTop, m.lnWidth, m.lnHeight)
+		
 			Endwith
 		
 			This.Resize()
 		Endif
-		
-		
-		
-		
 		
 	ENDPROC
 
@@ -220,27 +252,26 @@ DEFINE CLASS gf_baseform AS form
 	ENDPROC
 
 	PROCEDURE saveformsettings
-		Local lcFile, loSettings
+		Local;
+			lcFile     As String,;
+			loSettings As Object
 		
 		loSettings = Thisform.oMy.Settings
 		
-		lcFile = This.cUISettingsFile
+		lcFile = This.cCR_StoreLocal + This.cUISettingsFile
 		
-		With loSettings
-			*-- Form Size and Position -----------------------------
+		With m.loSettings
+		*-- Form Size and Position -----------------------------
 			.Add('FormTop',    This.Top)
 			.Add('FormLeft',   This.Left)
 			.Add('FormHeight', This.Height)
 			.Add('FormWidth',  This.Width)
 		
-			.Save(lcFile)
+			.Save(m.lcFile)
 		
 		Endwith
 		
 		
-		
-		
-		  
 	ENDPROC
 
 ENDDEFINE
@@ -4284,7 +4315,7 @@ DEFINE CLASS gf_resultsform AS form
 		Name = "oTreeView", ;
 		Top = 0, ;
 		Width = 186
-		*< END OBJECT: BaseClass="olecontrol" OLEObject="c:\windows\syswow64\mscomctl.ocx" Value="0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAEAAAAgAAAAEAAAD+////AAAAAAAAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9/////v////7///8EAAAA/v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////1IAbwBvAHQAIABFAG4AdAByAHkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAUA//////////8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACDWhI6e69gBAwAAAEACAAAAAAAAAwBPAGwAZQBPAGIAagBlAGMAdABEAGEAdABhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAgEDAAAAAgAAAP////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAagAAAAAAAAADAEEAYwBjAGUAcwBzAE8AYgBqAFMAaQB0AGUARABhAHQAYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgACAP///////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABcAAAAAAAAAAMAQwBoAGEAbgBnAGUAZABQAHIAbwBwAHMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAIA////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAACABAAAAAAAABAAAAAIAAAD+////BQAAAP7///8GAAAABwAAAAgAAAD+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+2kEHHiYXREbFqAMDwKDYoIUM0EggAAAA5EwAABTUAALE8wWoBAAYAIgAAABkAAAARAgAACgAAAAEAAAAB782rXAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACQAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5MzY4MjY1RS04NUZFLTExZDEtOEJFMy0wMDAwRjg3NTREQTEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACADgAAAEhpZGVTZWxlY3Rpb24ABQAAAEwAAAAADAAAAEluZGVudGF0aW9uABEAAABODQAAAAcAAAAAAAAAAAAFAAhtbAQGAAAAAAAAAAUAAIC45xkAAQAAAFwAH97svQEABQAA6BkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANEAKAAAATGluZVN0eWxlAAkAAABJCgAAAAEAAAANAAAATW91c2VQb2ludGVyAAkAAABJCgAAAAAAAAAOAAAAUGF0aFNlcGFyYXRvcgAKAAAASAAAAAABAAAAXAYAAABTdHlsZQAJAAAASQoAAAAGAAAADAAAAE9MRURyYWdNb2RlAAkAAABJCgAAAAAAAAAMAAAAT0xFRHJvcE1vZGUACQAAAEkKAAAAAAAAAA4AAABGdWxsUm93U2VsZWN0AAUAAABMAQAAAAoAAABTaW5nbGVTZWwABQAAAEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+		*< END OBJECT: BaseClass="olecontrol" OLEObject="c:\windows\syswow64\mscomctl.ocx" Value="0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAEAAAAgAAAAEAAAD+////AAAAAAAAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9/////v////7///8EAAAA/v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////1IAbwBvAHQAIABFAG4AdAByAHkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAUA//////////8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGB39aEs7tgBAwAAAEACAAAAAAAAAwBPAGwAZQBPAGIAagBlAGMAdABEAGEAdABhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAgEDAAAAAgAAAP////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAagAAAAAAAAADAEEAYwBjAGUAcwBzAE8AYgBqAFMAaQB0AGUARABhAHQAYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgACAP///////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABcAAAAAAAAAAMAQwBoAGEAbgBnAGUAZABQAHIAbwBwAHMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAIA////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAACABAAAAAAAABAAAAAIAAAD+////BQAAAP7///8GAAAABwAAAAgAAAD+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+2kEHHiYXREbFqAMDwKDYoIUM0EggAAAA5EwAABTUAALE8wWoBAAYAIgAAABkAAAARAgAACgAAAAEAAAAB782rXAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACQAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5MzY4MjY1RS04NUZFLTExZDEtOEJFMy0wMDAwRjg3NTREQTEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACADgAAAEhpZGVTZWxlY3Rpb24ABQAAAEwAAAAADAAAAEluZGVudGF0aW9uABEAAABODQAAAAcAAAAAAAAAAAAFAGDRxgUGAAAAAAAAAAUAAIC45xkAAQAAAFwAH97svQEABQAA6BkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANEAKAAAATGluZVN0eWxlAAkAAABJCgAAAAEAAAANAAAATW91c2VQb2ludGVyAAkAAABJCgAAAAAAAAAOAAAAUGF0aFNlcGFyYXRvcgAKAAAASAAAAAABAAAAXAYAAABTdHlsZQAJAAAASQoAAAAGAAAADAAAAE9MRURyYWdNb2RlAAkAAABJCgAAAAAAAAAMAAAAT0xFRHJvcE1vZGUACQAAAEkKAAAAAAAAAA4AAABGdWxsUm93U2VsZWN0AAUAAABMAQAAAAoAAABTaW5nbGVTZWwABQAAAEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
 
 	ADD OBJECT 'containerRight' AS container WITH ;
 		Anchor = 15, ;
@@ -7060,6 +7091,17 @@ DEFINE CLASS gf_resultsform AS form
 		
 		This.LockScreen = .T.
 		
+		If This.Desktop Or This.Dockable=1 Then
+		*Move forms with this setting into screen, might be odd on multiple monitors
+		
+		*get coords of vfp
+			This.Top  = _Screen.Top
+			This.Left = _Screen.Left
+		*twice, first reads odd values
+			This.Top  = _Screen.Top
+			This.Left = _Screen.Left
+		Endif &&This.Desktop Or This.Dockable=1
+		
 		This.Caption = 'GoFish ' + JustStem(_Screen._GoFish.cVersion)
 		
 		This.oBrowser = Thisform.containerRight.Container2.containerWebControl.oBrowser
@@ -7312,6 +7354,16 @@ DEFINE CLASS gf_resultsform AS form
 		Local loMy As 'My' Of 'My.vcx', loMyDefault As 'My' Of 'My.vcx'
 		Local lcDockWindow, lcFolder, lcSettingsFile, llDocked, llRestoreSizeAndPosition, lnDockPosition
 		Local lnX, loControl, loSettings, loSettingsDefault
+		Local;
+			lnTop          As Integer,;
+			lnLeft         As Integer,;
+			lnWidth        As Integer,;
+			lnHeight       As Integer,;
+			lnScreenTop    As Integer,;
+			lnScreenBottom As Integer,;
+			lnScreenLeft   As Integer,;
+			lnScreenRight  As Integer,;
+			loMonitor      As Empty
 		
 		*SF 20221017
 		*new settings
@@ -7431,25 +7483,6 @@ DEFINE CLASS gf_resultsform AS form
 			Endif
 		Endif
 		
-		*SF 20221018; unused
-		*!*	If Not Empty(m.tcFolder)
-		*!*		lcFolder				 = m.tcFolder
-		*!*		llRestoreSizeAndPosition = .F.
-		*!*	Endif
-		*/SF 20221018; unused
-		
-		*SF 20221018; moved above
-		*!*	If Not File(m.lcSettingsFile)
-		*!*		This.Top = 0 && See note above
-		*!*		Return
-		*!*	Endif
-		
-		*!*	loMy	   = Newobject('My', 'My.vcx')
-		*!*	loSettings = m.loMy.Settings
-		
-		*!*	m.loSettings.Load(m.lcSettingsFile)
-		*/SF 20221018; moved above
-		
 		If m.llRestoreSizeAndPosition
 		*-- Restore Docking settings (Code provided by Jim Nelson) -----------------
 		*-- Important note: Dock settings MUST be restored before Lett and Top are restored in next step
@@ -7476,12 +7509,42 @@ DEFINE CLASS gf_resultsform AS form
 		*-- Resize form size and position--------------------
 			If m.loSettings.Exists('FormTop')
 				With m.loSettings
-					If This.Desktop Or .FormLeft + .FormWidth <= _Screen.Width
-						This.Left	= .FormLeft
-						This.Height	= .FormHeight
-						This.Width	= .FormWidth
-						Thisform.Resize()
-					Endif This.Desktop ...
+					lnTop          = 0
+					lnHeight       = This.Height
+					lnLeft         = 0
+					lnWidth        = This.Width
+		
+					lnScreenTop    = 0
+					lnScreenBottom = _Screen.Height
+					lnScreenLeft   = 0
+					lnScreenRight  = _Screen.Width
+		
+					If This.Desktop Or This.Dockable=1 Then
+						loMonitor = GetMonitorStatistics()
+		
+						lnTop          = _Screen.Top
+						lnLeft         = _Screen.Left
+		
+						lnScreenTop    = m.loMonitor.gnVirtualTop
+						lnScreenBottom = m.loMonitor.gnVirtualBottom
+						lnScreenLeft   = m.loMonitor.gnVirtualLeft
+						lnScreenRight  = m.loMonitor.gnVirtualRight
+		
+					Endif &&This.Desktop Or This.Dockable=1
+		
+					If Between(.FormTop , m.lnScreenTop, m.lnScreenBottom) Then
+						lnTop    = .FormTop
+						lnHeight = .FormHeight
+					Endif &&Between(.FormTop , m.lnScreenTop, m.lnScreenBottom)
+		
+					If Between(.FormLeft, m.lnScreenLeft, m.lnScreenRight) Then
+						lnLeft   = .FormLeft
+						lnWidth  = .FormWidth
+					Endif &&Between(.FormLeft, m.lnScreenLeft, m.lnScreenRight)
+		
+					Thisform.Move(m.lnLeft, m.lnTop, m.lnWidth, m.lnHeight)
+					Thisform.Resize()
+		
 					Try
 							This.Containerright.Splitter1.MoveSplitterToPosition(.Splitter1Position)
 						Catch
@@ -7808,7 +7871,7 @@ DEFINE CLASS gf_resultsform AS form
 		Thisform.Refresh()
 		
 		If llEnteringReplaceMode and thisform.nReplaceMode = 3
-			Do Form gofish_advaccedreplacehelp
+			Do Form gofish_advaccedreplacehelp With Thisform
 		EndIf
 		
 		
@@ -7955,7 +8018,7 @@ DEFINE CLASS gf_resultsform AS form
 		Local loReplaceColumn
 		
 		If thisform.lInit and tnReplaceMode = 3 and tnReplaceMode <> Thisform.nReplaceMode
-			Do Form gofish_advaccedreplacehelp
+			Do Form gofish_advaccedreplacehelp With Thisform
 		Endif
 		
 		This.nReplaceMode = tnReplaceMode
@@ -8351,7 +8414,7 @@ DEFINE CLASS gf_resultsform AS form
 			MessageBox("No search history results to restore. Ensure option is enabled.", 0, "GoFish")
 			Return 
 		Else
-			Do Form GoFish_SearchHistory to lcFolder
+			Do Form GoFish_SearchHistory With Thisform to lcFolder
 		Endif
 		
 		If !Empty(lcFolder)
@@ -8988,7 +9051,7 @@ DEFINE CLASS gf_resultsform AS form
 		Set Filter To In (lcCursor) && Clear current filter so Filter form and process all records
 		Goto top In (lcCursor)
 		
-		Do Form (lcFormName) With This To lcFilter
+		Do Form (lcFormName) With Thisform To lcFilter
 		
 		If IsNull(lcFilter)
 			Set Filter To &lcCurrentFilter in (lcCursor)
@@ -9062,7 +9125,7 @@ DEFINE CLASS gf_resultsform AS form
 	ENDPROC
 
 	PROCEDURE showhelpform
-		Do Form 'GoFish_About'
+		Do Form 'GoFish_About' With Thisform
 	ENDPROC
 
 	PROCEDURE showhtml

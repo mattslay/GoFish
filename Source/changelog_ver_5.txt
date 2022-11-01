@@ -1,5 +1,12 @@
 GoFish Change Log
 
+**Ver 5.1.004	** Released 2022-11-01
+* Fixed: GF_Search_History_Form_Settings.xml written to default folder. issue #31 
+* Fixed: User preference settings ignored and overwritten. issue #29 
+* Fixed: Startup parameter ignored. issue #21
+* Fixed: Load history form should provide keyboard access to grid. issue #10
+* Improved: buildgofish.prg forces to use of VFP9 SP2
+
 **Ver 5.1.003	** Released 2022-10-29
 * Fixed: User preference settings ignored and overwritten. issue #29
 * Fixed: Opening Filter dialog fails with class not found. issue #28
@@ -9,12 +16,12 @@ GoFish Change Log
 * Improved: Issues bug template.
 
 **Ver 5.1.001	** Released 2022-10-21
-* Fixed: Problem registring with Thor  issue #23 Can't debug this, please report further problems to issue https://github.com/VFPX/GoFish/issues/23
+* Fixed: Problem registring with Thor  issue #23
 
 **Ver 5.1.000	** Released 2022-10-19
 * New: Option for local settings. Allows local settings and history. Select storage location if local.
 * Improved: Storage of some options separated from search settings.
-* Fixed: Setting Desktop will engage if form is not closed wit *Ok*  issue #19
+* Fixed: Setting Desktop will engage if form is not closed with *Ok*  issue #19
 * Fixed: problem with deleted settings file on startup. issue #17
 
 **Ver 5.0.209** Released 2022-10-17

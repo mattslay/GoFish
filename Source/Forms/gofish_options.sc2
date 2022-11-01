@@ -660,7 +660,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Alignment = 2, ;
 		Anchor = 10, ;
 		BackStyle = 0, ;
-		Caption = "********** Available after Restart of GoFish! **********", ;
+		Caption = "********** Available after Restart of GoFish! Check or additional options after restart **********", ;
 		FontBold = .T., ;
 		ForeColor = 255,0,0, ;
 		Left = 12, ;
