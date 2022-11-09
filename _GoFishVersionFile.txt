@@ -3,6 +3,11 @@ Lparameters toUpdateInfo
 Text to lcNote NoShow
 GoFish Change Log
 
+**Ver 5.1.005	** Released 2022-11-09
+* Fixed: Highlighted match not visible in code view for SCX/VCX issue #27
+* Fixed: Due to unlucky git settings, some text files wher line end with LF instead of CRLF
+* Improved: git line end logic forces checkin-as-is checkout-as-is for this repo
+
 **Ver 5.1.004	** Released 2022-11-01
 * Fixed: GF_Search_History_Form_Settings.xml written to default folder. issue #31
 * Fixed: User preference settings ignored and overwritten. issue #29
@@ -81,7 +86,7 @@ GoFish Change Log
 
 EndText
 
-AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 5.1.004 - 1. November 2022,  - 20221101')
+AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 5.1.005 - 9. November 2022,  - 20221109')
 AddProperty(toUpdateInfo, 'SourceFileUrl', 'https://raw.githubusercontent.com/VFPX/GoFish/master/Source/Source.zip')
 AddProperty(toUpdateInfo, 'LinkPrompt', 'GoFish Home Page')
 AddProperty(toUpdateInfo, 'Link', 'https://github.com/VFPX/GoFish')

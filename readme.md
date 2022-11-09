@@ -1,5 +1,5 @@
 # GoFish 5.1 
-_ver 5.1.004   released 2022-11-01_
+_ver 5.1.005   released 2022-11-09_
 
 ## GoFish is an advanced code search tool for fast searching and replacing of Visual FoxPro source code.
 
@@ -9,6 +9,9 @@ _ver 5.1.004   released 2022-11-01_
 
 ### What's new
 #### What's new in version 5.1:
+* Fixed: Highlighted match not visible in code view for SCX/VCX issue #27 
+* Fixed: Due to unlucky git settings, some text files wher line end with LF instead of CRLF
+* Improved: git line end logic forces checkin-as-is checkout-as-is for this repo
 * Fixed: GF_Search_History_Form_Settings.xml written to default folder. issue #31 
 * Fixed: User preference settings ignored and overwritten. issue #29 
 * Fixed: Startup parameter ignored. issue #21
