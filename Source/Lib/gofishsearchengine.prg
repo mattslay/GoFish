@@ -1688,17 +1688,18 @@ Define Class GoFishSearchEngine As Custom
 
 		*-- Build the whole Html by combining the html parts defined above -------------
 		Text To lcHtml Noshow Textmerge Pretext 3
-			<html>
-				<head>
-					<<lcCss>>
-				</head>
-		
-				<body>
-					<<lcHtmlBody>>
-					<br /><br /><br />
-					<<lcJavaScript>>
-				</body>
-			</html>
+<html>
+ <head>
+  <title>GoFish code snippet</title>
+  <<m.lcCss>>
+ </head>
+
+ <body>
+  <<m.lcHtmlBody>>
+  <br /><br /><br />
+  <<m.lcJavaScript>>
+ </body>
+</html>
 		ENDTEXT
 
 
