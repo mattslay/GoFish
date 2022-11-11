@@ -3387,22 +3387,44 @@ Define Class GoFishSearchEngine As Custom
 		Endif
 
 		*** JRN 07/10/2016 : ascertain the first match in each statement based on FilePath, Class, MethodName, StatementStart
-		Update  Results ;
-			Set firstmatchinstatement = .T. ;
-			From (This.cSearchResultsAlias)    As  Results ;
-			Join (Select  FilePath, ;
-					   Class, ;
-					   Name, ;
-					   MethodName, ;
-					   statementstart, ;
-					   Min(MatchStart) As  MatchStart ;
-				   From (This.cSearchResultsAlias)            ;
-				   Group By FilePath, Class, Name, MethodName, statementstart) ;
-			 As  FirstMatch ;
-			 On Results.FilePath + Results.Class + Results.Name + Results.MethodName ;
-			 	= FirstMatch.FilePath + FirstMatch.Class + FirstMatch.Name + FirstMatch.MethodName ;
-			 And Results.statementstart = FirstMatch.statementstart ;
-			 And Results.MatchStart = FirstMatch.MatchStart
+*SF 20221111 (Helau!)
+* Change suggested by Chen, see issue #34
+* splitted lon string comaprision into single ones
+    Update  Results ;
+        Set firstmatchinstatement = .T. ;
+        From (This.cSearchResultsAlias)    As  Results ;
+        Join (Select  FilePath, ;
+                   Class, ;
+                   Name, ;
+                   MethodName, ;
+                   statementstart, ;
+                   Min(MatchStart) As  MatchStart ;
+               From (This.cSearchResultsAlias)            ;
+               Group By FilePath, Class, Name, MethodName, statementstart) ;
+         As  FirstMatch ;
+         On Results.FilePath = FirstMatch.FilePath AND ;
+               Results.Class = FirstMatch.Class AND ;
+               Results.Name = FirstMatch.Name AND ;
+               Results.MethodName = FirstMatch.MethodName ;
+         And Results.statementstart = FirstMatch.statementstart ;
+         And Results.MatchStart = FirstMatch.MatchStart
+*!*			Update  Results ;
+*!*				Set firstmatchinstatement = .T. ;
+*!*				From (This.cSearchResultsAlias)    As  Results ;
+*!*				Join (Select  FilePath, ;
+*!*						   Class, ;
+*!*						   Name, ;
+*!*						   MethodName, ;
+*!*						   statementstart, ;
+*!*						   Min(MatchStart) As  MatchStart ;
+*!*					   From (This.cSearchResultsAlias)            ;
+*!*					   Group By FilePath, Class, Name, MethodName, statementstart) ;
+*!*				 As  FirstMatch ;
+*!*				 On Results.FilePath + Results.Class + Results.Name + Results.MethodName ;
+*!*				 	= FirstMatch.FilePath + FirstMatch.Class + FirstMatch.Name + FirstMatch.MethodName ;
+*!*				 And Results.statementstart = FirstMatch.statementstart ;
+*!*				 And Results.MatchStart = FirstMatch.MatchStart
+*/SF 20221111 (Helau!)
 
 		 Update  Results ;
 			 Set firstmatchinprocedure = .T. ;
