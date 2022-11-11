@@ -3,6 +3,9 @@ Lparameters toUpdateInfo
 Text to lcNote NoShow
 GoFish Change Log
 
+**Ver 5.1.005	** Released 2022-11-11
+* Fixed: Problem with Collate and expression length issue #34
+
 **Ver 5.1.005	** Released 2022-11-09
 * Fixed: Highlighted match not visible in code view for SCX/VCX issue #27
 * Fixed: Due to unlucky git settings, some text files wher line end with LF instead of CRLF
@@ -86,7 +89,7 @@ GoFish Change Log
 
 EndText
 
-AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 5.1.005 - 9. November 2022,  - 20221109')
+AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 5.1.006 - 11. November 2022,  - 20221111')
 AddProperty(toUpdateInfo, 'SourceFileUrl', 'https://raw.githubusercontent.com/VFPX/GoFish/master/Source/Source.zip')
 AddProperty(toUpdateInfo, 'LinkPrompt', 'GoFish Home Page')
 AddProperty(toUpdateInfo, 'Link', 'https://github.com/VFPX/GoFish')
