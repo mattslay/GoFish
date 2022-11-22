@@ -1,6 +1,9 @@
 GoFish Change Log
 
-**Ver 5.1.005	** Released 2022-11-11
+**Ver 5.1.007	** Released 2022-11-22
+* Fixed: Problem with Filter form issue #36
+
+**Ver 5.1.006	** Released 2022-11-11
 * Fixed: Problem with Collate and expression length issue #34
 
 **Ver 5.1.005	** Released 2022-11-09
