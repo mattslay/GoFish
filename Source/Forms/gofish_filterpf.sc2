@@ -1954,6 +1954,8 @@ DEFINE CLASS gf_filter AS gf_baseform OF "..\lib\gofishui.vcx"
 	ENDPROC
 
 	PROCEDURE loadformsettings
+		RETURN DODEFAULT()
+		 
 		Local loMy As 'My' Of 'My.vcx'
 		Local lcSettingsFile, loSettings
 		
@@ -2031,6 +2033,8 @@ DEFINE CLASS gf_filter AS gf_baseform OF "..\lib\gofishui.vcx"
 	ENDPROC
 
 	PROCEDURE saveformsettings
+		Return DoDefault()
+		
 		Local loMy As 'My' Of 'My.vcx'
 		Local lcSettingsFile, loSettings
 		
@@ -2041,7 +2045,7 @@ DEFINE CLASS gf_filter AS gf_baseform OF "..\lib\gofishui.vcx"
 		m.loSettings.Load(m.lcSettingsFile)
 		
 		With m.loSettings
-			*-- Form Size and Position -----------------------------
+		*-- Form Size and Position -----------------------------
 			.Add('FormTop',    This.Top)
 			.Add('FormLeft',   This.Left)
 			.Add('FormWidth',  This.Width)
