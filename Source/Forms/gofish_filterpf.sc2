@@ -1953,36 +1953,6 @@ DEFINE CLASS gf_filter AS gf_baseform OF "..\lib\gofishui.vcx"
 		
 	ENDPROC
 
-	PROCEDURE loadformsettings
-		RETURN DODEFAULT()
-		 
-		Local loMy As 'My' Of 'My.vcx'
-		Local lcSettingsFile, loSettings
-		
-		This.MinWidth  = This.Width
-		This.MinHeight = This.Height
-		
-		loMy	   = Newobject('My', 'My.vcx')
-		loSettings = m.loMy.Settings
-		
-		lcSettingsFile = This.cUISettingsFile
-		If !File(lcSettingsFile)
-			Return
-		Endif
-		
-		m.loSettings.Load(m.lcSettingsFile)
-		
-		If m.loSettings.Exists('FormTop')
-			With m.loSettings
-				This.Top				  = .FormTop
-				This.Left				  = .FormLeft
-				This.Width				  = .FormWidth
-				This.PageFrame.ActivePage = PropNvl(m.loSettings, 'StartPage', 1, .T.)
-			Endwith
-		Endif
-		
-	ENDPROC
-
 	PROCEDURE QueryUnload
 		thisform.llReturn = .f.
 	ENDPROC
@@ -2030,31 +2000,6 @@ DEFINE CLASS gf_filter AS gf_baseform OF "..\lib\gofishui.vcx"
 		
 		Endwith
 		  
-	ENDPROC
-
-	PROCEDURE saveformsettings
-		Return DoDefault()
-		
-		Local loMy As 'My' Of 'My.vcx'
-		Local lcSettingsFile, loSettings
-		
-		loMy	   = Newobject('My', 'My.vcx')
-		loSettings = m.loMy.Settings
-		
-		lcSettingsFile = This.cUISettingsFile
-		m.loSettings.Load(m.lcSettingsFile)
-		
-		With m.loSettings
-		*-- Form Size and Position -----------------------------
-			.Add('FormTop',    This.Top)
-			.Add('FormLeft',   This.Left)
-			.Add('FormWidth',  This.Width)
-			.Add('StartPage', This.PageFrame.ActivePage)
-			.Save(m.lcSettingsFile )
-		Endwith
-		
-		
-		
 	ENDPROC
 
 	PROCEDURE Unload
