@@ -1894,6 +1894,10 @@ DEFINE CLASS gf_filter AS gf_baseform OF "..\lib\gofishui.vcx"
 		
 		DoDefault(m.toForm)
 		
+		*SF 20221123 -> local storage
+		This.cFilterOptionsXMLFile = This.cCR_StoreLocal + This.cFilterOptionsXMLFile
+		*/SF 20221123 -> local storage
+		
 		If Vartype(m.toFilter) = 'O'
 			*-- oFilter should already loaded up with values.
 			Thisform.oFilter = m.toFilter
