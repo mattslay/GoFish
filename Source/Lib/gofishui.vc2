@@ -2737,6 +2737,10 @@ DEFINE CLASS gf_filterform AS gf_baseform OF "gofishui.vcx"
 		
 		DoDefault(toForm)
 		
+		*SF 20221018 -> local storage
+		This.cFilterOptionsXMLFile = This.cCR_StoreLocal + This.cFilterOptionsXMLFile
+		*/SF 20221018 -> local storage
+		
 		If Vartype(toFilter) = 'O'
 			*-- oFilter should already loaded up with values.
 			Thisform.oFilter = toFilter
@@ -2767,15 +2771,6 @@ DEFINE CLASS gf_filterform AS gf_baseform OF "gofishui.vcx"
 		
 		Thisform.Refresh()
 		
-		
-	ENDPROC
-
-	PROCEDURE Load
-		DoDefault()
-		
-		*SF 20221018 -> local storage
-		This.cFilterOptionsXMLFile = This.cCR_StoreLocal + This.cFilterOptionsXMLFile
-		*/SF 20221018 -> local storage
 		
 	ENDPROC
 

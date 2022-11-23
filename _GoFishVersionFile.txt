@@ -3,6 +3,9 @@ Lparameters toUpdateInfo
 Text to lcNote NoShow
 GoFish Change Log
 
+**Ver 5.1.008	** Released 2022-11-23
+* Fixed: Problem with filter settings storage place from filter form #38
+
 **Ver 5.1.007	** Released 2022-11-22
 * Fixed: Problem with Filter form issue #36
 
@@ -92,7 +95,7 @@ GoFish Change Log
 
 EndText
 
-AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 5.1.007 - 22. November 2022,  - 20221122')
+AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 5.1.008 - 23. November 2022,  - 20221123')
 AddProperty(toUpdateInfo, 'SourceFileUrl', 'https://raw.githubusercontent.com/VFPX/GoFish/master/Source/Source.zip')
 AddProperty(toUpdateInfo, 'LinkPrompt', 'GoFish Home Page')
 AddProperty(toUpdateInfo, 'Link', 'https://github.com/VFPX/GoFish')

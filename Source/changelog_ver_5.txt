@@ -1,5 +1,8 @@
 GoFish Change Log
 
+**Ver 5.1.008	** Released 2022-11-23
+* Fixed: Problem with filter settings storage place from filter form #38
+
 **Ver 5.1.007	** Released 2022-11-22
 * Fixed: Problem with Filter form issue #36
 
