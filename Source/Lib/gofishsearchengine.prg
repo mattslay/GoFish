@@ -510,10 +510,12 @@ Define Class GoFishSearchEngine As Custom
 
 		*SF 20221018 -> local storage
 		*#Define ccBACKUPFOLDER Addbs(Home(7) + 'GoFishBackups')
+		*SF 20230131 -> issue #41
+		*Thisform was not a good idea here
 		LOCAL ccBACKUPFOLDER
-		ccBACKUPFOLDER = Addbs(Thisform.cCR_StoreLocal + 'GoFishBackups')
+		ccBACKUPFOLDER = Addbs(This.cCR_StoreLocal + 'GoFishBackups')
+		*/SF 20230131 -> issue #41
 		*/SF 20221018 -> local storage
-		
 
 		Local lcBackupPRG, llCopyError
 		Local laExtensions[1], lcDestFile, lcExt, lcExtensions, lcSourceFile, lcThisBackupFolder, lnI

@@ -6,6 +6,7 @@
 
 ## Fix a bug or add an enhancement
 - Fork the project: see this [guide](https://www.dataschool.io/how-to-contribute-on-github/) for setting up and using a fork.
+- If you have already forked the project: **Remember yourself to pull first.**
 - Make whatever changes are necessary.
 - Add a description of the changes to `Source\changelog_ver_5.txt`. This is:
    - *Version number* and *Release date*
