@@ -1,5 +1,8 @@
 GoFish Change Log
 
+**Ver 5.1.009	** Released 2023-01-31
+* Fixed: Fixed problem with wrong object addressed in backup issue #41
+
 **Ver 5.1.008	** Released 2022-11-23
 * Fixed: Problem with filter settings storage place from filter form #38
 
