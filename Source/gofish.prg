@@ -62,7 +62,7 @@ Endif
 * SF 20221017
 * special local settings
 If m.loSettings.Exists('lCR_Allow') And m.loSettings.lCR_Allow Then
-	Get_LocalSettings(@loSettings,m.lcSettingsFile)
+	GF_Get_LocalSettings(@loSettings,m.lcSettingsFile)
 
 Endif &&m.loSettings.EXISTS('lCR_Allow') And m.loSettings.lCR_Allow
 */ SF 20221017

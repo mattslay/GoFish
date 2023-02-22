@@ -216,7 +216,7 @@ DEFINE CLASS gf_help AS gf_baseform OF "..\lib\gofishui.vcx"
 	ENDPROC
 
 	PROCEDURE Label1.Click
-		Shell('http://groups.google.com/group/foxprogofish')
+		GF_Shell('http://groups.google.com/group/foxprogofish')
 		
 	ENDPROC
 
@@ -237,7 +237,7 @@ DEFINE CLASS gf_help AS gf_baseform OF "..\lib\gofishui.vcx"
 	ENDPROC
 
 	PROCEDURE lblGoFishOnVFPx.Click
-		Shell('https://github.com/VFPX/GoFish')
+		GF_Shell('https://github.com/VFPX/GoFish')
 		
 	ENDPROC
 
