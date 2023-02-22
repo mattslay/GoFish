@@ -3,6 +3,9 @@ Lparameters toUpdateInfo
 Text to lcNote NoShow
 GoFish Change Log
 
+**Ver 5.1.010	** Released 2023-02-22
+* Fixed: Renamed a buch of procedures to pseudo-unique names, try to fix issue #45
+
 **Ver 5.1.009	** Released 2023-01-31
 * Fixed: Fixed problem with wrong object addressed in backup issue #41
 
@@ -98,7 +101,7 @@ GoFish Change Log
 
 EndText
 
-AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 5.1.009 - 31. Januar 2023,  - 20230131')
+AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 5.1.010 - 22. Februar 2023,  - 20230222')
 AddProperty(toUpdateInfo, 'SourceFileUrl', 'https://raw.githubusercontent.com/VFPX/GoFish/master/Source/Source.zip')
 AddProperty(toUpdateInfo, 'LinkPrompt', 'GoFish Home Page')
 AddProperty(toUpdateInfo, 'Link', 'https://github.com/VFPX/GoFish')
