@@ -252,7 +252,7 @@ DEFINE CLASS form1 AS gf_baseform OF "..\lib\gofishui.vcx"
 			Return
 		Endif
 		
-		If RemoveFolder(m.lcPath)
+		If GF_RemoveFolder(m.lcPath)
 			Delete In gf_SearchHistory
 		Else
 			Messagebox('Unable to delete folder "' + m.lcPath + '"', 16, 'Unable to delete folder')
@@ -282,7 +282,7 @@ DEFINE CLASS form1 AS gf_baseform OF "..\lib\gofishui.vcx"
 		
 		lcPath = Alltrim(gf_SearchHistory.SearchHistoryFolder)
 		
-		OpenExplorerWindow(lcPath) 
+		GF_OpenExplorerWindow(lcPath) 
 	ENDPROC
 
 	PROCEDURE Command1.Refresh

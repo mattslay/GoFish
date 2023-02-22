@@ -216,7 +216,7 @@ DEFINE CLASS gf_baseform AS form
 				lnScreenRight  = _Screen.Width
 		
 				If This.Desktop Or This.Dockable=1 Then
-					loMonitor = GetMonitorStatistics()
+					loMonitor = GF_GetMonitorStatistics()
 		
 					lnTop          = _Screen.Top
 					lnLeft         = _Screen.Left
@@ -3588,7 +3588,7 @@ DEFINE CLASS gf_resultsform AS form
 		*p: creplaceline
 		*p: creplaceudffilename
 		*p: cresultsmessage
-		*p: csavedsearchresultsfolder		&& This property value is used by the RemoveFolder() function in the GoFishProc.prg file. If changed here, you'll need to update code in that fucntion also.
+		*p: csavedsearchresultsfolder		&& This property value is used by the GF_RemoveFolder() function in the GoFishProc.prg file. If changed here, you'll need to update code in that fucntion also.
 		*p: csearchoptionsxmlfile
 		*p: csearchresultsalias
 		*p: csearchresultsmessage
@@ -3685,7 +3685,7 @@ DEFINE CLASS gf_resultsform AS form
 	creplaceline = 
 	creplaceudffilename = 
 	cresultsmessage = 
-	csavedsearchresultsfolder = GF_Saved_Search_Results		&& This property value is used by the RemoveFolder() function in the GoFishProc.prg file. If changed here, you'll need to update code in that fucntion also.
+	csavedsearchresultsfolder = GF_Saved_Search_Results		&& This property value is used by the GF_RemoveFolder() function in the GoFishProc.prg file. If changed here, you'll need to update code in that fucntion also.
 	csearchoptionsxmlfile = GF_Search_Settings.xml
 	csearchresultsalias = csrSummarySearchResults
 	csearchresultsmessage = 
@@ -3768,7 +3768,7 @@ DEFINE CLASS gf_resultsform AS form
 	osearchoptions = .NULL.
 	otree = .NULL.
 	owebcontrol = .NULL.
-	Picture = ..\
+	Picture = ..\..\data\default\
 	ShowTips = .T.
 	TabStop = .T.
 	Top = 0
@@ -4059,7 +4059,7 @@ DEFINE CLASS gf_resultsform AS form
 		Height = 24, ;
 		Left = 118, ;
 		Name = "comboViewPosition", ;
-		Picture = ..\, ;
+		Picture = ..\..\data\default\, ;
 		Style = 2, ;
 		TabIndex = 24, ;
 		TabStop = .F., ;
@@ -4217,7 +4217,7 @@ DEFINE CLASS gf_resultsform AS form
 		Left = 47, ;
 		Name = "comboSearchExpressionHistory", ;
 		nexpressionstostore = 50, ;
-		Picture = ..\, ;
+		Picture = ..\..\data\default\, ;
 		TabIndex = 19, ;
 		TabStop = .F., ;
 		Top = 3, ;
@@ -4231,7 +4231,7 @@ DEFINE CLASS gf_resultsform AS form
 		Height = 26, ;
 		Left = 446, ;
 		Name = "comboSearchExpressionHistoryDropDownArrow", ;
-		Picture = ..\, ;
+		Picture = ..\..\data\default\, ;
 		TabIndex = 24, ;
 		TabStop = .F., ;
 		Top = 14, ;
@@ -4246,7 +4246,7 @@ DEFINE CLASS gf_resultsform AS form
 		Left = 70, ;
 		Name = "comboSearchScopeHistory", ;
 		nexpressionstostore = 40, ;
-		Picture = ..\, ;
+		Picture = ..\..\data\default\, ;
 		SelectOnEntry = .T., ;
 		TabIndex = 10, ;
 		Top = 31, ;
@@ -4310,7 +4310,7 @@ DEFINE CLASS gf_resultsform AS form
 		Name = "oTreeView", ;
 		Top = 0, ;
 		Width = 186
-		*< END OBJECT: BaseClass="olecontrol" OLEObject="c:\windows\syswow64\mscomctl.ocx" Value="0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAEAAAAgAAAAEAAAD+////AAAAAAAAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9/////v////7///8EAAAA/v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////1IAbwBvAHQAIABFAG4AdAByAHkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAUA//////////8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGB39aEs7tgBAwAAAEACAAAAAAAAAwBPAGwAZQBPAGIAagBlAGMAdABEAGEAdABhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAgEDAAAAAgAAAP////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAagAAAAAAAAADAEEAYwBjAGUAcwBzAE8AYgBqAFMAaQB0AGUARABhAHQAYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgACAP///////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABcAAAAAAAAAAMAQwBoAGEAbgBnAGUAZABQAHIAbwBwAHMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAIA////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAACABAAAAAAAABAAAAAIAAAD+////BQAAAP7///8GAAAABwAAAAgAAAD+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+2kEHHiYXREbFqAMDwKDYoIUM0EggAAAA5EwAABTUAALE8wWoBAAYAIgAAABkAAAARAgAACgAAAAEAAAAB782rXAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACQAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5MzY4MjY1RS04NUZFLTExZDEtOEJFMy0wMDAwRjg3NTREQTEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACADgAAAEhpZGVTZWxlY3Rpb24ABQAAAEwAAAAADAAAAEluZGVudGF0aW9uABEAAABODQAAAAcAAAAAAAAAAAAFAGDRxgUGAAAAAAAAAAUAAIC45xkAAQAAAFwAH97svQEABQAA6BkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANEAKAAAATGluZVN0eWxlAAkAAABJCgAAAAEAAAANAAAATW91c2VQb2ludGVyAAkAAABJCgAAAAAAAAAOAAAAUGF0aFNlcGFyYXRvcgAKAAAASAAAAAABAAAAXAYAAABTdHlsZQAJAAAASQoAAAAGAAAADAAAAE9MRURyYWdNb2RlAAkAAABJCgAAAAAAAAAMAAAAT0xFRHJvcE1vZGUACQAAAEkKAAAAAAAAAA4AAABGdWxsUm93U2VsZWN0AAUAAABMAQAAAAoAAABTaW5nbGVTZWwABQAAAEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+		*< END OBJECT: BaseClass="olecontrol" OLEObject="c:\windows\syswow64\mscomctl.ocx" Value="0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAEAAAAgAAAAEAAAD+////AAAAAAAAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9/////v////7///8EAAAA/v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////1IAbwBvAHQAIABFAG4AdAByAHkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAUA//////////8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPA0am2CRtkBAwAAAEACAAAAAAAAAwBPAGwAZQBPAGIAagBlAGMAdABEAGEAdABhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAgEDAAAAAgAAAP////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAagAAAAAAAAADAEEAYwBjAGUAcwBzAE8AYgBqAFMAaQB0AGUARABhAHQAYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgACAP///////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABcAAAAAAAAAAMAQwBoAGEAbgBnAGUAZABQAHIAbwBwAHMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAIA////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAACABAAAAAAAABAAAAAIAAAD+////BQAAAP7///8GAAAABwAAAAgAAAD+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+2kEHHiYXREbFqAMDwKDYoIUM0EggAAAA5EwAABTUAALE8wWoBAAYAIgAAABkAAAARAgAACgAAAAEAAAAB782rXAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACQAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5MzY4MjY1RS04NUZFLTExZDEtOEJFMy0wMDAwRjg3NTREQTEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACADgAAAEhpZGVTZWxlY3Rpb24ABQAAAEwAAAAADAAAAEluZGVudGF0aW9uABEAAABODQAAAAcAAAAAAAAAAAAFAOBErgAGAAAAAAAAAAUAAIC45xkAAQAAAFwAH97svQEABQAA6BkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANEAKAAAATGluZVN0eWxlAAkAAABJCgAAAAEAAAANAAAATW91c2VQb2ludGVyAAkAAABJCgAAAAAAAAAOAAAAUGF0aFNlcGFyYXRvcgAKAAAASAAAAAABAAAAXAYAAABTdHlsZQAJAAAASQoAAAAGAAAADAAAAE9MRURyYWdNb2RlAAkAAABJCgAAAAAAAAAMAAAAT0xFRHJvcE1vZGUACQAAAEkKAAAAAAAAAA4AAABGdWxsUm93U2VsZWN0AAUAAABMAQAAAAoAAABTaW5nbGVTZWwABQAAAEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
 
 	ADD OBJECT 'containerRight' AS container WITH ;
 		Anchor = 15, ;
@@ -5027,7 +5027,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Process", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\
+		Picture = ..\..\data\default\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.colProcess.imageCheck' AS image WITH ;
@@ -5060,7 +5060,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\
+		Picture = ..\..\data\default\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column1.Text1' AS textbox WITH ;
@@ -5076,7 +5076,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\
+		Picture = ..\..\data\default\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column10.Text1' AS textbox WITH ;
@@ -5094,7 +5094,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\
+		Picture = ..\..\data\default\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column11.Text1' AS textbox WITH ;
@@ -5112,7 +5112,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\
+		Picture = ..\..\data\default\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column12.Text1' AS textbox WITH ;
@@ -5130,7 +5130,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\
+		Picture = ..\..\data\default\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column13.Text1' AS textbox WITH ;
@@ -5146,7 +5146,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\
+		Picture = ..\..\data\default\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column14.Text1' AS textbox WITH ;
@@ -5162,7 +5162,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\
+		Picture = ..\..\data\default\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column15.Text1' AS textbox WITH ;
@@ -5178,7 +5178,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\
+		Picture = ..\..\data\default\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column16.Text1' AS textbox WITH ;
@@ -5200,7 +5200,7 @@ DEFINE CLASS gf_resultsform AS form
 		FontSize = 8, ;
 		ForeColor = 255,255,255, ;
 		Name = "Header1", ;
-		Picture = ..\
+		Picture = ..\..\data\default\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column17.Text1' AS textbox WITH ;
@@ -5224,7 +5224,7 @@ DEFINE CLASS gf_resultsform AS form
 		FontSize = 8, ;
 		ForeColor = 255,255,255, ;
 		Name = "Header1", ;
-		Picture = ..\
+		Picture = ..\..\data\default\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column18.Text1' AS textbox WITH ;
@@ -5245,7 +5245,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\
+		Picture = ..\..\data\default\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column19.Text1' AS textbox WITH ;
@@ -5261,7 +5261,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\
+		Picture = ..\..\data\default\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column2.Text1' AS textbox WITH ;
@@ -5277,7 +5277,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\
+		Picture = ..\..\data\default\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column20.Text1' AS textbox WITH ;
@@ -5292,7 +5292,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\
+		Picture = ..\..\data\default\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column21.Text1' AS textbox WITH ;
@@ -5307,7 +5307,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\
+		Picture = ..\..\data\default\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column22.Text1' AS textbox WITH ;
@@ -5322,7 +5322,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\
+		Picture = ..\..\data\default\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column23.Text1' AS textbox WITH ;
@@ -5337,7 +5337,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\
+		Picture = ..\..\data\default\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column25.Text1' AS textbox WITH ;
@@ -5356,7 +5356,7 @@ DEFINE CLASS gf_resultsform AS form
 		FontSize = 8, ;
 		ForeColor = 255,255,255, ;
 		Name = "Header1", ;
-		Picture = ..\
+		Picture = ..\..\data\default\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column3.Text1' AS textbox WITH ;
@@ -5380,7 +5380,7 @@ DEFINE CLASS gf_resultsform AS form
 		FontSize = 8, ;
 		ForeColor = 255,255,255, ;
 		Name = "Header1", ;
-		Picture = ..\
+		Picture = ..\..\data\default\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column4.Text1' AS textbox WITH ;
@@ -5400,7 +5400,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\
+		Picture = ..\..\data\default\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column5.Text1' AS textbox WITH ;
@@ -5416,7 +5416,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\
+		Picture = ..\..\data\default\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column6.Text1' AS textbox WITH ;
@@ -5434,7 +5434,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\
+		Picture = ..\..\data\default\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column7.Text1' AS textbox WITH ;
@@ -5452,7 +5452,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\
+		Picture = ..\..\data\default\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column8.Text1' AS textbox WITH ;
@@ -5470,7 +5470,7 @@ DEFINE CLASS gf_resultsform AS form
 		Caption = "Header1", ;
 		FontSize = 8, ;
 		Name = "Header1", ;
-		Picture = ..\
+		Picture = ..\..\data\default\
 		*< END OBJECT: BaseClass="header" />
 
 	ADD OBJECT 'containerRight.Container1.GridFiles.Column9.Text1' AS textbox WITH ;
@@ -5602,7 +5602,7 @@ DEFINE CLASS gf_resultsform AS form
 		FontSize = 8, ;
 		Left = 108, ;
 		Name = "comboViewPosition", ;
-		Picture = ..\, ;
+		Picture = ..\..\data\default\, ;
 		Style = 2, ;
 		TabIndex = 24, ;
 		TabStop = .F., ;
@@ -6976,7 +6976,7 @@ DEFINE CLASS gf_resultsform AS form
 		
 		lcChoice = ''
 		lnBar	 = 0
-		CreateContextMenu('FilterByFile')
+		GF_CreateContextMenu('FilterByFile')
 		
 		lcChoice1 = 'Filter by this File'
 		lnBar	  = m.lnBar + 1
@@ -7029,7 +7029,7 @@ DEFINE CLASS gf_resultsform AS form
 		Local lcChoice, lnBar
 		lcChoice = ''
 		lnBar	 = 0
-		CreateContextMenu('GridHeaderMenu')
+		GF_CreateContextMenu('GridHeaderMenu')
 		
 		lnBar = m.lnBar + 1
 		Define Bar (m.lnBar) Of GridHeaderMenu Prompt 'Sort by this column'
@@ -7298,7 +7298,7 @@ DEFINE CLASS gf_resultsform AS form
 		*Search local settings, procedure because Go1Fish.prg needs this as well.
 				This.lCR_Allow = loSettings.lCR_Allow
 		
-				Get_LocalSettings(@loSettings,@lcFile)
+				GF_Get_LocalSettings(@loSettings,@lcFile)
 		
 				This.lCR_Allowed = loSettings.lCR_Allowed
 				If loSettings.lCR_Allowed Then
@@ -7425,14 +7425,14 @@ DEFINE CLASS gf_resultsform AS form
 		
 			m.loSettings.Load(m.lcSettingsFile)
 		
-			This.lCR_Local         = PropNvl(m.loSettings, "lCR_Local"        ,This.lCR_Local        ,.T.)
-			This.lCR_Local_Default = PropNvl(m.loSettings, "lCR_Local_Default",This.lCR_Local_Default,.T.)
+			This.lCR_Local         = GF_PropNvl(m.loSettings, "lCR_Local"        ,This.lCR_Local        ,.T.)
+			This.lCR_Local_Default = GF_PropNvl(m.loSettings, "lCR_Local_Default",This.lCR_Local_Default,.T.)
 		
 			If m.loSettings.Exists('lCR_Allow') And m.loSettings.lCR_Allow Then
 		*Search local settings, procedure because Go1Fish.prg needs this as well.
 				This.lCR_Allow = loSettings.lCR_Allow
 		
-				Get_LocalSettings(@loSettings,@lcSettingsFile)
+				GF_Get_LocalSettings(@loSettings,@lcSettingsFile)
 		
 				This.lCR_Allowed = loSettings.lCR_Allowed
 				If loSettings.lCR_Allowed Then
@@ -7463,7 +7463,7 @@ DEFINE CLASS gf_resultsform AS form
 		loMyDefault       = m.loMy
 		loSettingsDefault = m.loSettings
 		
-		This.lRestorePreviousSearchResultsOnStartup	= PropNvl(m.loSettingsDefault, 'lRestorePreviousSearchResultsOnStartup ', This.lRestorePreviousSearchResultsOnStartup, .T.)
+		This.lRestorePreviousSearchResultsOnStartup	= GF_PropNvl(m.loSettingsDefault, 'lRestorePreviousSearchResultsOnStartup ', This.lRestorePreviousSearchResultsOnStartup, .T.)
 		*/ SF 20221017
 		
 		If Not m.tlForceLoadFromHome7 And Thisform.lRestorePreviousSearchResultsOnStartup
@@ -7515,7 +7515,7 @@ DEFINE CLASS gf_resultsform AS form
 					lnScreenRight  = _Screen.Width
 		
 					If This.Desktop Or This.Dockable=1 Then
-						loMonitor = GetMonitorStatistics()
+						loMonitor = GF_GetMonitorStatistics()
 		
 						lnTop          = _Screen.Top
 						lnLeft         = _Screen.Left
@@ -7559,11 +7559,11 @@ DEFINE CLASS gf_resultsform AS form
 			Endif
 		
 			With Thisform
-				.nBrowserZoom       = PropNvl(m.loSettingsDefault, 'nBrowserZoom', 1, .T.)
-				.nSearchBoxFontSize	= PropNvl(m.loSettings, 'nSearchBoxFontSize', Thisform.editSearch.FontSize, .T.)
-				.nGridFontSize		= PropNvl(m.loSettingsDefault, 'nGridFontSize', Thisform.oGrid.FontSize, .T.)
-				.nTreeViewFontSize	= PropNvl(m.loSettingsDefault, 'nTreeViewFontSize', Thisform.oGrid.FontSize, .T.)
-				.nReplaceMode		= PropNvl(m.loSettings, 'nReplaceMode', 1)
+				.nBrowserZoom       = GF_PropNvl(m.loSettingsDefault, 'nBrowserZoom', 1, .T.)
+				.nSearchBoxFontSize	= GF_PropNvl(m.loSettings, 'nSearchBoxFontSize', Thisform.editSearch.FontSize, .T.)
+				.nGridFontSize		= GF_PropNvl(m.loSettingsDefault, 'nGridFontSize', Thisform.oGrid.FontSize, .T.)
+				.nTreeViewFontSize	= GF_PropNvl(m.loSettingsDefault, 'nTreeViewFontSize', Thisform.oGrid.FontSize, .T.)
+				.nReplaceMode		= GF_PropNvl(m.loSettings, 'nReplaceMode', 1)
 		
 				.Containerright.Container2.containerWebControl.nZoom = .nBrowserZoom
 			Endwith
@@ -7572,65 +7572,65 @@ DEFINE CLASS gf_resultsform AS form
 		
 		*-- Load other Form properties from My Settings ------------------------------------
 		With Thisform
-		*.lIncludeSubDirectoriesCurrent = PropNvl(loSettings, 'lIncludeSubDirectoriesCurrent', .t.)
-		*.lIncludeSubDirectoriesBrowsed = PropNvl(loSettings, 'lIncludeSubDirectoriesBrowsed', .t.)
-			.lApplyFilter	   = PropNvl(m.loSettings, 'lApplyFilter', .F., .T.)		&&controlsource
-			.lClearApplyFilter = PropNvl(m.loSettingsDefault, 'lClearApplyFilter', .T., .T.)
-			.cFilter		   = PropNvl(m.loSettings, 'cFilter', '', .T.)
+		*.lIncludeSubDirectoriesCurrent = GF_PropNvl(loSettings, 'lIncludeSubDirectoriesCurrent', .t.)
+		*.lIncludeSubDirectoriesBrowsed = GF_PropNvl(loSettings, 'lIncludeSubDirectoriesBrowsed', .t.)
+			.lApplyFilter	   = GF_PropNvl(m.loSettings, 'lApplyFilter', .F., .T.)		&&controlsource
+			.lClearApplyFilter = GF_PropNvl(m.loSettingsDefault, 'lClearApplyFilter', .T., .T.)
+			.cFilter		   = GF_PropNvl(m.loSettings, 'cFilter', '', .T.)
 		
-		*.cSortFields = PropNvl(loSettings, 'cSortFields', '') && This one has been deprecated. See cSortField.
+		*.cSortFields = GF_PropNvl(loSettings, 'cSortFields', '') && This one has been deprecated. See cSortField.
 			If Pemstatus(m.loSettings, 'cSortFields', 5)
 				.cSortField = Getwordnum(m.loSettings.cSortFields, 1, ',')
 			Else
-				.cSortField = PropNvl(m.loSettings, 'cSortField')
+				.cSortField = GF_PropNvl(m.loSettings, 'cSortField')
 			Endif
 		
-			.cSortOrder			 = PropNvl(m.loSettings, 'cSortOrder', '')
-			.cSortFieldSecondary = PropNvl(m.loSettings, 'cSortFieldSecondary', '')
-			.cSortOrderSecondary = PropNvl(m.loSettings, 'cSortOrderSecondary', '')
-			.cSortFieldTertiary	 = PropNvl(m.loSettings, 'cSortFieldTertiary', '')
-			.cSortOrderTertiary	 = PropNvl(m.loSettings, 'cSortOrderSecondary', '')
+			.cSortOrder			 = GF_PropNvl(m.loSettings, 'cSortOrder', '')
+			.cSortFieldSecondary = GF_PropNvl(m.loSettings, 'cSortFieldSecondary', '')
+			.cSortOrderSecondary = GF_PropNvl(m.loSettings, 'cSortOrderSecondary', '')
+			.cSortFieldTertiary	 = GF_PropNvl(m.loSettings, 'cSortFieldTertiary', '')
+			.cSortOrderTertiary	 = GF_PropNvl(m.loSettings, 'cSortOrderSecondary', '')
 		
-			.nReplaceRisk		 = Evl(PropNvl(m.loSettingsDefault, 'nReplaceRisk', 1), 1)
-			.cReplaceUDFFilename = PropNvl(m.loSettings, 'cReplaceUdfFilename', '')
+			.nReplaceRisk		 = Evl(GF_PropNvl(m.loSettingsDefault, 'nReplaceRisk', 1), 1)
+			.cReplaceUDFFilename = GF_PropNvl(m.loSettings, 'cReplaceUdfFilename', '')
 		
-			.nDropDownDisplayCount = PropNvl(m.loSettingsDefault, 'nDropDownDisplayCount', 20, .T.)
-			.nDropDownMaxMRU	   = PropNvl(m.loSettingsDefault, 'nDropDownMaxMRU', 7, .T.)
+			.nDropDownDisplayCount = GF_PropNvl(m.loSettingsDefault, 'nDropDownDisplayCount', 20, .T.)
+			.nDropDownMaxMRU	   = GF_PropNvl(m.loSettingsDefault, 'nDropDownMaxMRU', 7, .T.)
 		
-			.lWarnWholeWord     = PropNvl(m.loSettingsDefault, 'lWarnWholeWord', .F., .T.)
-			.lSaveSearchResults = PropNvl(m.loSettingsDefault, 'lSaveSearchResults', .T., .T.)
-			.lCodeOnly          = PropNvl(m.loSettings, 'lCodeOnly', .F., .T.)
+			.lWarnWholeWord     = GF_PropNvl(m.loSettingsDefault, 'lWarnWholeWord', .F., .T.)
+			.lSaveSearchResults = GF_PropNvl(m.loSettingsDefault, 'lSaveSearchResults', .T., .T.)
+			.lCodeOnly          = GF_PropNvl(m.loSettings, 'lCodeOnly', .F., .T.)
 		
-			.nPreviousSessionTreeviewindex = PropNvl(m.loSettings, 'nSelectedTreeviewNode', 1, .T.)
-			.lOnlyFirstMatchInStatement    = PropNvl(m.loSettings, 'lOnlyFirstMatchInStatement', .F., .T.)
+			.nPreviousSessionTreeviewindex = GF_PropNvl(m.loSettings, 'nSelectedTreeviewNode', 1, .T.)
+			.lOnlyFirstMatchInStatement    = GF_PropNvl(m.loSettings, 'lOnlyFirstMatchInStatement', .F., .T.)
 		
-			.nCodeWindowPosition = 	PropNvl(m.loSettings, 'CodeWindowPosition', 1, .T.)
+			.nCodeWindowPosition = 	GF_PropNvl(m.loSettings, 'CodeWindowPosition', 1, .T.)
 		
-			.nJanitorSearchHistoryDays	= PropNvl(m.loSettingsDefault, 'nJanitorSearchHistoryDays ', 10000, .T.)
-			.nJanitorReplaceHistoryDays	= PropNvl(m.loSettingsDefault, 'nJanitorReplaceHistoryDays', 10000, .T.)
-			.lRunJanitorDaily			= PropNvl(m.loSettingsDefault, 'lRunJanitorDaily', .F., .T.)
-			.nTabsToSpaces				= PropNvl(m.loSettingsDefault, 'nTabsToSpaces', 0, .T.)
+			.nJanitorSearchHistoryDays	= GF_PropNvl(m.loSettingsDefault, 'nJanitorSearchHistoryDays ', 10000, .T.)
+			.nJanitorReplaceHistoryDays	= GF_PropNvl(m.loSettingsDefault, 'nJanitorReplaceHistoryDays', 10000, .T.)
+			.lRunJanitorDaily			= GF_PropNvl(m.loSettingsDefault, 'lRunJanitorDaily', .F., .T.)
+			.nTabsToSpaces				= GF_PropNvl(m.loSettingsDefault, 'nTabsToSpaces', 0, .T.)
 		
 		* Dates are stored as datetime!
-			.dLastJanitorRunDate		= Ttod(PropNvl(m.loSettingsDefault, 'dLastJanitorRunDate', Dtot(Date() - 1), .T.))
+			.dLastJanitorRunDate		= Ttod(GF_PropNvl(m.loSettingsDefault, 'dLastJanitorRunDate', Dtot(Date() - 1), .T.))
 		
 		*SF 20221017
 		*new settings
 		* loSettingsDefault is the same as loSettings, if no previous search is loaded
-			.nContainerFrameColour          = PropNvl(m.loSettingsDefault, "nContainerFrameColour"         ,.nContainerFrameColour         ,.T.)
-			.nFileSCXDynamicForeColour      = PropNvl(m.loSettingsDefault, "nFileSCXDynamicForeColour"     ,.nFileSCXDynamicForeColour     ,.T.)
-			.nFileVCXDynamicForeColour      = PropNvl(m.loSettingsDefault, "nFileVCXDynamicForeColour"     ,.nFileVCXDynamicForeColour     ,.T.)
-			.nFilePRGDynamicForeColour      = PropNvl(m.loSettingsDefault, "nFilePRGDynamicForeColour"     ,.nFilePRGDynamicForeColour     ,.T.)
-			.nFileDefaultDynamicForeColour  = PropNvl(m.loSettingsDefault, "nFileDefaultDynamicForeColour" ,.nFileDefaultDynamicForeColour ,.T.)
-			.nReplacedDynamicBackColour     = PropNvl(m.loSettingsDefault, "nReplacedDynamicBackColour"    ,.nReplacedDynamicBackColour    ,.T.)
-			.nRiskExceededDynamicBackColour = PropNvl(m.loSettingsDefault, "nRiskExceededDynamicBackColour",.nRiskExceededDynamicBackColour,.T.)
-			.nRisk2DynamicBackColour        = PropNvl(m.loSettingsDefault, "nRisk2DynamicBackColour"       ,.nRisk2DynamicBackColour       ,.T.)
-			.nRisk3DynamicBackColour        = PropNvl(m.loSettingsDefault, "nRisk3DynamicBackColour"       ,.nRisk3DynamicBackColour       ,.T.)
-			.nTreeSearchColour              = PropNvl(m.loSettingsDefault, "nTreeSearchColour"             ,.nTreeSearchColour             ,.T.)
-			.nTreeUpdateColour              = PropNvl(m.loSettingsDefault, "nTreeUpdateColour"             ,.nTreeUpdateColour             ,.T.)
-			.nCSS_tr_even_Colour            = PropNvl(m.loSettingsDefault, "nCSS_tr_even_Colour"           ,.nCSS_tr_even_Colour           ,.T.)
-			.nCSS_tr_odd_Colour             = PropNvl(m.loSettingsDefault, "nCSS_tr_odd_Colour"            ,.nCSS_tr_odd_Colour            ,.T.)
-			.lMoveNewCodeToTopLeft          = PropNvl(m.loSettingsDefault, "lMoveNewCodeToTopLeft"         ,.lMoveNewCodeToTopLeft         ,.T.)
+			.nContainerFrameColour          = GF_PropNvl(m.loSettingsDefault, "nContainerFrameColour"         ,.nContainerFrameColour         ,.T.)
+			.nFileSCXDynamicForeColour      = GF_PropNvl(m.loSettingsDefault, "nFileSCXDynamicForeColour"     ,.nFileSCXDynamicForeColour     ,.T.)
+			.nFileVCXDynamicForeColour      = GF_PropNvl(m.loSettingsDefault, "nFileVCXDynamicForeColour"     ,.nFileVCXDynamicForeColour     ,.T.)
+			.nFilePRGDynamicForeColour      = GF_PropNvl(m.loSettingsDefault, "nFilePRGDynamicForeColour"     ,.nFilePRGDynamicForeColour     ,.T.)
+			.nFileDefaultDynamicForeColour  = GF_PropNvl(m.loSettingsDefault, "nFileDefaultDynamicForeColour" ,.nFileDefaultDynamicForeColour ,.T.)
+			.nReplacedDynamicBackColour     = GF_PropNvl(m.loSettingsDefault, "nReplacedDynamicBackColour"    ,.nReplacedDynamicBackColour    ,.T.)
+			.nRiskExceededDynamicBackColour = GF_PropNvl(m.loSettingsDefault, "nRiskExceededDynamicBackColour",.nRiskExceededDynamicBackColour,.T.)
+			.nRisk2DynamicBackColour        = GF_PropNvl(m.loSettingsDefault, "nRisk2DynamicBackColour"       ,.nRisk2DynamicBackColour       ,.T.)
+			.nRisk3DynamicBackColour        = GF_PropNvl(m.loSettingsDefault, "nRisk3DynamicBackColour"       ,.nRisk3DynamicBackColour       ,.T.)
+			.nTreeSearchColour              = GF_PropNvl(m.loSettingsDefault, "nTreeSearchColour"             ,.nTreeSearchColour             ,.T.)
+			.nTreeUpdateColour              = GF_PropNvl(m.loSettingsDefault, "nTreeUpdateColour"             ,.nTreeUpdateColour             ,.T.)
+			.nCSS_tr_even_Colour            = GF_PropNvl(m.loSettingsDefault, "nCSS_tr_even_Colour"           ,.nCSS_tr_even_Colour           ,.T.)
+			.nCSS_tr_odd_Colour             = GF_PropNvl(m.loSettingsDefault, "nCSS_tr_odd_Colour"            ,.nCSS_tr_odd_Colour            ,.T.)
+			.lMoveNewCodeToTopLeft          = GF_PropNvl(m.loSettingsDefault, "lMoveNewCodeToTopLeft"         ,.lMoveNewCodeToTopLeft         ,.T.)
 		*/SF 20221017
 		Endwith
 		
@@ -7655,10 +7655,10 @@ DEFINE CLASS gf_resultsform AS form
 		lnX = 1
 		
 		For Each m.loControl In Thisform.oGrid.Columns
-			loControl.Width		  = PropNvl(m.loSettings, m.loControl.Name + '_width', 100, .T.)
-			loControl.ColumnOrder = PropNvl(m.loSettings, m.loControl.Name + '_order', m.lnX, .T.)
-			loControl.Visible	  = PropNvl(m.loSettings, m.loControl.Name + '_visible', .T., .T.)
-		*loControl.Header1.FontBold = PropNvl(loSettings, loControl.name + '_BoldHeader', .f., .t.)
+			loControl.Width		  = GF_PropNvl(m.loSettings, m.loControl.Name + '_width', 100, .T.)
+			loControl.ColumnOrder = GF_PropNvl(m.loSettings, m.loControl.Name + '_order', m.lnX, .T.)
+			loControl.Visible	  = GF_PropNvl(m.loSettings, m.loControl.Name + '_visible', .T., .T.)
+		*loControl.Header1.FontBold = GF_PropNvl(loSettings, loControl.name + '_BoldHeader', .f., .t.)
 			lnX = m.lnX + 1
 		Endfor
 		
@@ -8505,7 +8505,7 @@ DEFINE CLASS gf_resultsform AS form
 			If Left(m.lcFile, 1) # '.'
 				Locate For Id = Val(m.lcFile)
 				If Not Found()
-					RemoveFolder(ccBACKUPFOLDER + m.lcFile)
+					GF_RemoveFolder(ccBACKUPFOLDER + m.lcFile)
 				Endif
 			Endif
 		Endfor
@@ -8534,7 +8534,7 @@ DEFINE CLASS gf_resultsform AS form
 		For lnI = 1 To m.lnFolderCount
 			lcFile = m.laDirs[m.lnI, 1]
 			If Left(m.lcFile, 1) # '.' And m.laDirs[m.lnI, 3] < m.ldCutOff
-				RemoveFolder(Addbs(m.lcRoot) + m.lcFile)
+				GF_RemoveFolder(Addbs(m.lcRoot) + m.lcFile)
 			Endif
 		Endfor
 	ENDPROC
@@ -9026,7 +9026,7 @@ DEFINE CLASS gf_resultsform AS form
 		Strtofile(m.lcErrorText, m.lcTempFile)
 		Modify File (m.lcTempFile) Nowait
 		
-		If IsThorThere()
+		If GF_IsThorThere()
 			loEditorWin = Execscript(_Screen.cThorDispatcher, 'Class= editorwin from pemeditor')
 			m.loEditorWin.ResizeWindow(1200, 600)
 			m.loEditorWin.SetTitle(m.lcTempFile)
@@ -9094,7 +9094,7 @@ DEFINE CLASS gf_resultsform AS form
 
 	PROCEDURE showgofishhelppage
 		messagebox('No help available at this time.', 0, 'GoFish')
-		*** TODO: Shell('URL for replace help')
+		*** TODO: GF_Shell('URL for replace help')
 		
 	ENDPROC
 
@@ -9801,7 +9801,7 @@ DEFINE CLASS gf_resultsform AS form
 		Local lcChoice, lnBar
 		lcChoice = ''
 		lnBar	 = 0
-		CreateContextMenu('AdvancedContextMenu')
+		GF_CreateContextMenu('AdvancedContextMenu')
 		
 		lnBar = m.lnBar + 1
 		Define Bar (m.lnBar) Of AdvancedContextMenu Prompt '\<Plain Search'
@@ -9919,7 +9919,7 @@ DEFINE CLASS gf_resultsform AS form
 		
 		lcChoice = ''
 		lnBar	 = 0
-		CreateContextMenu('RegExpHelpMenu')
+		GF_CreateContextMenu('RegExpHelpMenu')
 		
 		lnBar = m.lnBar + 1
 		Define Bar (m.lnBar) Of RegExpHelpMenu Prompt '. Any single character'
@@ -9995,7 +9995,7 @@ DEFINE CLASS gf_resultsform AS form
 			Case m.lcChoice = 'VFP Help'
 				Help Id 1231103
 			Case m.lcChoice = 'RegEx Cheat Sheet'
-				Shell('http://tinyurl.com/qxv3e96')
+				GF_Shell('http://tinyurl.com/qxv3e96')
 			Case Not Empty(m.lcChoice)
 				loEdit	   = Thisform.editSearch
 				lcValue	   = m.loEdit.Value
@@ -10057,7 +10057,7 @@ DEFINE CLASS gf_resultsform AS form
 		Local lcChoice, lnBar
 		lcChoice = ''
 		lnBar	 = 0
-		CreateContextMenu('AccessContextMenu')
+		GF_CreateContextMenu('AccessContextMenu')
 		
 		lnBar = m.lnBar + 1
 		Define Bar (m.lnBar) Of AccessContextMenu Prompt '\<Save last search'
@@ -10224,7 +10224,7 @@ DEFINE CLASS gf_resultsform AS form
 	ENDPROC
 
 	PROCEDURE containerLeft.cntVersion.cmdVFPX.Click
-		Shell('http://vfpx.org')
+		GF_Shell('http://vfpx.org')
 	ENDPROC
 
 	PROCEDURE containerLeft.cntVersion.Gf_versionlabel1.Refresh
@@ -10454,7 +10454,7 @@ DEFINE CLASS gf_resultsform AS form
 		Strtofile(m.lcCode, m.lcTempFile)
 		Modify command (m.lcTempFile) Nowait
 		
-		If IsThorThere()
+		If GF_IsThorThere()
 			loEditorWin = Execscript(_Screen.cThorDispatcher, 'Class= editorwin from pemeditor')
 			m.loEditorWin.SetTitle(m.lcTempFile)
 			ThisForm.oSearchEngine.ThorMoveWindow()
@@ -10470,7 +10470,7 @@ DEFINE CLASS gf_resultsform AS form
 	PROCEDURE containerRight.Container1.cmdGoToObject.Refresh
 		Local lcFile, lcMatchType, lcName
 		
-		If IsThorThere()
+		If GF_IsThorThere()
 			lcFile		= Alltrim(Evaluate(Thisform.cSearchResultsAlias + '.filepath'))
 			lcName		= Alltrim(Evaluate(Thisform.cSearchResultsAlias + '.name'))
 			lcMatchType	= Alltrim(Evaluate(Thisform.cSearchResultsAlias + '.MatchType'))
@@ -10491,7 +10491,7 @@ DEFINE CLASS gf_resultsform AS form
 	PROCEDURE containerRight.Container1.cmdMenu.Refresh
 		Local lcFile, lcName
 		
-		If IsThorThere()
+		If GF_IsThorThere()
 			lcFile		 = Alltrim(Evaluate(Thisform.cSearchResultsAlias + '.filepath'))
 			This.Visible = Not Empty(m.lcFile) And Inlist(Upper(Justext(m.lcFile)), 'MNX', 'MPR')
 		Else
@@ -10508,7 +10508,7 @@ DEFINE CLASS gf_resultsform AS form
 			Return
 		Endif
 		
-		OpenExplorerWindow(lcFile)
+		GF_OpenExplorerWindow(lcFile)
 		
 		
 	ENDPROC
@@ -10526,7 +10526,7 @@ DEFINE CLASS gf_resultsform AS form
 		Local lcChoice, lnBar
 		lcChoice = ''
 		lnBar	 = 0
-		CreateContextMenu('ExportContextMenu')
+		GF_CreateContextMenu('ExportContextMenu')
 		
 		lnBar = m.lnBar + 1
 		Define Bar (m.lnBar) Of ExportContextMenu Prompt 'To DBF or XLSX'

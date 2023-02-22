@@ -2384,9 +2384,9 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 			Case !Empty(m.tcFolder)
 		*just store folder given
 				lcFolder = m.tcFolder
-				llFound  = Create_LocalPath(@lcFolder, .F., .F., .T.)
+				llFound  = GF_Create_LocalPath(@lcFolder, .F., .F., .T.)
 		
-				Put_LocalPath(m.lcFolder)
+				GF_Put_LocalPath(m.lcFolder)
 		
 			Case Thisform.oForm.nFirstLoad#2
 		*nothing to do
@@ -2398,7 +2398,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		*nothing to do, activate
 				llSet = .T.
 		
-			Case Get_LocalPath(@tcFolder) And Directory(m.tcFolder)
+			Case GF_Get_LocalPath(@tcFolder) And Directory(m.tcFolder)
 		*found resource, activate
 				Thisform.cCR_StoreLocal_Option = m.tcFolder
 				Thisform.cCR_StoreLocal_Set    = m.tcFolder
@@ -2407,13 +2407,13 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		*pick a folder, or use default path
 		
 				tcFolder = Iif(Thisform.oForm.lCR_Local_Default,'',Justpath(Set("Resource",1)))
-				llFound  = Create_LocalPath(@tcFolder, .F., Thisform.oForm.lCR_Local_Default, Thisform.oForm.lCR_Local_Default)
+				llFound  = GF_Create_LocalPath(@tcFolder, .F., Thisform.oForm.lCR_Local_Default, Thisform.oForm.lCR_Local_Default)
 		
 				If Directory(m.tcFolder) Then
 		*folder found, activate
 					Thisform.cCR_StoreLocal_Option = m.tcFolder
 					Thisform.cCR_StoreLocal_Set    = m.tcFolder
-					Put_LocalPath(m.tcFolder)
+					GF_Put_LocalPath(m.tcFolder)
 					llSet = .T.
 				Else  &&Directory(m.tcFolder)
 					Thisform.oForm.lCR_Local = .F.
@@ -2466,12 +2466,12 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 	ENDPROC
 
 	PROCEDURE pfSettings.Page1.Label3.Click
-		Shell('https://github.com/VFPX/Thor')
+		GF_Shell('https://github.com/VFPX/Thor')
 		
 	ENDPROC
 
 	PROCEDURE pfSettings.Page1.Label5.Click
-		Shell('https://github.com/VFPX/GoFish')
+		GF_Shell('https://github.com/VFPX/GoFish')
 		
 	ENDPROC
 
@@ -2543,7 +2543,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		lcPath = '"' + Thisform.cCR_StoreLocal + '"'
 		*/SF 20221018 -> local storage
 		
-		OpenExplorerWindow(lcPath)
+		GF_OpenExplorerWindow(lcPath)
 	ENDPROC
 
 	PROCEDURE pfSettings.pageAdvanced.cmdSetFolder.Click
@@ -2611,13 +2611,13 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		lcPath = '"' + Addbs(Thisform.cCR_StoreLocal + 'GoFishBackups') + '"'
 		*/SF 20221018 -> local storage
 		
-		OpenExplorerWindow(lcPath)
+		GF_OpenExplorerWindow(lcPath)
 		
 	ENDPROC
 
 	PROCEDURE pfSettings.pageBackups.Label2.Click
 		messagebox('No help available at this time.', 0, 'GoFish')
-		*** TODO: Shell('URL for backup help')
+		*** TODO: GF_Shell('URL for backup help')
 		
 	ENDPROC
 
@@ -2853,7 +2853,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		lcPath = '"' + Thisform.cCR_StoreLocal + lcFolder  + '"'
 		*/SF 20221018 -> local storage
 		
-		OpenExplorerWindow(lcPath) 
+		GF_OpenExplorerWindow(lcPath) 
 	ENDPROC
 
 	PROCEDURE pfSettings.pagePreferences.Spinner4.Click
@@ -2919,12 +2919,12 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		
 		lcPath = JustPath(Thisform.oSearchEngine.cReplaceDetailTable)
 		
-		OpenExplorerWindow(lcPath) 
+		GF_OpenExplorerWindow(lcPath) 
 	ENDPROC
 
 	PROCEDURE pfSettings.pageReplace.Label2.Click
 		messagebox('No help available at this time.', 0, 'GoFish')
-		*** TODO: Shell('URL for replace help')
+		*** TODO: GF_Shell('URL for replace help')
 		
 	ENDPROC
 
@@ -3021,7 +3021,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 	ENDPROC
 
 	PROCEDURE pfSettings.pageThor.Label2.Click
-		Shell('https://github.com/VFPX/Thor')
+		GF_Shell('https://github.com/VFPX/Thor')
 		
 	ENDPROC
 
