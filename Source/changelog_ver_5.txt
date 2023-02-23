@@ -1,5 +1,8 @@
 GoFish Change Log
 
+**Ver 5.1.010	** Released 2023-02-23
+* Fixed: Options Dialog Desktop checkbox crashes on InteractiveChange code, fix issue #47
+
 **Ver 5.1.010	** Released 2023-02-22
 * Fixed: Renamed a buch of procedures to pseudo-unique names, try to fix issue #45
 

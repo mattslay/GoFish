@@ -3,6 +3,9 @@ Lparameters toUpdateInfo
 Text to lcNote NoShow
 GoFish Change Log
 
+**Ver 5.1.010	** Released 2023-02-23
+* Fixed: Options Dialog Desktop checkbox crashes on InteractiveChange code, fix issue #47
+
 **Ver 5.1.010	** Released 2023-02-22
 * Fixed: Renamed a buch of procedures to pseudo-unique names, try to fix issue #45
 
@@ -101,7 +104,7 @@ GoFish Change Log
 
 EndText
 
-AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 5.1.010 - 22. Februar 2023,  - 20230222')
+AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 5.1.011 - 23. Februar 2023,  - 20230223')
 AddProperty(toUpdateInfo, 'SourceFileUrl', 'https://raw.githubusercontent.com/VFPX/GoFish/master/Source/Source.zip')
 AddProperty(toUpdateInfo, 'LinkPrompt', 'GoFish Home Page')
 AddProperty(toUpdateInfo, 'Link', 'https://github.com/VFPX/GoFish')

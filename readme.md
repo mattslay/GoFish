@@ -1,5 +1,5 @@
 # GoFish 5.1 
-_ver 5.1.010   released 2023-02-22
+_ver 5.1.011   released 2023-02-23
 
 ## GoFish is an advanced code search tool for fast searching and replacing of Visual FoxPro source code.
 
@@ -9,6 +9,7 @@ _ver 5.1.010   released 2023-02-22
 
 ### What's new
 #### What's new in version 5.1:
+* Fixed: Options Dialog Desktop checkbox crashes on InteractiveChange code, fix issue #47
 * Fixed: Renamed a buch of procedures to pseudo-unique names, try to fix issue #45
 * Fixed: Fixed problem with wrong object addressed in backup issue #41
 * Fixed: Problem with filter settings storage place from filter form #38
