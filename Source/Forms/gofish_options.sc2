@@ -2828,7 +2828,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		
 		*SF 20221018 -> local storage
 		*lcSettingsFile = addbs(home(7)) + Thisform.oForm.cUISettingsFile
-		lcSettingsFile = Thisform.cCR_StoreLocal + Thisform.oForm.cUISettingsFile
+		lcSettingsFile = Thisform.oForm.cUISettingsFile
 		*/SF 20221018 -> local storage
 		
 		m.loSettings.Load(m.lcSettingsFile)
