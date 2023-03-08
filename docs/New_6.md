@@ -1,8 +1,8 @@
-# Changes in Version 6.0.1
+# Changes in Version 6.0.2
 Documentation of GoFish - An advanced code search tool for MS Visual Foxpro 9
 
 ## Purpose of this document
-This document list new function in Version 6.0.1.
+This document list new function in Version 6.0.2.
 
 ----
 ## Table of contents
@@ -31,8 +31,8 @@ This document list new function in Version 6.0.1.
     - [Replace back colour](#replace-back-colour)
 
 ## Basics
-The changes of this version try add functions to GoFish, that are uesfull in *Code References*.
-Mainly settings pre ressource and history in tree.   
+The changes of this version try TO add functions to GoFish, that are uesful in *Code References*.
+Mainly settings pre resource and history in tree.   
 A lot of boolean expressions in the form `lVar = .T.` or `lVar = .F.` are replaced with the short form.
 
 ## Stored settings
@@ -41,12 +41,14 @@ The storage structure in version pre-dating 6.0 used a couple of files directly 
 For better clearance, the User storage is now moved to `HOME(7)+"\GoFish_"`.
 Deleting the folder or it's contents as a whole resets GoFish to factory values.   
 This could also be achieved using a startup parameter `"-Reset"`.   
-This will not clear local storages. Local storages will be reused as soon as the option local is turned on and the app is restarted.
+This will not clear local storages. Local storages will be reused as soon as the option local is turned on and the app is restarted.   
+**Note that VFP 9 and VFPA will use different folders for `HOME(7)`**
 ### Project storage
 Depending on the personal style of development some prefer to have distinct IDE per project.
 On this, it's very odd to mix up search history between projects.
 A new option (Page: Advanced / *Local settings / storage*) allows to store depending of the resource file (FoxUser.dbf) loaded.
 By default, it stores to `Justpath(Set("Resource",1))+"\GoFish_"`. The location might be altered on the same page.   
+Deleting the folder or it's contents as a whole resets GoFish to factory values for this resource file.   
 This could also be achieved using a startup parameter `"-Resetlocal"`.   
 Since the location of a local store is stored in the resource file, so the location of the local storage will be kept.
 #### Data need to use Project storage
@@ -64,11 +66,11 @@ The storage data could be cleared by calling `Do GoFish5.app WITH "-Clear"` this
 GoFish will determine if folder `HOME(7)+"\GoFish_"` exists.
 If not, it will start to transform and move settings from `HOME(7)` to `HOME(7)+"\GoFish_"`, deleting the old files.   
 The new style will show replace information inline of historical search hits.
-The migration can not merge replace history/ and search history,
-so the replaces from the old version are available throug *View Replace History* only.
+The migration can not merge replace history and search history,
+so the replaces from the old version are available through *View Replace History* only.
 #### Parallel use of old versions
 Since v6.0 GoFish will not migrate old data again as long as the folder `HOME(7)+"\GoFish_"` exists,
-the use of older versions does not interfer with GoFish once migrated.
+the use of older versions does not interfere with GoFish once migrated.
 
 ## Treeview
 Some changes are made to allow the Treeview better fit to personal style.
@@ -77,9 +79,9 @@ This is in special (All settings on Page: Code References)
 ### Context menu
 The tree offers a context menu to clear or refresh searches, or to change the sort order.   
 It is possible to refresh all previous (and visible) searches, but keep in mind this could take a while.
-Any way, I found it very usefull while reworking projects.   
+Any way, I found it very useful while reworking projects.   
 If the grid is showing the replace history, the function will clear replace backups.   
-Clearing search or clearing replace will not interfer with the other,
+Clearing search or clearing replace will not interfere with the other,
 records that are both saved and replaced will only be filtered from the respective view.
 ### History
 Allows the tree to show old searches. Note that the result set might be limited by active scope, see [below](#search-history).
@@ -102,14 +104,14 @@ A sub option *Sort Tree by extension first* allows to group the results a bit.
 The replace function is only active for the recent (Not: most recent) search.   
 New: The restore history will follow the search history, so one can see previous replaces on history searches.
 ### Altered functions
-The *Replace View* Checkbox in the bar above the grid opens a replace area. This is independend of enableing the Replace mode.
+The *Replace View* Checkbox in the bar above the grid opens a replace area. This is independent of enabling the Replace mode.
 If the view is visible, previously replaced records in the active or in in restored searches are highlighted inside the grid.
 Setting the Radio Box to *View Replace History* switches the whole form to display previous replaces.   
 The *Preview* allows to see the result of the *Replace Text* function before replacing.
-The hold version used this as the only way, but it was a bit slow on large result sets.
+The old version used this as the only way, but it was a bit slow on large result sets.
 ### Grid context menu
-If a record in the grid is replaced and a backup is created, the backup-folder of the replace is available via the contextmenu of the grid.
-This is independend of the state of *Replace View*.
+If a record in the grid is replaced and a backup is created, the backup-folder of the replace is available via the context menu of the grid.
+This is independent of the state of *Replace View*.
 
 ## Using
 ### Pick a scope
@@ -141,7 +143,7 @@ this is changed from visual to code based.
 Due to this, the column information stored will not survive version change.
 #### Visibility
 The page *Column Selection* on options form is reordered and suppresses fields with internal function.
-They could bw turned on by a change in source code, there is a define `dlDebug` in `GF_ResultsForm.FormatGrid`.   
+They could be turned on by a change in source code, there is a define `dlDebug` in `GF_ResultsForm.FormatGrid`.   
 A way to set the grid to default is added. Fields belonging to the replace function are highlighted in *Replaced* back colour.
 
 ----
