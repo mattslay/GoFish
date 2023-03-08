@@ -16,8 +16,8 @@ lcSourceLoc =  Addbs(Justpath(Sys(16))) && Change this to location of source fil
 Cd (lcSourceLoc)
 
 *== Most of these local variables will make their way into BuildGoFish.h
-lcVersion = '5.1'
-lcBuild = '011' && <---- Set your desired version level of the tool here
+lcVersion = '6.0'
+lcBuild = '000' && <---- Set your desired version level of the tool here
 && This will be used on the GoFish form and will live on the
 && the _GoFish object that gets attached to _Screen at run time.
 
@@ -75,7 +75,7 @@ TEXT to lcCloudVersionFileContents NoShow TextMerge PRETEXT 3
 	Lparameters toUpdateInfo
 
 		###Text to lcNote NoShow
-			<<FileToStr('Changelog_ver_5.txt')>>
+			<<FileToStr('Changelog_Thor.txt')>>
 		###EndText
 
 		AddProperty(toUpdateInfo, 'AvailableVersion', '<<lcVersionStringForVersionFile>>')
