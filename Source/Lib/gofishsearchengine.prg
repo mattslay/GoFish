@@ -1,101 +1,100 @@
 #Include GoFish.h
 
-
 Define Class GoFishSearchEngine As Custom
 
-	cCR_StoreLocal                   = Addbs(Home(7))
-	
+	cCR_StoreLocal                   = Addbs(Home(7) + 'GoFish_')
+
 	cBackupPRG                       = 'GoFishBackup.prg'
 	cFilesToSkip                     = ''
 
-	* This string contains a list of files to be skipped during the search.
-	* One filname on each line. This list is only skipped if lSkipFiles is .t.
+* This string contains a list of files to be skipped during the search.
+* One filname on each line. This list is only skipped if lSkipFiles is .t.
 	cFilesToSkipFile                 = 'GF_Files_To_Skip.txt'
 
 	cGraphicsExtensions              = 'PNG ICO JPG JPEG TIF TIFF GIF BMP MSK CUR ANI'
 	cInitialDefaultDir               = ''
 
-	* A text list of projects that matches oProjects. Makes looking for existing projects fast than analyzing
-	* the oProjects collection. This property is only to be used by the class. Please don't touch it.
+* A text list of projects that matches oProjects. Makes looking for existing projects fast than analyzing
+* the oProjects collection. This property is only to be used by the class. Please don't touch it.
 	cProjects                        = ''
 
-	* A detail record is stored here for every single match line that is replaced.
-	cReplaceDetailTable              = 'GF_Replace_DetailV5.dbf'
-
-	* A single header record is stored here for each time the ReplaceFromMarkedRows() method is called.
-	cReplaceHistoryTable             = 'GF_Replace_History.dbf'
-
-	* Holds the code for a UDF to be used on Replace operations if nReplaceMode is the Advanced Replace mode
+* Holds the code for a UDF to be used on Replace operations if nReplaceMode is the Advanced Replace mode
 	cReplaceUDFCode                  = ''
 
-	* The default Search Options class to be used. Can be overriden by  passing a string to the Init() method.
+* The default Search Options class to be used. Can be overriden by  passing a string to the Init() method.
 	cSearchOptionsClass              = 'GoFishSearchOptions'
 
-	* This is the name of the cursor where the results rows ill be stored.
+* This is the name of the cursor where the results rows ill be stored.
 	cSearchResultsAlias              = 'GFSE_SearchResults'
 
-	* These are the filetypes that will be handled by the SearchInTable() method. All other filetypes are
-	* assumed to be plain text files and will be handled by the SearchInTextFile() method.
+* These are the filetypes that will be handled by the SearchInTable() method. All other filetypes are
+* assumed to be plain text files and will be handled by the SearchInTextFile() method.
 	cTableExtensions                 = 'SCX VCX FRX MNX LBX DBC PJX DBF'
 
 	cVersion                         = ''
 
-	* Indicates if the ESC key was pressed by the user during on of the lower processing loops of a Search.
+* Indicates if the ESC key was pressed by the user during on of the lower processing loops of a Search.
 	lEscPress                        = .F.
 
-	* This flag is set any time a MODIFY operation is launched from the grid. We asume they made changes
-	* to the file, requiring a new search before they can do a Replace. This prevents the REPLACE button from 
-	* being available until the search is run again.
+* This flag is set any time a MODIFY operation is launched from the grid. We asume they made changes
+* to the file, requiring a new search before they can do a Replace. This prevents the REPLACE button from
+* being available until the search is run again.
 	lFileHasBeenEdited               = .F.
 
-	* Will indicate if there were any files in a ProcessProject() or
-	* ProcessPath() that were not found. You can check this flag after a earch call.
+* Will indicate if there were any files in a ProcessProject() or
+* ProcessPath() that were not found. You can check this flag after a earch call.
 	lFileNotFound                    = .F.
-	
+
 	lReadyToReplace                  = .F.
-	
-	* Indicates if the max search results limit was reach during a search. See nMaxResults property on the Search Options class.
+
+* Indicates if the max search results limit was reach during a search. See nMaxResults property on the Search Options class.
 	lResultsLimitReached             = .F.
 
 	lTimeStampDataProvided           = .F.
-	* This values indicates how many files were found to have matches in them.
+* This values indicates how many files were found to have matches in them.
 	nFileCount                       = 0
 
-	* This values indicates the total number of files processed that matched the file filter, whether they had matches or not.
+* This values indicates the total number of files processed that matched the file filter, whether they had matches or not.
 	nFilesProcessed                  = 0
 
-	* How many matched lines found in the last search. Note: this counts lines that had a match, note each match.
-	* It's possible that one line could have multiple matches.
+* How many matched lines found in the last search. Note: this counts lines that had a match, note each match.
+* It's possible that one line could have multiple matches.
 	nMatchLines                      = 0
-	
+
 	nReplaceCount                    = 0
 
 	nReplaceFileCount                = 0
 
-	* Store the current ID number of the Replace History record.
+* Store the current ID number of the Replace History record.
 	nReplaceHistoryId                = 0
 
-	* 1 = Regular replace, 2 = Advanced Replace (UDF Replace)
+* 1 = Regular replace, 2 = Advanced Replace (UDF Replace)
 	nReplaceMode                     = 1
 
-	* Tells how long the last search took. It is only reset by SearchInPath() or SerachInProject() took,
-	* and not by the lower level search like SearchInFile, or SearchInTextFile, or SearchInTable.
+* Tells how long the last search took. It is only reset by SearchInPath() or SerachInProject() took,
+* and not by the lower level search like SearchInFile, or SearchInTextFile, or SearchInTable.
 	nSearchTime                      = 0
-	
+
 	nWildCardFilesToSkip             = 0
 
-	* Internally used by the SearcthInPath() to build a collection of directories to be searched.
+* Internal DateTime of Search
+	tRunTime                         = Datetime()
+* Internal unique ID of Search
+	cUni                             = "_"
+
+
+* Internally used by the SearcthInPath() to build a collection of directories to be searched.
 	oDirectories                     = .Null.
 
-	* An FFC class used to generate a TimeStamp so the TimeStamp field can be updated when replacing code in a table based file.
+* An FFC class used to generate a TimeStamp so the TimeStamp field can be updated when replacing code in a table based file.
 	oFrxCursor                       = .Null.
 
 	oFSO                             = .Null.
 
 	oProgressBar                     = .Null.
 
-	* Internally created to show a collection of recently used Projects, or projects found in the current path folder.
-	* This is built so the GoFish Advanced form can allow user to choose a Project.
+* Internally created to show a collection of recently used Projects, or projects found in the current path folder.
+* This is built so the GoFish Advanced form can allow user to choose a Project.
 	oProjects                        = .Null.
 
 	oRegExForProcedureStartPositions = .Null.
@@ -106,56 +105,57 @@ Define Class GoFishSearchEngine As Custom
 
 	oReplaceErrors                   = .Null.
 
-	* This is a collection of match objects from the last search. Must set  lCreateResultsCollection if you want this collection to be built.
+* This is a collection of match objects from the last search. Must set  lCreateResultsCollection if you want this collection to be built.
 	oResults                         = .Null.
 
-	* A collection of any errors that happened during the last search.
+* A collection of any errors that happened during the last search.
 	oSearchErrors                    = .Null.
 
-	* An object instance of the Search Options class that holds properties  to controll how the search is performed.
+* An object instance of the Search Options class that holds properties  to controll how the search is performed.
 	oSearchOptions                   = .Null.
+
 	Dimension aMenuStartPositions[1]
 	Dimension aWildcardFiles[1]
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure AddColumn(tcTable, tcColumnName, tcColumnDetails)
 
 		Local lcAlias
 
 		lcAlias = Juststem(tcTable)
 		Try
-			Alter Table (tcTable) Add Column &tcColumnName &tcColumnDetails
-		Catch
+				Alter Table (tcTable) Add Column &tcColumnName &tcColumnDetails
+			Catch
 		Endtry
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure AddFieldToReplaceTable(lcTable, lcCsr, lcFieldName, lcDataType)
 
 		Local llSuccess
-		
+
 		If Empty(Field(m.lcFieldName, lcCsr))
 			Use In (Juststem(m.lcTable)) && Close main table, so Alter Table in next called method can get Exclusive use
 			Try
-				Select 0
-				Use (m.lcTable) Exclusive
-				llSuccess = .T.
-			Catch
-				llSuccess = .F.
+					Select 0
+					Use (m.lcTable) Exclusive
+					llSuccess = .T.
+				Catch
+					llSuccess = .F.
 			Endtry
 
-			*-- Migrate up to version 4.3.022 (circa 2012-06-30 ---------------------------
+*-- Migrate up to version 4.3.022 (circa 2012-06-30 ---------------------------
 			If m.llSuccess
 				This.AddColumn(m.lcTable, m.lcFieldName, m.lcDataType)
 			Endif
 		Endif
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure AddProject(tcProject)
 
 		Local llAlreadyInCollection
@@ -166,11 +166,11 @@ Define Class GoFishSearchEngine As Custom
 			This.oProjects.Add(Lower(tcProject))
 			This.cProjects = This.cProjects + tcProject + Chr(13)
 		Endif
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure AssignMatchType(toObject)
 
 		Local lcFileType, lcMatchType, lcName, lcTrimmedMatchLine, lcValue, loNameMatches, loValueMatches
@@ -182,17 +182,17 @@ Define Class GoFishSearchEngine As Custom
 		lcTrimmedMatchLine = This.TrimWhiteSpace(toObject.MatchLine)&& Trimmed version for display in the grid
 		toObject.TrimmedMatchLine = lcTrimmedMatchLine
 
-		*-- We read MatchType of UserField, but from here on, until the result row is created, we will
-		*-- move this value to toObject.MatchType, and do some tweaking on it to make it the right value.
-		*-- We'll never change the value that was passed in on toObject.UserField.MatchType
+*-- We read MatchType of UserField, but from here on, until the result row is created, we will
+*-- move this value to toObject.MatchType, and do some tweaking on it to make it the right value.
+*-- We'll never change the value that was passed in on toObject.UserField.MatchType
 		lcMatchType = toObject.UserField.MatchType
 		toObject.MatchType = lcMatchType
-		*=============================================================================================
-		* This area contains a few overrides that I've had to build in to make final tweeks on columns
-		*=============================================================================================
-		*-- Sometimes in a VCX/SCX the MethodName will be empty and MatchLine will contain the PROCEDURE name
-		If Empty(toObject.MethodName) And Upper(GetWordNum(lcTrimmedMatchLine, 1)) = 'PROCEDURE'
-			toObject.MethodName = GetWordNum(lcTrimmedMatchLine, 2)
+*=============================================================================================
+* This area contains a few overrides that I've had to build in to make final tweeks on columns
+*=============================================================================================
+*-- Sometimes in a VCX/SCX the MethodName will be empty and MatchLine will contain the PROCEDURE name
+		If Empty(toObject.MethodName) And Upper(Getwordnum(lcTrimmedMatchLine, 1)) = 'PROCEDURE'
+			toObject.MethodName = Getwordnum(lcTrimmedMatchLine, 2)
 		Endif
 
 		If !Empty(toObject.MethodName)
@@ -250,14 +250,14 @@ Define Class GoFishSearchEngine As Custom
 			Return .Null. && Exit out, we're done with this record!
 		Endif
 
-		*=============================================================================================
-		* Handle a few tweaks on MatchType assignments
-		*=============================================================================================
+*=============================================================================================
+* Handle a few tweaks on MatchType assignments
+*=============================================================================================
 		This.ProcessInlineComments(toObject)
 
 		Do Case
 
-			*-- A TimeStamp only search, with no search expression...
+*-- A TimeStamp only search, with no search expression...
 			Case Isnull(toObject.oMatch)
 				If This.oSearchOptions.lTimeStamp And Empty(This.oSearchOptions.cSearchExpression)
 					If Empty(toObject.UserField._Name) And Empty(toObject.UserField.ContainingClass) And Empty(toObject.UserField._Class)
@@ -277,20 +277,20 @@ Define Class GoFishSearchEngine As Custom
 
 		Endcase
 
-		*-- Read MatchType back off toObject for a final bit of tweaking...
+*-- Read MatchType back off toObject for a final bit of tweaking...
 		lcMatchType = toObject.MatchType
 
 		Do Case
 			Case Empty(lcMatchType)
 				lcMatchType = MATCHTYPE_CODE
 
-			Case Upper(GetWordNum(lcTrimmedMatchLine, 1)) = '#DEFINE'
+			Case Upper(Getwordnum(lcTrimmedMatchLine, 1)) = '#DEFINE'
 				lcMatchType = MATCHTYPE_CONSTANT
 
 			Case lcMatchType = MATCHTYPE_PROPERTY_DESC Or lcMatchType = MATCHTYPE_PROPERTY_DEF
 				toObject.UserField.ContainingClass = ''
 				toObject.UserField._Name = ''
-				toObject.MethodName = GetWordNum(toObject.MatchLine, 1, ' ')
+				toObject.MethodName = Getwordnum(toObject.MatchLine, 1, ' ')
 
 			Case lcMatchType = MATCHTYPE_PROPERTY
 
@@ -299,62 +299,62 @@ Define Class GoFishSearchEngine As Custom
 					Return toObject
 				Endif
 
-				lcName = GetWordNum(lcTrimmedMatchLine, 1, ' =') && The Property Name only
+				lcName = Getwordnum(lcTrimmedMatchLine, 1, ' =') && The Property Name only
 				toObject.MethodName = lcName
 
 				Try
-					If Atc('.', lcName) > 0 && Could be ObjectName.ObjectName.ObjectName.PropertyName
-						lcName = Justext(lcName) && Need to pick off just the property name, and make sure that's where the match is.
-						llNameHasDot = .T.
-					Else
-						llNameHasDot = .F.
-					Endif
+						If Atc('.', lcName) > 0 && Could be ObjectName.ObjectName.ObjectName.PropertyName
+							lcName = Justext(lcName) && Need to pick off just the property name, and make sure that's where the match is.
+							llNameHasDot = .T.
+						Else
+							llNameHasDot = .F.
+						Endif
 
-					*	toObject.UserField.MethodName = lcName
-					lcName = lcName + ' =' && Need to construct property name like this example:   Caption =
+*	toObject.UserField.MethodName = lcName
+						lcName = lcName + ' =' && Need to construct property name like this example:   Caption =
 
-					lcValue = Alltrim(Substr(lcTrimmedMatchLine, 1 + At('=', lcTrimmedMatchLine))) && GetWordNum(lcTrimmedMatchLine, 2, '=')
-					loNameMatches = This.oRegExForSearch.Execute(lcName)
-					loValueMatches = This.oRegExForSearch.Execute(lcValue)
-					* loLineMatches = This.oRegExForSearch.Execute(lcTrimmedMatchLine)
-					loLineMatches = This.oRegExForSearch.Execute(lcName + lcValue)
+						lcValue = Alltrim(Substr(lcTrimmedMatchLine, 1 + At('=', lcTrimmedMatchLine))) && GetWordNum(lcTrimmedMatchLine, 2, '=')
+						loNameMatches = This.oRegExForSearch.Execute(lcName)
+						loValueMatches = This.oRegExForSearch.Execute(lcValue)
+* loLineMatches = This.oRegExForSearch.Execute(lcTrimmedMatchLine)
+						loLineMatches = This.oRegExForSearch.Execute(lcName + lcValue)
 
-					With toObject.UserField
-						If llNameHasDot
-							If ._ParentClass <> ._BaseClass
-								._ParentClass = ''
-								._BaseClass = ''
+						With toObject.UserField
+							If llNameHasDot
+								If ._ParentClass <> ._BaseClass
+									._ParentClass = ''
+									._BaseClass = ''
+								Else
+									.ContainingClass = ''
+								Endif
 							Else
 								.ContainingClass = ''
 							Endif
-						Else
-							.ContainingClass = ''
-						Endif
-						If Empty(.ClassLoc)
-							._ParentClass = ''
-						Endif
-					Endwith
-
-					Do Case
-						Case loNameMatches.Count > 0 And loValueMatches.Count > 0 && If match on both sides, make an extra call here for the Name
-							toObject.MatchType = MATCHTYPE_PROPERTY_NAME
-							This.CreateResult(toObject)
-							lcMatchType = MATCHTYPE_PROPERTY_VALUE
-						Case loNameMatches.Count > 0 Or loValueMatches.Count > 0 && Only matched on one side
-							If loValueMatches.Count > 0 And This.oSearchOptions.lIgnoreMemberData And Lower(lcName) = '_memberdata ='
-								llError = .T. && so this is skipped
-							Else
-								lcMatchType = Iif(loNameMatches.Count > 0, MATCHTYPE_PROPERTY_NAME, MATCHTYPE_PROPERTY_VALUE)
+							If Empty(.ClassLoc)
+								._ParentClass = ''
 							Endif
-						Case loLineMatches.Count > 0 && Matched SOMEWHERE on the line. Can span " = " this way
-						*-- No modification to matchtype required. Will record as MATCHTYPE_PROPERTY
-						Case loNameMatches.Count = 0 And loValueMatches.Count = 0 && Possible that there is not match at all, so we record nothing
-							llError = .T.
-						Otherwise
-							* lcMatchType = Iif(loNameMatches.count > 0, MATCHTYPE_PROPERTY_NAME, MATCHTYPE_PROPERTY_VALUE)
-					Endcase
-				Catch
-					lcMatchType = MATCHTYPE_CODE && IF anything above failed, then just consider this a regular code match
+						Endwith
+
+						Do Case
+							Case loNameMatches.Count > 0 And loValueMatches.Count > 0 && If match on both sides, make an extra call here for the Name
+								toObject.MatchType = MATCHTYPE_PROPERTY_NAME
+								This.CreateResult(toObject)
+								lcMatchType = MATCHTYPE_PROPERTY_VALUE
+							Case loNameMatches.Count > 0 Or loValueMatches.Count > 0 && Only matched on one side
+								If loValueMatches.Count > 0 And This.oSearchOptions.lIgnoreMemberData And Lower(lcName) = '_memberdata ='
+									llError = .T. && so this is skipped
+								Else
+									lcMatchType = Iif(loNameMatches.Count > 0, MATCHTYPE_PROPERTY_NAME, MATCHTYPE_PROPERTY_VALUE)
+								Endif
+							Case loLineMatches.Count > 0 && Matched SOMEWHERE on the line. Can span " = " this way
+*-- No modification to matchtype required. Will record as MATCHTYPE_PROPERTY
+							Case loNameMatches.Count = 0 And loValueMatches.Count = 0 && Possible that there is not match at all, so we record nothing
+								llError = .T.
+							Otherwise
+* lcMatchType = Iif(loNameMatches.count > 0, MATCHTYPE_PROPERTY_NAME, MATCHTYPE_PROPERTY_VALUE)
+						Endcase
+					Catch
+						lcMatchType = MATCHTYPE_CODE && IF anything above failed, then just consider this a regular code match
 				Endtry
 
 		Endcase
@@ -363,7 +363,7 @@ Define Class GoFishSearchEngine As Custom
 			Return .Null.
 		Endif
 
-		*-- Wrap MatchType in brackets (if not already set), and if it's not MATCHTYPE_CODE ...
+*-- Wrap MatchType in brackets (if not already set), and if it's not MATCHTYPE_CODE ...
 		If lcMatchType # MATCHTYPE_CODE And Left(lcMatchType, 1) # '<'
 			lcMatchType = '<' + lcMatchType + '>'
 		Endif
@@ -371,11 +371,11 @@ Define Class GoFishSearchEngine As Custom
 		toObject.MatchType = lcMatchType
 
 		Return toObject
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure AssignMatchTypeForPrg(toObject)
 
 		Local lcMatchType, lcParams, lcProcedureType, lnMatchStart, lnProcedureStart, loMatch, loMatches
@@ -390,49 +390,49 @@ Define Class GoFishSearchEngine As Custom
 		lcTrimmedMatchLine = toObject.TrimmedMatchLine
 
 		Do Case
-		Case lcMatchType = 'CLASS' && Note, this case also handles Properties on a Class...
+			Case lcMatchType = 'CLASS' && Note, this case also handles Properties on a Class...
 
-			lcFirstWord = Upper(GetWordNum(lcTrimmedMatchLine, 1))
-			If lcFirstWord $ 'PROCEDURE'
-				lcMatchType = MatchType_Procedure
-			Else
-				lcMatchType = Iif(lnMatchStart = lnProcedureStart, MATCHTYPE_CLASS_DEF, MATCHTYPE_PROPERTY)
-			Endif
-		*toObject.MethodName = ''
-
-		Case Inlist(lcMatchType, 'METHOD', 'PROCEDURE', 'FUNCTION')
-
-			*-- This test looks for matches in on the Procedure Name versus possible parameters:
-			*-- Ex: PROCEDURE ProcessJob(lcJobNo). )
-			If lnMatchStart = lnProcedureStart
-				lcName = GetWordNum(lcTrimmedMatchLine, 1, '(')
-				lcParams = GetWordNum(lcTrimmedMatchLine, 2, '(')
-
-				loNameMatches = This.oRegExForSearch.Execute(lcName)
-				loParamMatches = This.oRegExForSearch.Execute(lcParams)
-
-				If loNameMatches.Count > 0 And loParamMatches.Count > 0 && If match on both sides, make an extra call here for the Name
-					toObject.UserField.MatchType = '<' + Proper(lcMatchType) + '>'
-					This.CreateResult(toObject)
-					lcMatchType = MatchType_Code
+				lcFirstWord = Upper(Getwordnum(lcTrimmedMatchLine, 1))
+				If lcFirstWord $ 'PROCEDURE'
+					lcMatchType = MatchType_Procedure
 				Else
-					lcMatchType = Iif(loParamMatches.Count > 0, MatchType_Code, Proper(lcMatchType))
+					lcMatchType = Iif(lnMatchStart = lnProcedureStart, MATCHTYPE_CLASS_DEF, MATCHTYPE_PROPERTY)
 				Endif
-			Else
-				lcMatchType = MatchType_Code
-			Endif
+*toObject.MethodName = ''
 
-		Otherwise
-			lcMatchType = toObject.MatchType && Restore it back
+			Case Inlist(lcMatchType, 'METHOD', 'PROCEDURE', 'FUNCTION')
+
+*-- This test looks for matches in on the Procedure Name versus possible parameters:
+*-- Ex: PROCEDURE ProcessJob(lcJobNo). )
+				If lnMatchStart = lnProcedureStart
+					lcName = Getwordnum(lcTrimmedMatchLine, 1, '(')
+					lcParams = Getwordnum(lcTrimmedMatchLine, 2, '(')
+
+					loNameMatches = This.oRegExForSearch.Execute(lcName)
+					loParamMatches = This.oRegExForSearch.Execute(lcParams)
+
+					If loNameMatches.Count > 0 And loParamMatches.Count > 0 && If match on both sides, make an extra call here for the Name
+						toObject.UserField.MatchType = '<' + Proper(lcMatchType) + '>'
+						This.CreateResult(toObject)
+						lcMatchType = MATCHTYPE_CODE
+					Else
+						lcMatchType = Iif(loParamMatches.Count > 0, MATCHTYPE_CODE, Proper(lcMatchType))
+					Endif
+				Else
+					lcMatchType = MATCHTYPE_CODE
+				Endif
+
+			Otherwise
+				lcMatchType = toObject.MatchType && Restore it back
 
 		Endcase
 
 		toObject.MatchType = lcMatchType
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure AssignMatchTypeForScxVcx(toObject)
 
 		Local lcClass, lcContainingClass, lcMatchType, lcMethodName, lcName, lcProcedureType, lcPropertyName
@@ -462,7 +462,7 @@ Define Class GoFishSearchEngine As Custom
 				If lnMatchStart = lnProcedureStart And !Empty(toObject.oProcedure.ParentClass)
 					lcMatchType = MatchType_Method
 				Else
-					lcMatchType = MatchType_Code
+					lcMatchType = MATCHTYPE_CODE
 				Endif
 
 			Case lcMatchType = 'PROPERTIES'
@@ -476,12 +476,12 @@ Define Class GoFishSearchEngine As Custom
 
 			Case lcMatchType = 'RESERVED3'
 				If Left(lcTrimmedMatchLine, 1) = '*' && A Method Definition line
-					lcMethodName = Substr(lcTrimmedMatchLine, 2, Len(GetWordNum(lcTrimmedMatchLine, 1)) - 1)
+					lcMethodName = Substr(lcTrimmedMatchLine, 2, Len(Getwordnum(lcTrimmedMatchLine, 1)) - 1)
 					loMatches = This.oRegExForSearch.Execute(lcMethodName)
 					lcMatchType = Iif(loMatches.Count > 0, MATCHTYPE_METHOD_DEF, MATCHTYPE_METHOD_DESC)
 					toObject.MethodName = Iif(loMatches.Count > 0, lcMethodName, '')
 				Else && A Property Definition line
-					lcPropertyName = GetWordNum(lcTrimmedMatchLine, 1)
+					lcPropertyName = Getwordnum(lcTrimmedMatchLine, 1)
 					If Atc('.', lcPropertyName) > 0
 						lcPropertyName = Justext(lcPropertyName)
 					Endif
@@ -501,11 +501,11 @@ Define Class GoFishSearchEngine As Custom
 		Endcase
 
 		toObject.MatchType = lcMatchType
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure BackupFile(tcFilePath, tnReplaceHistoryId)
 
 		*SF 20221018 -> local storage
@@ -513,20 +513,22 @@ Define Class GoFishSearchEngine As Custom
 		*SF 20230131 -> issue #41
 		*Thisform was not a good idea here
 		LOCAL ccBACKUPFOLDER
-		ccBACKUPFOLDER = Addbs(This.cCR_StoreLocal + 'GoFishBackups')
+*		ccBACKUPFOLDER = Addbs(This.cCR_StoreLocal + 'GoFishBackups')
+		ccBACKUPFOLDER = Addbs(This.cCR_StoreLocal + 'GF_ReplaceBackups')
 		*/SF 20230131 -> issue #41
 		*/SF 20221018 -> local storage
+
 
 		Local lcBackupPRG, llCopyError
 		Local laExtensions[1], lcDestFile, lcExt, lcExtensions, lcSourceFile, lcThisBackupFolder, lnI
 
-		If This.oSearchOptions.lPreviewReplace = .T.
+		If This.oSearchOptions.lPreviewReplace
 			Return
 		Endif
 
 		llCopyError = .F.
 
-		*-- If the user has created a custom backup PRG, and placed it in their path, then call it instead
+*-- If the user has created a custom backup PRG, and placed it in their path, then call it instead
 		lcBackupPRG = 'GoFish_Backup.prg'
 
 		If File(lcBackupPRG)
@@ -536,16 +538,21 @@ Define Class GoFishSearchEngine As Custom
 
 		If Not Directory (ccBACKUPFOLDER) && Create main folder for backups, if necessary
 			Mkdir (ccBACKUPFOLDER)
+			GF_Write_Readme_Text(4, Addbs(m.lcBackupFolder) + 'README.md', .T.)
+
 		Endif
 
-		* Create folder for this ReplaceHistorrID, if necessary
+* Create folder for this ReplaceHistorrID, if necessary
 		lcThisBackupFolder = Addbs (ccBACKUPFOLDER + Transform (tnReplaceHistoryId))
 
 		If Not Directory (lcThisBackupFolder)
 			Mkdir (lcThisBackupFolder)
+
+			GF_Write_Readme_Text(5, Addbs(m.lcThisBackupFolder) + 'README.md', .T.)
+			STRTOFILE(TTOC(DATETIME()), Addbs(m.lcThisBackupFolder) + 'README.md', .T.)
 		Endif
 
-		* Determine the extensions we need to consider
+* Determine the extensions we need to consider
 		lcExt = Upper (Justext (tcFilePath))
 
 		Do Case
@@ -565,7 +572,7 @@ Define Class GoFishSearchEngine As Custom
 				lcExtensions = lcExt
 		Endcase
 
-		*-- Copy each file into the destination folder, if its not already there
+*-- Copy each file into the destination folder, if its not already there
 		Alines (laExtensions, lcExtensions, 0, ',')
 
 		For lnI = 1 To Alen (laExtensions)
@@ -573,43 +580,43 @@ Define Class GoFishSearchEngine As Custom
 			lcDestFile	 = lcThisBackupFolder + Justfname (lcSourceFile)
 			If Not File (lcDestFile)
 				Try
-					Copy File (lcSourceFile) To (lcDestFile)
-				Catch
-					If !llCopyError
-						This.SetReplaceError('Error creating backup of file.', tcFilePath, tnReplaceHistoryId)
-					Endif
-					llCopyError = .T.
+						Copy File (lcSourceFile) To (lcDestFile)
+					Catch
+						If !llCopyError
+							This.SetReplaceError('Error creating backup of file.', tcFilePath, tnReplaceHistoryId)
+						Endif
+						llCopyError = .T.
 				Endtry
 			Endif
 		Endfor
 
 		Return !llCopyError
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure BuildDirectoriesCollection(tcDir)
 
-		*-- Note: This method is called recursively on itself if subfolders are found. See the For loop at the bottom...
-		*-- For more good info on recursive processing of directories, see this page: http://fox.wikis.com/wc.dll?Wiki~RecursiveDirectoryProcessing
+*-- Note: This method is called recursively on itself if subfolders are found. See the For loop at the bottom...
+*-- For more good info on recursive processing of directories, see this page: http://fox.wikis.com/wc.dll?Wiki~RecursiveDirectoryProcessing
 
 		Local laDirList[1], laFileList[1], lcCurrentDirectory, lcDriveAndDirectory, lnDirCount, lnPtr, lnFileCount
 
-		*!* ** { JRN -- 07/11/2016 08:11 AM - Begin
-		*!* If Lastkey() = 27 or Inkey() = 27
+*!* ** { JRN -- 07/11/2016 08:11 AM - Begin
+*!* If Lastkey() = 27 or Inkey() = 27
 		If Inkey() = 27
-		*!* ** } JRN -- 07/11/2016 08:11 AM - End
+*!* ** } JRN -- 07/11/2016 08:11 AM - End
 			This.lEscPress = .T.
 			Clear Typeahead
 			Return 0
 		Endif
 
 		Try
-			Chdir (tcDir)
-			llChanged = .T.
-		Catch
-			llChanged = .F.
+				Chdir (tcDir)
+				llChanged = .T.
+			Catch
+				llChanged = .F.
 		Endtry
 
 		If !llChanged
@@ -643,34 +650,34 @@ Define Class GoFishSearchEngine As Custom
 		Endfor
 
 		Cd ..
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure BuildProjectsCollection
-	
+
 		Local loPEME_BaseTools As 'GF_PEME_BaseTools' Of 'Lib\GF_PEME_BaseTools.prg'
 		Local laProjects[1], lcCurrentDir, lcProject, loMRU_Project, loMRU_Projects, loProject, lnX
 
 		lcCurrentDir = Addbs(Sys(5) + Sys(2003)) && Current Default Drive and path
 
-		*-- Blank out current Projects collecitons. Will rebuild below...
-		This.oProjects = CreateObject('Collection')
+*-- Blank out current Projects collecitons. Will rebuild below...
+		This.oProjects = Createobject('Collection')
 		This.cProjects = ''
 
 		If Version(2) = 0 && If we are running from an .EXE file then exit (No projects will be open)
 			Return
 		Endif
 
-		*-- Add all open Projects in _VFP to the Collection
+*-- Add all open Projects in _VFP to the Collection
 		For Each loProject In _vfp.Projects
 			lcProject = Lower(loProject.Name)
 			This.AddProject(lcProject)
 			This.cProjects = This.cProjects + lcProject + Chr(13)
 		Endfor
 
-		*-- Add any Projects in the current folder
+*-- Add any Projects in the current folder
 		Adir(laProjects, lcCurrentDir + '*.pjx')
 
 		For lnX = 1 To Alen(laProjects) / 5
@@ -679,33 +686,33 @@ Define Class GoFishSearchEngine As Custom
 			This.cProjects = This.cProjects + lcProject + Chr(13)
 		Endfor
 
-		*-- Add MRU Projects to the Collection...
-		loPEME_BaseTools = CreateObject('GF_PEME_BaseTools')
-		
+*-- Add MRU Projects to the Collection...
+		loPEME_BaseTools = Createobject('GF_PEME_BaseTools')
+
 		loMRU_Projects = loPEME_BaseTools.GetMRUList('PJX')
 
 		For Each loMRU_Project In loMRU_Projects
 			lcProject = Lower(loMRU_Project)
 			This.AddProject(lcProject)
 			This.cProjects = This.cProjects + lcProject + Chr(13)
-		EndFor
-		
-	EndProc
+		Endfor
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure ChangeCurrentDir(tcDir)
 
 		Local lcCurrentDirectory, lcDefaultDrive, lcPath, llReturn
 
-		*-- Attempt to change current dir to passed in location -------
+*-- Attempt to change current dir to passed in location -------
 		If !Empty(tcDir)
 			Try
-				Cd (tcDir)
-				llReturn = .T.
-			Catch
-				This.SetSearchError('Invalid path [' + tcDir + '] passed to ChangeCurrentDir() method.')
-				llReturn = .F.
+					Cd (tcDir)
+					llReturn = .T.
+				Catch
+					This.SetSearchError('Invalid path [' + tcDir + '] passed to ChangeCurrentDir() method.')
+					llReturn = .F.
 			Endtry
 		Else
 			llReturn = .T.
@@ -714,11 +721,11 @@ Define Class GoFishSearchEngine As Custom
 		This.BuildProjectsCollection()
 
 		Return llReturn
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure CheckFileExtTemplate(tcFile)
 
 		Local lcFileName, lcFilenameMask, llFilenameMatch, llReturn
@@ -726,11 +733,11 @@ Define Class GoFishSearchEngine As Custom
 		lcFileExtTemplate = Justext(This.oSearchOptions.cFileTemplate)
 
 		llReturn = This.MatchTemplate(tcFile, lcFileExtTemplate)
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure CheckFilenameTemplate(tcFile)
 
 		Local lcFileName, lcFilenameMask, llMatch, lnLength
@@ -758,11 +765,11 @@ Define Class GoFishSearchEngine As Custom
 		Endcase
 
 		Return llMatch
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure CleanUpBinaryString(tcString, llClipAtChr8)
 
 		If llClipAtChr8 && The Select statement from a DBC View needs to be clipped at the Chr(8) near the end of the statement
@@ -770,44 +777,44 @@ Define Class GoFishSearchEngine As Custom
 			tcString = Left(tcString, lnStart)
 		Endif
 
-		*-- Replace junk characters with a space
+*-- Replace junk characters with a space
 		For x = 0 To 31
 			tcString = Strtran(tcString, Chr(x), ' ')
 		Endfor
 
 		Return tcString
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure ClearReplaceErrorMessage
-	
+
 		This.oSearchOptions.cReplaceErrorMessage = ''
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure ClearReplaceSettings
-	
+
 		This.oSearchOptions.lAllowBlankReplace = .F.
 		This.oSearchOptions.cReplaceExpression = ''
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure ClearResultsCollection
-	
-		This.oResults = CreateObject('Collection')
-		
-	EndProc
+
+		This.oResults = Createobject('Collection')
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure ClearResultsCursor()
-		
+
 		Local lcSearchResultsAlias, lnSelect
 
 		lnSelect = Select()
@@ -815,54 +822,64 @@ Define Class GoFishSearchEngine As Custom
 		lcSearchResultsAlias = This.cSearchResultsAlias
 
 		Create Cursor (lcSearchResultsAlias)( ;
-					Process L, ;
-					FilePath C(254), ;
-					FileName C(50), ;
-					TrimmedMatchLine C(254), ;
-					BaseClass C(254), ;
-					ParentClass C(254), ;
-					Class C(254), ;
-					Name C(254), ;
-					MethodName C(80), ;
-					ContainingClass C(254), ;
-					ClassLoc C(254), ;
-					MatchType C(25), ;
-					Timestamp T, ;
-					FileType C(4), ;
-					Type C(12), ;
-					Recno N(6, 0), ;
-					ProcStart I, ;
-					procend I, ;
-					proccode M, ;
-					statement M, ;
-					statementstart I, ;
-					firstmatchinstatement L, ;
-					firstmatchinprocedure L, ;
-					MatchStart I, ;
-					MatchLen I, ;
-					lIsText L, ;
-					Column C(10), ;
-					Code M, ;
-					Id I, ;
-					MatchLine M, ;
-					Replaced L, ;
-					TrimmedReplaceLine C(254), ;
-					ReplaceLine C(254), ;
-					ReplaceRisk I, ;
-					Replace_DT T;
-					)
+			cUni      c(11), ;
+			cUni_File c(23), ;
+			datetime c(24), ;
+			Scope v(254), ;
+			Search v(254), ;
+			lMemLoaded L,;
+			lMemSaved  L,;
+			Process L, ;
+			FilePath c(254), ;
+			FileName c(50), ;
+			TrimmedMatchLine c(254), ;
+			BaseClass c(254), ;
+			ParentClass c(254), ;
+			Class c(254), ;
+			Name c(254), ;
+			MethodName c(80), ;
+			ContainingClass c(254), ;
+			ClassLoc c(254), ;
+			MatchType c(25), ;
+			Timestamp T, ;
+			FileType c(4), ;
+			Type c(12), ;
+			Recno N(6, 0), ;
+			ProcStart I, ;
+			procend I, ;
+			proccode M, ;
+			statement M, ;
+			statementstart I, ;
+			firstmatchinstatement L, ;
+			firstmatchinprocedure L, ;
+			MatchStart I, ;
+			MatchLen I, ;
+			lIsText L, ;
+			Column c(10), ;
+			Code M, ;
+			Id I, ;
+			MatchLine M, ;
+			Replaced L, ;
+			TrimmedReplaceLine c(254), ;
+			ReplaceLine c(254), ;
+			ReplaceRisk I, ;
+			Replace_DT T, ;
+			iReplaceFolder I, ;
+			lJustReplace L, ;
+			lSaved L ;
+			)
 
 		Select (lnSelect)
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure Compile(tcFile)
 
 		Local lcExt
 
-		If This.oSearchOptions.lPreviewReplace = .T.
+		If This.oSearchOptions.lPreviewReplace
 			Return
 		Endif
 
@@ -881,11 +898,11 @@ Define Class GoFishSearchEngine As Custom
 			Case lcExt = 'FRX'
 				Compile Report (tcFile)
 		Endcase
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure CreateMenuDisplay(tcMenu)
 
 		#Define SPACING 3
@@ -927,118 +944,57 @@ Define Class GoFishSearchEngine As Custom
 		Select(m.lnSelect)
 
 		Return m.lcResult
-		
-	EndProc
 
+	Endproc
 
-	*----------------------------------------------------------------------------------
-	Procedure CreateReplaceDetailRecord(toReplace)
-
-		Local lcDBC, lnID, lnSelect
-
-		If This.oSearchOptions.lPreviewReplace = .T. && Do nothing if we are only in Preview mode
-			Return
-		Endif
-
-		lnSelect = Select()
-
-		lcDBC = Strtran(Upper(This.cReplaceDetailTable), '.DBF', '.DBC')
-
-		If !File(This.cReplaceDetailTable) Or !File(lcDBC)
-			Set Safety Off
-			Delete File (lcDBC)
-			Set Safety On
-			Create Database (lcDBC)
-			Select (This.cSearchResultsAlias)
-			Copy Structure To (This.cReplaceDetailTable) Database (lcDBC)
-
-			Alter Table (This.cReplaceDetailTable) Add Column Pk I Autoinc
-			Alter Table (This.cReplaceDetailTable) Add Column HistoryFK I
-
-			Use In (This.cReplaceDetailTable)
-		Endif
-
-		This.MigrateReplaceDetailTable()
-
-		toReplace.Replace_DT = Datetime()
-		toReplace.Replaced = .T.
-		AddProperty(toReplace, 'HistoryFK', This.nReplaceHistoryId)
-
-		Insert Into (This.cReplaceDetailTable) From Name toReplace
-
-		Select(lnSelect)
-		
-	EndProc
-
-
-	*----------------------------------------------------------------------------------
-	Procedure CreateReplaceHistoryRecord
-		
-		Local lcScope, lnSelect
-
-		If This.oSearchOptions.lPreviewReplace = .T. && Do nothing if we are only in Replace Preview mode
-			Return
-		Endif
-
-		lnSelect = Select()
-
-		If !File(This.cReplaceHistoryTable)
-			Create Table (This.cReplaceHistoryTable) Free (;
-						Id I Autoinc Nextvalue 1001, ;
-						Date_Time T, ;
-						replaces I, ;
-						Scope C(254), ;
-						searchstr C(254), ;
-						replacestr C(254) ;
-						)
-		Endif
-
-		If Inlist(This.oSearchOptions.nSearchScope, 1, 2)
-			lcScope = This.oSearchOptions.cProject
-		Else
-			lcScope = This.oSearchOptions.cPath
-		Endif
-
-		Insert Into (This.cReplaceHistoryTable) (Scope, Date_Time, searchstr, replacestr) ;
-			Values (lcScope, Datetime(), This.oSearchOptions.cSearchExpression, This.oSearchOptions.cReplaceExpression)
-
-		This.nReplaceHistoryId = Evaluate(Juststem(Justfname(This.cReplaceHistoryTable)) + '.Id')
-
-		Select (lnSelect)
-		
-	EndProc
-
-
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure CreateResult(toObject)
+		Local;
+			llReturn As Boolean
 
+		llReturn = .T.
 		This.nMatchLines = This.nMatchLines + 1
 
 		If This.oSearchOptions.lCreateResultsCursor
-			This.CreateResultsRow(toObject)
+			llReturn = This.CreateResultsRow(toObject)
 		Endif
 
 		If This.oSearchOptions.lCreateResultsCollection
 			This.oResults.Add(toObject)
 		Endif
-		
-	EndProc
+
+		Return m.llReturn
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure CreateResultsRow(toObject)
 
-		*-- This set of mem vars is required to insert a new row into the local results cursor.
-		*-- The passed in toObject must be an object which has the reference properties on it, so
-		*-- that a complete record can be created.
+*-- This set of mem vars is required to insert a new row into the local results cursor.
+*-- The passed in toObject must be an object which has the reference properties on it, so
+*-- that a complete record can be created.
 
 		Local lIsText, lcObjectNameFromProperty, lcProperty, lcResultsAlias, lnWords
 		Local Timestamp, BaseClass, Class, ClassLoc, Code, Column, ContainingClass, FileName, FilePath
 		Local FileType, Id, MatchLen, MatchLine, MatchStart, MatchType, MethodName, Name, ParentClass
 		Local proccode, procend, Process, ProcStart, Recno, ReplaceRisk, TrimmedMatchLine
-		Local statement, statementstart
+		Local statement, statementstart, Scope, Search, Datetime, cUni, cUni_File, lMemLoaded
+		Local;
+			llReturn    As Boolean,;
+			loException As Exception
 
+		llReturn = .T.
 		lcResultsAlias = This.cSearchResultsAlias
+
+		Set Hours To 24
+		Datetime = Ttoc(This.tRunTime)
+		Set Hours To &lnHours
+
+*		cUni     = "_" + Sys(2007, m.Datetime, 0, 1)
+		cUni     = This.cUni
+		Scope    = This.oSearchOptions.cRecentScope
+		Search   = This.oSearchOptions.cSearchExpression
+		lMemLoaded = .T.
 
 		With m.toObject
 			MethodName		 = This.FixPropertyName(.MethodName)
@@ -1072,18 +1028,18 @@ Define Class GoFishSearchEngine As Custom
 			Column			= .Column
 		Endwith
 
-		* *-- Removed 07/07/2012
-		* *--- Clean up / doctor up the Object Name
-		* If 'scx' $ Lower(m.filetype)  && trim off the form name from front of object name
-		* 	m.name = Substr(m.name, Atc('.', m.name) + 1)
-		* EndIf
+* *-- Removed 07/07/2012
+* *--- Clean up / doctor up the Object Name
+* If 'scx' $ Lower(m.filetype)  && trim off the form name from front of object name
+* 	m.name = Substr(m.name, Atc('.', m.name) + 1)
+* EndIf
 
-		*--- Sometimes, part of the object name may live on the match line
-		*--- So, we need to append it to the end of the object name
+*--- Sometimes, part of the object name may live on the match line
+*--- So, we need to append it to the end of the object name
 		If m.MatchType $ (MATCHTYPE_PROPERTY_NAME + MATCHTYPE_PROPERTY_VALUE)
 			lcObjectNameFromProperty = ''
-			lcProperty				 = GetWordNum(m.TrimmedMatchLine, 1)
-			lnWords					 = GetWordCount(m.lcProperty, '.')
+			lcProperty				 = Getwordnum(m.TrimmedMatchLine, 1)
+			lnWords					 = Getwordcount(m.lcProperty, '.')
 
 			If m.lnWords > 1
 				lcObjectNameFromProperty = Left(m.lcProperty, Atc('.', m.lcProperty, m.lnWords - 1) - 1)
@@ -1092,20 +1048,39 @@ Define Class GoFishSearchEngine As Custom
 			Name = Alltrim(m.name + '.' + m.lcObjectNameFromProperty, '.')
 		Endif
 
-		*--------------------------------------------------------------------------------
+*--------------------------------------------------------------------------------
 
 		m.Id = Reccount(m.lcResultsAlias) + 1 && A unique key for each record
 
+		cUni_File = m.cUni + "_" + Sys(2007,Trim(Padr(m.Id, 11)), 0 ,1) + "_"
+
 		ReplaceRisk = This.GetReplaceRiskLevel(m.toObject)
 
-		Insert Into &lcResultsAlias From Memvar
-		
-	EndProc
+		Try
+*Was zu testen ist
+				Insert Into &lcResultsAlias From Memvar
+
+			Catch To loException When loException.ErrorNo=1190
+* Abzufangender Fehler
+				If Messagebox('File to large "' + m.FilePath + '"',1) = 2
+					llReturn = .F.
+					Assert .F.
+				Endif &&Messagebox('File to large "' + m.FilePath + '"',1) = 2
+
+			Catch To loException
+* andere Fehler, Standardhandler rufen
+				Throw
+			Finally
+*
+		Endtry
+
+		Return m.llReturn
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure Destroy
-	
+
 		This.oRegExForProcedureStartPositions = .Null.
 		This.oRegExForSearch = .Null.
 		This.oResults = .Null.
@@ -1117,11 +1092,11 @@ Define Class GoFishSearchEngine As Custom
 		This.oDirectories = .Null.
 		This.oProgressBar = .Null.
 		This.oFSO = .Null.
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure DropColumn(tcTable, tcColumnName)
 
 		Local lcAlias
@@ -1129,14 +1104,14 @@ Define Class GoFishSearchEngine As Custom
 		lcAlias = Juststem(tcTable)
 
 		Try
-			Alter Table (tcTable)  Drop Column &tcColumnName
-		Catch
+				Alter Table (tcTable)  Drop Column &tcColumnName
+			Catch
 		Endtry
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure EditFromCurrentRow(tcCursor, tlSelectObjectOnly, tlMoveToTopleft)
 
 		Local loPBT As 'GF_PEME_BaseTools'
@@ -1160,9 +1135,9 @@ Define Class GoFishSearchEngine As Custom
 			lcMethodString = Alltrim(m.lcName + '.' + m.lcMethod, 1, '.')
 
 			If m.lcExt $ ' SCX VCX '
-				*-- Calculate Line No from procstart and matchstart postitions...
+*-- Calculate Line No from procstart and matchstart postitions...
 				lcCodeBLock	= Substr(&tcCursor..Code, m.lnProcStart + 1, m.lnMatchStart - m.lnProcStart)
-				lnStart		= GetWordCount(m.lcCodeBLock, Chr(13)) - 1 && The LINE NUMBER that match in on within the method
+				lnStart		= Getwordcount(m.lcCodeBLock, Chr(13)) - 1 && The LINE NUMBER that match in on within the method
 				lnStart		= Iif(m.lnStart > 0, m.lnStart, 1)
 				Do Case
 					Case m.lcExt = 'SCX'
@@ -1177,23 +1152,23 @@ Define Class GoFishSearchEngine As Custom
 				lnStart = (&tcCursor..MatchStart) + 1 && The CHARACTER position of the line where the match is on
 			Endif
 
-		EndIf
-		
-		loPBT = CreateObject('GF_PEME_BaseTools')
+		Endif
 
-		*** JRN 2021-03-21 : If match is to a name of a file in a Project, open that file
-		If &tcCursor..FileType = 'PJX' And &tcCursor..MatchType = MATCHTYPE_NAME
-			lcFileToEdit = FullPath(Upper(Addbs(JustPath(Trim(&tcCursor..FilePath))) + Trim(&tcCursor..TrimmedMatchLine)))
+		loPBT = Createobject('GF_PEME_BaseTools')
+
+*** JRN 2021-03-21 : If match is to a name of a file in a Project, open that file
+		If &tcCursor..FileType = 'PJX' And &tcCursor..MatchType = MatchType_Name
+			lcFileToEdit = Fullpath(Upper(Addbs(Justpath(Trim(&tcCursor..FilePath))) + Trim(&tcCursor..TrimmedMatchLine)))
 			m.loPBT.EditSourceX(m.lcFileToEdit)
 			Return
 		Else
 			lcFileToEdit = Upper(Alltrim(&tcCursor..FilePath))
-		EndIf
-		* --------------------------------------------------------------------------------
+		Endif
+* --------------------------------------------------------------------------------
 
-		*-- 2011-12-28 (As requested by JRN) -------------
-		*-- The following code will automatically select the actual Object on the form or class, or select the Property name.
-		*-- This will also select it in the PEM Editor main form.
+*-- 2011-12-28 (As requested by JRN) -------------
+*-- The following code will automatically select the actual Object on the form or class, or select the Property name.
+*-- This will also select it in the PEM Editor main form.
 		If Type('_Screen.cThorDispatcher') = 'C'
 
 			loTools = Execscript(_Screen.cThorDispatcher, 'Class= tools from pemeditor')
@@ -1205,21 +1180,21 @@ Define Class GoFishSearchEngine As Custom
 				Endif
 
 				Do Case
-				Case m.lcMatchType = MatchType_Name
-					m.loPBT.EditSourceX(m.lcFileToEdit, m.lcClass)
-					m.loTools.SelectObject(m.lcName)
-					Return
+					Case m.lcMatchType = MatchType_Name
+						m.loPBT.EditSourceX(m.lcFileToEdit, m.lcClass)
+						m.loTools.SelectObject(m.lcName)
+						Return
 
-				Case m.lcMatchType $ (MATCHTYPE_PROPERTY_NAME + MATCHTYPE_PROPERTY_VALUE + MATCHTYPE_PROPERTY_DEF )
-					*-- Pull out the Property name from the MatchLine (it can be preceded by an object name)
-					lcProperty = GetWordNum(&tcCursor..TrimmedMatchLine, 1)
-					lnWords	   = GetWordCount(m.lcProperty, '.')
-					lcProperty = GetWordNum(m.lcProperty, m.lnWords, '. ')
-					lcProperty = This.FixPropertyName(m.lcProperty)
+					Case m.lcMatchType $ (MATCHTYPE_PROPERTY_NAME + MATCHTYPE_PROPERTY_VALUE + MATCHTYPE_PROPERTY_DEF )
+*-- Pull out the Property name from the MatchLine (it can be preceded by an object name)
+						lcProperty = Getwordnum(&tcCursor..TrimmedMatchLine, 1)
+						lnWords	   = Getwordcount(m.lcProperty, '.')
+						lcProperty = Getwordnum(m.lcProperty, m.lnWords, '. ')
+						lcProperty = This.FixPropertyName(m.lcProperty)
 
-					m.loPBT.EditSourceX(m.lcFileToEdit, m.lcClass)
-					m.loTools.SelectObject(m.lcName, m.lcProperty)
-					Return
+						m.loPBT.EditSourceX(m.lcFileToEdit, m.lcClass)
+						m.loTools.SelectObject(m.lcName, m.lcProperty)
+						Return
 				Endcase
 			Endif
 
@@ -1227,14 +1202,14 @@ Define Class GoFishSearchEngine As Custom
 
 		m.loPBT.EditSourceX(m.lcFileToEdit, m.lcClass, m.lnStart, m.lnStart, m.lcMethodString, m.lnRecNo)
 
-		If m.tlMoveToTopleft AND (m.lcExt = 'PRG' Or Not Empty(m.lcMethodString))
+		If m.tlMoveToTopleft And (m.lcExt = 'PRG' Or Not Empty(m.lcMethodString))
 			This.ThorMoveWindow()
 		Endif
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure EditMenuFromCurrentRow(tcCursor)
 
 		Local loEditorWin As Editorwin Of 'c:\visual foxpro\programs\mythor\thor\tools\apps\pem editor\source\peme_editorwin.vcx'
@@ -1242,12 +1217,12 @@ Define Class GoFishSearchEngine As Custom
 
 		lcMenuAlias	 = 'Menu' + Sys(2015)
 		lcFileToEdit = Upper(Alltrim(&tcCursor..FilePath))
-		
+
 		Try
-			Use (m.lcFileToEdit) Shared Again In 0 Alias &lcMenuAlias
-			llSuccess = .T.
-		Catch
-			llSuccess = .F.
+				Use (m.lcFileToEdit) Shared Again In 0 Alias &lcMenuAlias
+				llSuccess = .T.
+			Catch
+				llSuccess = .F.
 		Endtry
 
 		If m.llSuccess = .F.
@@ -1264,7 +1239,7 @@ Define Class GoFishSearchEngine As Custom
 		m.loEditorWin.SetTitle(m.lcTempFile)
 
 		lnRecNo = &tcCursor..Recno
-		
+
 		If Between(m.lnRecNo, 1, Reccount(m.lcMenuAlias))
 			lnStartPos = This.aMenuStartPositions[m.lnRecNo]
 			If m.lnRecNo < Reccount(m.lcMenuAlias)
@@ -1279,11 +1254,11 @@ Define Class GoFishSearchEngine As Custom
 		Endif
 
 		Use In (m.lcMenuAlias)
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure EditObjectFromCurrentRow(tcCursor)
 
 		Local loPBT As 'GF_PEME_BaseTools'
@@ -1295,7 +1270,7 @@ Define Class GoFishSearchEngine As Custom
 		lcClass		 = Alltrim(&tcCursor..Class)
 		lcName		 = Alltrim(&tcCursor..Name)
 
-		loPBT = CreateObject('GF_PEME_BaseTools')
+		loPBT = Createobject('GF_PEME_BaseTools')
 		m.loPBT.EditSourceX(m.lcFileToEdit, m.lcClass)
 
 		If Type('_Screen.cThorDispatcher') = 'C'
@@ -1309,10 +1284,10 @@ Define Class GoFishSearchEngine As Custom
 				Endif
 
 				If m.lcMatchType $ (MATCHTYPE_PROPERTY_NAME + MATCHTYPE_PROPERTY_VALUE + MATCHTYPE_PROPERTY_DEF )
-					*-- Pull out the Property name from the MatchLine (it can be preceded by an object name)
-					lcProperty = GetWordNum(&tcCursor..TrimmedMatchLine, 1)
-					lnWords	   = GetWordCount(m.lcProperty, '.')
-					lcProperty = GetWordNum(m.lcProperty, m.lnWords, '. ')
+*-- Pull out the Property name from the MatchLine (it can be preceded by an object name)
+					lcProperty = Getwordnum(&tcCursor..TrimmedMatchLine, 1)
+					lnWords	   = Getwordcount(m.lcProperty, '.')
+					lcProperty = Getwordnum(m.lcProperty, m.lnWords, '. ')
 					lcProperty = This.FixPropertyName(m.lcProperty)
 
 					m.loTools.SelectObject(m.lcName, m.lcProperty)
@@ -1322,19 +1297,19 @@ Define Class GoFishSearchEngine As Custom
 			Endif
 
 		Endif
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure EndTimer()
-	
+
 		This.nSearchTime = Seconds() - This.nSearchTime
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure EscapeSearchExpression(tcString)
 
 		Local lcString
@@ -1368,17 +1343,17 @@ Define Class GoFishSearchEngine As Custom
 
 		Return lcString
 
-		* http://stackoverflow.com/questions/280793/case-insensitive-string-replacement-in-javascript
+* http://stackoverflow.com/questions/280793/case-insensitive-string-replacement-in-javascript
 
-		*!*	RegExp.escape = function(str) {
-		*!*	var specials = new RegExp("[.*+?|()\\[\\]{}\\\\]", "g"); // .*+?|()[]{}\
-		*!*	return str.replace(specials, "\\$&");
-		*!*	}
-		
-	EndProc
+*!*	RegExp.escape = function(str) {
+*!*	var specials = new RegExp("[.*+?|()\\[\\]{}\\\\]", "g"); // .*+?|()[]{}\
+*!*	return str.replace(specials, "\\$&");
+*!*	}
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure ExtractMethodName(tcReference)
 
 		If !Empty(tcReference)
@@ -1386,11 +1361,11 @@ Define Class GoFishSearchEngine As Custom
 		Else
 			Return ''
 		Endif
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure ExtractObjectName(tcReference)
 
 		If !Empty(tcReference)
@@ -1398,11 +1373,11 @@ Define Class GoFishSearchEngine As Custom
 		Else
 			Return ''
 		Endif
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure FilesToSkip(tcFile)
 
 		Local lcFileName, lnI
@@ -1420,18 +1395,18 @@ Define Class GoFishSearchEngine As Custom
 		Endfor
 
 		Return .F.
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure FindProcedureForMatch(toProcedureStartPositions, tnStartByte)
 
 		Local loReturn As 'GF_Procedure'
 		Local loClassDef As 'GF_Procedure'
 		Local llClassDef, lnX, loNextMatch
 
-		loReturn = CreateObject('GF_Procedure')
+		loReturn = Createobject('GF_Procedure')
 
 		If Isnull(toProcedureStartPositions)
 			Return loReturn
@@ -1448,33 +1423,33 @@ Define Class GoFishSearchEngine As Custom
 			Endif
 
 			Do Case
-			Case 'END CLASS' $ Upper(Result.Type)
-				llClassDef = .F.
-				loClassDef = CreateObject('GF_Procedure') && An empty result
-			Case 'CLASS' $ Upper(Result.Type)
-				llClassDef = .T.
-				loClassDef = Result
+				Case 'END CLASS' $ Upper(Result.Type)
+					llClassDef = .F.
+					loClassDef = Createobject('GF_Procedure') && An empty result
+				Case 'CLASS' $ Upper(Result.Type)
+					llClassDef = .T.
+					loClassDef = Result
 			Endcase
 
 			lnX = lnX + 1
 		Endfor
 
-		*-- This code attempted to identify matches that we INSIDE of a CLASS, but not inside of a Proc.
-		*-- This would catch wildly located code in class that is between Proc definitions.
-		* Removed 10/04/2012
-		* If lnX < toProcedureStartPositions.count and llClassDef
-		* 	loNextMatch = toProcedureStartPositions.Item(lnX + 1))
-		* 	If tnStartByte < loNextMatch.StartByte
-		* 		loReturn = loClassDef
-		* 	Endif
-		* Endif
+*-- This code attempted to identify matches that we INSIDE of a CLASS, but not inside of a Proc.
+*-- This would catch wildly located code in class that is between Proc definitions.
+* Removed 10/04/2012
+* If lnX < toProcedureStartPositions.count and llClassDef
+* 	loNextMatch = toProcedureStartPositions.Item(lnX + 1))
+* 	If tnStartByte < loNextMatch.StartByte
+* 		loReturn = loClassDef
+* 	Endif
+* Endif
 
 		Return loReturn
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure FindStatement(loObject)
 
 		Local lcLastLine, lcMatchLine, lcPreceding, lcProcCode, lcResult, lnCRPos, lnLen, lnLength, lnStart
@@ -1482,21 +1457,21 @@ Define Class GoFishSearchEngine As Custom
 
 		lnStart	 = m.loObject.MatchStart - m.loObject.ProcStart + 1
 
-		*!* ** { JRN -- 08/05/2016 07:16 AM - Begin
-		*!* lnLength = m.loObject.MatchLen - 1
+*!* ** { JRN -- 08/05/2016 07:16 AM - Begin
+*!* lnLength = m.loObject.MatchLen - 1
 		lnLength = m.loObject.MatchLen
-		*!* ** } JRN -- 08/05/2016 07:16 AM - End
+*!* ** } JRN -- 08/05/2016 07:16 AM - End
 
 		lcProcCode = Evl(loObject.proccode, loObject.Code)
 
-		* previously, assumed trailing CR, but this dropped off last character if not found
-		*!* ** { JRN -- 08/05/2016 07:16 AM - Begin
-		*!* lcMatchLine	= Substr(m.lcProcCode, m.lnStart, m.lnLength)
+* previously, assumed trailing CR, but this dropped off last character if not found
+*!* ** { JRN -- 08/05/2016 07:16 AM - Begin
+*!* lcMatchLine	= Substr(m.lcProcCode, m.lnStart, m.lnLength)
 		lcMatchLine	= Trim(Substr(m.lcProcCode, m.lnStart, m.lnLength), 1, Chr[13], Chr[10])
-		*!* ** } JRN -- 08/05/2016 07:16 AM - End
+*!* ** } JRN -- 08/05/2016 07:16 AM - End
 
 		lcResult	= m.lcMatchLine
-		*** JRN 12/02/2015 : Add in leading lines, if any
+*** JRN 12/02/2015 : Add in leading lines, if any
 		Do While .T.
 			lcPreceding	= Left(m.lcProcCode, m.lnStart - 1)
 			lnCRPos		= Rat(CR, m.lcPreceding, 2)
@@ -1512,7 +1487,7 @@ Define Class GoFishSearchEngine As Custom
 			Endif
 		Enddo
 
-		*** JRN 12/02/2015 : Add in following lines, if any
+*** JRN 12/02/2015 : Add in following lines, if any
 		lcLastLine = m.lcMatchLine
 		Do While This.IsContinuation(m.lcLastLine)
 			lcLastLine = Substr(m.lcProcCode, m.lnStart + m.lnLength)
@@ -1524,7 +1499,7 @@ Define Class GoFishSearchEngine As Custom
 			lnLength = Len(m.lcResult)
 		Enddo
 
-		*** JRN 12/05/2015 : within Text / Endtext
+*** JRN 12/05/2015 : within Text / Endtext
 		If Atc('text', Left(m.lcProcCode, m.lnStart)) != 0 And ;
 				Atc('endtext', Substr(m.lcProcCode, m.lnStart + m.lnLength)) != 0
 
@@ -1536,28 +1511,28 @@ Define Class GoFishSearchEngine As Custom
 					lcPreceding = Substr(m.lcPreceding, m.lnCRPos + 1)
 				Endif
 				Do Case
-				Case 'text' = Lower(GetWordNum(m.lcPreceding, 1, ' ' + Tab + CR + lf))
-					lnTextStart = m.lnTextStart - Len(m.lcPreceding)
-					lnLength = m.lnLength + m.lnStart - m.lnTextStart
-					lnStart	 = m.lnTextStart
-					lcResult = Substr(m.lcProcCode, m.lnStart, m.lnLength)
-					Do While Len(m.lcProcCode) > m.lnStart + m.lnLength
-						lcLastLine = Substr(m.lcProcCode, m.lnStart + m.lnLength)
-						lnLen	   = At(CR, m.lcLastLine, 2)
-						If m.lnLen > 0
-							lcLastLine = Left(m.lcLastLine, m.lnLen - 1)
-						Endif
-						lcResult = m.lcResult + m.lcLastLine
-						lnLength = Len(m.lcResult)
-						If 'endtext' = Lower(GetWordNum(m.lcLastLine, 1, ' ' + Tab + CR + lf))
-							Exit
-						Endif
-					Enddo
-					Exit
-				Case 'endtext' = Lower(GetWordNum(m.lcPreceding, 1, ' ' + Tab + CR + lf))
-					Exit
-				Otherwise
-					lnTextStart = m.lnTextStart - Len(m.lcPreceding)
+					Case 'text' = Lower(Getwordnum(m.lcPreceding, 1, ' ' + Tab + CR + lf))
+						lnTextStart = m.lnTextStart - Len(m.lcPreceding)
+						lnLength = m.lnLength + m.lnStart - m.lnTextStart
+						lnStart	 = m.lnTextStart
+						lcResult = Substr(m.lcProcCode, m.lnStart, m.lnLength)
+						Do While Len(m.lcProcCode) > m.lnStart + m.lnLength
+							lcLastLine = Substr(m.lcProcCode, m.lnStart + m.lnLength)
+							lnLen	   = At(CR, m.lcLastLine, 2)
+							If m.lnLen > 0
+								lcLastLine = Left(m.lcLastLine, m.lnLen - 1)
+							Endif
+							lcResult = m.lcResult + m.lcLastLine
+							lnLength = Len(m.lcResult)
+							If 'endtext' = Lower(Getwordnum(m.lcLastLine, 1, ' ' + Tab + CR + lf))
+								Exit
+							Endif
+						Enddo
+						Exit
+					Case 'endtext' = Lower(Getwordnum(m.lcPreceding, 1, ' ' + Tab + CR + lf))
+						Exit
+					Otherwise
+						lnTextStart = m.lnTextStart - Len(m.lcPreceding)
 				Endcase
 			Enddo
 		Endif
@@ -1565,23 +1540,23 @@ Define Class GoFishSearchEngine As Custom
 
 		loObject.statement		= m.lcResult
 		loObject.statementstart	= m.lnStart
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure FixPropertyName(lcProperty)
 
-		* Gets rid of dimensions and leading '*^'
+* Gets rid of dimensions and leading '*^'
 
-		Return ChrTran(GetWordNum(m.lcProperty, 1, '(['), '*^', '')
-		
-	EndProc
+		Return Chrtran(Getwordnum(m.lcProperty, 1, '(['), '*^', '')
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure GenerateHTMLCode(tcCode, tcMatchLine, tnMatchStart, tcCss, tcJavaScript, tcReplaceLine, tlAlreadyReplaced, tnTabsToSpaces, ;
-							   tcSearch, tcStatementFilter, tcProcFilter)
+			tcSearch, tcStatementFilter, tcProcFilter)
 
 		Local lcColorizedCode, lcCss, lcHTML, lcHtmlBody, lcInitialBr, lcJavaScript, lcLeft, lcMatchLine
 		Local lcMatchPrefix, lcMatchSuffix, lcMatchWordPrefix, lcMatchWordSuffix, lcReplaceExpression
@@ -1602,16 +1577,16 @@ Define Class GoFishSearchEngine As Custom
 
 		If !Empty(tcMatchLine)
 
-			*-- Dress up the code that comes before the match line...
+*-- Dress up the code that comes before the match line...
 			lcBr = '<br />'
 			lcLeft = Left(tcCode, tnMatchStart)
 			lcLeft = Evl(This.HtmlEncode(lcLeft), lcBr)
 
-			*-- Dress up the matchline...
+*-- Dress up the matchline...
 			lnMatchLineLength = Len(tcMatchLine)
 			lnReplaceLineLength = Len(Rtrim(tcReplaceLine))
 
-			*===================== Colorize the Replace Preview line, if passed ==============================
+*===================== Colorize the Replace Preview line, if passed ==============================
 			If !Empty(tcReplaceLine)
 				lcColorizedCode = This.HtmlEncode(tcReplaceLine)
 				lcReplaceLine = lcReplaceLinePrefix + lcColorizedCode + lcReplaceLineSuffix
@@ -1622,24 +1597,25 @@ Define Class GoFishSearchEngine As Custom
 				lcReplaceLine = ''
 			Endif
 
-			*===================== Colorize the match line ====================================================
-			*-- Mark the match WORD(s), so I can find them after the VFP code is colorized...
+*===================== Colorize the match line ====================================================
+*-- Mark the match WORD(s), so I can find them after the VFP code is colorized...
 			lcReplaceExpression = '[:GOFISHMATCHWORDSTART:] + lcMatch + [:GOFISHMATCHWORDEND:]'
-			lcColorizedCode = This.RegExReplace(tcMatchLine, '', lcReplaceExpression, .T.)
+*			lcColorizedCode = This.RegExReplace(tcMatchLine, '', lcReplaceExpression, .T.)
+			lcColorizedCode = This.RegExReplace(tcMatchLine, tcSearch, lcReplaceExpression, .T.)
 
 			lcColorizedCode = This.HtmlEncode(lcColorizedCode)
 
-			*-- Next, add <span> tags around previously marked match Word(s)
+*-- Next, add <span> tags around previously marked match Word(s)
 			lcColorizedCode = Strtran(lcColorizedCode, ':GOFISHMATCHWORDSTART:', lcMatchWordPrefix)
 			lcColorizedCode = Strtran(lcColorizedCode, ':GOFISHMATCHWORDEND:', lcMatchWordSuffix)
 
-			*-- Finally, add <div> tags around the entire Matched Line -------------------
+*-- Finally, add <div> tags around the entire Matched Line -------------------
 			lcMatchLine = lcMatchLinePrefix + lcColorizedCode + lcMatchLineSuffix
-			*=================================================================================================
+*=================================================================================================
 
-			*-- Dress up the code that comes after the match line...
-			*-- (Look for EndProc to know where to end the code)---
-			If tlAlreadyReplaced = .T.
+*-- Dress up the code that comes after the match line...
+*-- (Look for EndProc to know where to end the code)---
+			If tlAlreadyReplaced
 				lcRightCode = Substr(tcCode, tnMatchStart + 1 + lnReplaceLineLength)
 			Else
 				lcRightCode = Substr(tcCode, tnMatchStart + 1 + lnMatchLineLength)
@@ -1653,20 +1629,20 @@ Define Class GoFishSearchEngine As Custom
 
 			lcRight = This.HtmlEncode(lcRightCode)
 
-			*!* ******************** Removed 12/02/2015 *****************
-			*!* *** JRN 11/14/2015 : Highlight sub-search (filter within same procedure) if it is supplied
-			*!* If 'C' = Vartype(tcProcFilter) and not Empty(tcProcFilter)
-			*!* 	lcLeft = This.HighlightProcFilter(lcLeft, tcProcFilter, lcMatchWordPrefix, lcMatchWordSuffix) 
-			*!* 	lcRight = This.HighlightProcFilter(lcRight, tcProcFilter, lcMatchWordPrefix, lcMatchWordSuffix) 
-			*!* EndIf 		
+*!* ******************** Removed 12/02/2015 *****************
+*!* *** JRN 11/14/2015 : Highlight sub-search (filter within same procedure) if it is supplied
+*!* If 'C' = Vartype(tcProcFilter) and not Empty(tcProcFilter)
+*!* 	lcLeft = This.HighlightProcFilter(lcLeft, tcProcFilter, lcMatchWordPrefix, lcMatchWordSuffix)
+*!* 	lcRight = This.HighlightProcFilter(lcRight, tcProcFilter, lcMatchWordPrefix, lcMatchWordSuffix)
+*!* EndIf
 
 			lcHtmlBody = lcLeft + lcMatchLine + lcReplaceLine + lcRight &&Build the body
 
-			*!* ******************** Removed 08/14/2022 *****************
-			*!* Highlighting for the search results is already done in "RegExReplace()"
-			*!* If 'C' = Vartype(tcSearch) And Not Empty(tcSearch)
-			*!* 	lcHtmlBody = This.HighlightProcFilter(lcHtmlBody, tcSearch, lcMatchWordPrefix, lcMatchWordSuffix)
-			*!* Endif
+*!* ******************** Removed 08/14/2022 *****************
+*!* Highlighting for the search results is already done in "RegExReplace()"
+*!* If 'C' = Vartype(tcSearch) And Not Empty(tcSearch)
+*!* 	lcHtmlBody = This.HighlightProcFilter(lcHtmlBody, tcSearch, lcMatchWordPrefix, lcMatchWordSuffix)
+*!* Endif
 
 			If 'C' = Vartype(tcStatementFilter) And Not Empty(tcStatementFilter)
 				lcHtmlBody = This.HighlightProcFilter(lcHtmlBody, tcStatementFilter, lcMatchWordPrefix, lcMatchWordSuffix)
@@ -1682,14 +1658,14 @@ Define Class GoFishSearchEngine As Custom
 			lcHtmlBody = Alltrim(lcHtmlBody, 1, Chr[13], Chr[10])
 		Else
 
-			*-- Just a plain blob of VFP code, with no match lines or match words...
-			*-- Need an empty MatchLine Divs so the JavaScript on the page will find it to scroll the page
+*-- Just a plain blob of VFP code, with no match lines or match words...
+*-- Need an empty MatchLine Divs so the JavaScript on the page will find it to scroll the page
 			lcHtmlBody = '<div id="matchline"></div>' + This.HtmlEncode(tcCode)
 
 		Endif
 
-		*-- Build the whole Html by combining the html parts defined above -------------
-		Text To lcHtml Noshow Textmerge Pretext 3
+*-- Build the whole Html by combining the html parts defined above -------------
+		TEXT To lcHtml Noshow Textmerge Pretext 3
 <html>
  <head>
   <title>GoFish code snippet</title>
@@ -1706,13 +1682,13 @@ Define Class GoFishSearchEngine As Custom
 
 
 		Return lcHTML
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure GetActiveProject()
-	
+
 		Local lcCurrentProject
 
 		If Type('_VFP.ActiveProject.Name') = 'C'
@@ -1722,24 +1698,24 @@ Define Class GoFishSearchEngine As Custom
 		Endif
 
 		Return lcCurrentProject
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure GetCurrentDirectory
 
 		Return Addbs(Sys(5) + Sys(2003))
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure GetDirectories(tcPath, tlIncludeSubDirectories)
 
 		Local laFiles[1], lnFiles
 
-		This.oDirectories = CreateObject('Collection')
+		This.oDirectories = Createobject('Collection')
 
 		If tlIncludeSubDirectories
 			This.BuildDirectoriesCollection(tcPath)
@@ -1752,11 +1728,11 @@ Define Class GoFishSearchEngine As Custom
 		Endif
 
 		Return This.oDirectories
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure GetFileDateTime(tcFile)
 
 		Local ldFileDate, loFile, lcExt
@@ -1766,37 +1742,37 @@ Define Class GoFishSearchEngine As Custom
 
 		If Inlist(lcExt, 'SCX', 'VCX', 'FRX', 'MNX', 'LBX')
 			Try
-				Use (tcFile) Again In 0 Alias 'GF_GetMaxTimeStamp' Shared
-				Select Max(Timestamp) From GF_GetMaxTimeStamp Into Array laMaxDateTime
-				ldFileDate = Ctot(This.TimeStampToDate(laMaxDateTime))
-			Catch
-			Finally
-				If Used('GF_GetMaxTimeStamp')
-					Use In ('GF_GetMaxTimeStamp')
-				Endif
+					Use (tcFile) Again In 0 Alias 'GF_GetMaxTimeStamp' Shared
+					Select Max(Timestamp) From GF_GetMaxTimeStamp Into Array laMaxDateTime
+					ldFileDate = Ctot(This.TimeStampToDate(laMaxDateTime))
+				Catch
+				Finally
+					If Used('GF_GetMaxTimeStamp')
+						Use In ('GF_GetMaxTimeStamp')
+					Endif
 			Endtry
 		Endif
 
 		If Empty(ldFileDate)
 			Try
-				ldFileDate = Fdate(tcFile, 1)
-			Catch
-				loFile = This.oFSO.Getfile(tcFile)
-				ldFileDate = loFile.DateLastModified
+					ldFileDate = Fdate(tcFile, 1)
+				Catch
+					loFile = This.oFSO.Getfile(tcFile)
+					ldFileDate = loFile.DateLastModified
 			Endtry
 		Endif
 
 		Return ldFileDate
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure GetFrxObjectType(tnObjType, tnObjCode)
 
 		Local lcObjectType
 
-		*-- Details from: http://www.dbmonster.com/Uwe/Forum.aspx/foxpro/4719/Code-meanings-for-Report-Format-ObjType-field
+*-- Details from: http://www.dbmonster.com/Uwe/Forum.aspx/foxpro/4719/Code-meanings-for-Report-Format-ObjType-field
 
 		lcObjectType = ''
 
@@ -1853,11 +1829,11 @@ Define Class GoFishSearchEngine As Custom
 		Endcase
 
 		Return lcObjectType
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure GetProcedureStartPositions(tcCode, tcName)
 
 		Local loObject As 'Empty'
@@ -1866,24 +1842,24 @@ Define Class GoFishSearchEngine As Custom
 		Local lcBaseClass, lcClassName, lcMatch, lcName, lcParentClass, lcType, lcWord1, llClassDef
 		Local llTextEndText, lnEndByte, lnI, lnLFs, lnStartByte, lnX, loException, loMatch, loMatches
 
-		*
-		* Original code provided by Jim R Nelson circa March 2011
-		* Returns a collection indicating the beginning of each procedure / class / etc
-		* Each member in the collection has these properties:
-		*   .Type == 'Procedure'(Procedures and Functions))
-		*         == 'Class'    (Class Definition)
-		*         == 'End Class'(End of Class Definition)
-		*         == 'Method'   (Procedures and Functions within a class)
-		*   .StartByte == starts at zero; thus, # of chars preceding start position
-		*   .Name
-		*   .containingclass
+*
+* Original code provided by Jim R Nelson circa March 2011
+* Returns a collection indicating the beginning of each procedure / class / etc
+* Each member in the collection has these properties:
+*   .Type == 'Procedure'(Procedures and Functions))
+*         == 'Class'    (Class Definition)
+*         == 'End Class'(End of Class Definition)
+*         == 'Method'   (Procedures and Functions within a class)
+*   .StartByte == starts at zero; thus, # of chars preceding start position
+*   .Name
+*   .containingclass
 
-		****************************************************************
+****************************************************************
 		loRegExp = This.oRegExForProcedureStartPositions
 
 		loMatches = m.loRegExp.Execute(m.tcCode)
 
-		loResult = CreateObject('Collection')
+		loResult = Createobject('Collection')
 
 		llClassDef	  = .F. && currently within a class?
 		llTextEndText = .F. && currently within a Text/EndText block?
@@ -1898,53 +1874,53 @@ Define Class GoFishSearchEngine As Custom
 			With m.loMatch
 				lnStartByte	= .FirstIndex
 				lcMatch		= Chrtran(.Value, CR + lf, '  ')
-				lcName		= GetWordNum(m.lcMatch, GetWordCount(m.lcMatch))
-				lcWord1		= Upper(GetWordNum(m.lcMatch, Max(1, GetWordCount(m.lcMatch) - 1)))
+				lcName		= Getwordnum(m.lcMatch, Getwordcount(m.lcMatch))
+				lcWord1		= Upper(Getwordnum(m.lcMatch, Max(1, Getwordcount(m.lcMatch) - 1)))
 			Endwith
 
 			Do Case
-			Case m.llTextEndText
-				If 'ENDTEXT' = m.lcWord1
-					llTextEndText = .F.
-				Endif
-				Loop
+				Case m.llTextEndText
+					If 'ENDTEXT' = m.lcWord1
+						llTextEndText = .F.
+					Endif
+					Loop
 
-			Case m.llClassDef
-				If 'ENDDEFINE' = m.lcWord1
-					llClassDef	  = .F.
-					lcType		  = 'End Class'
-					lcName		  = m.lcClassName + '.-EndDefine'
-					lcClassName	  = ''
-					lcParentClass = ''
+				Case m.llClassDef
+					If 'ENDDEFINE' = m.lcWord1
+						llClassDef	  = .F.
+						lcType		  = 'End Class'
+						lcName		  = m.lcClassName + '.-EndDefine'
+						lcClassName	  = ''
+						lcParentClass = ''
+						lcBaseClass	  = ''
+					Else
+						lcType = 'Method'
+						lcName = m.lcClassName + '.' + m.lcName
+					Endif
+
+				Case ' CLASS ' $ Upper(m.lcMatch) && Notice the spaces in ' CLASS '
+					llClassDef	  = .T.
+					lcType		  = 'Class'
+					lcClassName	  = Getwordnum(m.lcMatch, 3)
+					lcParentClass = Getwordnum(m.lcMatch, 5)
+					lcName		  = ''
 					lcBaseClass	  = ''
-				Else
-					lcType = 'Method'
-					lcName = m.lcClassName + '.' + m.lcName
-				Endif
+					If This.IsBaseclass(m.lcParentClass)
+						lcBaseClass	  = Lower(m.lcParentClass)
+						lcParentClass = ''
+					Endif
 
-			Case ' CLASS ' $ Upper(m.lcMatch) && Notice the spaces in ' CLASS '
-				llClassDef	  = .T.
-				lcType		  = 'Class'
-				lcClassName	  = GetWordNum(m.lcMatch, 3)
-				lcParentClass = GetWordNum(m.lcMatch, 5)
-				lcName		  = ''
-				lcBaseClass	  = ''
-				If This.IsBaseclass(m.lcParentClass)
-					lcBaseClass	  = Lower(m.lcParentClass)
-					lcParentClass = ''
-				Endif
+				Case 'FUNCTION' = m.lcWord1
+					lcType = 'Function'
 
-			Case 'FUNCTION' = m.lcWord1
-				lcType = 'Function'
-
-			Otherwise
-				lcType = 'Procedure'
+				Otherwise
+					lcType = 'Procedure'
 
 			Endcase
 
 			lnLFs = Occurs(Chr(10), m.loMatch.Value)
 			lnX	  = 0
-			* ignore leading CRLF's, and [spaces and tabs, except on the matched line]
+* ignore leading CRLF's, and [spaces and tabs, except on the matched line]
 			Do While Substr(m.tcCode, m.lnStartByte + 1, 1) $ Chr(10) + Chr(13) + Chr(32) + Chr(9) And m.lnX < m.lnLFs
 				If Substr(m.tcCode, m.lnStartByte + 1, 1) = Chr(10)
 					lnX = m.lnX + 1
@@ -1952,7 +1928,7 @@ Define Class GoFishSearchEngine As Custom
 				lnStartByte = m.lnStartByte + 1
 			Enddo
 
-			loObject = CreateObject('GF_Procedure')
+			loObject = Createobject('GF_Procedure')
 
 			With m.loObject
 				.Type		  = m.lcType
@@ -1964,18 +1940,18 @@ Define Class GoFishSearchEngine As Custom
 			Endwith
 
 			Try
-				m.loResult.Add(m.loObject, m.lcName)
-			Catch To m.loException When m.loException.ErrorNo = 2062 Or m.loException.ErrorNo = 11
-				*loResult.Add(loObject, lcName + ' ' + Transform(lnStartByte))
-				m.loResult.Add(m.loObject, m.lcName + Sys(2015))
-			Catch To m.loException
-				This.ShowErrorMsg(m.loException)
+					m.loResult.Add(m.loObject, m.lcName)
+				Catch To m.loException When m.loException.ErrorNo = 2062 Or m.loException.ErrorNo = 11
+*loResult.Add(loObject, lcName + ' ' + Transform(lnStartByte))
+					m.loResult.Add(m.loObject, m.lcName + Sys(2015))
+				Catch To m.loException
+					This.ShowErrorMsg(m.loException)
 			Endtry
 
 
 		Endfor
 
-		*** JRN 11/09/2015 : determine ending byte for each entry
+*** JRN 11/09/2015 : determine ending byte for each entry
 		lnEndByte = Len(m.tcCode)
 		For lnI = m.loResult.Count To 1 Step - 1
 			loResult[m.lnI].EndByte = m.lnEndByte
@@ -1983,17 +1959,17 @@ Define Class GoFishSearchEngine As Custom
 		Endfor
 
 		Return m.loResult
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure GetRegExForProcedureStartPositions()
-	
+
 		Local loRegExp As 'VBScript.RegExp'
 		Local lcPattern
 
-		loRegExp = CreateObject('VBScript.RegExp')
+		loRegExp = Createobject('VBScript.RegExp')
 
 		With loRegExp
 			.IgnoreCase	= .T.
@@ -2014,41 +1990,41 @@ Define Class GoFishSearchEngine As Custom
 		Endwith
 
 		Return loRegExp
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure GetRegExForSearch
-	
+
 		Local loRegEx As 'VBScript.RegExp'
 
-		loRegEx = CreateObject ('VBScript.RegExp')
+		loRegEx = Createobject ('VBScript.RegExp')
 
 		Return loRegEx
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure GetReplaceResultObject
-	
+
 		Local loResult As 'Empty'
 
-		loResult = CreateObject('Empty')
+		loResult = Createobject('Empty')
 		AddProperty(loResult, 'lError', .F.)
-		AddProperty(loResult, 'nErrorCode', 0)
+		AddProperty(loResult, 'nErrorCode', GF_REPLACE_NOTTTOUCHED)
 		AddProperty(loResult, 'nChangeLength', 0)
 		AddProperty(loResult, 'cNewCode', '')
 		AddProperty(loResult, 'cReplaceLine', '')
 		AddProperty(loResult, 'cTrimmedReplaceLine', '')
 		AddProperty(loResult, 'lReplaced', .F.)
 		Return loResult
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure GetReplaceRiskLevel(toObject)
 
 		Local lcMatchType, lnReturn
@@ -2059,34 +2035,34 @@ Define Class GoFishSearchEngine As Custom
 
 		Do Case
 
-			Case Inlist(lcMatchType, MatchType_Name, MatchType_Constant, '<Parent>', ;
-							MATCHTYPE_PROPERTY_DEF, MATCHTYPE_PROPERTY_DESC, MATCHTYPE_PROPERTY_NAME, ;
-							MATCHTYPE_PROPERTY, MATCHTYPE_PROPERTY_VALUE, ;
-							MATCHTYPE_METHOD_DEF, MATCHTYPE_METHOD_DESC, MatchType_Method ;
-							)
+			Case Inlist(lcMatchType, MatchType_Name, MATCHTYPE_CONSTANT, '<Parent>', ;
+					MATCHTYPE_PROPERTY_DEF, MATCHTYPE_PROPERTY_DESC, MATCHTYPE_PROPERTY_NAME, ;
+					MATCHTYPE_PROPERTY, MATCHTYPE_PROPERTY_VALUE, ;
+					MATCHTYPE_METHOD_DEF, MATCHTYPE_METHOD_DESC, MatchType_Method ;
+					)
 
 				lnReturn = 3
 
 			Case Inlist(lcMatchType, MATCHTYPE_INCLUDE_FILE, '<Expr>', '<Supexpr>', '<Picture>', '<Prompt>', '<Procedure>', ;
-							'<Skipfor>', '<Message>', '<Tag>', '<Tag2>');
+					'<Skipfor>', '<Message>', '<Tag>', '<Tag2>');
 					Or ;
 					toObject.UserField.FileType = 'DBF'
 
 				lnReturn = 2
 
-			Case Inlist(lcMatchType, MatchType_Code, MatchType_Comment) Or;
-					(toObject.UserField.IsText And !Inlist(lcMatchType, MatchType_Filename, MatchType_TimeStamp))
+			Case Inlist(lcMatchType, MATCHTYPE_CODE, MATCHTYPE_COMMENT) Or;
+					(toObject.UserField.IsText And !Inlist(lcMatchType, MATCHTYPE_FILENAME, MATCHTYPE_TIMESTAMP))
 
 				lnReturn = 1
 
 		Endcase
 
 		Return lnReturn
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure HighlightProcFilter(tcCode, tcProcFilter, tcMatchWordPrefix, tcMatchWordSuffix)
 
 		#Define VISIBLE_AND   '|and|'
@@ -2118,8 +2094,8 @@ Define Class GoFishSearchEngine As Custom
 					Exit
 				Endif
 				lcMatch = Substr(m.tcCode, m.lnATC, Len(m.lcProcFilter))
-				* items in this array are all case-sensitive combinations found
-				* so that the STRTRAN farther down keeps the original case
+* items in this array are all case-sensitive combinations found
+* so that the STRTRAN farther down keeps the original case
 				If m.lnCount = 0 Or Ascan(m.laList, m.lcMatch, 1) = 0
 					lnCount = m.lnCount + 1
 					Dimension m.laList[m.lnCount]
@@ -2134,61 +2110,59 @@ Define Class GoFishSearchEngine As Custom
 		Endfor
 
 		Return m.lcCode
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure HtmlEncode(tcCode)
 
 		Local loHTML As 'htmlcode' Of 'mhhtmlcode.prg'
 		Local lcHTML
 
-		*-- See: http://www.universalthread.com/ViewPageNewDownload.aspx?ID=9679
-		*-- From: Michael Helland - mobydikc@gmail.com
+*-- See: http://www.universalthread.com/ViewPageNewDownload.aspx?ID=9679
+*-- From: Michael Helland - mobydikc@gmail.com
 
-		loHTML = NewObject('htmlcode', 'mhhtmlcode.prg')
+		loHTML = Newobject('htmlcode', 'mhhtmlcode.prg')
 		lcHTML = loHTML.PRGToHTML(tcCode)
 
 		Return lcHTML
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure IncrementProgressBar(tnAmount)
 
 		If Vartype(This.oProgressBar) = 'O'
 			This.oProgressBar.nValue = This.oProgressBar.nValue + tnAmount
 		Endif
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure Init(tlPreserveExistingResults, tcCR_StoreLocal)
-		
+
 		#Include ..\BuildGoFish.h
 
-	*SF 20221018 -> local storage
+*SF 20221018 -> local storage
 		If !Empty(m.tcCR_StoreLocal) Then
-			THIS.cCR_StoreLocal       = m.tcCR_StoreLocal
+			This.cCR_StoreLocal       = m.tcCR_StoreLocal
 		Endif &&!Empty(m.tcCR_StoreLocal) Then
 
-		THIS.cFilesToSkipFile     = THIS.cCR_StoreLocal + 'GF_Files_To_Skip.txt'
-		THIS.cReplaceDetailTable  = THIS.cCR_StoreLocal + 'GF_Replace_DetailV5.dbf'
-		THIS.cReplaceHistoryTable = THIS.cCR_StoreLocal + 'GF_Replace_History.dbf'
-	*/SF 20221018 -> local storage
+		This.cFilesToSkipFile     = This.cCR_StoreLocal + 'GF_Files_To_Skip.txt'
+*/SF 20221018 -> local storage
 
 		This.cVersion = GOFISH_VERSION  && Comes from include file above
-		This.oFSO = CreateObject("Scripting.FileSystemObject")
+		This.oFSO = Createobject("Scripting.FileSystemObject")
 		This.oRegExForSearch = This.GetRegExForSearch()
 
 		If Isnull(This.oRegExForSearch)
 			Messagebox('Error creating oRegExForSearch')
 			Return .F.
 		Endif
-		
+
 		This.oRegExForCommentSearch = This.GetRegExForSearch()
 		If Isnull(This.oRegExForCommentSearch)
 			Messagebox('Error creating oRegExForCommentSearch')
@@ -2204,91 +2178,91 @@ Define Class GoFishSearchEngine As Custom
 
 		This.BuildProjectsCollection()
 
-		This.oSearchOptions = CreateObject(This.cSearchOptionsClass)
+		This.oSearchOptions = Createobject(This.cSearchOptionsClass)
 
-		This.oSearchErrors = CreateObject('Collection')
-		This.oReplaceErrors = CreateObject('Collection')
+		This.oSearchErrors = Createobject('Collection')
+		This.oReplaceErrors = Createobject('Collection')
 
-		*-- An FFC class used to generate a TimeStamp so the TimeStamp field can be updated when replacing code in a table based file.
-		This.oFrxCursor = NewObject('FrxCursor', Home() + '\ffc\_FrxCursor')
+*-- An FFC class used to generate a TimeStamp so the TimeStamp field can be updated when replacing code in a table based file.
+		This.oFrxCursor = Newobject('FrxCursor', Home() + '\ffc\_FrxCursor')
 
 		This.PrepareForSearch()
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure IsBaseclass(tcString)
 
 		Local lcBaseclasses
 
-		*-- Note: Each word below contains a space at the beginning and end of the word so the final match test
-		*-- wil not return .t. for partial matches.
+*-- Note: Each word below contains a space at the beginning and end of the word so the final match test
+*-- wil not return .t. for partial matches.
 
-		Text To lcBaseclasses Noshow
-			 CheckBox 
-			 Collection 
-			 Column 
-			 ComboBox 
-			 CommandButton 
-			 CommandGroup 
-			 Container 
-			 Control 
-			 Cursor 
-			 CursorAdapter 
-			 Custom 
-			 DataEnvironment 
-			 EditBox 
-			 Empty 
-			 Exception 
-			 Form 
-			 FormSet 
-			 Grid 
-			 Header 
-			 Hyperlink 
-			 Image 
-			 Label 
-			 Line 
-			 ListBox 
-			 OLEBound 
-			 OLEContainer 
-			 OptionButton 
-			 OptionGroup 
-			 Page 
-			 PageFrame 
-			 ProjectHook 
-			 Relation 
-			 ReportListener 
-			 Separator 
-			 SessionObject 
-			 Shape 
-			 Spinner 
-			 TextBox 
-			 Timer 
-			 ToolBar 
-			 XMLAdapter 
-			 XMLField 
-			 XMLTable 
+		TEXT To lcBaseclasses Noshow
+			 CheckBox
+			 Collection
+			 Column
+			 ComboBox
+			 CommandButton
+			 CommandGroup
+			 Container
+			 Control
+			 Cursor
+			 CursorAdapter
+			 Custom
+			 DataEnvironment
+			 EditBox
+			 Empty
+			 Exception
+			 Form
+			 FormSet
+			 Grid
+			 Header
+			 Hyperlink
+			 Image
+			 Label
+			 Line
+			 ListBox
+			 OLEBound
+			 OLEContainer
+			 OptionButton
+			 OptionGroup
+			 Page
+			 PageFrame
+			 ProjectHook
+			 Relation
+			 ReportListener
+			 Separator
+			 SessionObject
+			 Shape
+			 Spinner
+			 TextBox
+			 Timer
+			 ToolBar
+			 XMLAdapter
+			 XMLField
+			 XMLTable
 		ENDTEXT
 
 		Return  Upper((' ' + Alltrim(tcString) + ' ')) $ Upper(lcBaseclasses)
-		
-		
-	EndProc
 
 
-	*----------------------------------------------------------------------------------
+	Endproc
+
+
+*----------------------------------------------------------------------------------
 	Procedure IsComment(tcLine)
 
 		Local lcLine, lnCount, loMatches, loRegEx, llReturn
 
 		llReturn = This.IsFullLineComment(tcLine)
 
-		If llReturn = .T.
+		If llReturn
 			Return .T.
 		Endif
 
-		*-- Look for a match BEFORE any && comment characters
+*-- Look for a match BEFORE any && comment characters
 		lnCount = Atc('&' + '&', tcLine)
 
 		If lnCount > 0
@@ -2301,15 +2275,15 @@ Define Class GoFishSearchEngine As Custom
 		Else
 			Return .F.
 		Endif
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure IsContinuation(lcLine)
 
 		Local lnAT
-		
+
 		If ';' = Right(Alltrim(m.lcLine, 1, ' ', Tab, CR, lf), 1)
 			Return .T.
 		Else
@@ -2319,11 +2293,11 @@ Define Class GoFishSearchEngine As Custom
 			Endif
 		Endif
 		Return .F.
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure IsFileTypeIncluded(tcFileType)
 
 		If This.oSearchOptions.lIncludeAllFileTypes
@@ -2335,108 +2309,53 @@ Define Class GoFishSearchEngine As Custom
 		If !Empty(Justext(This.oSearchOptions.cFileTemplate))
 			Return This.MatchTemplate(tcFileType, Justext(This.oSearchOptions.cFileTemplate))
 		Endif
- 		
- 		*** Removed 27.07.2022
- 		***
- 		*** If we found a match for the passed on filetype and it should not be included 
- 		*** in our search then we don´t have to go any further and keep checking this 
- 		*** filetype against every other possible filetype !
-*!*			Do Case
-*!*				*-- Table-based Files --------------------------------------
-*!*				Case lcFileType = 'SCX' And loOptions.lIncludeSCX
-*!*					llReturn = .T.
-*!*				Case lcFileType = 'VCX' And loOptions.lIncludeVCX
-*!*					llReturn = .T.
-*!*				Case lcFileType = 'FRX' And loOptions.lIncludeFRX
-*!*					llReturn = .T.
-*!*				Case lcFileType = 'DBC'And loOptions.lIncludeDBC
-*!*					llReturn = .T.
-*!*				Case lcFileType = 'MNX' And loOptions.lIncludeMNX
-*!*					llReturn = .T.
-*!*				Case lcFileType = 'LBX' And loOptions.lIncludeLBX
-*!*					llReturn = .T.
-*!*				Case lcFileType = 'PJX' And loOptions.lIncludePJX
-*!*					llReturn = .T.
 
-*!*				*-- Code based files ----------------------------------
-*!*				Case lcFileType = 'PRG' And loOptions.lIncludePRG
-*!*					llReturn = .T.
-*!*				Case lcFileType = 'SPR' And loOptions.lIncludeSPR
-*!*					llReturn = .T.
-*!*				Case lcFileType = 'MPR' And loOptions.lIncludeMPR
-*!*					llReturn = .T.
-*!*				Case 'HTM' $ lcFileType And loOptions.lIncludeHTML
-*!*					llReturn = .T.
-*!*				Case lcFileType = 'H' And loOptions.lIncludeH
-*!*					llReturn = .T.
-*!*				Case lcFileType = 'ASP' And loOptions.lIncludeASP
-*!*					llReturn = .T.
-*!*				Case lcFileType = 'INI' And loOptions.lIncludeINI
-*!*					llReturn = .T.
-*!*				Case lcFileType = 'JAVA' And loOptions.lIncludeJAVA
-*!*					llReturn = .T.
-*!*				Case lcFileType = 'JSP' And loOptions.lIncludeJSP
-*!*					llReturn = .T.
-*!*				Case lcFileType = 'XML' And loOptions.lIncludeXML
-*!*					llReturn = .T.
-*!*				Case lcFileType = 'TXT' And loOptions.lIncludeTXT
-*!*					llReturn = .T.
+*-- Table-based Files --------------------------------------
+		If Inlist(tcFileType, 'SCX', 'VCX', 'FRX', 'DBC', 'MNX', 'LBX', 'PJX')
+			Return Icase(tcFileType = 'SCX', This.oSearchOptions.lIncludeSCX, ;
+				tcFileType = 'VCX', This.oSearchOptions.lIncludeVCX, ;
+				tcFileType = 'FRX', This.oSearchOptions.lIncludeFRX, ;
+				tcFileType = 'DBC', This.oSearchOptions.lIncludeDBC, ;
+				tcFileType = 'MNX', This.oSearchOptions.lIncludeMNX, ;
+				tcFileType = 'LBX', This.oSearchOptions.lIncludeLBX, ;
+				tcFileType = 'PJX', This.oSearchOptions.lIncludePJX, ;
+				.F.)		&& Last ".F." is a default value, in case one check is missing in this ICASE()
+		Endif
 
-*!*				*-- Lastly, is it match with other includes???
-*!*				Case (lcFileType $ Upper(loOptions.cOtherIncludes)) And !Empty(loOptions.cOtherIncludes)
-*!*					llReturn = .T.
-*!*				Otherwise
-*!*					llReturn = .F.
-*!*			Endcase
+*-- Code based files ----------------------------------
+		If Inlist(tcFileType, 'PRG', 'MPR', 'TXT', 'INI', 'H', 'XML', 'SPR', 'ASP', 'JSP', 'JAVA')
+			Return Icase(tcFileType = 'PRG', This.oSearchOptions.lIncludePRG, ;
+				tcFileType = 'MPR', This.oSearchOptions.lIncludeMPR, ;
+				tcFileType = 'TXT', This.oSearchOptions.lIncludeTXT, ;
+				tcFileType = 'INI', This.oSearchOptions.lIncludeINI, ;
+				tcFileType = 'H', This.oSearchOptions.lIncludeH, ;
+				tcFileType = 'XML', This.oSearchOptions.lIncludeXML, ;
+				tcFileType = 'SPR', This.oSearchOptions.lIncludeSPR, ;
+				tcFileType = 'ASP', This.oSearchOptions.lIncludeASP, ;
+				tcFileType = 'JSP', This.oSearchOptions.lIncludeJSP, ;
+				tcFileType = 'JAVA', This.oSearchOptions.lIncludeJAVA, ;
+				.F.)		&& Last ".F." is a default value, in case one check is missing in this ICASE()
+		Endif
 
-*!*			Return llReturn
-		
-		*-- Table-based Files --------------------------------------
-		IF INLIST(tcFileType, 'SCX', 'VCX', 'FRX', 'DBC', 'MNX', 'LBX', 'PJX')
-			RETURN ICASE(tcFileType = 'SCX', This.oSearchOptions.lIncludeSCX, ;
-						tcFileType = 'VCX', This.oSearchOptions.lIncludeVCX, ;
-						tcFileType = 'FRX', This.oSearchOptions.lIncludeFRX, ;
-						tcFileType = 'DBC', This.oSearchOptions.lIncludeDBC, ;
-						tcFileType = 'MNX', This.oSearchOptions.lIncludeMNX, ;
-						tcFileType = 'LBX', This.oSearchOptions.lIncludeLBX, ;
-						tcFileType = 'PJX', This.oSearchOptions.lIncludePJX, ;
-						.F.)		&& Last ".F." is a default value, in case one check is missing in this ICASE()
-		ENDIF 
-		
-		*-- Code based files ----------------------------------
-		IF INLIST(tcFileType, 'PRG', 'MPR', 'TXT', 'INI', 'H', 'XML', 'SPR', 'ASP', 'JSP', 'JAVA')
-			RETURN ICASE(tcFileType = 'PRG', This.oSearchOptions.lIncludePRG, ;
-						tcFileType = 'MPR', This.oSearchOptions.lIncludeMPR, ;
-						tcFileType = 'TXT', This.oSearchOptions.lIncludeTXT, ;
-						tcFileType = 'INI', This.oSearchOptions.lIncludeINI, ;
-						tcFileType = 'H', This.oSearchOptions.lIncludeH, ;
-						tcFileType = 'XML', This.oSearchOptions.lIncludeXML, ;
-						tcFileType = 'SPR', This.oSearchOptions.lIncludeSPR, ;
-						tcFileType = 'ASP', This.oSearchOptions.lIncludeASP, ;
-						tcFileType = 'JSP', This.oSearchOptions.lIncludeJSP, ;
-						tcFileType = 'JAVA', This.oSearchOptions.lIncludeJAVA, ;
-						.F.)		&& Last ".F." is a default value, in case one check is missing in this ICASE()
-		ENDIF 
-		
-		*-- Code based files (any HTM* file) ----------------------------------
-		IF 'HTM' $ tcFileType
-			RETURN This.oSearchOptions.lIncludeHTML
-		ENDIF 
-		
-		*-- Lastly, is it match with other includes???
-		IF tcFileType $ Upper(This.oSearchOptions.cOtherIncludes) And !Empty(This.oSearchOptions.cOtherIncludes)
-			RETURN .T.
-		ENDIF 
-		
-		*** No matching filetype found => so don´t include in this search!
-		RETURN .F.
-	EndProc
+*-- Code based files (any HTM* file) ----------------------------------
+		If 'HTM' $ tcFileType
+			Return This.oSearchOptions.lIncludeHTML
+		Endif
+
+*-- Lastly, is it match with other includes???
+		If tcFileType $ Upper(This.oSearchOptions.cOtherIncludes) And !Empty(This.oSearchOptions.cOtherIncludes)
+			Return .T.
+		Endif
+
+*** No matching filetype found => so don´t include in this search!
+		Return .F.
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure IsFullLineComment(tcLine)
 
-		*-- See if the entire line is a comment
+*-- See if the entire line is a comment
 		Local loMatches
 
 		loMatches = This.oRegExForCommentSearch.Execute(tcLine)
@@ -2446,11 +2365,11 @@ Define Class GoFishSearchEngine As Custom
 		Else
 			Return .F.
 		Endif
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure IsTextFile(tcFile)
 
 		Local lcExt, llIsTextFile
@@ -2464,11 +2383,11 @@ Define Class GoFishSearchEngine As Custom
 		llIsTextFile = !(lcExt $ This.cTableExtensions)
 
 		Return llIsTextFile
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure LoadOptions(tcFile)
 
 		Local loMy As 'My' Of 'My.vcx'
@@ -2478,14 +2397,14 @@ Define Class GoFishSearchEngine As Custom
 			Return .F.
 		Endif
 
-		*-- Get an array of properties that are on the SearchOptions object
+*-- Get an array of properties that are on the SearchOptions object
 		Amembers(laProperties, This.oSearchOptions, 0, 'U')
 
-		*-- Load settings from file...
-		loMy = NewObject('My', 'My.vcx')
+*-- Load settings from file...
+		loMy = Newobject('My', 'My.vcx')
 		loMy.Settings.Load(tcFile)
 
-		*--- Scan over Object properties, and look for a corresponding props on the My Settings object (if present)
+*--- Scan over Object properties, and look for a corresponding props on the My Settings object (if present)
 		With loMy.Settings
 			For x = 1 To Alen(laProperties)
 				lcProperty = laProperties[x]
@@ -2495,39 +2414,39 @@ Define Class GoFishSearchEngine As Custom
 			Endfor
 		Endwith
 
-		*-- My.Settings stores Dates as DateTimes, so I need to convert them to just Date datatypes
+*-- My.Settings stores Dates as DateTimes, so I need to convert them to just Date datatypes
 		Try
-			This.oSearchOptions.dTimeStampFrom = Ttod(This.oSearchOptions.dTimeStampFrom)
-		Catch
-			This.oSearchOptions.dTimeStampFrom = {}
+				This.oSearchOptions.dTimeStampFrom = Ttod(This.oSearchOptions.dTimeStampFrom)
+			Catch
+				This.oSearchOptions.dTimeStampFrom = {}
 		Endtry
 
 		Try
-			This.oSearchOptions.dTimeStampTo = Ttod(This.oSearchOptions.dTimeStampTo)
-		Catch
-			This.oSearchOptions.dTimeStampTo = {}
+				This.oSearchOptions.dTimeStampTo = Ttod(This.oSearchOptions.dTimeStampTo)
+			Catch
+				This.oSearchOptions.dTimeStampTo = {}
 		Endtry
 
 		Return .T.
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure lReadyToReplace_Access
-		
+
 		Local llReturn
-	
+
 		llReturn = This.nMatchLines > 0 ;
 			And (!Empty(This.oSearchOptions.cReplaceExpression) Or This.oSearchOptions.lAllowBlankReplace) ;
 			And !This.lFileHasBeenEdited
 
 		Return llReturn
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure lTimeStampDataProvided_Access
 
 		If This.oSearchOptions.lTimeStamp And !Empty(This.oSearchOptions.dTimeStampFrom) And !Empty(This.oSearchOptions.dTimeStampTo) && If both dates are supplied
@@ -2535,13 +2454,13 @@ Define Class GoFishSearchEngine As Custom
 		Else
 			Return .F.
 		Endif
-		
-	EndProc
 
-	*----------------------------------------------------------------------------------
+	Endproc
+
+*----------------------------------------------------------------------------------
 	Procedure MatchTemplate(tcString, tcTemplate)
 
-		*-- Supports normal wildcard matching with * and ?, just like old DOS matching.
+*-- Supports normal wildcard matching with * and ?, just like old DOS matching.
 
 		Local lcString, lcTemplate, llMatch, lnLength
 
@@ -2557,58 +2476,59 @@ Define Class GoFishSearchEngine As Custom
 		Return llMatch
 
 
-		* * Removed 04/08/2012 
+* * Removed 04/08/2012
 
-		* 	Do Case
-		* 		Case (Left(lcTemplate, 1) = '*' and Right(lcTemplate, 1) = '*')
-		* 			lcTemplate = Alltrim(lcTemplate, '*')
-		* 			llMatch = lcTemplate $ lcString
-		* 		Case Atc('*', lcTemplate) = 0
-		* 			llMatch = (lcTemplate == lcString)
-		* 		Case Right(lcTemplate, 1) = '*'
-		* 			lnLength = Len(lcTemplate) - 1
-		* 			lcTemplate = Left(lcTemplate, lnLength)
-		* 			llMatch = Left(lcString, lnLength) = lcTemplate
-		* 		Case Left(lcTemplate, 1) = '*'
-		* 			lnLength = Len(lcTemplate) - 1
-		* 			lcTemplate= Right(lcTemplate, lnLength)
-		* 			llMatch = Right(lcString, lnLength) = lcTemplate
-		* 	Endcase
+* 	Do Case
+* 		Case (Left(lcTemplate, 1) = '*' and Right(lcTemplate, 1) = '*')
+* 			lcTemplate = Alltrim(lcTemplate, '*')
+* 			llMatch = lcTemplate $ lcString
+* 		Case Atc('*', lcTemplate) = 0
+* 			llMatch = (lcTemplate == lcString)
+* 		Case Right(lcTemplate, 1) = '*'
+* 			lnLength = Len(lcTemplate) - 1
+* 			lcTemplate = Left(lcTemplate, lnLength)
+* 			llMatch = Left(lcString, lnLength) = lcTemplate
+* 		Case Left(lcTemplate, 1) = '*'
+* 			lnLength = Len(lcTemplate) - 1
+* 			lcTemplate= Right(lcTemplate, lnLength)
+* 			llMatch = Right(lcString, lnLength) = lcTemplate
+* 	Endcase
 
-		* Return llMatch
-		
-	EndProc
+* Return llMatch
 
-
-	*----------------------------------------------------------------------------------
-	*-- Migrate any exitisting Replace Detail Table up to ver 4.3.022 ----
-	Procedure MigrateReplaceDetailTable
-	
-		Local lcCsr, lcDataType, lcFieldName, lcTable, llSuccess, lnSelect
-
-		lcTable = This.cReplaceDetailTable
-		lcCsr = 'csrGF_ReplaceSchemaTest'
-
-		If File(lcTable)
-			lnSelect = Select()
-			Select * From (lcTable) Where 0 = 1 Into Cursor &lcCsr
-
-			*** JRN 11/09/2015 : add field ProcEnd if not already there
-			This.AddFieldToReplaceTable(lcTable, lcCsr, 'ProcEnd', 'I')
-			This.AddFieldToReplaceTable(lcTable, lcCsr, 'ProcCode', 'M')
-			This.AddFieldToReplaceTable(lcTable, lcCsr, 'Statement', 'M')
-			This.AddFieldToReplaceTable(lcTable, lcCsr, 'StatementStart', 'I')
-			This.AddFieldToReplaceTable(lcTable, lcCsr, 'FirstMatchInStatement', 'L')
-			This.AddFieldToReplaceTable(lcTable, lcCsr, 'FirstMatchInProcedure', 'L')
-
-			Use In &lcCsr
-			Select (lnSelect)
-		Endif
-		
-	EndProc
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*SF 20230228 -we call this oboslete
+*!*	*----------------------------------------------------------------------------------
+*!*	*-- Migrate any exitisting Replace Detail Table up to ver 4.3.022 ----
+*!*		Procedure MigrateReplaceDetailTable
+
+*!*			Local lcCsr, lcDataType, lcFieldName, lcTable, llSuccess, lnSelect
+
+*!*			lcTable = This.cReplaceDetailTable
+*!*			lcCsr = 'csrGF_ReplaceSchemaTest'
+
+*!*			If File(lcTable)
+*!*				lnSelect = Select()
+*!*				Select * From (lcTable) Where 0 = 1 Into Cursor &lcCsr
+
+*!*	*** JRN 11/09/2015 : add field ProcEnd if not already there
+*!*				This.AddFieldToReplaceTable(lcTable, lcCsr, 'ProcEnd', 'I')
+*!*				This.AddFieldToReplaceTable(lcTable, lcCsr, 'ProcCode', 'M')
+*!*				This.AddFieldToReplaceTable(lcTable, lcCsr, 'Statement', 'M')
+*!*				This.AddFieldToReplaceTable(lcTable, lcCsr, 'StatementStart', 'I')
+*!*				This.AddFieldToReplaceTable(lcTable, lcCsr, 'FirstMatchInStatement', 'L')
+*!*				This.AddFieldToReplaceTable(lcTable, lcCsr, 'FirstMatchInProcedure', 'L')
+
+*!*				Use In &lcCsr
+*!*				Select (lnSelect)
+*!*			Endif
+
+*!*		Endproc
+
+
+*----------------------------------------------------------------------------------
 	Procedure OpenTableForReplace(tcFileToOpen, tcCursor, tnResultId)
 
 		Local llReturn, lnSelect
@@ -2622,22 +2542,22 @@ Define Class GoFishSearchEngine As Custom
 		Select 0
 
 		Try
-			Use (tcFileToOpen) Exclusive Alias (tcCursor)
-			llReturn = .T.
-		Catch
-			This.SetReplaceError('Cannot open file for exclusive use: ' + Chr(13) + Chr(13), tcFileToOpen, tnResultId)
-			Select (lnSelect)
-			llReturn = .F.
+				Use (tcFileToOpen) Exclusive Alias (tcCursor)
+				llReturn = .T.
+			Catch
+				This.SetReplaceError('Cannot open file for exclusive use: ' + Chr(13) + Chr(13), tcFileToOpen, tnResultId)
+				Select (lnSelect)
+				llReturn = .F.
 		Endtry
 
 		Return llReturn
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure PrepareForSearch
-	
+
 		Clear Typeahead
 
 		This.lEscPress = .F.
@@ -2655,42 +2575,42 @@ Define Class GoFishSearchEngine As Custom
 
 		This.ClearReplaceSettings()
 
-		This.oSearchErrors = CreateObject('Collection')
-		This.oReplaceErrors = CreateObject('Collection')
-		This.oDirectories = CreateObject('Collection')
+		This.oSearchErrors = Createobject('Collection')
+		This.oReplaceErrors = Createobject('Collection')
+		This.oDirectories = Createobject('Collection')
 
 		This.SetFilesToSkip()
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure PrepareRegExForReplace
-	
+
 		Local lcPattern
 
 		lcPattern = This.oSearchOptions.cEscapedSearchExpression
 
-		*If !this.oSearchOptions.lRegularExpression
-			*-- Need to trim off the pre- and post- wild card characters so we can get back to just the search phrase
-			If Left(lcPattern, 2) = '.*'
-				lcPattern = Substr(lcPattern, 3)
-			Endif
+*If !this.oSearchOptions.lRegularExpression
+*-- Need to trim off the pre- and post- wild card characters so we can get back to just the search phrase
+		If Left(lcPattern, 2) = '.*'
+			lcPattern = Substr(lcPattern, 3)
+		Endif
 
-			If Right(lcPattern, 2) = '.*'
-				lcPattern = Left(lcPattern, Len(lcPattern) - 2)
-			Endif
+		If Right(lcPattern, 2) = '.*'
+			lcPattern = Left(lcPattern, Len(lcPattern) - 2)
+		Endif
 
-		*EndIf
+*EndIf
 
 		This.oRegExForSearch.Pattern = lcPattern
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure PrepareRegExForSearch
-	
+
 		Local lcPattern, lcRegexPattern, lcSearchExpression, loRegEx
 
 		loRegEx = This.oRegExForSearch
@@ -2728,7 +2648,7 @@ Define Class GoFishSearchEngine As Custom
 
 			This.oSearchOptions.cEscapedSearchExpression = lcPattern
 
-			*-- Need to add some extra markings around lcPattern to use it as the lcRegExpression
+*-- Need to add some extra markings around lcPattern to use it as the lcRegExpression
 			lcRegexPattern = lcPattern
 
 			If Left(lcRegexPattern, 1) != '^'
@@ -2742,11 +2662,11 @@ Define Class GoFishSearchEngine As Custom
 			.Pattern = lcRegexPattern
 
 		Endwith
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure ProcessInlineComments(toObject)
 
 		Local lcCode, lcComment, lcMatchType, lcTrimmedMatchLine, lnCount, loCodeMatches, loCommentMatches
@@ -2763,29 +2683,29 @@ Define Class GoFishSearchEngine As Custom
 			loCommentMatches = This.oRegExForSearch.Execute(lcComment)
 
 			If loCodeMatches.Count > 0 And loCommentMatches.Count > 0
-				toObject.MatchType = MatchType_Comment
+				toObject.MatchType = MATCHTYPE_COMMENT
 				This.CreateResult(toObject)
 				lcMatchType = toObject.UserField.MatchType && Restore to UserField MatchType for further
 			Else
-				lcMatchType = Iif(loCommentMatches.Count > 0, MatchType_Comment, toObject.MatchType)
+				lcMatchType = Iif(loCommentMatches.Count > 0, MATCHTYPE_COMMENT, toObject.MatchType)
 			Endif
 		Endif
 
 		toObject.MatchType = lcMatchType
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure ProcessSearchResult(toObject)
 
 		Local lcMatchType, lcSaveObjectName, loObject
-		Local lcBaseClass, lcContainingClass, lcMethodName, lcParentClass, lcSave_Baseclass
+		Local lcBaseClass, lcContainingClass, lcMethodName, lcParentClass, lcSave_Baseclass, llReturn
 
 		lcMatchType = toObject.UserField.MatchType
 
-		*-- Store these so we can revert back after processing, becuase it's important to reset back
-		*-- so any further matches in the code can be processed correctly
+*-- Store these so we can revert back after processing, becuase it's important to reset back
+*-- so any further matches in the code can be processed correctly
 		With toObject.UserField
 			lcSaveObjectName = ._Name
 			lcSave_Baseclass = ._BaseClass
@@ -2795,14 +2715,16 @@ Define Class GoFishSearchEngine As Custom
 			lcContainingClass = .ContainingClass
 		Endwith
 
-		If lcMatchType # MatchType_Filename
+		If lcMatchType # MATCHTYPE_FILENAME
 			loObject = This.AssignMatchType(toObject)
 		Else
 			loObject = toObject
 		Endif
 
 		If !Isnull(loObject)
-			This.CreateResult(loObject)
+			llReturn = This.CreateResult(loObject)
+		Else
+			llReturn = .T.
 		Endif
 
 		With toObject.UserField
@@ -2813,38 +2735,39 @@ Define Class GoFishSearchEngine As Custom
 			._ParentClass = lcParentClass
 			.ContainingClass = lcContainingClass
 		Endwith
-		
-	EndProc
 
-	*----------------------------------------------------------------------------------
+		Return m.llReturn
+	Endproc
+
+*----------------------------------------------------------------------------------
 	Procedure ReduceProgressBarMaxValue(tnReduction)
 
 		Try
-			This.oProgressBar.nMaxValue = This.oProgressBar.nMaxValue - tnReduction
-		Catch
+				This.oProgressBar.nMaxValue = This.oProgressBar.nMaxValue - tnReduction
+			Catch
 		Endtry
-		
-	EndProc
 
-	*----------------------------------------------------------------------------------
-	* See: http://www.west-wind.com/wconnect/weblog/ShowEntry.blog?id=605
-	************************************************************************
-	* wwUtils ::  Replace
-	****************************************
-	***  Function: Replaces the replace string or expression for
-	***            any RegEx matches found in a source string
-	***    Assume: NOTE: very different from native REplace method
-	***      Pass: lcSource
-	***            lcRegEx
-	***            lcReplace   -   String or Expression to replace with
-	***            llIsExpression - if .T. lcReplace is EVAL()'d
-	***
-	***            Expression can use a value of lcMatch to get the
-	***            current matched string value.
-	***    Return: updated string
-	************************************************************************
+	Endproc
+
+*----------------------------------------------------------------------------------
+* See: http://www.west-wind.com/wconnect/weblog/ShowEntry.blog?id=605
+************************************************************************
+* wwUtils ::  Replace
+****************************************
+***  Function: Replaces the replace string or expression for
+***            any RegEx matches found in a source string
+***    Assume: NOTE: very different from native REplace method
+***      Pass: lcSource
+***            lcRegEx
+***            lcReplace   -   String or Expression to replace with
+***            llIsExpression - if .T. lcReplace is EVAL()'d
+***
+***            Expression can use a value of lcMatch to get the
+***            current matched string value.
+***    Return: updated string
+************************************************************************
 	Procedure RegExReplace(lcSource, lcRegEx, lcReplace, llIsExpression)
-	
+
 		Local loMatches, lnX, loMatch, lcRepl
 
 		This.PrepareRegExForSearch()
@@ -2866,7 +2789,7 @@ Define Class GoFishSearchEngine As Custom
 
 		lcRepl = lcReplace
 
-		*** Note we have to go last to first to not hose relative string indexes of the match
+*** Note we have to go last to first to not hose relative string indexes of the match
 		For lnX = lnCount - 1 To 0 Step - 1
 			loMatch = loMatches.Item(lnX)
 			lcMatch = loMatch.Value
@@ -2877,11 +2800,11 @@ Define Class GoFishSearchEngine As Custom
 		Endfor
 
 		Return lcSource
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure RenameColumn(tcTable, tcOldFieldName, tcNewFieldName)
 
 		Local lcAlias
@@ -2890,34 +2813,39 @@ Define Class GoFishSearchEngine As Custom
 
 		If Empty(Field(tcNewFieldName, lcAlias)) And !Empty(Field(tcOldFieldName, lcAlias))
 			Try
-				Alter Table (lcAlias) Rename Column (tcOldFieldName) To (tcNewFieldName)
-			Catch
+					Alter Table (lcAlias) Rename Column (tcOldFieldName) To (tcNewFieldName)
+				Catch
 			Endtry
 		Endif
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
-	Procedure ReplaceFromCurrentRow(tcCursor, tcReplaceLine)
+*----------------------------------------------------------------------------------
+	Procedure ReplaceFromCurrentRow(tcCursor, tcReplaceLine, tnReplaceId)
 
 		Local lcColumn, lcFileToModify, lnCurrentRecno, lnMatchStart, lnProcStart, lnResultRecno, lnSelect
-		Local loReplace, loResult
+		Local loReplace, loResult, lcUni
 
 		lnSelect = Select()
 		Select (tcCursor)
 		lnCurrentRecno = Recno()
 
-		If Process = .F. && Could be that the row was previous marked for replace, and now it has been cleared.
+		If Replaced && If it's already been processed
+			Select(lnSelect)
+			Return GF_REPLACE_FILE_HAS_ALREADY_BEEN_PROCESSED
+		Endif
+
+		If !Process AND !EMPTY(ReplaceLine) && Could be that the row was previous marked for replace, and now it has been cleared.
 			Replace ReplaceLine With '' In (tcCursor)
 			Replace TrimmedReplaceLine With '' In (tcCursor)
 			Select(lnSelect)
 			Return GF_REPLACE_RECORD_IS_NOT_MARKED_FOR_REPLACE
 		Endif
 
-		If Replaced = .T. && If it's already been processed
+		If !Process && Just not touched
 			Select(lnSelect)
-			Return GF_REPLACE_FILE_HAS_ALREADY_BEEN_PROCESSED
+			Return GF_REPLACE_RECORD_IS_NOT_MARKED_FOR_REPLACE
 		Endif
 
 		If !File(FilePath)
@@ -2926,12 +2854,8 @@ Define Class GoFishSearchEngine As Custom
 			Return GF_REPLACE_FILE_NOT_FOUND
 		Endif
 
-		*!*	If !Empty(tcReplaceLine) && If doing a "Replace Line", then the regular History
-		*!*	 This.CreateReplaceHistoryRecord()
-		*!*	Endif
-
 		If This.oSearchOptions.lBackup
-			llBackedUp = This.BackupFile(FilePath, This.nReplaceHistoryId)
+			llBackedUp = This.BackupFile(FilePath, m.tnReplaceId)
 			If !llBackedUp
 				Select(lnSelect)
 				Return GF_REPLACE_BACKUP_ERROR
@@ -2950,35 +2874,42 @@ Define Class GoFishSearchEngine As Custom
 		Endif
 
 		If !loResult.lError
-		*-- We must update all match result rows that are of the same source line as this row.
-		*-- The reason is that search matches can result in multiple rows, and we can't process them again.
+*-- We must update all match result rows that are of the same source line as this row.
+*-- The reason is that search matches can result in multiple rows, and we can't process them again.
 			lcFileToModify = FilePath
 			lnResultRecno = Recno
 			lnProcStart = ProcStart
 			lnMatchStart = MatchStart
 			lcColumn = Column
+			lcUni = cUni
 
-	  Update  (tcCursor) ;
-		  Set TrimmedReplaceLine = loResult.cTrimmedReplaceLine, ;
-			  ReplaceLine = loResult.cReplaceLine ;
-		  Where FilePath == lcFileToModify And ;
-			  Recno = lnResultRecno And ;
-			  Column = lcColumn And ;
-			  MatchStart = lnMatchStart
+			If This.oSearchOptions.lPreviewReplace
+				tnReplaceId = 0
+			Endif
+
+			Update  (tcCursor) ;
+				Set TrimmedReplaceLine = loResult.cTrimmedReplaceLine, ;
+				ReplaceLine = loResult.cReplaceLine,;
+				iReplaceFolder = m.tnReplaceId;
+				Where cUni == lcUni And ;
+				FilePath == lcFileToModify And ;
+				Recno = lnResultRecno And ;
+				Column = lcColumn And ;
+				MatchStart = lnMatchStart
 
 			Try
-				Goto (lnCurrentRecno)
-			Catch
+					Goto (lnCurrentRecno)
+				Catch
 			Endtry
 
-			If loResult.lReplaced  = .T.
+			If loResult.lReplaced
 				This.nReplaceCount = This.nReplaceCount + 1
 			Endif
 
-			*-- Removed this in 4.3.014. We *do* need to re-compile.
-			*If !Empty(tcReplaceLine) 
-				This.Compile(FilePath)
-			*Endif
+*-- Removed this in 4.3.014. We *do* need to re-compile.
+*If !Empty(tcReplaceLine)
+			This.Compile(FilePath)
+*Endif
 
 			This.UpdateCursorAfterReplace(tcCursor, loResult)
 
@@ -2993,19 +2924,19 @@ Define Class GoFishSearchEngine As Custom
 		Select (lnSelect)
 
 		Return lnReturn
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure ReplaceInCode(toReplace, tcReplaceLine)
 
-		* tcReplaceLine, if passed, will be used to replace the entire oringinal match line,
-		* rather than using the RexEx replace with cReplaceExpression on the original line.
+* tcReplaceLine, if passed, will be used to replace the entire oringinal match line,
+* rather than using the RexEx replace with cReplaceExpression on the original line.
 
-		* Notes:
-		* For the Replace, the pattern on the regex must already be set (use PrepareRegExForReplace)
-		* Note: Unless a full replacement line is passed in tcReplaceLine, ALL instances of the pattern will be replaced on the tcMatchLine
+* Notes:
+* For the Replace, the pattern on the regex must already be set (use PrepareRegExForReplace)
+* Note: Unless a full replacement line is passed in tcReplaceLine, ALL instances of the pattern will be replaced on the tcMatchLine
 
 		Local lcLeft, lcLineFromFile, lcNewCode, lcReplaceExpression, lcReplaceLine, lcRight
 		Local lcCode, lcMatchLine, lnLineToChangeLength, lnMatchStart, loRegEx, loResult
@@ -3028,19 +2959,19 @@ Define Class GoFishSearchEngine As Custom
 
 		lcLeft = Left(lcCode, lnMatchStart)
 
-		*-- IMPORTANT CODE HERE... Revised code line is determined here!!!! -------------
+*-- IMPORTANT CODE HERE... Revised code line is determined here!!!! -------------
 		If Empty(tcReplaceLine)
 			loRegEx = This.oRegExForSearch
 			lcReplaceExpression = This.oSearchOptions.cReplaceExpression
 			Do Case
-			Case This.nReplaceMode = 1
-				lcReplaceLine = loRegEx.Replace(lcMatchLine, lcReplaceExpression)
-			Case This.nReplaceMode = 2
-				lcReplaceLine = ''
-			Case This.nReplaceMode = 3 And !Empty(This.cReplaceUDFCode)
-				lcReplaceLine = This.ReplaceLineWithUDF(lcMatchLine)
-			Otherwise
-				lcReplaceLine = lcMatchLine
+				Case This.nReplaceMode = 1
+					lcReplaceLine = loRegEx.Replace(lcMatchLine, lcReplaceExpression)
+				Case This.nReplaceMode = 2
+					lcReplaceLine = ''
+				Case This.nReplaceMode = 3 And !Empty(This.cReplaceUDFCode)
+					lcReplaceLine = This.ReplaceLineWithUDF(lcMatchLine)
+				Otherwise
+					lcReplaceLine = lcMatchLine
 			Endcase
 		Else
 			lcReplaceLine = tcReplaceLine
@@ -3048,7 +2979,7 @@ Define Class GoFishSearchEngine As Custom
 
 		lcRight = Substr(lcCode, lnMatchStart + 1 + lnLineToChangeLength)
 
-		*--Added this in 4.3.014 to handle case of deleting the entire line
+*--Added this in 4.3.014 to handle case of deleting the entire line
 		If Empty(lcReplaceLine)
 			lcRight = Ltrim(lcRight, 0, Chr(10)) && Need to strip off initial Chr(10) of Right hand code block
 		Endif
@@ -3057,7 +2988,7 @@ Define Class GoFishSearchEngine As Custom
 
 		With loResult
 			.nChangeLength = Len(lcReplaceLine) - Len(lcMatchLine)
-		*--Added this in 4.3.014 to handle case of deleting the entire line
+*--Added this in 4.3.014 to handle case of deleting the entire line
 			If Empty(lcReplaceLine)
 				.nChangeLength = .nChangeLength - 1 && to account for the Chr(10) we stripped off above
 			Endif
@@ -3070,11 +3001,11 @@ Define Class GoFishSearchEngine As Custom
 		toReplace.TrimmedReplaceLine = loResult.cTrimmedReplaceLine
 
 		Return loResult
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure ReplaceInTable(toReplace, tcReplaceLine)
 
 		Local lcColumn, lcFileToModify, lcMatchLine, lcReplaceCursor, llTableWasOpened, lnMatchStart
@@ -3092,11 +3023,11 @@ Define Class GoFishSearchEngine As Custom
 
 		loResult = This.GetReplaceResultObject()
 
-		*!*	If !File(lcFileToModify)
-		*!*		This.SetReplaceError('File not found:', lcFileToModify, lnResultId)
-		*!*		loResult.lError = .t.
-		*!*		loResult.nErrorCode = GF_REPLACE_FILE_NOT_FOUND
-		*!*	Endif
+*!*	If !File(lcFileToModify)
+*!*		This.SetReplaceError('File not found:', lcFileToModify, lnResultId)
+*!*		loResult.lError = .t.
+*!*		loResult.nErrorCode = GF_REPLACE_FILE_NOT_FOUND
+*!*	Endif
 
 		If !This.OpenTableForReplace(lcFileToModify, lcReplaceCursor, lnResultId)
 			loResult.lError = .T.
@@ -3107,11 +3038,11 @@ Define Class GoFishSearchEngine As Custom
 
 		If !loResult.lError
 			Try
-				Goto lnRecNo
-			Catch
-				This.SetReplaceError('Error locating record in file:', lcFileToModify, lnResultId)
-				loResult.lError = .T.
-				loResult.nErrorCode = GF_REPLACE_ERROR_LOCATING_RECORD_IN_FILE
+					Goto lnRecNo
+				Catch
+					This.SetReplaceError('Error locating record in file:', lcFileToModify, lnResultId)
+					loResult.lError = .T.
+					loResult.nErrorCode = GF_REPLACE_ERROR_LOCATING_RECORD_IN_FILE
 			Endtry
 		Endif
 
@@ -3120,14 +3051,14 @@ Define Class GoFishSearchEngine As Custom
 			loResult = This.ReplaceInCode(toReplace, tcReplaceLine)
 		Endif
 
-		*-- Big step here... Replace code in actual record!!! (If not in Preview Mode)
+*-- Big step here... Replace code in actual record!!! (If not in Preview Mode)
 		If !loResult.lError And This.oSearchOptions.lPreviewReplace = .F.
 			Replace (lcColumn) With loResult.cNewCode In (lcReplaceCursor) && Update code in table
 			If Type('timestamp') != 'U'
 				Replace Timestamp With This.oFrxCursor.getFrxTimeStamp() In (lcReplaceCursor)
 			Endif
 			loResult.lReplaced  = .T.
-			This.CreateReplaceDetailRecord(toReplace)
+
 		Endif
 
 		If llTableWasOpened
@@ -3137,11 +3068,11 @@ Define Class GoFishSearchEngine As Custom
 		Select (lnSelect)
 
 		Return loResult
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure ReplaceInTextFile(toReplace, tcReplaceLine)
 
 		Local lcFileToModify
@@ -3150,38 +3081,38 @@ Define Class GoFishSearchEngine As Custom
 
 		Local lcOldCode, loReseult, loResult
 
-		*!*	If !File(lcFileToModify)
-		*!*		This.SetReplaceError('File not found:', lcFileToModify, lnResultId)
-		*!*		loResult = This.GetReplaceResultObject()
-		*!*		loResult.lError = .t.
-		*!*		Return loResult
-		*!*	EndIf
+*!*	If !File(lcFileToModify)
+*!*		This.SetReplaceError('File not found:', lcFileToModify, lnResultId)
+*!*		loResult = This.GetReplaceResultObject()
+*!*		loResult.lError = .t.
+*!*		Return loResult
+*!*	EndIf
 
 		toReplace.Code = Filetostr(lcFileToModify)
 		loResult = This.ReplaceInCode(toReplace, tcReplaceLine)
 
-		If loResult.lError Or This.oSearchOptions.lPreviewReplace = .T.
+		If loResult.lError Or This.oSearchOptions.lPreviewReplace
 			Return loResult
 		Endif
 
-		*== Big step here... About to replace old file with the new code!!!
+*== Big step here... About to replace old file with the new code!!!
 		Try
-			If !Empty(loResult.cNewCode) && Do not dare replace the file with and empty string. Something must be wrong!
-				Strtofile(loResult.cNewCode, lcFileToModify, 0)
-				loResult.lReplaced  = .T.
-				This.CreateReplaceDetailRecord(toReplace)
-			Endif
-		Catch
-			This.SetReplaceError('Error saving file: ', lcFileToModify, toReplace.Id)
+				If !Empty(loResult.cNewCode) && Do not dare replace the file with and empty string. Something must be wrong!
+					Strtofile(loResult.cNewCode, lcFileToModify, 0)
+					loResult.lReplaced  = .T.
+
+				Endif
+			Catch
+				This.SetReplaceError('Error saving file: ', lcFileToModify, toReplace.Id)
 		Endtry
 
 		Return loResult
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
-	Procedure ReplaceLine(tcCursor, tnID, tcReplaceLine)
+*----------------------------------------------------------------------------------
+	Procedure ReplaceLine(tcCursor, tnID, tcReplaceLine, tnReplaceId)
 
 		Local lnSelect, lnLastChar, llReturn
 
@@ -3205,19 +3136,16 @@ Define Class GoFishSearchEngine As Custom
 
 		If Found()
 
-			If Replaced = .T.
+			If Replaced
 				Return .T.
 			Endif
 
 			Replace Process With .T. In (tcCursor)
 
-			This.CreateReplaceHistoryRecord()
-
-			lnReturn = This.ReplaceFromCurrentRow(tcCursor, lcReplaceLine)
+			lnReturn = This.ReplaceFromCurrentRow(tcCursor, lcReplaceLine, tnReplaceId)
 
 			If lnReturn >= 0
-				This.UpdateReplaceHistoryRecord()
-				llReturn = .T.
+	 			llReturn = .T.
 			Else
 				llReturn = .F.
 			Endif
@@ -3230,29 +3158,29 @@ Define Class GoFishSearchEngine As Custom
 		Endif
 
 		Return llReturn
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure ReplaceLineWithUDF(tcMatchLine)
 
 		Local lcMatchLine, lcReplaceLine, llCR
 
 		lcMatchLine = tcMatchLine
 
-		*-- If there is a CR at the end, pull it off before calling the UDF. Will add back later...
+*-- If there is a CR at the end, pull it off before calling the UDF. Will add back later...
 		If Right(tcMatchLine, 1) = Chr(13)
 			llCR = .T.
 			lcMatchLine = Left(tcMatchLine, Len(tcMatchLine) - 1)
 		Endif
 
-		*-- Call the UDF ---------------
+*-- Call the UDF ---------------
 		Try
-			lcReplaceLine = Execscript(This.cReplaceUDFCode, lcMatchLine)
-		Catch
-			lcReplaceLine = lcMatchLine && Keep the line the same if UDF failed
-		Finally
+				lcReplaceLine = Execscript(This.cReplaceUDFCode, lcMatchLine)
+			Catch
+				lcReplaceLine = lcMatchLine && Keep the line the same if UDF failed
+			Finally
 		Endtry
 
 		If Vartype(lcReplaceLine) <> 'C'
@@ -3264,12 +3192,12 @@ Define Class GoFishSearchEngine As Custom
 		Endif
 
 		Return lcReplaceLine
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
-	Procedure ReplaceMarkedRows(tcCursor)
+*----------------------------------------------------------------------------------
+	Procedure ReplaceMarkedRows(tcCursor, tnReplaceId)
 
 		Local lcFile, lcFileList, lcLastFile, lcReplaceExpression, lcSearchExpression, lnResult, lnSelect
 		Local lnShift
@@ -3281,7 +3209,7 @@ Define Class GoFishSearchEngine As Custom
 		lcReplaceExpression = Alltrim(This.oSearchOptions.cReplaceExpression)
 		lnShift = Len(lcReplaceExpression) - Len(lcSearchExpression)
 
-		This.oReplaceErrors = CreateObject('Collection')
+		This.oReplaceErrors = Createobject('Collection')
 
 		If Empty(This.oSearchOptions.cReplaceExpression) And !This.oSearchOptions.lAllowBlankReplace
 			This.SetReplaceError('Replace expression is blank, but ALLOW BLANK flag is not set.')
@@ -3291,8 +3219,6 @@ Define Class GoFishSearchEngine As Custom
 		lnSelect = Select()
 		Select (tcCursor)
 
-		This.CreateReplaceHistoryRecord()
-
 		lcLastFile = ''
 
 		Scan
@@ -3301,9 +3227,9 @@ Define Class GoFishSearchEngine As Custom
 				This.oProgressBar.nValue = This.oProgressBar.nValue + 1
 			Endif
 
-			lnResult = This.ReplaceFromCurrentRow(tcCursor)
+			lnResult = This.ReplaceFromCurrentRow(tcCursor, , tnReplaceId)
 
-		*-- Skip to next file if have had any of there errors:
+*-- Skip to next file if have had any of there errors:
 			If lnResult = GF_REPLACE_BACKUP_ERROR Or;
 					lnResult = GF_REPLACE_UNABLE_TO_USE_TABLE_FOR_REPLACE Or ;
 					lnResult = GF_REPLACE_FILE_NOT_FOUND
@@ -3325,36 +3251,37 @@ Define Class GoFishSearchEngine As Custom
 
 		Endscan
 
-		*-- Must look at compiling one last time now that loop has ended.
-		If FilePath <> lcLastFile And !Empty(lcLastFile) && If we are on a new file, then compile the previous file
+*-- Must look at compiling one last time now that loop has ended.
+*SF 20230301 -> only file is not empty, we are on the end of the scan anyway
+*!*			If FilePath <> lcLastFile And !Empty(lcLastFile) && If we are on a new file, then compile the previous file
+*!*				This.Compile(lcLastFile)
+*!*			Endif
+		If !Empty(lcLastFile) && We named the last file in cursor as replaced, compile it
 			This.Compile(lcLastFile)
 		Endif
-
-
-		This.UpdateReplaceHistoryRecord()
 
 		Select (lnSelect)
 
 		This.ShowWaitMessage('Replace Done.')
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure RestoreDefaultDir
-		
+
 		Cd (This.cInitialDefaultDir)
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure SaveOptions(tcFile)
 
 		Local loMy As 'My' Of 'My.vcx'
 		Local laProperties[1], lcProperty
 
-		loMy = NewObject('My', 'My.vcx')
+		loMy = Newobject('My', 'My.vcx')
 
 		Amembers(laProperties, This.oSearchOptions, 0, 'U')
 
@@ -3370,11 +3297,11 @@ Define Class GoFishSearchEngine As Custom
 			.Save(tcFile)
 
 		Endwith
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure SearchFinished(tnSelect)
 
 		This.lResultsLimitReached = (This.nMatchLines >= This.oSearchOptions.nMaxResults)
@@ -3388,28 +3315,28 @@ Define Class GoFishSearchEngine As Custom
 			Messagebox('No matches found', 64, 'GoFish')
 		Endif
 
-		*** JRN 07/10/2016 : ascertain the first match in each statement based on FilePath, Class, MethodName, StatementStart
+*** JRN 07/10/2016 : ascertain the first match in each statement based on FilePath, Class, MethodName, StatementStart
 *SF 20221111 (Helau!)
 * Change suggested by Chen, see issue #34
 * splitted lon string comaprision into single ones
-    Update  Results ;
-        Set firstmatchinstatement = .T. ;
-        From (This.cSearchResultsAlias)    As  Results ;
-        Join (Select  FilePath, ;
-                   Class, ;
-                   Name, ;
-                   MethodName, ;
-                   statementstart, ;
-                   Min(MatchStart) As  MatchStart ;
-               From (This.cSearchResultsAlias)            ;
-               Group By FilePath, Class, Name, MethodName, statementstart) ;
-         As  FirstMatch ;
-         On Results.FilePath = FirstMatch.FilePath AND ;
-               Results.Class = FirstMatch.Class AND ;
-               Results.Name = FirstMatch.Name AND ;
-               Results.MethodName = FirstMatch.MethodName ;
-         And Results.statementstart = FirstMatch.statementstart ;
-         And Results.MatchStart = FirstMatch.MatchStart
+		Update  Results ;
+			Set firstmatchinstatement = .T. ;
+			From (This.cSearchResultsAlias)    As  Results ;
+			Join (Select  FilePath, ;
+			Class, ;
+			Name, ;
+			MethodName, ;
+			statementstart, ;
+			Min(MatchStart) As  MatchStart ;
+			From (This.cSearchResultsAlias)            ;
+			Group By FilePath, Class, Name, MethodName, statementstart) ;
+			As  FirstMatch ;
+			On Results.FilePath = FirstMatch.FilePath And ;
+			Results.Class = FirstMatch.Class And ;
+			Results.Name = FirstMatch.Name And ;
+			Results.MethodName = FirstMatch.MethodName ;
+			And Results.statementstart = FirstMatch.statementstart ;
+			And Results.MatchStart = FirstMatch.MatchStart
 *!*			Update  Results ;
 *!*				Set firstmatchinstatement = .T. ;
 *!*				From (This.cSearchResultsAlias)    As  Results ;
@@ -3428,26 +3355,26 @@ Define Class GoFishSearchEngine As Custom
 *!*				 And Results.MatchStart = FirstMatch.MatchStart
 */SF 20221111 (Helau!)
 
-		 Update  Results ;
-			 Set firstmatchinprocedure = .T. ;
-			 From (This.cSearchResultsAlias) As  Results ;
-			 Join (Select  FilePath, ;
-						   Class, ;
-						   Name, ;
-						   MethodName, ;
-						   Min(MatchStart) As  MatchStart ;
-					   From (This.cSearchResultsAlias) ;
-					   Group By FilePath, Class, Name, MethodName) As  FirstMatch ;
-				 On Results.FilePath + Results.Class + Results.Name + Results.MethodName ;
-				 	= FirstMatch.FilePath + FirstMatch.Class + FirstMatch.Name + FirstMatch.MethodName ;
-				 And Results.MatchStart = FirstMatch.MatchStart
+		Update  Results ;
+			Set firstmatchinprocedure = .T. ;
+			From (This.cSearchResultsAlias) As  Results ;
+			Join (Select  FilePath, ;
+			Class, ;
+			Name, ;
+			MethodName, ;
+			Min(MatchStart) As  MatchStart ;
+			From (This.cSearchResultsAlias) ;
+			Group By FilePath, Class, Name, MethodName) As  FirstMatch ;
+			On Results.FilePath + Results.Class + Results.Name + Results.MethodName ;
+			= FirstMatch.FilePath + FirstMatch.Class + FirstMatch.Name + FirstMatch.MethodName ;
+			And Results.MatchStart = FirstMatch.MatchStart
 
 		Select (m.tnSelect)
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure SearchInCode(tcCode, tuUserField, tlHasProcedures)
 
 		Local loObject As 'GF_SearchResult'
@@ -3459,10 +3386,10 @@ Define Class GoFishSearchEngine As Custom
 		If Empty(tcCode)
 			Return 0
 		Endif
-		*-- Be sure that oRegExForSearch has been setup... Use This.PrepareRegExForSearch() or roll-your-own
+*-- Be sure that oRegExForSearch has been setup... Use This.PrepareRegExForSearch() or roll-your-own
 		Try
-			loMatches = This.oRegExForSearch.Execute(tcCode)
-		Catch
+				loMatches = This.oRegExForSearch.Execute(tcCode)
+			Catch
 		Endtry
 
 		If Type('loMatches') = 'O'
@@ -3483,7 +3410,7 @@ Define Class GoFishSearchEngine As Custom
 					Loop
 				Endif
 				loProcedure = This.FindProcedureForMatch(loProcedureStartPositions, loMatch.FirstIndex)
-				loObject = CreateObject('GF_SearchResult')
+				loObject = Createobject('GF_SearchResult')
 
 				With loObject
 					.UserField = tuUserField
@@ -3491,7 +3418,7 @@ Define Class GoFishSearchEngine As Custom
 					.oProcedure = loProcedure
 
 					.Type = Proper(.oProcedure.Type)
-					* .ContainingClass =	.oProcedure._ClassName	&& Not used on this object. This line to be deleted after testing. (2012-07-11))
+* .ContainingClass =	.oProcedure._ClassName	&& Not used on this object. This line to be deleted after testing. (2012-07-11))
 					.MethodName = .oProcedure._Name
 					.ProcStart = .oProcedure.StartByte
 					.procend = .oProcedure.EndByte
@@ -3511,11 +3438,13 @@ Define Class GoFishSearchEngine As Custom
 					.Code = Iif(This.oSearchOptions.lStoreCode, tcCode, '')
 				Endwith
 
-				*	Assert Upper(JustExt(Trim(loobject.uSERFIELD.FILENAME)))  # 'PRG' 
+*	Assert Upper(JustExt(Trim(loobject.uSERFIELD.FILENAME)))  # 'PRG'
 
 				This.FindStatement(loObject)
 
-				This.ProcessSearchResult(loObject)
+				If !This.ProcessSearchResult(loObject)
+					Exit
+				Endif &&!This.ProcessSearchResult(loObject)
 
 			Endfor
 
@@ -3524,27 +3453,27 @@ Define Class GoFishSearchEngine As Custom
 		Select(lnSelect)
 
 		Return lnMatchCount
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure SearchInFile(tcFile, tlForce)
 
-		*-- Only searches passed file if its file ext is marked for inclusion (i.e. lIncludeSCX)
-		*-- Optionally, pass tlForce = .t. to force the file to be searched.
+*-- Only searches passed file if its file ext is marked for inclusion (i.e. lIncludeSCX)
+*-- Optionally, pass tlForce = .t. to force the file to be searched.
 		Local lnMatchCount
 
-		*!* ** { JRN -- 11/18/2015 12:16 PM - Begin
-		*!* If Lastkey() = 27 or Inkey() = 27
+*!* ** { JRN -- 11/18/2015 12:16 PM - Begin
+*!* If Lastkey() = 27 or Inkey() = 27
 		If Inkey() = 27
-		*!* ** } JRN -- 11/18/2015 12:16 PM - End
+*!* ** } JRN -- 11/18/2015 12:16 PM - End
 			This.lEscPress = .T.
 			Clear Typeahead
 			Return 0
 		Endif
 
-		*-- See if the filename matches the File template filter (if one is set) ----
+*-- See if the filename matches the File template filter (if one is set) ----
 		If !Empty(This.oSearchOptions.cFileTemplate)
 			If !This.MatchTemplate(Justfname(tcFile), Juststem(Justfname(This.oSearchOptions.cFileTemplate)))
 				This.ReduceProgressBarMaxValue(1)
@@ -3557,20 +3486,20 @@ Define Class GoFishSearchEngine As Custom
 		Endif
 
 		If !This.IsFileTypeIncluded(Justext(tcFile)) And !tlForce
-			*This.ReduceProgressBarMaxValue(1)
+*This.ReduceProgressBarMaxValue(1)
 			Return 0
 		Endif
 
 		If !File(tcFile)
 			This.lFileNotFound = .T.
 			This.SetSearchError('File not found: ' + tcFile)
-			*This.ReduceProgressBarMaxValue(1)
+*This.ReduceProgressBarMaxValue(1)
 			Return 0
 		Endif
 
 		This.ShowWaitMessage('Processing file: ' + tcFile)
 
-		*-- Look for a match on the file name ----------------------
+*-- Look for a match on the file name ----------------------
 		lnFileNameMatchCount = This.SearchInFileName(tcFile)
 
 		If lnFileNameMatchCount < 0
@@ -3579,14 +3508,14 @@ Define Class GoFishSearchEngine As Custom
 
 		llTextFile = This.IsTextFile(tcFile)
 
-		*-- Do not search inside of file if we are only looking at timestamps and have and empty string
+*-- Do not search inside of file if we are only looking at timestamps and have and empty string
 		If llTextFile And This.oSearchOptions.lTimeStamp And Empty(This.oSearchOptions.cSearchExpression)
 			This.nFilesProcessed = This.nFilesProcessed + 1
 			This.nFileCount = This.nFileCount + 1
 			Return lnFileNameMatchCount
 		Endif
 
-		*-- Look for a match within the file contents ----------------------
+*-- Look for a match within the file contents ----------------------
 		If llTextFile
 			lnMatchCount = This.SearchInTextFile(tcFile)
 		Else
@@ -3599,17 +3528,17 @@ Define Class GoFishSearchEngine As Custom
 			Return lnMatchCount
 		Endif
 
-		*-- Count number of files that had a match by either search above ---
+*-- Count number of files that had a match by either search above ---
 		If lnMatchCount > 0 Or lnFileNameMatchCount > 0
 			This.nFileCount = This.nFileCount + 1
 		Endif
 
 		Return lnMatchCount + lnFileNameMatchCount
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure SearchInFileName(tcFile)
 
 		Local loFileResultObject As 'GF_FileResult'
@@ -3624,10 +3553,10 @@ Define Class GoFishSearchEngine As Custom
 			Return 0
 		Endif
 
-		*-- Be sure that oRegExForSearch has been setup... Use This.PrepareRegExForSearch() or roll-your-own
+*-- Be sure that oRegExForSearch has been setup... Use This.PrepareRegExForSearch() or roll-your-own
 		Try
-			loMatches = This.oRegExForSearch.Execute(Justfname(tcFile))
-		Catch
+				loMatches = This.oRegExForSearch.Execute(Justfname(tcFile))
+			Catch
 		Endtry
 
 		If Type('loMatches') = 'O'
@@ -3640,10 +3569,10 @@ Define Class GoFishSearchEngine As Custom
 
 		If lnMatchCount = 0 And !Empty(This.oSearchOptions.cSearchExpression)
 			Return 0
-		ENDIF
-		
+		Endif
+
 		ldFileDate = This.GetFileDateTime(tcFile)
-		
+
 		ldFromDate = Evl(This.oSearchOptions.dTimeStampFrom, {^1900-01-01})
 		ldToDate = Evl(This.oSearchOptions.dTimeStampTo, {^9999-01-01})
 		ldToDate = ldToDate + 1 &&86400 && Must bump into to next day, since TimeStamp from table has time on it
@@ -3652,12 +3581,12 @@ Define Class GoFishSearchEngine As Custom
 			Return 0
 		Endif
 
-		loFileResultObject = CreateObject('GF_FileResult')	&& This custom class has all the properties that must be populated if you want to
-															&& have a cursor created
+		loFileResultObject = Createobject('GF_FileResult')	&& This custom class has all the properties that must be populated if you want to
+&& have a cursor created
 		With loFileResultObject
 			.FileName = Justfname(tcFile)
 			.FilePath = tcFile
-			.MatchType = MatchType_Filename
+			.MatchType = MATCHTYPE_FILENAME
 			.FileType = Upper(Justext(tcFile))
 			.Timestamp = ldFileDate
 
@@ -3665,10 +3594,10 @@ Define Class GoFishSearchEngine As Custom
 			.TrimmedMatchLine = .MatchLine
 		Endwith
 
-		loSearchResultObject = CreateObject('GF_SearchResult')
+		loSearchResultObject = Createobject('GF_SearchResult')
 		With loSearchResultObject
 			.UserField		  = loFileResultObject
-			.MatchType		  = MatchType_Filename
+			.MatchType		  = MATCHTYPE_FILENAME
 			.MatchLine		  = 'File name = "' + loFileResultObject.FileName + '"'
 			.TrimmedMatchLine = 'File name = "' + loFileResultObject.FileName + '"'
 		Endwith
@@ -3682,14 +3611,14 @@ Define Class GoFishSearchEngine As Custom
 		Select (lnSelect)
 
 		Return 1
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
-	Procedure SearchInPath(tcPath)
+*----------------------------------------------------------------------------------
+	Procedure SearchInPath(tcPath, ttTime, tcUni)
 
-		Local lcDirectory, lcFile, lcFileFilter, lcFileName, lnFileCount, lnReturn, lnSelect, j
+		Local lcDirectory, lcDirectory2, lcFile, lcFileFilter, lcFileName, lnFileCount, lnReturn, lnSelect, j
 
 		lnSelect = Select()
 
@@ -3698,6 +3627,8 @@ Define Class GoFishSearchEngine As Custom
 			Return 0
 		Endif
 
+		This.tRunTime = Evl(m.ttTime, Datetime())
+		This.cUni     = Evl(m.tcUni, "_" + Sys(2007, Ttoc(This.tRunTime), 0, 1))
 		This.oSearchOptions.cPath = tcPath
 
 		This.StoreInitialDefaultDir()
@@ -3722,7 +3653,7 @@ Define Class GoFishSearchEngine As Custom
 
 		This.oDirectories = This.GetDirectories(tcPath, This.oSearchOptions.lIncludeSubdirectories)
 
-		If This.lEscPress = .T.
+		If This.lEscPress
 			This.SearchFinished(lnSelect)
 			Return 0
 		Endif
@@ -3733,11 +3664,23 @@ Define Class GoFishSearchEngine As Custom
 		lnTotalFileCount = 0
 
 		For Each lcDirectory In This.oDirectories
-
+			lcDirectory2 = Lower(Justfname(Justpath(lcDirectory)))
 			If This.FilesToSkip(Upper(lcDirectory + '\-'))
 				Loop
 			Endif
 
+*SF 20221216 special folders to skip
+			If lcDirectory2 == ".git"
+*just force standard git folder.
+*we know, the repo could be in a different folder, but we keep it simple
+				Loop
+			Endif
+			If Directory(lcDirectory + "GF_Saved_Search_Results" );
+					OR lcDirectory2 == "gf_saved_search_results" THEN 
+*GoFish storage folder. Do not touch
+				Loop
+			Endif &&Directory(lcDirectory + "GF_Saved_Search_Results" ) OR lcDirectory2 == "gf_saved_search_results"
+*/SF 20221216 special folders to skip
 
 			lcFileFilter = Addbs(lcDirectory) + '*.*'
 
@@ -3757,12 +3700,12 @@ Define Class GoFishSearchEngine As Custom
 				lnTotalFileCount = lnTotalFileCount + 1
 				This.UpdateProgressBar(lnTotalFileCount)
 
-				If lnReturn < 0 Or This.lEscPress = .T. Or This.nMatchLines >= This.oSearchOptions.nMaxResults
+				If lnReturn < 0 Or This.lEscPress Or This.nMatchLines >= This.oSearchOptions.nMaxResults
 					Exit
 				Endif
 			Endfor
 
-			If lnReturn < 0 Or This.lEscPress = .T. Or This.nMatchLines >= This.oSearchOptions.nMaxResults
+			If lnReturn < 0 Or This.lEscPress Or This.nMatchLines >= This.oSearchOptions.nMaxResults
 				Exit
 			Endif
 		Endfor
@@ -3776,12 +3719,12 @@ Define Class GoFishSearchEngine As Custom
 		Else
 			Return lnReturn
 		Endif
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
-	Procedure SearchInProject(tcProject)
+*----------------------------------------------------------------------------------
+	Procedure SearchInProject(tcProject, ttTime, tcUni)
 
 		Local laProjectFiles[1], lcFile, lcProjectAlias, lcProjectPath, lnReturn, lnSelect, lnX
 
@@ -3790,6 +3733,8 @@ Define Class GoFishSearchEngine As Custom
 		lcProjectPath = Addbs(Justpath(Alltrim(tcProject)))
 		lcProjectAlias = 'GF_ProjectSearch'
 
+		This.tRunTime = Evl(m.ttTime, Datetime())
+		This.cUni     = Evl(m.tcUni, "_" + Sys(2007, Ttoc(This.tRunTime), 0, 1))
 		This.oSearchOptions.cProject = tcProject
 
 		If Empty(tcProject)
@@ -3803,11 +3748,11 @@ Define Class GoFishSearchEngine As Custom
 		Endif
 
 		Try && Attempt to open Project.PJX in a cursor...
-			Select 0
-			Use (tcProject) Again Shared Alias &lcProjectAlias
-			lnReturn = 1
-		Catch
-			lnReturn = -2
+				Select 0
+				Use (tcProject) Again Shared Alias &lcProjectAlias
+				lnReturn = 1
+			Catch
+				lnReturn = -2
 		Endtry
 
 		If lnReturn = -2
@@ -3816,13 +3761,13 @@ Define Class GoFishSearchEngine As Custom
 			Return lnReturn
 		Endif
 
-	 	Select  Name, Type ;
+		Select  Name, Type ;
 			From (lcProjectAlias) ;
 			Where Type $ 'EHKMPRVBdTxD' And ;
-				 Not Deleted() ;
-				 And !(Upper(Justext(Name)) $ This.cGraphicsExtensions) ;
-			 Order By Type ;
-			 Into Array laProjectFiles
+			Not Deleted() ;
+			And !(Upper(Justext(Name)) $ This.cGraphicsExtensions) ;
+			Order By Type ;
+			Into Array laProjectFiles
 
 		If Type('laProjectFiles') = 'L'
 			This.SearchFinished(lnSelect)
@@ -3835,10 +3780,10 @@ Define Class GoFishSearchEngine As Custom
 		This.StartTimer()
 		This.StartProgressBar(Alen(laProjectFiles) / 2.0)
 
-		*** Uncomment this code to track the execution time for the result
+*** Uncomment this code to track the execution time for the result
 *!*			LOCAL nSeconds
 *!*			nSeconds = SECONDS()
-		
+
 		For lnX = 1 To Alen(laProjectFiles) Step 2
 
 			lcFile = laProjectFiles(lnX)
@@ -3855,13 +3800,13 @@ Define Class GoFishSearchEngine As Custom
 
 			This.UpdateProgressBar(This.nFilesProcessed)
 
-			If (lnReturn < 0) Or This.lEscPress = .T. Or This.nMatchLines >= This.oSearchOptions.nMaxResults
+			If (lnReturn < 0) Or This.lEscPress Or This.nMatchLines >= This.oSearchOptions.nMaxResults
 				Exit
 			Endif
 
 		Endfor
-		
-		*** Uncomment this code to show used execution time for the result
+
+*** Uncomment this code to show used execution time for the result
 *!*			MESSAGEBOX(ALLTRIM(STR((SECONDS()-nSeconds)*1000)) + " ms")
 
 		This.SearchFinished(lnSelect)
@@ -3871,11 +3816,11 @@ Define Class GoFishSearchEngine As Custom
 		Else
 			Return lnReturn
 		Endif
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure SearchInTable(tcFile)
 
 		Local loFileResultObject As 'GF_FileResult'
@@ -3897,8 +3842,8 @@ Define Class GoFishSearchEngine As Custom
 		lcSearchExpression = Upper(Alltrim(This.oSearchOptions.cSearchExpression))
 
 		Try
-			Use (m.tcFile) Again Shared Alias 'GF_TableSearch' In Select('GF_TableSearch')
-		Catch To m.loException
+				Use (m.tcFile) Again Shared Alias 'GF_TableSearch' In Select('GF_TableSearch')
+			Catch To m.loException
 
 		Endtry
 
@@ -3940,10 +3885,10 @@ Define Class GoFishSearchEngine As Custom
 			Case 'SCX' $ m.lcExt
 				lnStartColumn = 4
 				llIgnorePropertiesField = This.oSearchOptions.lIgnorePropertiesField
-				* lnEndColumn = 12
+* lnEndColumn = 12
 			Case 'FRX' = m.lcExt
 				lnStartColumn = 3 && Newer reports could start at col 6, but older reports can have text data starting in column 3
-				* lnEndColumn = 21
+* lnEndColumn = 21
 				If Len(Field('timestamp', 'GF_TableSearch')) > 0 && Some really old reports may not have this field.
 					Select Max(Timestamp) From 'GF_TableSearch' Into Array laMaxTimeStamp
 				Else
@@ -3952,7 +3897,7 @@ Define Class GoFishSearchEngine As Custom
 				ldMaxTimeStamp = Ctot(This.TimeStampToDate(m.laMaxTimeStamp))
 			Case 'DBC' = m.lcExt
 				lnStartColumn = 3
-				* lnEndColumn = 6
+* lnEndColumn = 6
 			Case 	'MNX' = m.lcExt
 				lnStartColumn = 1
 			Otherwise
@@ -3962,9 +3907,9 @@ Define Class GoFishSearchEngine As Custom
 		lcDeleted = Set('Deleted')
 		Set Deleted On
 
-		*-- Scan across all table columns looking for matches on each row
-		*--	See: http://fox.wikis.com/wc.dll?Wiki~VFPVcxStructure for details about scx/vcx columns
-		*-- See: http://mattslay.com/foxpro-report-frx-table-structure for details about FRX structure
+*-- Scan across all table columns looking for matches on each row
+*--	See: http://fox.wikis.com/wc.dll?Wiki~VFPVcxStructure for details about scx/vcx columns
+*-- See: http://mattslay.com/foxpro-report-frx-table-structure for details about FRX structure
 
 		For ii = m.lnStartColumn To m.lnEndColumn Step 1
 			Goto Top
@@ -3992,12 +3937,12 @@ Define Class GoFishSearchEngine As Custom
 				Endif
 			Endif
 
-			*-- This is an important speed part of GoFish... If the user is not using a regular expression, then we
-			*-- can use the Locate command to make a quick look for a match anywhere in this column. We will handle the
-			*-- whole word part later on in the code, but a quick partial match hit helps us skips rows that have not
-			*-- match at all.
-			*-- If we find a match, we process it futher and then call Continue to look for the next partial and repeat.
-			*-- This logic is not used if we are doing a Reg Ex search.
+*-- This is an important speed part of GoFish... If the user is not using a regular expression, then we
+*-- can use the Locate command to make a quick look for a match anywhere in this column. We will handle the
+*-- whole word part later on in the code, but a quick partial match hit helps us skips rows that have not
+*-- match at all.
+*-- If we find a match, we process it futher and then call Continue to look for the next partial and repeat.
+*-- This logic is not used if we are doing a Reg Ex search.
 			If Not This.oSearchOptions.lRegularExpression
 				If This.oSearchOptions.lTimeStamp
 					ldFromDate = Evl(This.oSearchOptions.dTimeStampFrom, {^1900-01-01})
@@ -4011,19 +3956,19 @@ Define Class GoFishSearchEngine As Custom
 					Endif
 				Else
 					Try
-						If This.oSearchOptions.nSearchMode = GF_SEARCH_MODE_LIKE
-							Locate For Likec('*' + Upper(m.lcSearchExpression) + '*', Upper(Evaluate(m.lcField))) Nooptimize
-						Else
-							Locate For Upper(m.lcSearchExpression) $ Upper(Evaluate(m.lcField)) Nooptimize
-						Endif
-					Catch
-						This.SetSearchError('Error scanning through table [' + m.tcFile + ']. File may be corrupt.')
-						llLocateError = .T.
-					Finally
+							If This.oSearchOptions.nSearchMode = GF_SEARCH_MODE_LIKE
+								Locate For Likec('*' + Upper(m.lcSearchExpression) + '*', Upper(Evaluate(m.lcField))) Nooptimize
+							Else
+								Locate For Upper(m.lcSearchExpression) $ Upper(Evaluate(m.lcField)) Nooptimize
+							Endif
+						Catch
+							This.SetSearchError('Error scanning through table [' + m.tcFile + ']. File may be corrupt.')
+							llLocateError = .T.
+						Finally
 					Endtry
 				Endif
 
-				If Not Found() Or m.llLocateError = .T.
+				If Not Found() Or m.llLocateError
 					Loop && Loop to next column
 				Endif
 
@@ -4032,7 +3977,7 @@ Define Class GoFishSearchEngine As Custom
 			Do While Not Eof()
 
 				lnMatchCount	   = 0
-				loFileResultObject = CreateObject('GF_FileResult')	&& This custom class has all the properties that must be populated if you want to
+				loFileResultObject = Createobject('GF_FileResult')	&& This custom class has all the properties that must be populated if you want to
 				llProcessThisMatch = .T.														&& have a cursor created
 				llScxVcx		   = Inlist(m.lcExt, 'VCX', 'SCX')
 				lcCode			   = Evaluate(m.lcField)
@@ -4066,7 +4011,7 @@ Define Class GoFishSearchEngine As Custom
 						Case m.lcExt = 'VCX'
 
 							If Not Empty(m.lcParent)
-								._Class = GetWordNum(m.lcParent, 1, '.')
+								._Class = Getwordnum(m.lcParent, 1, '.')
 							Else
 								._Class	= Alltrim(ObjName)
 								._Name	= ''
@@ -4090,10 +4035,10 @@ Define Class GoFishSearchEngine As Custom
 							Do Case
 
 								Case ._Class = 'Database' And m.lcField = 'OBJECTNAME'
-									*lcCode = '' && Will cause this match to be skipped. Don't want to record these matches.
+*lcCode = '' && Will cause this match to be skipped. Don't want to record these matches.
 
 								Case ._Class = 'Table'
-									*lcCode = ._Class + '.dbf' && The name of the Table attached to the DBC
+*lcCode = ._Class + '.dbf' && The name of the Table attached to the DBC
 									lcCode = This.CleanUpBinaryString(m.lcCode)  && The SQL statement that makes up the View
 
 								Case ._Class = 'View'
@@ -4102,18 +4047,18 @@ Define Class GoFishSearchEngine As Custom
 									lcCode	= This.CleanUpBinaryString(m.lcCode, .T.)  && The SQL statement that makes up the View
 
 								Case ._Class = 'Field' && Fields can be part of Tables or Views
-									*-- Get some info about the parent of this field
+*-- Get some info about the parent of this field
 									lnParentId = parentId
 									Select ObjectType, ObjectName From (m.tcFile) Where objectid = m.lnParentId Into Array laParent
 									lcParentName = Alltrim(m.laParent[2])
 
-									*-- Parse the field into a field name and field source
+*-- Parse the field into a field name and field source
 									lnStart	= Atc('#', m.lcCode)
 									lcCode	= Substr(m.lcCode, m.lnStart + 1)
 									lcCode	= This.CleanUpBinaryString(m.lcCode)
 
-									lcFieldSource = Alltrim(GetWordNum(m.lcCode, 1))
-									lcDataType	  = Substr(Alltrim(GetWordNum(m.lcCode, 2)), 2)
+									lcFieldSource = Alltrim(Getwordnum(m.lcCode, 1))
+									lcDataType	  = Substr(Alltrim(Getwordnum(m.lcCode, 2)), 2)
 
 									If m.lcFieldSource = '0'
 										lcFieldSource = '[Table alias in query]'
@@ -4133,10 +4078,10 @@ Define Class GoFishSearchEngine As Custom
 							Endcase
 					Endcase
 
-					*-- Here is where we can skip the processing of certain records that we want to ignore, even though we found a match in them.
+*-- Here is where we can skip the processing of certain records that we want to ignore, even though we found a match in them.
 					If (m.lcExt = 'VCX' And Empty(m.lcClass)) Or ;					 	&& This is the ending row of a Class def in a vcx. Need to skip over it.
-					   (m.lcExt = 'FRX' And m.lcField = 'TAG2' And Recno() = 1) Or ;	&& Tag2 on first record in a FRX is binary and I want to skip it.
-					   (m.lcExt = 'PJX' and m.lcField = 'KEY') 					  		&& Added this filter on 2021-03-24, as requested by Jim Nelson.
+						(m.lcExt = 'FRX' And m.lcField = 'TAG2' And Recno() = 1) Or ;	&& Tag2 on first record in a FRX is binary and I want to skip it.
+						(m.lcExt = 'PJX' And m.lcField = 'KEY') 					  		&& Added this filter on 2021-03-24, as requested by Jim Nelson.
 
 						llProcessThisMatch = .F.
 					Endif
@@ -4147,16 +4092,16 @@ Define Class GoFishSearchEngine As Custom
 					llProcessThisMatch = .F.
 				Endif
 
-				If m.llProcessThisMatch = .T.
+				If m.llProcessThisMatch
 					If Not Empty(This.oSearchOptions.cSearchExpression)
-						*lcCode = Evaluate(lcField)
+*lcCode = Evaluate(lcField)
 						llHasMethods = Upper(m.lcField) = 'METHODS' Or		;
-							m.lcExt = 'FRX' And Upper(m.lcField) = 'TAG' And Upper(Name) = 'DATAENVIRONMENT'
+							M.lcExt = 'FRX' And Upper(m.lcField) = 'TAG' And Upper(Name) = 'DATAENVIRONMENT'
 						lnMatchCount = This.SearchInCode(m.lcCode, m.loFileResultObject, m.llHasMethods)
 					Else
-						* Can't search since there is no cSearchExpression, so we just log the file as a result.
-						* This handles TimeStamp searches, where the cSearchExpression is empty
-						loSearchResultObject		   = CreateObject('GF_SearchResult')
+* Can't search since there is no cSearchExpression, so we just log the file as a result.
+* This handles TimeStamp searches, where the cSearchExpression is empty
+						loSearchResultObject		   = Createobject('GF_SearchResult')
 						loSearchResultObject.Code	   = Iif(Type('properties') # 'U', Properties, '')
 						loSearchResultObject.Code	   = m.loSearchResultObject.Code + CR + Iif(Type('methods') # 'U', Methods, '')
 						loSearchResultObject.UserField = m.loFileResultObject
@@ -4182,14 +4127,14 @@ Define Class GoFishSearchEngine As Custom
 
 				If Not This.oSearchOptions.lRegularExpression
 					Try
-						Continue
-					Catch
-						This.SetSearchError('Error scanning through table [' + m.tcFile + ']. File may be corrupt.')
-						llContinueError = .T.
-					Finally
+							Continue
+						Catch
+							This.SetSearchError('Error scanning through table [' + m.tcFile + ']. File may be corrupt.')
+							llContinueError = .T.
+						Finally
 					Endtry
 
-					If m.llContinueError = .T.
+					If m.llContinueError
 						Exit
 					Endif
 
@@ -4217,11 +4162,11 @@ Define Class GoFishSearchEngine As Custom
 		Else
 			Return m.lnTotalMatches
 		Endif
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure SearchInTextFile(tcFile)
 
 		Local loFileResultObject As 'GF_FileResult'
@@ -4246,8 +4191,8 @@ Define Class GoFishSearchEngine As Custom
 			Return 0
 		Endif
 
-		loFileResultObject = CreateObject('GF_FileResult')	&& This custom class has all the properties that must be populated if you want to
-															&& have a cursor created
+		loFileResultObject = Createobject('GF_FileResult')	&& This custom class has all the properties that must be populated if you want to
+&& have a cursor created
 		With loFileResultObject
 			.FileName = Justfname(tcFile)
 			.FilePath = tcFile
@@ -4259,11 +4204,11 @@ Define Class GoFishSearchEngine As Custom
 
 		If !Empty(This.oSearchOptions.cSearchExpression)
 			Try
-				lcCode = Filetostr(tcFile) && File could be in use by some other app and can't be read in
-				llReadFile = .T.
-			Catch
-				This.SetSearchError('Could not open file [' + tcFile + '] for reading.')
-				llReadFile = .F.
+					lcCode = Filetostr(tcFile) && File could be in use by some other app and can't be read in
+					llReadFile = .T.
+				Catch
+					This.SetSearchError('Could not open file [' + tcFile + '] for reading.')
+					llReadFile = .F.
 			Endtry
 			If !llReadFile
 				Select (lnSelect)
@@ -4273,9 +4218,9 @@ Define Class GoFishSearchEngine As Custom
 			llHasMethods = Inlist(Upper(loFileResultObject.MatchType) + ' ', 'PRG ', 'MPR ', 'H ')
 			lnMatchCount = This.SearchInCode(lcCode, loFileResultObject, llHasMethods)
 		Else
-			* Can't search since there is no cSearchExpression, so we just log the file as a result.
-			* This handles TimeStamp searches, where the cSearchExpression is empty
-			loSearchResultObject = CreateObject('GF_SearchResult')
+* Can't search since there is no cSearchExpression, so we just log the file as a result.
+* This handles TimeStamp searches, where the cSearchExpression is empty
+			loSearchResultObject = Createobject('GF_SearchResult')
 			loSearchResultObject.UserField = loFileResultObject
 
 			This.ProcessSearchResult(loSearchResultObject)
@@ -4285,12 +4230,12 @@ Define Class GoFishSearchEngine As Custom
 		Select (lnSelect)
 
 		Return lnMatchCount
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
-	*-- Read a user file set the the cFilesToSkip property
+*----------------------------------------------------------------------------------
+*-- Read a user file set the the cFilesToSkip property
 	Procedure SetFilesToSkip
 
 		Local lcExclusionFile, lcFilesToSkip, lcLeft, lcLine, lcRight, lnI
@@ -4332,11 +4277,11 @@ Define Class GoFishSearchEngine As Custom
 					This.cFilesToSkip = This.cFilesToSkip + m.lcLine + CR
 			Endcase
 		Endfor
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure SetProject(tcProject)
 
 		Local lcProject, llReturn
@@ -4362,11 +4307,11 @@ Define Class GoFishSearchEngine As Custom
 		Endif
 
 		Return llReturn
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure SetReplaceError(tcErrorMessage, tcFile, tnResultId, tnDialogBoxType, tcTitle)
 
 		Local lcErrorMessage, lcFile, lnResultId
@@ -4383,19 +4328,19 @@ Define Class GoFishSearchEngine As Custom
 		This.ShowError(lcErrorMessage, tnDialogBoxType, tcTitle)
 
 		This.oReplaceErrors.Add(lcErrorMessage)
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure SetSearchError(tcErrorMessage, tnDialogBoxType, tcTitle)
 
 		This.oSearchErrors.Add(tcErrorMessage)
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure ShowError(tcErrorMessage, tnDialogBoxType, tcTitle)
 
 		Local lcTitle, lnDialogBoxType
@@ -4406,114 +4351,114 @@ Define Class GoFishSearchEngine As Custom
 
 		lnDialogBoxType	= Evl(tnDialogBoxType, 0)
 		lcTitle					= Evl(tcTitle, 'GoFishSearchEngine Error:')
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure ShowWaitMessage(tcMessage)
 
 		If This.oSearchOptions.lShowWaitMessages
 			Wait Window At 5, Wcols() / 2 Nowait tcMessage
 		Endif
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure StartProgressBar(tnMaxValue)
 
 		If Vartype(This.oProgressBar) = 'O'
 			This.oProgressBar.Start(tnMaxValue)
 		Endif
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure StartTimer
-	
+
 		This.nSearchTime = Seconds()
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure StopProgressBar
-	
+
 		If Vartype(This.oProgressBar) = 'O'
 			This.oProgressBar.Stop()
 		Endif
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure StoreInitialDefaultDir
-	
+
 		This.cInitialDefaultDir = Sys(5) + Sys(2003)
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure ThorMoveWindow
-	
+
 		If Type('_Screen.cThorDispatcher') = 'C'
 			Execscript (_Screen.cThorDispatcher, 'PEMEditor_StartIDETools')
 			_oPEMEditor.Outils.oIDEx.MoveWindow()
 		Endif
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
-		*  METHOD: TimeStamp2Date()
-		*
-		*  AUTHOR: Richard A. Schummer            September 1994
-		*
-		*  COPYRIGHT (c) 1994-2001    Richard A. Schummer
-		*     42759 Flis Dr  
-		*     Sterling Heights, MI  48314-2850
-		*     RSchummer@CompuServe.com
-		*
-		*  METHOD DESCRIPTION: 
-		*     This procedure handles the conversion of the FoxPro TIMESTAMP field to 
-		*     a readable (and understandable) date and time.  The procedure will return
-		*     the date/time in three formats based on the cStyle parameter.  Timestamp 
-		*     field is a 32-bit (numeric compressed) system that the FoxPro development
-		*     team created to save on file space in the projects, screens, reports, and
-		*     label databases.  This field is used to determine if objects need to be 
-		*     recompiled (project manager), or syncronized across platforms (screens,
-		*     reports, and labels).
-		* 
-		*  CALLING SYNTAX: 
-		*     <variable> = ctrMetaDecode.TimeStamp2Date(<nTimeStamp>,<cStyle>)
-		*
-		*     Sample:
-		*     ltDateTime = ctrMetaDecode.TimeStamp2Date(TimeStamp,"DATETIME")
-		* 
-		*  INPUT PARAMETERS: 
-		*     nTimeStamp = Required field, must be numeric, no check to verify the
-		*                  data passed is valid FoxPro Timestamp, just be sure it is
-		*     cStyle     = Not required (defaults to "DATETIME"), must be character, 
-		*                  and must be one of the following:
-		*                   "DATETIME" will return the date/time in MM/DD/YY HH:MM:SS
-		*                   "DATE"     will return the date in MM/DD/YY format
-		*                   "TIME"     will return the time in HH:MM:SS format
-		*
-		*  OUTPUT PARAMETERS:
-		*     lcRetval    = The date/time (in requested format) is returned in 
-		*                   character type.  Must be converted and parsed to be
-		*                   used as date type.
-		*
-	
+*----------------------------------------------------------------------------------
+*  METHOD: TimeStamp2Date()
+*
+*  AUTHOR: Richard A. Schummer            September 1994
+*
+*  COPYRIGHT (c) 1994-2001    Richard A. Schummer
+*     42759 Flis Dr
+*     Sterling Heights, MI  48314-2850
+*     RSchummer@CompuServe.com
+*
+*  METHOD DESCRIPTION:
+*     This procedure handles the conversion of the FoxPro TIMESTAMP field to
+*     a readable (and understandable) date and time.  The procedure will return
+*     the date/time in three formats based on the cStyle parameter.  Timestamp
+*     field is a 32-bit (numeric compressed) system that the FoxPro development
+*     team created to save on file space in the projects, screens, reports, and
+*     label databases.  This field is used to determine if objects need to be
+*     recompiled (project manager), or syncronized across platforms (screens,
+*     reports, and labels).
+*
+*  CALLING SYNTAX:
+*     <variable> = ctrMetaDecode.TimeStamp2Date(<nTimeStamp>,<cStyle>)
+*
+*     Sample:
+*     ltDateTime = ctrMetaDecode.TimeStamp2Date(TimeStamp,"DATETIME")
+*
+*  INPUT PARAMETERS:
+*     nTimeStamp = Required field, must be numeric, no check to verify the
+*                  data passed is valid FoxPro Timestamp, just be sure it is
+*     cStyle     = Not required (defaults to "DATETIME"), must be character,
+*                  and must be one of the following:
+*                   "DATETIME" will return the date/time in MM/DD/YY HH:MM:SS
+*                   "DATE"     will return the date in MM/DD/YY format
+*                   "TIME"     will return the time in HH:MM:SS format
+*
+*  OUTPUT PARAMETERS:
+*     lcRetval    = The date/time (in requested format) is returned in
+*                   character type.  Must be converted and parsed to be
+*                   used as date type.
+*
+
 	Procedure TimeStampToDate(tnTimeStamp, tcStyle)
 
-		*=============================================================
-		* Tried to use this FFC class, but it sometimes gave an error:
-		* This.oFrxCursor.GetTimeStampString(timestamp) 
-		*=============================================================
+*=============================================================
+* Tried to use this FFC class, but it sometimes gave an error:
+* This.oFrxCursor.GetTimeStampString(timestamp)
+*=============================================================
 
 		Local lcRetVal                         &&  Requested data returned from procedure, ;
 			lnYear, ;
@@ -4525,7 +4470,7 @@ Define Class GoFishSearchEngine As Custom
 			loException
 
 		If Type('tnTimeStamp') != "N"          &&  Timestamp must be numeric
-		* Wait Window "Time stamp passed is not numeric" NoWait
+* Wait Window "Time stamp passed is not numeric" NoWait
 			Return ""
 		Endif
 
@@ -4549,24 +4494,24 @@ Define Class GoFishSearchEngine As Custom
 		lnHour   = ((lnDay - Int(lnDay)      ) * (2 ** 16)) / (2 ** 11)
 		lnMinute = ((lnHour - Int(lnHour)    ) * (2 ** 11)) / (2 ** 05)
 		lnSecond = ((lnMinute - Int(lnMinute)) * (2 ** 05)) * 2       &&  Multiply by two to correct
-		&&  truncation problem built in
-		&&  to the creation algorithm
-		&&  (Source: Microsoft Tech Support)
+&&  truncation problem built in
+&&  to the creation algorithm
+&&  (Source: Microsoft Tech Support)
 
 		lcRetVal = ""
 
 		If "DATE" $ Upper(tcStyle)
-		*< 4-Feb-2001 Fixed to display date in machine designated format (Regional Settings)
-		*< lcRetVal = lcRetVal + RIGHT("0"+ALLTRIM(STR(INT(lnMonth))),2) + "/" + ;
-		*<                       RIGHT("0"+ALLTRIM(STR(INT(lnDay))),2)   + "/" + ;
-		*<                       RIGHT("0"+ALLTRIM(STR(INT(lnYear))), IIF(SET("CENTURY") = "ON", 4, 2))
+*< 4-Feb-2001 Fixed to display date in machine designated format (Regional Settings)
+*< lcRetVal = lcRetVal + RIGHT("0"+ALLTRIM(STR(INT(lnMonth))),2) + "/" + ;
+*<                       RIGHT("0"+ALLTRIM(STR(INT(lnDay))),2)   + "/" + ;
+*<                       RIGHT("0"+ALLTRIM(STR(INT(lnYear))), IIF(SET("CENTURY") = "ON", 4, 2))
 
-		*< RAS 23-Nov-2004, change to work around behavior change in VFP 9.
-		*< lcRetVal = lcRetVal + DTOC(DATE(lnYear, lnMonth, lnDay))
+*< RAS 23-Nov-2004, change to work around behavior change in VFP 9.
+*< lcRetVal = lcRetVal + DTOC(DATE(lnYear, lnMonth, lnDay))
 			Try
-				lcRetVal = lcRetVal + Dtoc(Date(Int(lnYear), Int(lnMonth), Int(lnDay)))
-			Catch To loException
-				lcRetVal = lcRetVal + Dtoc(Date(1901, 1, 1))
+					lcRetVal = lcRetVal + Dtoc(Date(Int(lnYear), Int(lnMonth), Int(lnDay)))
+				Catch To loException
+					lcRetVal = lcRetVal + Dtoc(Date(1901, 1, 1))
 			Endtry
 		Endif
 
@@ -4578,11 +4523,11 @@ Define Class GoFishSearchEngine As Custom
 		Endif
 
 		Return lcRetVal
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure TrimWhiteSpace(tcString)
 
 		Local lcTrimmedString
@@ -4591,17 +4536,17 @@ Define Class GoFishSearchEngine As Custom
 		lcTrimmedString = Strtran(lcTrimmedString, Chr(9), Chr(32))
 
 		Return lcTrimmedString
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure UpdateCursorAfterReplace(tcCursor, toResult)
 
 		Local lcColumn, lcFileToModify, lnChangeLength, lnCurrentRecno, lnMatchStart, lnProcStart
 		Local lnResultRecno, lnSelect
 
-		If This.oSearchOptions.lPreviewReplace = .T.
+		If This.oSearchOptions.lPreviewReplace
 			Return
 		Endif
 
@@ -4611,73 +4556,61 @@ Define Class GoFishSearchEngine As Custom
 		Select (tcCursor)
 		lnCurrentRecno = Recno()
 
-		*-- Create local vars of certain fields from the current row that we need to use below
+*-- Create local vars of certain fields from the current row that we need to use below
 		lcFileToModify = Alltrim(FilePath)
 		lnResultRecno = Recno
 		lnProcStart = ProcStart
 		lnMatchStart = MatchStart
 		lcColumn = Column
 
-		*-- Cannot process same source code line more than once, so mark this and all other rows of
-		*-- the same oringal source line with replacd = .t., and also update the matchlen
-		 Update  &tcCursor ;
-			 Set Replaced = .T., ;
-				 MatchLen = Max(MatchLen + lnChangeLength, 0) ;
-			 Where Alltrim(FilePath) == lcFileToModify And ;
-				 Recno = lnResultRecno And ;
-				 Column = lcColumn And ;
-				 MatchStart = lnMatchStart
+*-- Cannot process same source code line more than once, so mark this and all other rows of
+*-- the same oringal source line with replacd = .t., and also update the matchlen
 
-			*-- Update the stored code with the new code for all records of the same original source
-		 Update  &tcCursor ;
-			 Set Code = toResult.cNewCode;
-			 Where Alltrim(FilePath) == lcFileToModify And ;
-				 Recno = lnResultRecno And ;
-				 Column = lcColumn
+		Update  &tcCursor ;
+			Set Replaced = .T., ;
+		    Replace_DT = Datetime(),;
+			MatchLen = Max(MatchLen + lnChangeLength, 0) ;
+			Where Alltrim(FilePath) == lcFileToModify And ;
+			Recno = lnResultRecno And ;
+			Column = lcColumn And ;
+			MatchStart = lnMatchStart
 
-			*-- Update matchstart values on remaining records of same file, recno, and column type
-		 Update  &tcCursor ;
-			 Set MatchStart = (MatchStart + lnChangeLength) ;
-			 Where Alltrim(FilePath) == lcFileToModify And ;
-				 Recno = lnResultRecno And ;
-				 Column = lcColumn And ;
-				 MatchStart > lnMatchStart
+*-- Update the stored code with the new code for all records of the same original source
+		Update  &tcCursor ;
+			Set Code = toResult.cNewCode;
+			Where Alltrim(FilePath) == lcFileToModify And ;
+			Recno = lnResultRecno And ;
+			Column = lcColumn
 
-			*-- Update procstart values on remaining records of same file, recno, and column type
-		 Update  &tcCursor ;
-			 Set ProcStart = (ProcStart + lnChangeLength) ;
-			 Where Alltrim(FilePath) == lcFileToModify And ;
-				 Recno = lnResultRecno And ;
-				 Column = lcColumn And ;
-				 ProcStart > lnProcStart
+*-- Update matchstart values on remaining records of same file, recno, and column type
+		Update  &tcCursor ;
+			Set MatchStart = (MatchStart + lnChangeLength) ;
+			Where Alltrim(FilePath) == lcFileToModify And ;
+			Recno = lnResultRecno And ;
+			Column = lcColumn And ;
+			MatchStart > lnMatchStart
+
+*-- Update procstart values on remaining records of same file, recno, and column type
+		Update  &tcCursor ;
+			Set ProcStart = (ProcStart + lnChangeLength) ;
+			Where Alltrim(FilePath) == lcFileToModify And ;
+			Recno = lnResultRecno And ;
+			Column = lcColumn And ;
+			ProcStart > lnProcStart
 
 		Goto (lnCurrentRecno)
 
 		Select (lnSelect)
-		
-	EndProc
+
+	Endproc
 
 
-	*----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 	Procedure UpdateProgressBar(tnValue)
 
 		If Vartype(This.oProgressBar) = 'O'
 			This.oProgressBar.nValue = tnValue
 		Endif
-		
-	EndProc
 
-
-	*----------------------------------------------------------------------------------
-	*-- If we are in Replace Preview mode, do not attempt to update the Replace Detail record.
-	Procedure UpdateReplaceHistoryRecord
-
-		If This.oSearchOptions.lPreviewReplace = .F.
-			Update (This.cReplaceHistoryTable) Set replaces = This.nReplaceCount Where Id = This.nReplaceHistoryId
-		Endif
-		
-	EndProc
-
-
-EndDefine
-   
+	Endproc
+Enddefine

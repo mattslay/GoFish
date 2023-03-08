@@ -72,8 +72,7 @@ loProject = _VFP.Projects('GoFish5.pjx')
 WITH loProject.FILES
 	.ADD('buildgofish.h')		&& *< FileMetadata: Type="T" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('buildgofish.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" User="" />
-	.ADD('changelog_ver_4.txt')		&& *< FileMetadata: Type="T" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
-	.ADD('changelog_ver_5.txt')		&& *< FileMetadata: Type="T" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
+	.ADD('changelog_thor.txt')		&& *< FileMetadata: Type="T" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('css\gofish - black.css')		&& *< FileMetadata: Type="x" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('css\gofish - color.css')		&& *< FileMetadata: Type="x" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('css\gofish css readme.txt')		&& *< FileMetadata: Type="x" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
@@ -110,8 +109,10 @@ WITH loProject.FILES
 	.ADD('images\fish13.ico')		&& *< FileMetadata: Type="x" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('images\gf_dnarrow.bmp')		&& *< FileMetadata: Type="x" Cpid="0" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('images\gf_folder_icon_16.bmp')		&& *< FileMetadata: Type="x" Cpid="0" Timestamp="0" ID="0" ObjRev="0" User="" />
+	.ADD('images\gf_folderpick_icon_16.bmp')		&& *< FileMetadata: Type="x" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('images\gf_large_letter.bmp')		&& *< FileMetadata: Type="x" Cpid="0" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('images\gf_project_icon_16.bmp')		&& *< FileMetadata: Type="x" Cpid="0" Timestamp="0" ID="0" ObjRev="0" User="" />
+	.ADD('images\gf_projectpick_icon_16.bmp')		&& *< FileMetadata: Type="x" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('images\gf_small_letter.bmp')		&& *< FileMetadata: Type="x" Cpid="0" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('images\gf_uparrow.bmp')		&& *< FileMetadata: Type="x" Cpid="0" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('images\gofish16.bmp')		&& *< FileMetadata: Type="x" Cpid="0" Timestamp="0" ID="0" ObjRev="0" User="" />
@@ -180,8 +181,7 @@ WITH loProject.FILES
 	*<ExcludedFiles>
 	.ITEM(lcCurdir + 'buildgofish.h').Exclude = .T.
 	.ITEM(lcCurdir + 'buildgofish.prg').Exclude = .T.
-	.ITEM(lcCurdir + 'changelog_ver_4.txt').Exclude = .T.
-	.ITEM(lcCurdir + 'changelog_ver_5.txt').Exclude = .T.
+	.ITEM(lcCurdir + 'changelog_thor.txt').Exclude = .T.
 	.ITEM(lcCurdir + 'gofishgeneratescc.prg').Exclude = .T.
 	.ITEM(lcCurdir + 'lib\gofish.h').Exclude = .T.
 	*</ExcludedFiles>
