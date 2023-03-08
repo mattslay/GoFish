@@ -1,8 +1,8 @@
-# Changes in Version 6.0.0
+# Changes in Version 6.0.1
 Documentation of GoFish - An advanced code search tool for MS Visual Foxpro 9
 
 ## Purpose of this document
-This document list new function in Version 6.0.0.
+This document list new function in Version 6.0.1.
 
 ----
 ## Table of contents

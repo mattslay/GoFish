@@ -9,7 +9,7 @@ Replaces the lists in
 - ChangeLog_Ver_5.txt
 
 ----
-## Ver 6.0.000
+## Ver 6.0.001
 **Released 2023-03-08**
 ### Changes
 For more details check [Changes on V6](./New_6.md).

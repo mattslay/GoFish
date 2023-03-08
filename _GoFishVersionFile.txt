@@ -20,7 +20,7 @@ For more details check https://github.com/VFPX/GoFish/docs/Changes.md
 
 EndText
 
-AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 6.0.000 - 8. März 2023,  - 20230308')
+AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 6.0.001 - 8. März 2023,  - 20230308')
 AddProperty(toUpdateInfo, 'SourceFileUrl', 'https://raw.githubusercontent.com/VFPX/GoFish/master/Source/Source.zip')
 AddProperty(toUpdateInfo, 'LinkPrompt', 'GoFish Home Page')
 AddProperty(toUpdateInfo, 'Link', 'https://github.com/VFPX/GoFish')

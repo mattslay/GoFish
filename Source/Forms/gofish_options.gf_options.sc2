@@ -2680,7 +2680,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 	PROCEDURE set_localfolder		&& cCR_StoreLocal_Option activated Check folder
 		Lparameters;
 			tcFolder
-		ASSERT .f.
+		
 		Local;
 			lcFolder As String,;
 			llFound As Boolean,;
