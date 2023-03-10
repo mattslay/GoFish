@@ -1204,9 +1204,13 @@ Procedure GF_Move_GlobalPath  		&&Move GF settings from Home(7) to HOME(7)+"GoFi
 
 	loFSO = Createobject("Scripting.FileSystemObject")
 
-	lcSource = '"' + Home(7) + "GF_*.*" + '"'
-	lcTarget = '"' + Home(7) + "GoFish_\*.*" + '"'
+*	lcSource = '"' + Home(7) + "GF_*.*" + '"'
+*	lcTarget = '"' + Home(7) + "GoFish_ + '"'
 	Rename (m.lcSource) To (m.lcTarget)
+
+	lcSource = Home(7) + "GF_*.*"
+	lcTarget = Home(7) + "GoFish_"
+	loFSO.MoveFile(m.lcSource, m.lcTarget)
 
 	lcSource = Home(7) + "GF_Saved_Search_Results"
 	If Directory(m.lcSource) Then
@@ -1223,6 +1227,45 @@ Procedure GF_Move_GlobalPath  		&&Move GF settings from Home(7) to HOME(7)+"GoFi
 	Endif &&DIRECTORY(lcSource)
 
 Endproc &&GF_Move_GlobalPath
+
+Procedure GF_Backup_GlobalPath  		&&Move GF settings from Home(7) to HOME(7)+"GoFish\"
+	Local;
+		lcSource As String,;
+		lcTarget As String,;
+		lcTarget2 As String,;
+		lnLoop As Integer,;
+		loFSO  As "Scripting.FileSystemObject"
+
+	loFSO = Createobject("Scripting.FileSystemObject")
+
+	lcSource = Home(7) + "GF_*.*"
+	lcTarget = Home(7) + "GoFish_Backup"
+	lnLoop   = 0
+	Do While Directory(m.lcTarget)
+		lnLoop   = m.lnLoop+1
+		lcTarget = Home(7) + "GoFish_Backup_" +  Ltrim(Str(m.lnLoop,11,0))
+
+	Enddo &&DIRECTORY(m.lcTarget)
+	Mkdir (m.lcTarget)
+
+	lcTarget2 = '"' + m.lcTarget + "\*.*" + '"'
+	loFSO.CopyFile(m.lcSource, m.lcTarget)
+
+	lcSource = Home(7) + "GF_Saved_Search_Results"
+	If Directory(m.lcSource) Then
+		lcTarget2 = m.lcTarget + "\GF_Saved_Search_Results"
+
+		loFSO.CopyFolder(m.lcSource, m.lcTarget2)
+	Endif &&DIRECTORY(lcSource)
+
+	lcSource = Home(7) + "GoFishBackups"
+	If Directory(m.lcSource) Then
+		lcTarget2 = m.lcTarget + "\GoFishBackups"
+
+		loFSO.CopyFolder(m.lcSource, m.lcTarget2)
+	Endif &&DIRECTORY(lcSource)
+
+Endproc &&GF_Backup_GlobalPath
 
 Procedure GF_Write_Readme_Text  	&&Create for README.md files
 	Lparameters;

@@ -55,6 +55,7 @@ lcSettingsFile = Addbs(Home(7)) + "GoFish_"
 If !Directory(m.lcSettingsFile) Then
 	Mkdir (Addbs(Home(7)) + "GoFish_")
 	If File(Addbs(Home(7)) + "GF_Results_Form_Settings.xml") Then
+	    GF_Backup_GlobalPath()
 		GF_Move_GlobalPath()
 	Endif &&File(Addbs(Home(7)) + "GF_Results_Form_Settings.xml")
 Endif &&DIRECTORY(m.lcSettingsFile)
