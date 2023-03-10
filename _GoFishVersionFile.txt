@@ -3,7 +3,7 @@ Lparameters toUpdateInfo
 Text to lcNote NoShow
 GoFish Change Log
 
-## Ver 6.0.000  **Released 2023-03-08**
+## Ver 6.0.003  **Released 2023-03-10**
 For more details check https://github.com/VFPX/GoFish/docs/Changes.md
 - New: Mode to display history in tree
 - New: Modified structure to store history to speed up display of history in tree while keeeping common history table small.
@@ -20,7 +20,7 @@ For more details check https://github.com/VFPX/GoFish/docs/Changes.md
 
 EndText
 
-AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 6.0.002 - 8. März 2023,  - 20230308')
+AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 6.0.003 - 10. März 2023,  - 20230310')
 AddProperty(toUpdateInfo, 'SourceFileUrl', 'https://raw.githubusercontent.com/VFPX/GoFish/master/Source/Source.zip')
 AddProperty(toUpdateInfo, 'LinkPrompt', 'GoFish Home Page')
 AddProperty(toUpdateInfo, 'Link', 'https://github.com/VFPX/GoFish')

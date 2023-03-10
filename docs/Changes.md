@@ -9,7 +9,12 @@ Replaces the lists in
 - ChangeLog_Ver_5.txt
 
 ----
-## Ver 6.0.002
+## Ver 6.0.003
+**Released 2023-03-10**
+### Changes
+- New: Migrating will create a backup of old GoFish data in `Home(7) + "GoFish_Backup"`.
+
+## Ver 6.0.000
 **Released 2023-03-08**
 ### Changes
 For more details check [Changes on V6](./New_6.md).
