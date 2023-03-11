@@ -1206,7 +1206,7 @@ Procedure GF_Move_GlobalPath  		&&Move GF settings from Home(7) to HOME(7)+"GoFi
 
 *	lcSource = '"' + Home(7) + "GF_*.*" + '"'
 *	lcTarget = '"' + Home(7) + "GoFish_ + '"'
-	Rename (m.lcSource) To (m.lcTarget)
+*	Rename (m.lcSource) To (m.lcTarget)
 
 	lcSource = Home(7) + "GF_*.*"
 	lcTarget = Home(7) + "GoFish_"
