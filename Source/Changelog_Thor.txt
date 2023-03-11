@@ -1,5 +1,8 @@
 GoFish Change Log
 
+## Ver 6.0.004  **Released 2023-03-11**
+- Improved: `SET SAFETY OFF` to circumvent a problem double copy. Until real fix.
+
 ## Ver 6.0.003  **Released 2023-03-10**
 For more details check https://github.com/VFPX/GoFish/docs/Changes.md
 - New: Mode to display history in tree
