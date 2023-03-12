@@ -77,7 +77,6 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 	*< OBJECTDATA: ObjPath="ButtonContainer.cmdAdvanced" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="ButtonContainer.cmdOptions" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="ButtonContainer.Command1" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="ButtonContainer.chkMatchWholeWord" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="ButtonContainer.Container1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="ButtonContainer.Container1.chkApplyFilter" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="ButtonContainer.comboViewPosition" UniqueID="" Timestamp="" />
@@ -130,6 +129,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		*m: getlastsavedresultsfolder
 		*m: get_onodetag		&& Create object for node tag.
 		*m: get_replaceid		&& Determine the next ID to create a backup replace folder.
+		*m: get_resultorderby		&& Get the Order By clause for the reult cursor
 		*m: gridcolumnrightclick
 		*m: gridheaderrightclick
 		*m: lmaximizecodeview_assign
@@ -399,7 +399,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 	ogrid = .NULL.
 	otree = .NULL.
 	owebcontrol = .NULL.
-	Picture = ..\
+	Picture = ..\..\data\default\
 	ShowTips = .T.
 	TabStop = .T.
 	Top = -1
@@ -547,28 +547,6 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Width = 89
 		*< END OBJECT: BaseClass="checkbox" />
 
-	ADD OBJECT 'ButtonContainer.chkMatchWholeWord' AS checkbox WITH ;
-		Alignment = 0, ;
-		Anchor = 8, ;
-		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "\<Whole word", ;
-		ControlSource = "thisform.oSearchEngine.oSearchOptions.lMatchWholeWord", ;
-		FontBold = .F., ;
-		FontItalic = .F., ;
-		FontName = "Arial", ;
-		FontSize = 8, ;
-		Height = 16, ;
-		Left = 102, ;
-		Name = "chkMatchWholeWord", ;
-		Picture = ..\images\, ;
-		TabIndex = 14, ;
-		Top = 37, ;
-		Value = .T., ;
-		Width = 77, ;
-		ZOrderSet = 7
-		*< END OBJECT: BaseClass="checkbox" />
-
 	ADD OBJECT 'ButtonContainer.chkSubdirectories' AS checkbox WITH ;
 		Alignment = 0, ;
 		Anchor = 8, ;
@@ -669,7 +647,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Height = 24, ;
 		Left = 118, ;
 		Name = "comboViewPosition", ;
-		Picture = ..\, ;
+		Picture = ..\..\data\default\, ;
 		Style = 2, ;
 		TabIndex = 24, ;
 		TabStop = .F., ;
@@ -844,7 +822,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Left = 47, ;
 		Name = "comboSearchExpressionHistory", ;
 		nexpressionstostore = 50, ;
-		Picture = ..\, ;
+		Picture = ..\..\data\default\, ;
 		TabIndex = 9, ;
 		TabStop = .F., ;
 		Top = 3, ;
@@ -858,7 +836,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Height = 26, ;
 		Left = 446, ;
 		Name = "comboSearchExpressionHistoryDropDownArrow", ;
-		Picture = ..\, ;
+		Picture = ..\..\data\default\, ;
 		TabIndex = 3, ;
 		TabStop = .F., ;
 		Top = 14, ;
@@ -873,7 +851,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Left = 69, ;
 		Name = "comboSearchScopeHistory", ;
 		nexpressionstostore = 40, ;
-		Picture = ..\, ;
+		Picture = ..\..\data\default\, ;
 		SelectOnEntry = .T., ;
 		TabIndex = 5, ;
 		Top = 31, ;
@@ -937,7 +915,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Name = "oTreeView", ;
 		Top = 0, ;
 		Width = 186
-		*< END OBJECT: BaseClass="olecontrol" OLEObject="c:\windows\syswow64\mscomctl.ocx" Value="0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAEAAAAgAAAAEAAAD+////AAAAAAAAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9/////v////7///8EAAAA/v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////1IAbwBvAHQAIABFAG4AdAByAHkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAUA//////////8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAECetkzbU9kBAwAAAEACAAAAAAAAAwBPAGwAZQBPAGIAagBlAGMAdABEAGEAdABhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAgEDAAAAAgAAAP////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAagAAAAAAAAADAEEAYwBjAGUAcwBzAE8AYgBqAFMAaQB0AGUARABhAHQAYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgACAP///////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABcAAAAAAAAAAMAQwBoAGEAbgBnAGUAZABQAHIAbwBwAHMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAIA////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAACABAAAAAAAABAAAAAIAAAD+////BQAAAP7///8GAAAABwAAAAgAAAD+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+2kEHHiYXREbFqAMDwKDYoIUM0EggAAAA5EwAABTUAALE8wWoBAAYAIgAAABkAAAARAgAACgAAAAEAAAAB782rXAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACQAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5MzY4MjY1RS04NUZFLTExZDEtOEJFMy0wMDAwRjg3NTREQTEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACADgAAAEhpZGVTZWxlY3Rpb24ABQAAAEwAAAAADAAAAEluZGVudGF0aW9uABEAAABODQAAAAcAAAAAAAAAAAAFAKDXxAAGAAAAAAAAAAUAAIC45xkAAQAAAFwAH97svQEABQAA6BkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANEAKAAAATGluZVN0eWxlAAkAAABJCgAAAAEAAAANAAAATW91c2VQb2ludGVyAAkAAABJCgAAAAAAAAAOAAAAUGF0aFNlcGFyYXRvcgAKAAAASAAAAAABAAAAXAYAAABTdHlsZQAJAAAASQoAAAAGAAAADAAAAE9MRURyYWdNb2RlAAkAAABJCgAAAAAAAAAMAAAAT0xFRHJvcE1vZGUACQAAAEkKAAAAAAAAAA4AAABGdWxsUm93U2VsZWN0AAUAAABMAQAAAAoAAABTaW5nbGVTZWwABQAAAEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+		*< END OBJECT: BaseClass="olecontrol" OLEObject="c:\windows\syswow64\mscomctl.ocx" Value="0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAEAAAAgAAAAEAAAD+////AAAAAAAAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9/////v////7///8EAAAA/v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////1IAbwBvAHQAIABFAG4AdAByAHkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAUA//////////8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHBFZmDWVNkBAwAAAEACAAAAAAAAAwBPAGwAZQBPAGIAagBlAGMAdABEAGEAdABhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAgEDAAAAAgAAAP////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAagAAAAAAAAADAEEAYwBjAGUAcwBzAE8AYgBqAFMAaQB0AGUARABhAHQAYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgACAP///////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABcAAAAAAAAAAMAQwBoAGEAbgBnAGUAZABQAHIAbwBwAHMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAIA////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAACABAAAAAAAABAAAAAIAAAD+////BQAAAP7///8GAAAABwAAAAgAAAD+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+2kEHHiYXREbFqAMDwKDYoIUM0EggAAAA5EwAABTUAALE8wWoBAAYAIgAAABkAAAARAgAACgAAAAEAAAAB782rXAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACQAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5MzY4MjY1RS04NUZFLTExZDEtOEJFMy0wMDAwRjg3NTREQTEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACADgAAAEhpZGVTZWxlY3Rpb24ABQAAAEwAAAAADAAAAEluZGVudGF0aW9uABEAAABODQAAAAcAAAAAAAAAAAAFAEiG5AAGAAAAAAAAAAUAAIA44BkAAQAAAFwAH97svQEABQCA4BkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANEAKAAAATGluZVN0eWxlAAkAAABJCgAAAAEAAAANAAAATW91c2VQb2ludGVyAAkAAABJCgAAAAAAAAAOAAAAUGF0aFNlcGFyYXRvcgAKAAAASAAAAAABAAAAXAYAAABTdHlsZQAJAAAASQoAAAAGAAAADAAAAE9MRURyYWdNb2RlAAkAAABJCgAAAAAAAAAMAAAAT0xFRHJvcE1vZGUACQAAAEkKAAAAAAAAAA4AAABGdWxsUm93U2VsZWN0AAUAAABMAQAAAAoAAABTaW5nbGVTZWwABQAAAEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
 
 	ADD OBJECT 'containerRight' AS container WITH ;
 		Anchor = 15, ;
@@ -1628,7 +1606,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		FontSize = 8, ;
 		Left = 108, ;
 		Name = "comboViewPosition", ;
-		Picture = ..\, ;
+		Picture = ..\..\data\default\, ;
 		Style = 2, ;
 		TabIndex = 24, ;
 		TabStop = .F., ;
@@ -3145,79 +3123,68 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		
 		Local;
 			lcCollate               As String,;
-			lcField                 As String,;
 			lcOrderBy               As String,;
 			lcSearchEngineResultsAlias As String,;
 			lcSearchResultsAlias    As String,;
-			lcSecondarySortField    As String,;
-			lcSecondarySortOrder    As String,;
-			lcSortField             As String,;
-			lcSortOrder             As String,;
-			lcTertiarySortField     As String,;
-			lcTertiarySortOrder     As String,;
-			lnSelect                As Number,;
 			llReturn                As Boolean,;
-			loColumn                As Object,;
+			lnSelect                As Number,;
 			loException             As Object
-		
-		Local Array;
-			laFilter(1,2)
 		
 		lcSearchEngineResultsAlias = Thisform.oSearchEngine.cSearchResultsAlias
 		lcSearchResultsAlias       = Thisform.cSearchResultsAlias
 		
 		lnSelect  = Select()
-		lcOrderBy = ""
+		*lcOrderBy = ""
 		llReturn  = .T.
 		
-		*** JRN 11/06/2015 : using !Empty(Field( to provide for case of changed field names in GF 5
-		*-- Construct Order By clause for Select statement from stored form property
-		If !Empty(Thisform.cSortField) And !Empty(Field(Thisform.cSortField, m.lcSearchEngineResultsAlias))
-			lcSortField = Thisform.cSortField
-			lcSortOrder = Thisform.cSortOrder
-			If (Empty(m.lcSortOrder) Or ("ASC" $ Upper(m.lcSortOrder)))
-				lcSortOrder = "ASC"
-			Endif
-			lcOrderBy = m.lcSortField + " " + m.lcSortOrder
-		Endif
+		*!*	*** JRN 11/06/2015 : using !Empty(Field( to provide for case of changed field names in GF 5
+		*!*	*-- Construct Order By clause for Select statement from stored form property
+		*!*	If !Empty(Thisform.cSortField) And !Empty(Field(Thisform.cSortField, m.lcSearchEngineResultsAlias))
+		*!*		lcSortField = Thisform.cSortField
+		*!*		lcSortOrder = Thisform.cSortOrder
+		*!*		If (Empty(m.lcSortOrder) Or ("ASC" $ Upper(m.lcSortOrder)))
+		*!*			lcSortOrder = "ASC"
+		*!*		Endif
+		*!*		lcOrderBy = m.lcSortField + " " + m.lcSortOrder
+		*!*	Endif
 		
-		If !Empty(Thisform.cSortFieldSecondary) And !Empty(Field(Thisform.cSortFieldSecondary, m.lcSearchEngineResultsAlias))
-			lcSecondarySortField = Thisform.cSortFieldSecondary
-			lcSecondarySortOrder = Thisform.cSortOrderSecondary
-			If (Empty(m.lcSecondarySortOrder) Or ("ASC" $ Upper(m.lcSecondarySortOrder)))
-				lcSecondarySortOrder = "ASC"
-			Endif
-			lcOrderBy = m.lcOrderBy + ", " + m.lcSecondarySortField + " " + m.lcSecondarySortOrder
-		Endif
+		*!*	If !Empty(Thisform.cSortFieldSecondary) And !Empty(Field(Thisform.cSortFieldSecondary, m.lcSearchEngineResultsAlias))
+		*!*		lcSecondarySortField = Thisform.cSortFieldSecondary
+		*!*		lcSecondarySortOrder = Thisform.cSortOrderSecondary
+		*!*		If (Empty(m.lcSecondarySortOrder) Or ("ASC" $ Upper(m.lcSecondarySortOrder)))
+		*!*			lcSecondarySortOrder = "ASC"
+		*!*		Endif
+		*!*		lcOrderBy = m.lcOrderBy + ", " + m.lcSecondarySortField + " " + m.lcSecondarySortOrder
+		*!*	Endif
 		
-		If !Empty(Thisform.cSortFieldTertiary) And !Empty(Field(Thisform.cSortFieldTertiary, m.lcSearchEngineResultsAlias))
-			lcTertiarySortField = Thisform.cSortFieldTertiary
-			lcTertiarySortOrder = Thisform.cSortOrderTertiary
-			If (Empty(m.lcTertiarySortOrder) Or ("ASC" $ Upper(m.lcTertiarySortOrder)))
-				lcTertiarySortOrder = "ASC"
-			Endif
-			lcOrderBy = m.lcOrderBy + ", " + m.lcTertiarySortField + " " + m.lcTertiarySortOrder
-		Endif
+		*!*	If !Empty(Thisform.cSortFieldTertiary) And !Empty(Field(Thisform.cSortFieldTertiary, m.lcSearchEngineResultsAlias))
+		*!*		lcTertiarySortField = Thisform.cSortFieldTertiary
+		*!*		lcTertiarySortOrder = Thisform.cSortOrderTertiary
+		*!*		If (Empty(m.lcTertiarySortOrder) Or ("ASC" $ Upper(m.lcTertiarySortOrder)))
+		*!*			lcTertiarySortOrder = "ASC"
+		*!*		Endif
+		*!*		lcOrderBy = m.lcOrderBy + ", " + m.lcTertiarySortField + " " + m.lcTertiarySortOrder
+		*!*	Endif
 		
-		If Empty(m.lcOrderBy)
-			lcOrderBy           = "filename, class, name, methodname"
-			Thisform.cSortField = Getwordnum(m.lcOrderBy, 1, ",")
-		Else
-			lcOrderBy = Alltrim(m.lcOrderBy, 1, ",")
-		Endif
+		*!*	If Empty(m.lcOrderBy)
+		*!*		lcOrderBy           = "filename, class, name, methodname"
+		*!*		Thisform.cSortField = Getwordnum(m.lcOrderBy, 1, ",")
+		*!*	Else
+		*!*		lcOrderBy = Alltrim(m.lcOrderBy, 1, ",")
+		*!*	Endif
 		
-		Thisform.cOrderBy = m.lcOrderBy
+		*!*	Thisform.cOrderBy = m.lcOrderBy
 		
-		*-- Make header bold for primary sort column
-		If Thisform.lInit
-			For Each m.loColumn In Thisform.oGrid.Columns
-				loColumn.header1.FontBold = .F.
-				lcField                   = Getwordnum(m.loColumn.ControlSource, 2, ".")
-				If Upper(m.lcField) = Upper(Getwordnum(m.lcOrderBy, 1, ", "))
-					loColumn.header1.FontBold = .T.
-				Endif
-			Endfor
-		Endif
+		*!*	*-- Make header bold for primary sort column
+		*!*	If Thisform.lInit
+		*!*		For Each m.loColumn In Thisform.oGrid.Columns
+		*!*			loColumn.header1.FontBold = .F.
+		*!*			lcField                   = Getwordnum(m.loColumn.ControlSource, 2, ".")
+		*!*			If Upper(m.lcField) = Upper(Getwordnum(m.lcOrderBy, 1, ", "))
+		*!*				loColumn.header1.FontBold = .T.
+		*!*			Endif
+		*!*		Endfor
+		*!*	Endif
 		
 		*-- This gives us case insensitive sorting...
 		lcCollate = Set("Collate")
@@ -3227,35 +3194,37 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		
 		Endtry
 		
-		If !"filepath "$Lower(m.lcOrderBy) Then
-			lcOrderBy =  "filepath," + m.lcOrderBy
-		Endif &&!"filepath "$Lower(m.lcOrderBy)
+		*!*	If !"filepath "$Lower(m.lcOrderBy) Then
+		*!*		lcOrderBy =  "filepath," + m.lcOrderBy
+		*!*	Endif &&!"filepath "$Lower(m.lcOrderBy)
 		
-		If !Empty(Field("datetime",m.lcSearchEngineResultsAlias)) Then
-			lcOrderBy =  "datetime ," + m.lcOrderBy
-		Endif &&!Empty(Field("datetime",m.lcSearchEngineResultsAlias))
+		*!*	If !Empty(Field("datetime",m.lcSearchEngineResultsAlias)) Then
+		*!*		lcOrderBy =  "datetime ," + m.lcOrderBy
+		*!*	Endif &&!Empty(Field("datetime",m.lcSearchEngineResultsAlias))
 		
-		If !"filename "$Lower(m.lcOrderBy) Then
-			lcOrderBy = m.lcOrderBy + ",filename "
-		Endif &&!"filename "$Lower(m.lcOrderBy)
-		If !"class "$Lower(m.lcOrderBy) Then
-			lcOrderBy = m.lcOrderBy + ",class "
-		Endif &&!"class "$Lower(m.lcOrderBy)
-		If !"name "$Lower(m.lcOrderBy) Then
-			lcOrderBy = m.lcOrderBy + ",name "
-		Endif &&!"name "$Lower(m.lcOrderBy)
-		If !"methodname "$Lower(m.lcOrderBy) Then
-			lcOrderBy = m.lcOrderBy + ",methodname "
-		Endif &&!"methodname "$Lower(m.lcOrderBy)
-		If !"matchstart "$Lower(m.lcOrderBy) Then
-			lcOrderBy = m.lcOrderBy + ",MatchStart "
-		Endif &&!"matchstart "$Lower(m.lcOrderBy)
+		*!*	If !"filename "$Lower(m.lcOrderBy) Then
+		*!*		lcOrderBy = m.lcOrderBy + ",filename "
+		*!*	Endif &&!"filename "$Lower(m.lcOrderBy)
+		*!*	If !"class "$Lower(m.lcOrderBy) Then
+		*!*		lcOrderBy = m.lcOrderBy + ",class "
+		*!*	Endif &&!"class "$Lower(m.lcOrderBy)
+		*!*	If !"name "$Lower(m.lcOrderBy) Then
+		*!*		lcOrderBy = m.lcOrderBy + ",name "
+		*!*	Endif &&!"name "$Lower(m.lcOrderBy)
+		*!*	If !"methodname "$Lower(m.lcOrderBy) Then
+		*!*		lcOrderBy = m.lcOrderBy + ",methodname "
+		*!*	Endif &&!"methodname "$Lower(m.lcOrderBy)
+		*!*	If !"matchstart "$Lower(m.lcOrderBy) Then
+		*!*		lcOrderBy = m.lcOrderBy + ",MatchStart "
+		*!*	Endif &&!"matchstart "$Lower(m.lcOrderBy)
+		
+		lcOrderBy = This.Get_ResultOrderBy()
 		
 		If Reccount(m.lcSearchEngineResultsAlias)=0 Then
 			tcUni = ""
 		Else  &&RECCOUNT(m.lcSearchEngineResultsAlias)=0
 			Select (m.lcSearchEngineResultsAlias)
-			GO BOTTOM 
+			Go Bottom
 			tcUni = cUni
 		Endif &&RECCOUNT(m.lcSearchEngineResultsAlias)=0
 		
@@ -3267,22 +3236,51 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Order By &lcOrderBy) Source ;
 		Into Cursor (m.lcSearchResultsAlias) Readwrite
 		
+				Try
+		*Was zu testen ist
 			Select *;
-				From (m.lcSearchEngineResultsAlias);
-				Into Cursor (m.lcSearchResultsAlias) Readwrite;
-				Order By &lcOrderBy
+			 From (m.lcSearchEngineResultsAlias);
+			 Into Cursor (m.lcSearchResultsAlias) Readwrite;
+			 Order By &lcOrderBy
+		
+		
+					Catch To m.loException When m.loException.ErrorNo=1808
+						Messagebox("Error sorting, all sort fields reset to default",0,"GoFish")
+		* Error to catch, ORDER BY is invalid
+		* we asssume an odd field like memo is used
+		*reset the sort fields
+						Store "" To;
+							Thisform.cSortField,;
+							Thisform.cSortOrder,;
+							Thisform.cSortFieldSecondary,;
+							Thisform.cSortOrderSecondary,;
+							Thisform.cSortFieldTertiary,;
+							Thisform.cSortOrderTertiary
+		*Get OrderBy again
+						lcOrderBy = This.Get_ResultOrderBy()
+		*Rerun
+			Select *;
+			 From (m.lcSearchEngineResultsAlias);
+			 Into Cursor (m.lcSearchResultsAlias) Readwrite;
+			 Order By &lcOrderBy
+		
+					Catch
+						Throw
+					Finally
+		*
+				Endtry
 		
 		Else && Otherwise, Zap it and rebuild from GFSE cursor...
 		
 			If m.tlAppend Then
 				Try
 						Update (m.lcSearchResultsAlias) Set;
-							ReplaceRisk = 100
+						 ReplaceRisk = 100
 						Insert Into (m.lcSearchEngineResultsAlias);
 							Select;
-							Cur1.*;
-							From (m.lcSearchResultsAlias) As Cur1
-					Catch To loException
+							 Cur1.*;
+							 From (m.lcSearchResultsAlias) As Cur1
+					Catch To m.loException
 						Messagebox("Failure restoring old search.",0+64,"GoFish",10000)
 						llReturn = .F.
 				Endtry
@@ -3300,10 +3298,39 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Order By &lcOrderBy) Source ;
 		Into Cursor gf_temp_csr Readwrite
 		
-				Select *;
-					From (m.lcSearchEngineResultsAlias);
-					Into Cursor gf_temp_csr Readwrite;
-					Order By &lcOrderBy
+				Try
+		*Was zu testen ist
+						Select *;
+						 From (m.lcSearchEngineResultsAlias);
+						 Into Cursor gf_temp_csr Readwrite;
+						 Order By &lcOrderBy
+		
+		
+					Catch To m.loException When m.loException.ErrorNo=1808
+						Messagebox("Error sorting, all sort fields reset to default",0,"GoFish")
+		* Error to catch, ORDER BY is invalid
+		* we asssume an odd field like memo is used
+		*reset the sort fields
+						Store "" To;
+							Thisform.cSortField,;
+							Thisform.cSortOrder,;
+							Thisform.cSortFieldSecondary,;
+							Thisform.cSortOrderSecondary,;
+							Thisform.cSortFieldTertiary,;
+							Thisform.cSortOrderTertiary
+		*Get OrderBy again
+						lcOrderBy = This.Get_ResultOrderBy()
+		*Rerun
+						Select *;
+						 From (m.lcSearchEngineResultsAlias);
+						 Into Cursor gf_temp_csr Readwrite;
+						 Order By &lcOrderBy
+		
+					Catch
+						Throw
+					Finally
+		*
+				Endtry
 		
 		*-- Update local cursor in order that user has applied
 		*!* ******************** Removed 11/09/2015 *****************
@@ -3359,7 +3386,10 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		*-- This method provides basic grid formatting when form is first launched,
 		*-- then, in the Form.Init(), the user settings will be loaded, which will
 		*-- restore column width and column order based on usee's last sesssion.
+		
+		*switch all Fields (.T.) on, else only a limited range is in options
 		#Define dlDebug .F.
+		
 		Local;
 			lcControlSourceField As String,;
 			lcDynamicBackColor As String,;
@@ -3373,6 +3403,21 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 			laFields(44, 6)
 		
 		lnRow = 01
+		
+		*!*	laFields:
+		*!*	(m.lnRow, 1) = controlsource
+		*!*	(m.lnRow, 2) = Default column order
+		*!*	(m.lnRow, 3) = Caption, if emptyas controlsource
+		*!*	(m.lnRow, 4) = Usage:
+		*!*	 <0: only if dlDebug is .T., no column in the grid
+		*!*	 -2: Group "Control" in options control fields, not visible as default, only if dlDebug is .T.
+		*!*	 -1: Group "Debug" in options, not visible as default, only if dlDebug is .T.
+		*!*	  0: Group "Default" in options, visible as default
+		*!*	  1: Alternative group #1 in options, not visible as default
+		*!*	  2: Alternative group #2 in options, not visible as default
+		*!*	  3: Replace group disabled in options, visibility will switch with replace mode
+		*!*	  4: Replace group enabled in options, not visible as default
+		*!*	(m.lnRow, 5) = column.width
 		
 		*default
 		laFields(m.lnRow, 1) = "FILENAME"
@@ -3518,9 +3563,9 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		lnRow = m.lnRow+1
 		laFields(m.lnRow, 1) = "TIMESTAMP"
 		laFields(m.lnRow, 2) = m.lnRow
-		laFields(m.lnRow, 3) = ""
-		laFields(m.lnRow, 4) = -1
-		laFields(m.lnRow, 5) = 0
+		laFields(m.lnRow, 3) = "File/Record time stamp"
+		laFields(m.lnRow, 4) = 1
+		laFields(m.lnRow, 5) = 125
 		
 		lnRow = m.lnRow+1
 		laFields(m.lnRow, 1) = "TYPE"
@@ -4031,6 +4076,95 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		
 		Return m.liID
 		
+	ENDPROC
+
+	PROCEDURE get_resultorderby		&& Get the Order By clause for the reult cursor
+		Local;
+			lcField  As String,;
+			lcOrderBy As String,;
+			lcSortField As String,;
+			lcSortOrder As String,;
+			loColumn As Object,;
+			lcSearchEngineResultsAlias As String
+		
+		lcSearchEngineResultsAlias = Thisform.oSearchEngine.cSearchResultsAlias
+		
+		lcOrderBy = ""
+		
+		*** JRN 11/06/2015 : using !Empty(Field( to provide for case of changed field names in GF 5
+		*-- Construct Order By clause for Select statement from stored form property
+		If !Empty(Thisform.cSortField) And !Empty(Field(Thisform.cSortField, m.lcSearchEngineResultsAlias))
+			lcSortField = Thisform.cSortField
+			lcSortOrder = Thisform.cSortOrder
+			If (Empty(m.lcSortOrder) Or ("ASC" $ Upper(m.lcSortOrder)))
+				lcSortOrder = "ASC"
+			Endif
+			lcOrderBy = m.lcSortField + " " + m.lcSortOrder
+		Endif
+		
+		If !Empty(Thisform.cSortFieldSecondary) And !Empty(Field(Thisform.cSortFieldSecondary, m.lcSearchEngineResultsAlias))
+			lcSortField = Thisform.cSortFieldSecondary
+			lcSortOrder = Thisform.cSortOrderSecondary
+			If (Empty(m.lcSortOrder) Or ("ASC" $ Upper(m.lcSortOrder)))
+				lcSortOrder = "ASC"
+			Endif
+			lcOrderBy = m.lcOrderBy + ", " + m.lcSortField + " " + m.lcSortOrder
+		Endif
+		
+		If !Empty(Thisform.cSortFieldTertiary) And !Empty(Field(Thisform.cSortFieldTertiary, m.lcSearchEngineResultsAlias))
+			lcSortField = Thisform.cSortFieldTertiary
+			lcSortOrder = Thisform.cSortOrderTertiary
+			If (Empty(m.lcSortOrder) Or ("ASC" $ Upper(m.lcSortOrder)))
+				lcSortOrder = "ASC"
+			Endif
+			lcOrderBy = m.lcOrderBy + ", " + m.lcSortField + " " + m.lcSortOrder
+		Endif
+		
+		If Empty(m.lcOrderBy)
+			lcOrderBy           = "filename, class, name, methodname"
+			Thisform.cSortField = Getwordnum(m.lcOrderBy, 1, ",")
+		Else
+			lcOrderBy = Alltrim(m.lcOrderBy, 1, ",")
+		Endif
+		
+		Thisform.cOrderBy = m.lcOrderBy
+		
+		*-- Make header bold for primary sort column
+		If Thisform.lInit
+			For Each m.loColumn In Thisform.oGrid.Columns
+				loColumn.header1.FontBold = .F.
+				lcField                   = Getwordnum(m.loColumn.ControlSource, 2, ".")
+				If Upper(m.lcField) = Upper(Getwordnum(m.lcOrderBy, 1, ", "))
+					loColumn.header1.FontBold = .T.
+				Endif
+			Endfor
+		Endif
+		
+		If !"filepath "$Lower(m.lcOrderBy) Then
+			lcOrderBy =  "filepath," + m.lcOrderBy
+		Endif &&!"filepath "$Lower(m.lcOrderBy)
+		
+		If !Empty(Field("datetime",m.lcSearchEngineResultsAlias)) Then
+			lcOrderBy =  "datetime ," + m.lcOrderBy
+		Endif &&!Empty(Field("datetime",m.lcSearchEngineResultsAlias))
+		
+		If !"filename "$Lower(m.lcOrderBy) Then
+			lcOrderBy = m.lcOrderBy + ",filename "
+		Endif &&!"filename "$Lower(m.lcOrderBy)
+		If !"class "$Lower(m.lcOrderBy) Then
+			lcOrderBy = m.lcOrderBy + ",class "
+		Endif &&!"class "$Lower(m.lcOrderBy)
+		If !"name "$Lower(m.lcOrderBy) Then
+			lcOrderBy = m.lcOrderBy + ",name "
+		Endif &&!"name "$Lower(m.lcOrderBy)
+		If !"methodname "$Lower(m.lcOrderBy) Then
+			lcOrderBy = m.lcOrderBy + ",methodname "
+		Endif &&!"methodname "$Lower(m.lcOrderBy)
+		If !"matchstart "$Lower(m.lcOrderBy) Then
+			lcOrderBy = m.lcOrderBy + ",MatchStart "
+		Endif &&!"matchstart "$Lower(m.lcOrderBy)
+		
+		Return m.lcOrderBy
 	ENDPROC
 
 	PROCEDURE gridcolumnrightclick
@@ -9101,7 +9235,11 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Endif
 		
 		lcResultsGridHtmlCursor = "ResultsGridHtml"
-		Select &lcFieldList From &lcCursor &lcFilter &lcOrderBy Into Cursor &lcResultsGridHtmlCursor Readwrite
+		Select &lcFieldList;
+		 From &lcCursor;
+		 &lcFilter;
+		 &lcOrderBy;
+		 Into Cursor &lcResultsGridHtmlCursor Readwrite
 		
 		If "matchtype" $ Lower(lcFieldList)
 			Replace matchtype With Strtran(matchtype, "<", "") All
@@ -9174,14 +9312,6 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		
 		This.Visible = (".PJX" $ Upper(Thisform.comboSearchScopeHistory.Text))
 		
-	ENDPROC
-
-	PROCEDURE ButtonContainer.chkMatchWholeWord.Click
-		Thisform.oSearchEngine.ClearReplaceSettings()
-	ENDPROC
-
-	PROCEDURE ButtonContainer.chkMatchWholeWord.Refresh
-		This.Enabled = !Thisform.lSearching &&and !Thisform.lReplaceViewMode
 	ENDPROC
 
 	PROCEDURE ButtonContainer.chkSubdirectories.Refresh

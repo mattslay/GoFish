@@ -143,11 +143,15 @@ Note that *Clear* and *Clear All* only clear the data of the active mode, "Searc
 The columns of the grid are reordered. 
 The previous way to create the grid was very uncomfortable when changing the table structure,
 this is changed from visual to code based.   
-Due to this, the column information stored will not survive version change.
-#### Visibility
+Due to this, the column information stored will not survive version change.   
+#### Visibility   
+
 The page *Column Selection* on options form is reordered and suppresses fields with internal function.
-They could bw turned on by a change in source code, there is a define `dlDebug` in `GF_ResultsForm.FormatGrid`.   
-A way to set the grid to default is added. Fields belonging to the replace function are highlighted in *Replaced* back colour.
+They could be turned on by a change in source code, there is a define `dlDebug` in `GF_ResultsForm.FormatGrid`.   
+A way to set the grid to default is added. Fields belonging to the replace function are highlighted in *Replaced* back colour.   
+If you think you need a certain field, please post an [issue](https://github.com/VFPX/GoFish/issues).   
+The full list of fields, cyan is turned off by default, reds are just internal data, normaly turned off:   
+![File list](./Screenshots/GF6_AllFields.png)
 
 ----
-Last changed: _2023/03/10_  ![Picture](./pictures/vfpxpoweredby_alternative.gif)
+Last changed: _2023/03/12_  ![Picture](./pictures/vfpxpoweredby_alternative.gif)
