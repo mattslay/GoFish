@@ -9,6 +9,23 @@ Replaces the lists in
 - ChangeLog_Ver_5.txt
 
 ----
+## Ver 6.0.006
+**Released 2023-03-12**
+### Changes
+- Fixed: Suppress error with odd ORDER BY from old version #53
+- Fixed: Check box *Whole Word* was not framed when non default value #7
+
+## Ver 6.0.005
+**Released 2023-03-11**
+### Changes
+- Improved: Screen to help with the duplicate issue #53
+  SET SAFETY ON to help to find the problem
+
+## Ver 6.0.004
+**Released 2023-03-11**
+### Changes
+- Improved: `SET SAFETY OFF` to circumvent a problem with double copy. (issue #53) Until real fix.
+
 ## Ver 6.0.003
 **Released 2023-03-10**
 ### Changes
@@ -453,4 +470,4 @@ For more details check [Changes on V6](./New_6.md).
 - Park Ave Marketing firm suggests rename - "Go Fish"
 
 ----
-Last changed: _2023/03/08_  ![Picture](./pictures/vfpxpoweredby_alternative.gif)
+Last changed: _2023/03/12_  ![Picture](./pictures/vfpxpoweredby_alternative.gif)

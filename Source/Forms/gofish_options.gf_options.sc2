@@ -1393,7 +1393,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 
 	ADD OBJECT 'pfSettings.pageColours.Label1' AS label WITH ;
 		BackStyle = 0, ;
-		Caption = "Frame colour", ;
+		Caption = "Frame colour (Non default value)", ;
 		Height = 17, ;
 		Left = 21, ;
 		Name = "Label1", ;
@@ -2315,6 +2315,21 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		loPageframe			  = Thisform.pfSettings
 		loContainerCheckBoxes = m.loPageframe.pageColumns.containerColumnCheckBoxes
 		lnContainerHeight	  = m.loContainerCheckBoxes.Height
+		
+		*!*	This.oForm.gaFields:
+		*!*	(m.lnRow, 1) = controlsource
+		*!*	(m.lnRow, 2) = Default column order
+		*!*	(m.lnRow, 3) = Caption, if emptyas controlsource
+		*!*	(m.lnRow, 4) = Usage:
+		*!*	 <0: only if dlDebug is .T., no column in the grid
+		*!*	 -2: Group "Control" in options control fields, not visible as default, only if dlDebug is .T.
+		*!*	 -1: Group "Debug" in options, not visible as default, only if dlDebug is .T.
+		*!*	  0: Group "Default" in options, visible as default
+		*!*	  1: Alternative group #1 in options, not visible as default
+		*!*	  2: Alternative group #2 in options, not visible as default
+		*!*	  3: Replace group disabled in options, visibility will switch with replace mode
+		*!*	  4: Replace group enabled in options, not visible as default
+		*!*	(m.lnRow, 5) = column.width
 		
 		Local Array;
 			laFieldNames[This.oForm.oGrid.ColumnCount, 7]
