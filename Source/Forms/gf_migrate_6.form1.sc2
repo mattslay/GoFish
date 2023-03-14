@@ -16,7 +16,7 @@ DEFINE CLASS form1 AS form
 	Caption = "Migrating to Version 6"
 	Desktop = .T.
 	DoCreate = .T.
-	Height = 460
+	Height = 470
 	Name = "Form1"
 	Width = 832
 
@@ -27,7 +27,7 @@ DEFINE CLASS form1 AS form
 		Height = 27, ;
 		Left = 735, ;
 		Name = "Command1", ;
-		Top = 425, ;
+		Top = 435, ;
 		Width = 84
 		*< END OBJECT: BaseClass="commandbutton" />
 
@@ -35,7 +35,7 @@ DEFINE CLASS form1 AS form
 		BorderStyle = 0, ;
 		FontName = "Calibri", ;
 		FontSize = 12, ;
-		Height = 415, ;
+		Height = 425, ;
 		Left = 5, ;
 		Name = "Edit1", ;
 		ReadOnly = .T., ;

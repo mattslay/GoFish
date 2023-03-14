@@ -54,6 +54,8 @@ lcSettingsFile = Addbs(Home(7)) + "GoFish_"
 
 If !Directory(m.lcSettingsFile) Then
 	Mkdir (Addbs(Home(7)) + "GoFish_")
+	DO FORM gf_migrate_6.scx
+	READ EVENTS
 	If File(Addbs(Home(7)) + "GF_Results_Form_Settings.xml") Then
 lcOlSafety = SET("Safety")
 SET Safety OFF
