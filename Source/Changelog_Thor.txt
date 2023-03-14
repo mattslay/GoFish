@@ -1,5 +1,10 @@
 GoFish Change Log
 
+## Ver 6.0.007
+**Released 2023-03-12**
+### Changes
+- Improved: Screen to help with the duplicate issue #53 (again)
+
 ## Ver 6.0.006
 **Released 2023-03-12**
 ### Changes
