@@ -7,20 +7,22 @@
 DEFINE CLASS gf_versionlabel AS label 
  	*< CLASSDATA: Baseclass="label" Timestamp="" Scale="Pixels" Uniqueid="" />
 
-	Alignment = 1
-	Anchor = 8
-	BackColor = 0,128,0
-	BackStyle = 0
-	Caption = "Version"
-	FontBold = .F.
-	FontItalic = .F.
-	FontName = "Tahoma"
-	FontSize = 8
-	ForeColor = 0,0,0
-	Height = 13
-	Name = "gf_versionlabel"
-	TabIndex = 12
-	Width = 228
+	*<PropValue>
+		Alignment = 1
+		Anchor = 8
+		BackColor = 0,128,0
+		BackStyle = 0
+		Caption = "Version"
+		FontBold = .F.
+		FontItalic = .F.
+		FontName = "Tahoma"
+		FontSize = 8
+		ForeColor = 0,0,0
+		Height = 13
+		Name = "gf_versionlabel"
+		TabIndex = 12
+		Width = 228
+	*</PropValue>
 	
 	PROCEDURE Refresh
 		Local lcAppName, lcVersion

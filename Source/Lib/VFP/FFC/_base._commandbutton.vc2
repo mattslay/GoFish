@@ -35,18 +35,20 @@ DEFINE CLASS _commandbutton AS commandbutton 		&& Foundation CommandButton class
 		*a: aobjectrefs[1,3]		&& Array of object references properties.
 	*</DefinedPropArrayMethod>
 
-	builder = 		&& Bulder property.
-	builderx = (HOME()+"Wizards\BuilderD,BuilderDForm")		&& BuilderX property.
-	Caption = "Command1"
-	csetobjrefprogram = (IIF(VERSION(2)=0,"",HOME()+"FFC\")+"SetObjRf.prg")		&& Program to be called when when setting an object references via the SetObjectRef method.
-	cversion = 		&& Version property.
-	Height = 27
-	Name = "_commandbutton"
-	ninstances = 0		&& Number of instances.
-	nobjectrefcount = 0		&& Returns the number of items in the object reference array property aObjectRefs.
-	ohost = .NULL.		&& Object reference to host object (generally THISFORM), which is automatically set on Init if lSetHost is .T.
-	vresult = .T.		&& Variant result property for internal usage when calling programs in PRGs and a return file is required.
-	Width = 84
+	*<PropValue>
+		builder = 
+		builderx = (HOME()+"Wizards\BuilderD,BuilderDForm")
+		Caption = "Command1"
+		csetobjrefprogram = (IIF(VERSION(2)=0,"",HOME()+"FFC\")+"SetObjRf.prg")
+		cversion = 
+		Height = 27
+		Name = "_commandbutton"
+		ninstances = 0
+		nobjectrefcount = 0
+		ohost = .NULL.
+		vresult = .T.
+		Width = 84
+	*</PropValue>
 	
 	PROTECTED PROCEDURE addtoproject		&& Dummy code for adding files to project.
 		*-- Dummy code for adding files to project.

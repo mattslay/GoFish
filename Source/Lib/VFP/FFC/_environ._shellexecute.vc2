@@ -11,7 +11,9 @@ DEFINE CLASS _shellexecute AS _custom OF "_base.vcx" 		&& Opens a file in the ap
 		*m: shellexecute		&& Runs ShellExecute API routine, which is simlar to double-clicking file in explorer.  Parameters: (cFileName, cWorkDir, cOperation, cParams)
 	*</DefinedPropArrayMethod>
 
-	Name = "_shellexecute"
+	*<PropValue>
+		Name = "_shellexecute"
+	*</PropValue>
 	
 	PROCEDURE shellexecute		&& Runs ShellExecute API routine, which is simlar to double-clicking file in explorer.  Parameters: (cFileName, cWorkDir, cOperation, cParams)
 		* WinApi :: ShellExecute

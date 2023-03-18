@@ -11,8 +11,10 @@ DEFINE CLASS _runcode AS _custom OF "_base.vcx" 		&& Runs a block of VFP code vi
 		*m: runcode		&& RunCode(cCode[, lFile] [,llgnoreErrors])
 	*</DefinedPropArrayMethod>
 
-	cversion = 1.02
-	Name = "_runcode"
+	*<PropValue>
+		cversion = 1.02
+		Name = "_runcode"
+	*</PropValue>
 	
 	PROCEDURE Error
 		LPARAMETERS nError, cMethod, nLine

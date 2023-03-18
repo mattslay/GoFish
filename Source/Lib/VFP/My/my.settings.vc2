@@ -17,20 +17,22 @@ DEFINE CLASS settings AS mybase OF "my.vcx" 		&& Provides application settings
 	*</DefinedPropArrayMethod>
 
 	PROTECTED osettings
-	cnamespace = My.Settings
-	Name = "settings"
-	osettings = .NULL.		&& A collection of settings
-	_memberdata = <VFPData>
-		<memberdata name="openmytable" type="method" display="OpenMyTable"/>
-		<memberdata name="addmembers" type="method" display="AddMembers"/>
-		<memberdata name="cnamespace" type="property" display="cNameSpace"/>
-		<memberdata name="builder" type="property" display="Builder"/>
-		<memberdata name="load" type="method" display="Load"/>
-		<memberdata name="save" type="method" display="Save"/>
-		<memberdata name="osettings" type="property" display="oSettings"/>
-		<memberdata name="add" type="method" display="Add"/>
-		<memberdata name="exists" type="method" display="Exists"/>
+	*<PropValue>
+		cnamespace = My.Settings
+		Name = "settings"
+		osettings = .NULL.
+		_memberdata = <VFPData>
+			<memberdata name="openmytable" type="method" display="OpenMyTable"/>
+			<memberdata name="addmembers" type="method" display="AddMembers"/>
+			<memberdata name="cnamespace" type="property" display="cNameSpace"/>
+			<memberdata name="builder" type="property" display="Builder"/>
+			<memberdata name="load" type="method" display="Load"/>
+			<memberdata name="save" type="method" display="Save"/>
+			<memberdata name="osettings" type="property" display="oSettings"/>
+			<memberdata name="add" type="method" display="Add"/>
+			<memberdata name="exists" type="method" display="Exists"/>
 		</VFPData>
+	*</PropValue>
 	
 	PROCEDURE add		&& Adds a new setting
 		* Add a new setting to our collection and as a property.

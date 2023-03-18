@@ -9,6 +9,11 @@ Replaces the lists in
 - ChangeLog_Ver_5.txt
 
 ----
+## Ver 6.0.007
+**Released 2023-03-18**
+### Changes
+- Improved: Pre-update screen for bug search.
+
 ## Ver 6.0.006
 **Released 2023-03-12**
 ### Changes
@@ -470,4 +475,4 @@ For more details check [Changes on V6](./New_6.md).
 - Park Ave Marketing firm suggests rename - "Go Fish"
 
 ----
-Last changed: _2023/03/12_  ![Picture](./pictures/vfpxpoweredby_alternative.gif)
+Last changed: _2023/03/18_  ![Picture](./pictures/vfpxpoweredby_alternative.gif)

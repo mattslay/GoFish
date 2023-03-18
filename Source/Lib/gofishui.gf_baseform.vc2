@@ -29,37 +29,39 @@ DEFINE CLASS gf_baseform AS form
 		*p: _memberdata		&& XML Metadata for customizable properties
 	*</DefinedPropArrayMethod>
 
-	Caption = "GoFish"
-	ccr_storelocal = (ADDBS(HOME(7) + 'GoFish_'))		&& Location of storage.
-	csavedbc = GF_Result.dbc		&& Database to store settings and history.
-	csaveddbc = 		&& Last DBC used.
-	cuisettingsfile = 
-	Desktop = .T.
-	DoCreate = .T.
-	Height = 325
-	lsavesettings = .T.		&& This property can be used to prevent the form from saving its settings when closed. It will start out .T. each time GoFish is launched.
-	Name = "gf_baseform"
-	nfirstload = 0		&& LoadFormSettings is not run once.
-	oform = .NULL.
-	omy = .NULL.
-	osearchengine = .NULL.
-	osearchoptions = .NULL.
-	Width = 662
-	_memberdata = <VFPData>
-		<memberdata name="loadformsettings" display="LoadFormSettings"/>
-		<memberdata name="cuisettingsfile" display="cUISettingsFile"/>
-		<memberdata name="saveformsettings" display="SaveFormSettings"/>
-		<memberdata name="oform" display="oForm"/>
-		<memberdata name="osearchengine" display="oSearchEngine"/>
-		<memberdata name="osearchoptions" display="oSearchOptions"/>
-		<memberdata name="omy" display="oMy"/>
-		<memberdata name="copyobjectproperties" display="CopyObjectProperties"/>
-		<memberdata name="nfirstload" type="property" display="nFirstLoad" favorites="False"/>
-		<memberdata name="ccr_storelocal" type="property" display="cCR_StoreLocal" favorites="False"/>
-		<memberdata name="lcr_allow" type="property" display="lCR_Allow" favorites="False"/>
-		<memberdata name="csavedbc" type="property" display="cSaveDBC" favorites="False"/>
-		<memberdata name="lsavesettings" type="property" display="lSaveSettings" favorites="False"/>
-		</VFPData>		&& XML Metadata for customizable properties
+	*<PropValue>
+		Caption = "GoFish"
+		ccr_storelocal = (ADDBS(HOME(7) + 'GoFish_'))
+		csavedbc = GF_Result.dbc
+		csaveddbc = 
+		cuisettingsfile = 
+		Desktop = .T.
+		DoCreate = .T.
+		Height = 325
+		lsavesettings = .T.
+		Name = "gf_baseform"
+		nfirstload = 0
+		oform = .NULL.
+		omy = .NULL.
+		osearchengine = .NULL.
+		osearchoptions = .NULL.
+		Width = 662
+		_memberdata = <VFPData>
+			<memberdata name="loadformsettings" display="LoadFormSettings"/>
+			<memberdata name="cuisettingsfile" display="cUISettingsFile"/>
+			<memberdata name="saveformsettings" display="SaveFormSettings"/>
+			<memberdata name="oform" display="oForm"/>
+			<memberdata name="osearchengine" display="oSearchEngine"/>
+			<memberdata name="osearchoptions" display="oSearchOptions"/>
+			<memberdata name="omy" display="oMy"/>
+			<memberdata name="copyobjectproperties" display="CopyObjectProperties"/>
+			<memberdata name="nfirstload" type="property" display="nFirstLoad" favorites="False"/>
+			<memberdata name="ccr_storelocal" type="property" display="cCR_StoreLocal" favorites="False"/>
+			<memberdata name="lcr_allow" type="property" display="lCR_Allow" favorites="False"/>
+			<memberdata name="csavedbc" type="property" display="cSaveDBC" favorites="False"/>
+			<memberdata name="lsavesettings" type="property" display="lSaveSettings" favorites="False"/>
+		</VFPData>
+	*</PropValue>
 	
 	PROCEDURE Activate
 		Set Talk Off && Just in case user has turn this on somehow or accidentally

@@ -27,23 +27,25 @@ DEFINE CLASS gf_progressbar AS container
 		*p: _memberdata		&& XML Metadata for customizable properties
 	*</DefinedPropArrayMethod>
 
-	BorderColor = 0,0,0
-	csetcursor = 
-	Height = 102
-	Name = "gf_progressbar"
-	nmaxvalue = 0
-	nvalue = 0
-	Width = 485
-	_memberdata = <VFPData>
-		<memberdata name="reset" display="Reset"/>
-		<memberdata name="update" display="Update"/>
-		<memberdata name="nvalue" display="nValue"/>
-		<memberdata name="nmaxvalue" display="nMaxValue"/>
-		<memberdata name="nvalue_assign" display="nValue_Assign"/>
-		<memberdata name="start" display="Start"/>
-		<memberdata name="csetcursor" display="cSetCursor"/>
-		<memberdata name="stop" display="Stop"/>
-		</VFPData>		&& XML Metadata for customizable properties
+	*<PropValue>
+		BorderColor = 0,0,0
+		csetcursor = 
+		Height = 102
+		Name = "gf_progressbar"
+		nmaxvalue = 0
+		nvalue = 0
+		Width = 485
+		_memberdata = <VFPData>
+			<memberdata name="reset" display="Reset"/>
+			<memberdata name="update" display="Update"/>
+			<memberdata name="nvalue" display="nValue"/>
+			<memberdata name="nmaxvalue" display="nMaxValue"/>
+			<memberdata name="nvalue_assign" display="nValue_Assign"/>
+			<memberdata name="start" display="Start"/>
+			<memberdata name="csetcursor" display="cSetCursor"/>
+			<memberdata name="stop" display="Stop"/>
+		</VFPData>
+	*</PropValue>
 
 	ADD OBJECT 'bar' AS container WITH ;
 		BackColor = 0,64,128, ;

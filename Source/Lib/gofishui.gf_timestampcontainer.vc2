@@ -14,27 +14,29 @@ DEFINE CLASS gf_timestampcontainer AS gf_filtercheckboxcontainer OF "gofishui.vc
 	*< OBJECTDATA: ObjPath="txtTimeStampFrom" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="txtTimeStampTo" UniqueID="" Timestamp="" />
 
-	Height = 111
-	Name = "gf_timestampcontainer"
-	Width = 206
-	Label1.Height = 16
-	Label1.Left = 137
-	Label1.Name = "Label1"
-	Label1.Top = 2
-	Label1.Visible = .F.
-	Label1.Width = 60
-	Command1.Name = "Command1"
-	Command1.Top = 88
-	Command1.Visible = .F.
-	Command2.Name = "Command2"
-	Command2.Top = 88
-	Command2.Visible = .F.
-	LINE1.Name = "LINE1"
-	LINE1.Width = 195
-	LINE2.Name = "LINE2"
-	LINE2.Top = 83
-	LINE2.Visible = .F.
-	LINE2.Width = 194
+	*<PropValue>
+		Height = 111
+		Name = "gf_timestampcontainer"
+		Width = 206
+		Label1.Height = 16
+		Label1.Left = 137
+		Label1.Name = "Label1"
+		Label1.Top = 2
+		Label1.Visible = .F.
+		Label1.Width = 60
+		Command1.Name = "Command1"
+		Command1.Top = 88
+		Command1.Visible = .F.
+		Command2.Name = "Command2"
+		Command2.Top = 88
+		Command2.Visible = .F.
+		LINE1.Name = "LINE1"
+		LINE1.Width = 195
+		LINE2.Name = "LINE2"
+		LINE2.Top = 83
+		LINE2.Visible = .F.
+		LINE2.Width = 194
+	*</PropValue>
 
 	ADD OBJECT 'chkTimeStamp' AS checkbox WITH ;
 		Alignment = 0, ;

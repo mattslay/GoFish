@@ -23,11 +23,13 @@ DEFINE CLASS _set AS _custom OF "_base.vcx" 		&& Used to save, set, and restore 
 	*</DefinedPropArrayMethod>
 
 	PROTECTED csetcommand,lerror,lnorestore,uoldvalue,uoldvalue1,uoldvalue2
-	csetcommand = 		&& The SET command name.
-	Name = "_set"
-	uoldvalue = .NULL.		&& The original setting of the SET command as SET(<command>).
-	uoldvalue1 = .NULL.		&& The original setting of the SET command as SET(<command>,1).
-	uoldvalue2 = .NULL.		&& The original setting of the SET command as SET(<command>,2).
+	*<PropValue>
+		csetcommand = 
+		Name = "_set"
+		uoldvalue = .NULL.
+		uoldvalue1 = .NULL.
+		uoldvalue2 = .NULL.
+	*</PropValue>
 	
 	PROTECTED PROCEDURE checkvalue		&& Returns the proper SET(<command>) value baesd on the SET command name.
 		LPARAMETERS tcValue

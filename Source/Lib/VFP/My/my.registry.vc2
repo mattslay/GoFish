@@ -25,31 +25,33 @@ DEFINE CLASS registry AS mybase OF "my.vcx" 		&& Provides access to the Windows 
 	*</DefinedPropArrayMethod>
 
 	PROTECTED ccurrentkey,ncurrentkey,ncurrentmainkey,nmainkey
-	ccurrentkey = 		&& The key to use for the current access
-	cnamespace = My.Computer.Registry
-	Name = "registry"
-	ncurrentkey = 0		&& The current open key handle
-	ncurrentmainkey = 0		&& The current hive being accessed
-	nmainkey = 0		&& The default hive being accessed
-	_memberdata = <VFPData>
-		<memberdata name="openmytable" type="method" display="OpenMyTable"/>
-		<memberdata name="addmembers" type="method" display="AddMembers"/>
-		<memberdata name="cnamespace" type="property" display="cNameSpace"/>
-		<memberdata name="builder" type="property" display="Builder"/>
-		<memberdata name="closekey" type="method" display="CloseKey"/>
-		<memberdata name="deletekey" type="method" display="DeleteKey"/>
-		<memberdata name="deletekeyvalue" type="method" display="DeleteKeyValue"/>
-		<memberdata name="getkey" type="method" display="GetKey"/>
-		<memberdata name="getvalue" type="method" display="GetValue"/>
-		<memberdata name="openkey" type="method" display="OpenKey"/>
-		<memberdata name="setvalue" type="method" display="SetValue"/>
-		<memberdata name="ccurrentkey" type="property" display="cCurrentKey"/>
-		<memberdata name="ncurrentkey" type="property" display="nCurrentKey"/>
-		<memberdata name="ncurrentmainkey" type="property" display="nCurrentMainKey"/>
-		<memberdata name="nmainkey" type="property" display="nMainKey"/>
-		<memberdata name="enumeratekeys" type="method" display="EnumerateKeys"/>
-		<memberdata name="enumeratekeyvalues" type="method" display="EnumerateKeyValues"/>
+	*<PropValue>
+		ccurrentkey = 
+		cnamespace = My.Computer.Registry
+		Name = "registry"
+		ncurrentkey = 0
+		ncurrentmainkey = 0
+		nmainkey = 0
+		_memberdata = <VFPData>
+			<memberdata name="openmytable" type="method" display="OpenMyTable"/>
+			<memberdata name="addmembers" type="method" display="AddMembers"/>
+			<memberdata name="cnamespace" type="property" display="cNameSpace"/>
+			<memberdata name="builder" type="property" display="Builder"/>
+			<memberdata name="closekey" type="method" display="CloseKey"/>
+			<memberdata name="deletekey" type="method" display="DeleteKey"/>
+			<memberdata name="deletekeyvalue" type="method" display="DeleteKeyValue"/>
+			<memberdata name="getkey" type="method" display="GetKey"/>
+			<memberdata name="getvalue" type="method" display="GetValue"/>
+			<memberdata name="openkey" type="method" display="OpenKey"/>
+			<memberdata name="setvalue" type="method" display="SetValue"/>
+			<memberdata name="ccurrentkey" type="property" display="cCurrentKey"/>
+			<memberdata name="ncurrentkey" type="property" display="nCurrentKey"/>
+			<memberdata name="ncurrentmainkey" type="property" display="nCurrentMainKey"/>
+			<memberdata name="nmainkey" type="property" display="nMainKey"/>
+			<memberdata name="enumeratekeys" type="method" display="EnumerateKeys"/>
+			<memberdata name="enumeratekeyvalues" type="method" display="EnumerateKeyValues"/>
 		</VFPData>
+	*</PropValue>
 	
 	PROTECTED PROCEDURE closekey		&& Closes the current registry key
 		* Close the current key and blank the current key value.

@@ -35,32 +35,34 @@ DEFINE CLASS _optiongroup AS optiongroup 		&& Foundation OptionGroup class.
 		*a: aobjectrefs[1,3]		&& Array of object references properties.
 	*</DefinedPropArrayMethod>
 
-	builder = 		&& Bulder property.
-	builderx = (HOME()+"Wizards\BuilderD,BuilderDForm")		&& BuilderX property.
-	ButtonCount = 2
-	csetobjrefprogram = (IIF(VERSION(2)=0,"",HOME()+"FFC\")+"SetObjRf.prg")		&& Program to be called when when setting an object references via the SetObjectRef method.
-	cversion = 		&& Version property.
-	Height = 46
-	Name = "_optiongroup"
-	ninstances = 0		&& Number of instances.
-	nobjectrefcount = 0		&& Returns the number of items in the object reference array property aObjectRefs.
-	ohost = .NULL.		&& Object reference to host object (generally THISFORM), which is automatically set on Init if lSetHost is .T.
-	Value = 1
-	vresult = .T.		&& Variant result property for internal usage when calling programs in PRGs and a return file is required.
-	Width = 71
-	Option1.Caption = "Option1"
-	Option1.Height = 17
-	Option1.Left = 5
-	Option1.Name = "Option1"
-	Option1.Top = 5
-	Option1.Value = 1
-	Option1.Width = 61
-	Option2.Caption = "Option2"
-	Option2.Height = 17
-	Option2.Left = 5
-	Option2.Name = "Option2"
-	Option2.Top = 24
-	Option2.Width = 61
+	*<PropValue>
+		builder = 
+		builderx = (HOME()+"Wizards\BuilderD,BuilderDForm")
+		ButtonCount = 2
+		csetobjrefprogram = (IIF(VERSION(2)=0,"",HOME()+"FFC\")+"SetObjRf.prg")
+		cversion = 
+		Height = 46
+		Name = "_optiongroup"
+		ninstances = 0
+		nobjectrefcount = 0
+		ohost = .NULL.
+		Value = 1
+		vresult = .T.
+		Width = 71
+		Option1.Caption = "Option1"
+		Option1.Height = 17
+		Option1.Left = 5
+		Option1.Name = "Option1"
+		Option1.Top = 5
+		Option1.Value = 1
+		Option1.Width = 61
+		Option2.Caption = "Option2"
+		Option2.Height = 17
+		Option2.Left = 5
+		Option2.Name = "Option2"
+		Option2.Top = 24
+		Option2.Width = 61
+	*</PropValue>
 	
 	PROTECTED PROCEDURE addtoproject		&& Dummy code for adding files to project.
 		*-- Dummy code for adding files to project.

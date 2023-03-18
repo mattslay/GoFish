@@ -17,22 +17,24 @@ DEFINE CLASS gf_combosearchexpressionhistory AS combobox
 		*p: _memberdata		&& XML Metadata for customizable properties
 	*</DefinedPropArrayMethod>
 
-	Anchor = 10
-	ctable = 
-	Height = 24
-	Name = "gf_combosearchexpressionhistory"
-	nexpressionstostore = 15
-	nmaxmru = 7
-	Visible = .F.
-	Width = 100
-	_memberdata = <VFPData>
-		<memberdata name="nexpressionstostore" display="nExpressionsToStore"/>
-		<memberdata name="opentable" display="OpenTable"/>
-		<memberdata name="loadrows" display="LoadRows"/>
-		<memberdata name="ctable" display="cTable"/>
-		<memberdata name="savesearchexpression" display="SaveSearchExpression"/>
-		<memberdata name="nmaxmru" display="nMaxMRU"/>
-		</VFPData>		&& XML Metadata for customizable properties
+	*<PropValue>
+		Anchor = 10
+		ctable = 
+		Height = 24
+		Name = "gf_combosearchexpressionhistory"
+		nexpressionstostore = 15
+		nmaxmru = 7
+		Visible = .F.
+		Width = 100
+		_memberdata = <VFPData>
+			<memberdata name="nexpressionstostore" display="nExpressionsToStore"/>
+			<memberdata name="opentable" display="OpenTable"/>
+			<memberdata name="loadrows" display="LoadRows"/>
+			<memberdata name="ctable" display="cTable"/>
+			<memberdata name="savesearchexpression" display="SaveSearchExpression"/>
+			<memberdata name="nmaxmru" display="nMaxMRU"/>
+		</VFPData>
+	*</PropValue>
 	
 	PROCEDURE Click
 		This.Visible = .F.

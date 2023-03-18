@@ -13,13 +13,15 @@ DEFINE CLASS gf_grid AS grid
 		*p: _memberdata		&& XML Metadata for customizable properties
 	*</DefinedPropArrayMethod>
 
-	Height = 200
-	Name = "gf_grid"
-	Width = 320
-	_memberdata = <VFPData>
-		<memberdata name="arrangecolumns" display="ArrangeColumns"/>
-		<memberdata name="findcolumn" display="FindColumn"/>
-		</VFPData>		&& XML Metadata for customizable properties
+	*<PropValue>
+		Height = 200
+		Name = "gf_grid"
+		Width = 320
+		_memberdata = <VFPData>
+			<memberdata name="arrangecolumns" display="ArrangeColumns"/>
+			<memberdata name="findcolumn" display="FindColumn"/>
+		</VFPData>
+	*</PropValue>
 	
 	PROCEDURE arrangecolumns
 		Local laColumns[1], lnColumnCount, lnI, loColumn

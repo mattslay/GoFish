@@ -8,11 +8,11 @@
 - Fork the project: see this [guide](https://www.dataschool.io/how-to-contribute-on-github/) for setting up and using a fork.
   - If allready forked, pull the recent state, or get most recent version otherwise.
 - Make whatever changes are necessary.
-- Add a description of the changes to **[docs\Changes.md](/docs/Changes.md)**. See previous changes.
+- In **[docs\Changes.md](/docs/Changes.md)** add a description of the changes . See previous changes.
 - on top of **[readme.md](/readme.md)**, change:
   - version number and
   - date
-- Copy the changes of the recent (and only the recent) version to **Source\Changelog_Thor.txt**, available in the project.
+- In **Source\Changelog_Thor.txt**, copy the changes of the recent (and only the recent) version. File isavailable in the project.
 - If there is more documentation, alter appropriate files
 - In the footer of any file changed, alter date.
 
@@ -33,4 +33,4 @@
 - Create a pull request; ensure the description clearly describes the problem and solution or the enhancement.
 
 ----
-Last changed: 2023-03-08
+Last changed: 2023-03-18

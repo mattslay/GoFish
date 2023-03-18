@@ -10,24 +10,26 @@ DEFINE CLASS gf_textboxcontainer AS gf_filtercheckboxcontainer OF "gofishui.vcx"
 	*-- OBJECTDATA items order determines ZOrder / El orden de los items OBJECTDATA determina el ZOrder 
 	*< OBJECTDATA: ObjPath="txt1" UniqueID="" Timestamp="" />
 
-	Height = 390
-	Name = "gf_textboxcontainer"
-	_memberdata = <VFPData>
-		<memberdata name="clear" display="Clear"/>
+	*<PropValue>
+		Height = 390
+		Name = "gf_textboxcontainer"
+		_memberdata = <VFPData>
+			<memberdata name="clear" display="Clear"/>
 		</VFPData>
-	Label1.Name = "Label1"
-	Command1.Caption = "Clear"
-	Command1.Height = 21
-	Command1.Left = 10
-	Command1.Name = "Command1"
-	Command1.Top = 366
-	Command1.Width = 43
-	Command2.Left = 65
-	Command2.Name = "Command2"
-	Command2.Top = 366
-	Command2.Visible = .F.
-	LINE1.Name = "LINE1"
-	LINE2.Name = "LINE2"
+		Label1.Name = "Label1"
+		Command1.Caption = "Clear"
+		Command1.Height = 21
+		Command1.Left = 10
+		Command1.Name = "Command1"
+		Command1.Top = 366
+		Command1.Width = 43
+		Command2.Left = 65
+		Command2.Name = "Command2"
+		Command2.Top = 366
+		Command2.Visible = .F.
+		LINE1.Name = "LINE1"
+		LINE2.Name = "LINE2"
+	*</PropValue>
 
 	ADD OBJECT 'txt1' AS textbox WITH ;
 		Anchor = 10, ;

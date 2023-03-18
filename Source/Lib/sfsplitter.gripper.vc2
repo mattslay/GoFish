@@ -23,19 +23,21 @@ DEFINE CLASS gripper AS container
 		*p: _memberdata		&& XML Metadata for customizable properties
 	*</DefinedPropArrayMethod>
 
-	BackStyle = 0
-	BorderWidth = 0
-	Height = 19
-	Name = "gripper"
-	ndots = 5		&& Enter a number from 0 to 5 to indicate how many gripper dots to show. Enter 0 for none.
-	Width = 36
-	_memberdata = <VFPData>
-		<memberdata name="ndots" type="property" display="nDots"/>
-		<memberdata name="repositiononresize" type="method" display="RepositionOnResize"/>
-		<memberdata name="setupforhorizontalsplitter" type="method" display="SetupForHorizontalSplitter"/>
-		<memberdata name="setupforverticalsplitter" type="method" display="SetupForVerticalSplitter"/>
-		<memberdata name="setupgripper" type="method" display="SetupGripper"/>
-		</VFPData>		&& XML Metadata for customizable properties
+	*<PropValue>
+		BackStyle = 0
+		BorderWidth = 0
+		Height = 19
+		Name = "gripper"
+		ndots = 5
+		Width = 36
+		_memberdata = <VFPData>
+			<memberdata name="ndots" type="property" display="nDots"/>
+			<memberdata name="repositiononresize" type="method" display="RepositionOnResize"/>
+			<memberdata name="setupforhorizontalsplitter" type="method" display="SetupForHorizontalSplitter"/>
+			<memberdata name="setupforverticalsplitter" type="method" display="SetupForVerticalSplitter"/>
+			<memberdata name="setupgripper" type="method" display="SetupGripper"/>
+		</VFPData>
+	*</PropValue>
 
 	ADD OBJECT 'GripperDot1' AS gripperdot WITH ;
 		Left = 2, ;

@@ -27,25 +27,27 @@ DEFINE CLASS gf_filtercheckboxcontainer AS container
 		*p: _memberdata		&& XML Metadata for customizable properties
 	*</DefinedPropArrayMethod>
 
-	BorderColor = 150,150,150
-	cfilter = 
-	Height = 390
-	ldecorated = .F.
-	Name = "gf_filtercheckboxcontainer"
-	ncheckboxcount = 0
-	Width = 218
-	_memberdata = <VFPData>
-		<memberdata name="setallcheckboxes" display="SetAllCheckBoxes"/>
-		<memberdata name="cfilter" display="cFilter"/>
-		<memberdata name="ncheckboxcount" display="nCheckBoxCount"/>
-		<memberdata name="bordercolor" display="BorderColor"/>
-		<memberdata name="clear" display="Clear"/>
-		<memberdata name="decorate" display="Decorate"/>
-		<memberdata name="cleardecoration" display="ClearDecoration"/>
-		<memberdata name="ldecorated" display="lDecorated"/>
-		<memberdata name="ldecorated_assign" display="lDecorated_Assign"/>
-		<memberdata name="shouldbedecorated" display="ShouldBeDecorated"/>
-		</VFPData>		&& XML Metadata for customizable properties
+	*<PropValue>
+		BorderColor = 150,150,150
+		cfilter = 
+		Height = 390
+		ldecorated = .F.
+		Name = "gf_filtercheckboxcontainer"
+		ncheckboxcount = 0
+		Width = 218
+		_memberdata = <VFPData>
+			<memberdata name="setallcheckboxes" display="SetAllCheckBoxes"/>
+			<memberdata name="cfilter" display="cFilter"/>
+			<memberdata name="ncheckboxcount" display="nCheckBoxCount"/>
+			<memberdata name="bordercolor" display="BorderColor"/>
+			<memberdata name="clear" display="Clear"/>
+			<memberdata name="decorate" display="Decorate"/>
+			<memberdata name="cleardecoration" display="ClearDecoration"/>
+			<memberdata name="ldecorated" display="lDecorated"/>
+			<memberdata name="ldecorated_assign" display="lDecorated_Assign"/>
+			<memberdata name="shouldbedecorated" display="ShouldBeDecorated"/>
+		</VFPData>
+	*</PropValue>
 
 	ADD OBJECT 'Command1' AS commandbutton WITH ;
 		Anchor = 4, ;

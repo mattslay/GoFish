@@ -27,20 +27,22 @@ DEFINE CLASS form1 AS gf_baseform OF "..\lib\gofishui.vcx"
 		*p: cuni
 	*</DefinedPropArrayMethod>
 
-	Caption = "Load search results from search history."
-	cuisettingsfile = GF_Search_History_Form_Settings.xml
-	cuni = 
-	DoCreate = .T.
-	Height = 391
-	Left = 0
-	Name = "Form1"
-	ShowTips = .T.
-	Top = 0
-	Width = 748
-	WindowType = 1
-	_memberdata = <VFPData>
-		<memberdata name="cuni" display="cUni"/>
+	*<PropValue>
+		Caption = "Load search results from search history."
+		cuisettingsfile = GF_Search_History_Form_Settings.xml
+		cuni = 
+		DoCreate = .T.
+		Height = 391
+		Left = 0
+		Name = "Form1"
+		ShowTips = .T.
+		Top = 0
+		Width = 748
+		WindowType = 1
+		_memberdata = <VFPData>
+			<memberdata name="cuni" display="cUni"/>
 		</VFPData>
+	*</PropValue>
 
 	ADD OBJECT 'cmdCancel' AS commandbutton WITH ;
 		Anchor = 12, ;
