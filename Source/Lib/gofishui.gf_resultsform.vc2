@@ -301,220 +301,222 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		*a: gafields[1,6]		&& Array to control default behaviour of fields. Instead of setting in grid. See FormatGrid for definition.
 	*</DefinedPropArrayMethod>
 
-	AllowOutput = .F.
-	BorderStyle = 3
-	cactiveproject = 
-	Caption = "GoFish 4.4"
-	cbrowseproject = 
-	ccurrentdir = 
-	ccurrentid = 
-	cdonotrenderextensions = (' DOC DOCX XLS XLXS PDF CHM ')		&& A list of common file types that cannot be rendered in the code viewer on the GoFish form.
-	cfilter = 
-	cfilteroptionsclass = GF_SearchResultsFilter
-	cfilteroptionsxmlfile = GF_Filter_Settings.xml
-	chtmlcodeviewfilename = 
-	cinitialdefaultdir = 
-	conkeylabeldot = 
-	corderby = 
-	creplaceline = 
-	creplaceudffilename = 
-	cresultsmessage = 
-	csavedsearchresultsfolder = GF_Saved_Search_Results		&& This property value is used by the RemoveFolder() function in the GoFishProc.prg file. If changed here, you'll need to update code in that fucntion also.
-	csearchoptionsxmlfile = GF_Search_Settings.xml
-	csearchresultsalias = csrSummarySearchResults
-	csearchresultsmessage = 
-	csortfield = 
-	csortfields = 
-	csortfieldsecondary = 
-	csortfieldtertiary = 
-	csortorder = 
-	csortordersecondary = 
-	csortordertertiary = 
-	ctreeviewfilter = 
-	cuisettingsfile = GF_Results_Form_Settings.xml
-	DataSession = 2
-	Desktop = .F.
-	dlastjanitorrundate = ({//})
-	Dockable = 0
-	DoCreate = .T.
-	FontName = "Tahoma"
-	Height = 595
-	KeyPreview = .T.
-	lapplyfilter = .F.
-	lautoyield = .F.
-	lclearapplyfilter = .F.
-	lcodeonly = .F.
-	lcr_local_default = .T.		&& Local storage will be created on standard place by default.
-	ldesktop = .F.		&& The setting for Desktop
-	Left = 0
-	lgooglechromeframe = .F.		&& Indicates if the HTML view should be generated using the Google Chrome frame plug-ing for Internet Explorer. Slower due to file activity, but allows selecting of text from matched row in html view.
-	linit = .F.
-	lmaximizecodeview = .F.
-	lmovenewcodetotopleft = .T.
-	lonlyfirstmatchinstatement = .F.
-	lreplaceformvisible = .F.
-	lreplaceviewmode = .F.
-	lrestoreprevioussearchresultsonstartup = .F.
-	lrunjanitordaily = .F.
-	lsavesearchresults = .T.
-	lsearchformvisible = .F.
-	lsearching = .F.
-	lwarnwholeword = .F.
-	MaxWidth = -1
-	MinHeight = 425
-	MinWidth = 800
-	Name = "gf_resultsform"
-	nbrowserzoom = 0.9
-	ncodewindowposition = 1		&& *** nEnum 1=Below; 2= on Right; 3 = on Left
-	ncontainerframecolour = (RGB(255,  0,  0))		&& Frame colour for several containers, in case red is something you do not see.
-	ncss_tr_even_colour = (RGB(0xa8,0xfa,0xf4))		&& CSS für tr:even
-	ncss_tr_odd_colour = (RGB(0xD1,0xF1,0xEF))		&& CSS für tr:odd
-	ndropdowndisplaycount = 30		&& Controls the numbner of history items shown in the Search Expression and Scope history dropdown boxes.
-	ndropdownmaxmru = 7
-	nfiledefaultdynamicforecolour = (RGB(  0,  0,  0))		&& Grid, dynamic fore colour file type Default
-	nfileprgdynamicforecolour = (RGB(255,  0,  0))		&& Grid, dynamic fore colour file type PRG
-	nfilescxdynamicforecolour = (RGB(  0,  0,128))		&& Grid, dynamic fore colour file type SCX
-	nfilevcxdynamicforecolour = (RGB(  0,128,  0))		&& Grid, dynamic fore colour file type VCX
-	ngridfontsize = 8
-	njanitorreplacehistorydays = 10000
-	njanitorsearchhistorydays = 10000
-	nmaxsizetorenderhtml = 5000000		&& If the code from the match is too large, the HTML rendering can be slow. This will skip the html rendering for code blocks larger than this size and just display it as plaint text.
-	noriginalsearchscope = 0		&& The original value of nSearchScope on the SearchOptions after reading the xml files. Used to restore value right before saving the settings upon exit (if SearchScope combo is used).
-	nprevioussessiontreeviewindex = 0
-	nreplaceddynamicbackcolour = (RGB(149,249,147))		&& Grid, dynamic back colour replaced
-	nreplacemode = 0
-	nreplacerisk = 1
-	nrisk1dynamicbackcolour = (Rgb(0, 176, 80))		&& Grid, dynamic back colour replace risk value 1
-	nrisk2dynamicbackcolour = (Rgb(255,255,128))		&& Grid, dynamic back colour replace risk value 2
-	nrisk3dynamicbackcolour = (Rgb(255,192,  0))		&& Grid, dynamic back colour replace risk value 3
-	nriskexceededdynamicbackcolour = (Rgb(210,210,210))		&& Grid, dynamic back colour replace risk exceeds setting
-	nsearchboxfontsize = 9
-	nsplitterposratio = 0
-	ntabstospaces = 0
-	ntreesearchcolour = (RGB(  0,128,  0))		&& Tree colour while searching?
-	ntreeupdatecolour = (RGB(128,  0,  0))		&& Tree colour while updateing?
-	ntreeviewfontsize = 8
-	obrowser = .NULL.
-	ofilter = 
-	ogrid = .NULL.
-	otree = .NULL.
-	owebcontrol = .NULL.
-	Picture = ..\..\data\default\
-	ShowTips = .T.
-	TabStop = .T.
-	Top = -1
-	Visible = .T.
-	Width = 1000
-	WindowState = 2
-	WindowType = 0
-	_memberdata = <VFPData>
-		<memberdata name="osearchengine" display="oSearchEngine"/>
-		<memberdata name="csearchresultsalias" display="cSearchResultsAlias"/>
-		<memberdata name="csearchoptionsxmlfile" display="cSearchOptionsXMLFile"/>
-		<memberdata name="cuisettingsfile" display="cUISettingsFile"/>
-		<memberdata name="ogrid" display="oGrid"/>
-		<memberdata name="cinitialdefaultdir" display="cInitialDefaultDir"/>
-		<memberdata name="chtmlcodeviewfilename" display="cHtmlCodeViewFilename"/>
-		<memberdata name="cbrowseproject" display="cBrowseProject"/>
-		<memberdata name="ccurrentdir" display="cCurrentDir"/>
-		<memberdata name="cactiveproject" display="cActiveProject"/>
-		<memberdata name="ccurrentid" display="cCurrentId"/>
-		<memberdata name="obrowser" display="oBrowser"/>
-		<memberdata name="nbrowserzoom" display="nBrowserZoom"/>
-		<memberdata name="lsearchformvisible" display="lSearchFormVisible"/>
-		<memberdata name="otree" display="oTree"/>
-		<memberdata name="cfilter" display="cFilter"/>
-		<memberdata name="csortorder" display="cSortOrder"/>
-		<memberdata name="csortfields" display="cSortFields"/>
-		<memberdata name="ngridfontsize" display="nGridFontSize"/>
-		<memberdata name="navigatetomasterrecord" display="NavigateToMasterRecord"/>
-		<memberdata name="lsearching" display="lSearching"/>
-		<memberdata name="linit" display="lInit"/>
-		<memberdata name="owebcontrol" display="oWebControl"/>
-		<memberdata name="csearchresultsmessage" display="cSearchResultsMessage"/>
-		<memberdata name="cresultsmessage" display="cResultsMessage"/>
-		<memberdata name="lapplyfilter" display="lApplyFilter"/>
-		<memberdata name="lreplaceformvisible" display="lReplaceFormVisible"/>
-		<memberdata name="lreplaceviewmode" display="lReplaceViewMode"/>
-		<memberdata name="lreplacemode_assign" display="lReplaceMode_Assign"/>
-		<memberdata name="nreplacerisk" display="nReplaceRisk"/>
-		<memberdata name="creplaceline" display="cReplaceLine"/>
-		<memberdata name="cdonotrenderextensions" display="cDoNotRenderExtensions"/>
-		<memberdata name="noriginalsearchscope" display="nOriginalSearchScope"/>
-		<memberdata name="nreplacemode" display="nReplaceMode"/>
-		<memberdata name="creplaceudffilename" display="cReplaceUDFFilename"/>
-		<memberdata name="nsplitterposratio" display="nSplitterPosRatio"/>
-		<memberdata name="osearchoptions" display="oSearchOptions"/>
-		<memberdata name="lautoyield" display="lAutoYield"/>
-		<memberdata name="ndropdowndisplaycount" display="nDropDownDisplayCount"/>
-		<memberdata name="lgooglechromeframe" display="lGoogleChromeFrame"/>
-		<memberdata name="nmaxsizetorenderhtml" display="nMaxSizeToRenderHtml"/>
-		<memberdata name="ndropdownmaxmru" display="nDropDownMaxMRU"/>
-		<memberdata name="lclearapplyfilter" display="lClearApplyFilter"/>
-		<memberdata name="lwarnwholeword" display="lWarnWholeWord"/>
-		<memberdata name="conkeylabeldot" display="cOnKeyLabelDot"/>
-		<memberdata name="csortordersecondary" display="cSortOrderSecondary"/>
-		<memberdata name="csortfieldsecondary" display="cSortFieldSecondary"/>
-		<memberdata name="csortfieldtertiary" display="cSortFieldTertiary"/>
-		<memberdata name="csortordertertiary" display="cSortOrderTertiary"/>
-		<memberdata name="csortfield" display="cSortField"/>
-		<memberdata name="corderby" display="cOrderBy"/>
-		<memberdata name="nprevioussessiontreeviewindex" display="nPreviousSessionTreeviewIndex"/>
-		<memberdata name="csavedsearchresultsfolder" display="cSavedSearchResultsFolder"/>
-		<memberdata name="lrestoreprevioussearchresultsonstartup" display="lRestorePreviousSearchResultsOnStartup"/>
-		<memberdata name="ldesktop" display="lDesktop"/>
-		<memberdata name="nfirstload" type="property" display="nFirstLoad" favorites="False"/>
-		<memberdata name="gafields" type="property" display="gaFields" favorites="False"/>
-		<memberdata name="ccr_storelocal_option" type="property" display="cCR_StoreLocal_Option"/>
-		<memberdata name="cfilteroptionsclass" type="property" display="cFilterOptionsClass"/>
-		<memberdata name="cfilteroptionsxmlfile" type="property" display="cFilterOptionsXMLFile"/>
-		<memberdata name="csaveddbc" type="property" display="cSavedDBC"/>
-		<memberdata name="ctreeviewfilter" type="property" display="cTreeViewFilter"/>
-		<memberdata name="dlastjanitorrundate" type="property" display="dLastJanitorRunDate"/>
-		<memberdata name="lcodeonly" type="property" display="lCodeOnly"/>
-		<memberdata name="lcr_allowed" type="property" display="lCR_Allowed"/>
-		<memberdata name="lcr_historyperscope" type="property" display="lCR_HistoryPerScope"/>
-		<memberdata name="lcr_historytree" type="property" display="lCR_HistoryTree"/>
-		<memberdata name="lcr_historytreeauto" type="property" display="lCR_HistoryTreeAuto"/>
-		<memberdata name="lcr_local" type="property" display="lCR_Local"/>
-		<memberdata name="lcr_local_default" type="property" display="lCR_Local_Default"/>
-		<memberdata name="lcr_openmode" type="property" display="lCR_OpenMode"/>
-		<memberdata name="lcr_refreshtree" type="property" display="lCR_RefreshTree"/>
-		<memberdata name="lcr_searchcomboperscope" type="property" display="lCR_SearchComboPerScope"/>
-		<memberdata name="lcr_simpletree" type="property" display="lCR_SimpleTree"/>
-		<memberdata name="lcr_sorttreealpha" type="property" display="lCR_SortTreeAlpha"/>
-		<memberdata name="lcr_sorttreebyext" type="property" display="lCR_SortTreeByExt"/>
-		<memberdata name="lcr_store_restart" type="property" display="lCR_Store_Restart"/>
-		<memberdata name="lmaximizecodeview" type="property" display="lMaximizeCodeView"/>
-		<memberdata name="lmovenewcodetotopleft" type="property" display="lMoveNewCodeToTopLeft"/>
-		<memberdata name="lreplacepreview" type="property" display="lReplacePreview"/>
-		<memberdata name="lrunjanitordaily" type="property" display="lRunJanitorDaily"/>
-		<memberdata name="lsavesearchresults" type="property" display="lSaveSearchResults"/>
-		<memberdata name="lonlyfirstmatchinstatement" type="property" display="lOnlyFirstMatchInStatement"/>
-		<memberdata name="lotherhistory" type="property" display="lOtherHistory"/>
-		<memberdata name="ncodewindowposition" type="property" display="nCodeWindowPosition"/>
-		<memberdata name="ncontainerframecolour" type="property" display="nContainerFrameColour"/>
-		<memberdata name="ncss_tr_even_colour" type="property" display="nCSS_Tr_Even_Colour"/>
-		<memberdata name="ncss_tr_odd_colour" type="property" display="nCSS_Tr_Odd_Colour"/>
-		<memberdata name="nfiledefaultdynamicforecolour" type="property" display="nFileDefaultDynamicForeColour"/>
-		<memberdata name="nfileprgdynamicforecolour" type="property" display="nFilePrgDynamicForeColour"/>
-		<memberdata name="nfilescxdynamicforecolour" type="property" display="nFileScxDynamicForeColour"/>
-		<memberdata name="nfilevcxdynamicforecolour" type="property" display="nFileVcxDynamicForeColour"/>
-		<memberdata name="njanitorreplacehistorydays" type="property" display="nJanitorReplaceHistoryDays"/>
-		<memberdata name="njanitorsearchhistorydays" type="property" display="nJanitorSearchHistoryDays"/>
-		<memberdata name="nreplaceddynamicbackcolour" type="property" display="nReplacedDynamicBackColour"/>
-		<memberdata name="nrisk1dynamicbackcolour" type="property" display="nRisk1DynamicBackColour"/>
-		<memberdata name="nrisk2dynamicbackcolour" type="property" display="nRisk2DynamicBackColour"/>
-		<memberdata name="nrisk3dynamicbackcolour" type="property" display="nRisk3DynamicBackColour"/>
-		<memberdata name="nriskexceededdynamicbackcolour" type="property" display="nRiskExceededDynamicBackColour"/>
-		<memberdata name="nsearchboxfontsize" type="property" display="nSearchBoxFontsize"/>
-		<memberdata name="ntabstospaces" type="property" display="nTabsToSpaces"/>
-		<memberdata name="ntreesearchcolour" type="property" display="nTreeSearchColour"/>
-		<memberdata name="ntreeupdatecolour" type="property" display="nTreeUpdateColour"/>
-		<memberdata name="ntreeviewfontsize" type="property" display="nTreeViewFontSize"/>
-		<memberdata name="ofilter" type="property" display="oFilter"/>
-		<memberdata name="lreplace_history" type="property" display="lReplace_History" favorites="False"/>
+	*<PropValue>
+		AllowOutput = .F.
+		BorderStyle = 3
+		cactiveproject = 
+		Caption = "GoFish 4.4"
+		cbrowseproject = 
+		ccurrentdir = 
+		ccurrentid = 
+		cdonotrenderextensions = (' DOC DOCX XLS XLXS PDF CHM ')
+		cfilter = 
+		cfilteroptionsclass = GF_SearchResultsFilter
+		cfilteroptionsxmlfile = GF_Filter_Settings.xml
+		chtmlcodeviewfilename = 
+		cinitialdefaultdir = 
+		conkeylabeldot = 
+		corderby = 
+		creplaceline = 
+		creplaceudffilename = 
+		cresultsmessage = 
+		csavedsearchresultsfolder = GF_Saved_Search_Results
+		csearchoptionsxmlfile = GF_Search_Settings.xml
+		csearchresultsalias = csrSummarySearchResults
+		csearchresultsmessage = 
+		csortfield = 
+		csortfields = 
+		csortfieldsecondary = 
+		csortfieldtertiary = 
+		csortorder = 
+		csortordersecondary = 
+		csortordertertiary = 
+		ctreeviewfilter = 
+		cuisettingsfile = GF_Results_Form_Settings.xml
+		DataSession = 2
+		Desktop = .F.
+		dlastjanitorrundate = ({//})
+		Dockable = 0
+		DoCreate = .T.
+		FontName = "Tahoma"
+		Height = 595
+		KeyPreview = .T.
+		lapplyfilter = .F.
+		lautoyield = .F.
+		lclearapplyfilter = .F.
+		lcodeonly = .F.
+		lcr_local_default = .T.
+		ldesktop = .F.
+		Left = 0
+		lgooglechromeframe = .F.
+		linit = .F.
+		lmaximizecodeview = .F.
+		lmovenewcodetotopleft = .T.
+		lonlyfirstmatchinstatement = .F.
+		lreplaceformvisible = .F.
+		lreplaceviewmode = .F.
+		lrestoreprevioussearchresultsonstartup = .F.
+		lrunjanitordaily = .F.
+		lsavesearchresults = .T.
+		lsearchformvisible = .F.
+		lsearching = .F.
+		lwarnwholeword = .F.
+		MaxWidth = -1
+		MinHeight = 425
+		MinWidth = 800
+		Name = "gf_resultsform"
+		nbrowserzoom = 0.9
+		ncodewindowposition = 1
+		ncontainerframecolour = (RGB(255,  0,  0))
+		ncss_tr_even_colour = (RGB(0xa8,0xfa,0xf4))
+		ncss_tr_odd_colour = (RGB(0xD1,0xF1,0xEF))
+		ndropdowndisplaycount = 30
+		ndropdownmaxmru = 7
+		nfiledefaultdynamicforecolour = (RGB(  0,  0,  0))
+		nfileprgdynamicforecolour = (RGB(255,  0,  0))
+		nfilescxdynamicforecolour = (RGB(  0,  0,128))
+		nfilevcxdynamicforecolour = (RGB(  0,128,  0))
+		ngridfontsize = 8
+		njanitorreplacehistorydays = 10000
+		njanitorsearchhistorydays = 10000
+		nmaxsizetorenderhtml = 5000000
+		noriginalsearchscope = 0
+		nprevioussessiontreeviewindex = 0
+		nreplaceddynamicbackcolour = (RGB(149,249,147))
+		nreplacemode = 0
+		nreplacerisk = 1
+		nrisk1dynamicbackcolour = (Rgb(0, 176, 80))
+		nrisk2dynamicbackcolour = (Rgb(255,255,128))
+		nrisk3dynamicbackcolour = (Rgb(255,192,  0))
+		nriskexceededdynamicbackcolour = (Rgb(210,210,210))
+		nsearchboxfontsize = 9
+		nsplitterposratio = 0
+		ntabstospaces = 0
+		ntreesearchcolour = (RGB(  0,128,  0))
+		ntreeupdatecolour = (RGB(128,  0,  0))
+		ntreeviewfontsize = 8
+		obrowser = .NULL.
+		ofilter = 
+		ogrid = .NULL.
+		otree = .NULL.
+		owebcontrol = .NULL.
+		Picture = ..\..\data\default\
+		ShowTips = .T.
+		TabStop = .T.
+		Top = -1
+		Visible = .T.
+		Width = 1000
+		WindowState = 2
+		WindowType = 0
+		_memberdata = <VFPData>
+			<memberdata name="osearchengine" display="oSearchEngine"/>
+			<memberdata name="csearchresultsalias" display="cSearchResultsAlias"/>
+			<memberdata name="csearchoptionsxmlfile" display="cSearchOptionsXMLFile"/>
+			<memberdata name="cuisettingsfile" display="cUISettingsFile"/>
+			<memberdata name="ogrid" display="oGrid"/>
+			<memberdata name="cinitialdefaultdir" display="cInitialDefaultDir"/>
+			<memberdata name="chtmlcodeviewfilename" display="cHtmlCodeViewFilename"/>
+			<memberdata name="cbrowseproject" display="cBrowseProject"/>
+			<memberdata name="ccurrentdir" display="cCurrentDir"/>
+			<memberdata name="cactiveproject" display="cActiveProject"/>
+			<memberdata name="ccurrentid" display="cCurrentId"/>
+			<memberdata name="obrowser" display="oBrowser"/>
+			<memberdata name="nbrowserzoom" display="nBrowserZoom"/>
+			<memberdata name="lsearchformvisible" display="lSearchFormVisible"/>
+			<memberdata name="otree" display="oTree"/>
+			<memberdata name="cfilter" display="cFilter"/>
+			<memberdata name="csortorder" display="cSortOrder"/>
+			<memberdata name="csortfields" display="cSortFields"/>
+			<memberdata name="ngridfontsize" display="nGridFontSize"/>
+			<memberdata name="navigatetomasterrecord" display="NavigateToMasterRecord"/>
+			<memberdata name="lsearching" display="lSearching"/>
+			<memberdata name="linit" display="lInit"/>
+			<memberdata name="owebcontrol" display="oWebControl"/>
+			<memberdata name="csearchresultsmessage" display="cSearchResultsMessage"/>
+			<memberdata name="cresultsmessage" display="cResultsMessage"/>
+			<memberdata name="lapplyfilter" display="lApplyFilter"/>
+			<memberdata name="lreplaceformvisible" display="lReplaceFormVisible"/>
+			<memberdata name="lreplaceviewmode" display="lReplaceViewMode"/>
+			<memberdata name="lreplacemode_assign" display="lReplaceMode_Assign"/>
+			<memberdata name="nreplacerisk" display="nReplaceRisk"/>
+			<memberdata name="creplaceline" display="cReplaceLine"/>
+			<memberdata name="cdonotrenderextensions" display="cDoNotRenderExtensions"/>
+			<memberdata name="noriginalsearchscope" display="nOriginalSearchScope"/>
+			<memberdata name="nreplacemode" display="nReplaceMode"/>
+			<memberdata name="creplaceudffilename" display="cReplaceUDFFilename"/>
+			<memberdata name="nsplitterposratio" display="nSplitterPosRatio"/>
+			<memberdata name="osearchoptions" display="oSearchOptions"/>
+			<memberdata name="lautoyield" display="lAutoYield"/>
+			<memberdata name="ndropdowndisplaycount" display="nDropDownDisplayCount"/>
+			<memberdata name="lgooglechromeframe" display="lGoogleChromeFrame"/>
+			<memberdata name="nmaxsizetorenderhtml" display="nMaxSizeToRenderHtml"/>
+			<memberdata name="ndropdownmaxmru" display="nDropDownMaxMRU"/>
+			<memberdata name="lclearapplyfilter" display="lClearApplyFilter"/>
+			<memberdata name="lwarnwholeword" display="lWarnWholeWord"/>
+			<memberdata name="conkeylabeldot" display="cOnKeyLabelDot"/>
+			<memberdata name="csortordersecondary" display="cSortOrderSecondary"/>
+			<memberdata name="csortfieldsecondary" display="cSortFieldSecondary"/>
+			<memberdata name="csortfieldtertiary" display="cSortFieldTertiary"/>
+			<memberdata name="csortordertertiary" display="cSortOrderTertiary"/>
+			<memberdata name="csortfield" display="cSortField"/>
+			<memberdata name="corderby" display="cOrderBy"/>
+			<memberdata name="nprevioussessiontreeviewindex" display="nPreviousSessionTreeviewIndex"/>
+			<memberdata name="csavedsearchresultsfolder" display="cSavedSearchResultsFolder"/>
+			<memberdata name="lrestoreprevioussearchresultsonstartup" display="lRestorePreviousSearchResultsOnStartup"/>
+			<memberdata name="ldesktop" display="lDesktop"/>
+			<memberdata name="nfirstload" type="property" display="nFirstLoad" favorites="False"/>
+			<memberdata name="gafields" type="property" display="gaFields" favorites="False"/>
+			<memberdata name="ccr_storelocal_option" type="property" display="cCR_StoreLocal_Option"/>
+			<memberdata name="cfilteroptionsclass" type="property" display="cFilterOptionsClass"/>
+			<memberdata name="cfilteroptionsxmlfile" type="property" display="cFilterOptionsXMLFile"/>
+			<memberdata name="csaveddbc" type="property" display="cSavedDBC"/>
+			<memberdata name="ctreeviewfilter" type="property" display="cTreeViewFilter"/>
+			<memberdata name="dlastjanitorrundate" type="property" display="dLastJanitorRunDate"/>
+			<memberdata name="lcodeonly" type="property" display="lCodeOnly"/>
+			<memberdata name="lcr_allowed" type="property" display="lCR_Allowed"/>
+			<memberdata name="lcr_historyperscope" type="property" display="lCR_HistoryPerScope"/>
+			<memberdata name="lcr_historytree" type="property" display="lCR_HistoryTree"/>
+			<memberdata name="lcr_historytreeauto" type="property" display="lCR_HistoryTreeAuto"/>
+			<memberdata name="lcr_local" type="property" display="lCR_Local"/>
+			<memberdata name="lcr_local_default" type="property" display="lCR_Local_Default"/>
+			<memberdata name="lcr_openmode" type="property" display="lCR_OpenMode"/>
+			<memberdata name="lcr_refreshtree" type="property" display="lCR_RefreshTree"/>
+			<memberdata name="lcr_searchcomboperscope" type="property" display="lCR_SearchComboPerScope"/>
+			<memberdata name="lcr_simpletree" type="property" display="lCR_SimpleTree"/>
+			<memberdata name="lcr_sorttreealpha" type="property" display="lCR_SortTreeAlpha"/>
+			<memberdata name="lcr_sorttreebyext" type="property" display="lCR_SortTreeByExt"/>
+			<memberdata name="lcr_store_restart" type="property" display="lCR_Store_Restart"/>
+			<memberdata name="lmaximizecodeview" type="property" display="lMaximizeCodeView"/>
+			<memberdata name="lmovenewcodetotopleft" type="property" display="lMoveNewCodeToTopLeft"/>
+			<memberdata name="lreplacepreview" type="property" display="lReplacePreview"/>
+			<memberdata name="lrunjanitordaily" type="property" display="lRunJanitorDaily"/>
+			<memberdata name="lsavesearchresults" type="property" display="lSaveSearchResults"/>
+			<memberdata name="lonlyfirstmatchinstatement" type="property" display="lOnlyFirstMatchInStatement"/>
+			<memberdata name="lotherhistory" type="property" display="lOtherHistory"/>
+			<memberdata name="ncodewindowposition" type="property" display="nCodeWindowPosition"/>
+			<memberdata name="ncontainerframecolour" type="property" display="nContainerFrameColour"/>
+			<memberdata name="ncss_tr_even_colour" type="property" display="nCSS_Tr_Even_Colour"/>
+			<memberdata name="ncss_tr_odd_colour" type="property" display="nCSS_Tr_Odd_Colour"/>
+			<memberdata name="nfiledefaultdynamicforecolour" type="property" display="nFileDefaultDynamicForeColour"/>
+			<memberdata name="nfileprgdynamicforecolour" type="property" display="nFilePrgDynamicForeColour"/>
+			<memberdata name="nfilescxdynamicforecolour" type="property" display="nFileScxDynamicForeColour"/>
+			<memberdata name="nfilevcxdynamicforecolour" type="property" display="nFileVcxDynamicForeColour"/>
+			<memberdata name="njanitorreplacehistorydays" type="property" display="nJanitorReplaceHistoryDays"/>
+			<memberdata name="njanitorsearchhistorydays" type="property" display="nJanitorSearchHistoryDays"/>
+			<memberdata name="nreplaceddynamicbackcolour" type="property" display="nReplacedDynamicBackColour"/>
+			<memberdata name="nrisk1dynamicbackcolour" type="property" display="nRisk1DynamicBackColour"/>
+			<memberdata name="nrisk2dynamicbackcolour" type="property" display="nRisk2DynamicBackColour"/>
+			<memberdata name="nrisk3dynamicbackcolour" type="property" display="nRisk3DynamicBackColour"/>
+			<memberdata name="nriskexceededdynamicbackcolour" type="property" display="nRiskExceededDynamicBackColour"/>
+			<memberdata name="nsearchboxfontsize" type="property" display="nSearchBoxFontsize"/>
+			<memberdata name="ntabstospaces" type="property" display="nTabsToSpaces"/>
+			<memberdata name="ntreesearchcolour" type="property" display="nTreeSearchColour"/>
+			<memberdata name="ntreeupdatecolour" type="property" display="nTreeUpdateColour"/>
+			<memberdata name="ntreeviewfontsize" type="property" display="nTreeViewFontSize"/>
+			<memberdata name="ofilter" type="property" display="oFilter"/>
+			<memberdata name="lreplace_history" type="property" display="lReplace_History" favorites="False"/>
 		</VFPData>
+	*</PropValue>
 
 	ADD OBJECT 'ButtonContainer' AS container WITH ;
 		Anchor = 8, ;

@@ -37,48 +37,50 @@ DEFINE CLASS specialdirectories AS mybase OF "my.vcx" 		&& Provides the paths to
 	*</DefinedPropArrayMethod>
 
 	PROTECTED owsh
-	cnamespace = My.Computer.FileSystem.SpecialFolders
-	desktop = 		&& The current user's Desktop folder
-	favorites = 		&& The current user's Favorites folder
-	mydocuments = 		&& The current user's MyDocuments folder
-	Name = "specialdirectories"
-	nethood = 		&& The current user's Network Neighbourhood folder
-	owsh = .NULL.		&& A reference to a Windows Scripting Host object
-	printhood = 		&& The current user's Printer Neighbourhood folder
-	programs = 		&& The current user's Programs folder
-	startmenu = 		&& The current user's StartMenu folder
-	temp = 		&& The current user's temporary folder
-	_memberdata = <VFPData>
-		<memberdata name="openmytable" type="method" display="OpenMyTable"/>
-		<memberdata name="addmembers" type="method" display="AddMembers"/>
-		<memberdata name="cnamespace" type="property" display="cNameSpace"/>
-		<memberdata name="builder" type="property" display="Builder"/>
-		<memberdata name="desktop" type="property" display="Desktop"/>
-		<memberdata name="desktop_access" type="property" display="Desktop_Access"/>
-		<memberdata name="desktop_assign" type="property" display="Desktop_Assign"/>
-		<memberdata name="favorites" type="property" display="Favorites"/>
-		<memberdata name="favorites_access" type="property" display="Favorites_Access"/>
-		<memberdata name="favorites_assign" type="property" display="Favorites_Assign"/>
-		<memberdata name="mydocuments" type="property" display="MyDocuments"/>
-		<memberdata name="mydocuments_access" type="property" display="MyDocuments_Access"/>
-		<memberdata name="mydocuments_assign" type="property" display="MyDocuments_Assign"/>
-		<memberdata name="nethood" type="property" display="NetHood"/>
-		<memberdata name="nethood_access" type="property" display="NetHood_Access"/>
-		<memberdata name="nethood_assign" type="property" display="NetHood_Assign"/>
-		<memberdata name="printhood" type="property" display="PrintHood"/>
-		<memberdata name="printhood_access" type="property" display="PrintHood_Access"/>
-		<memberdata name="printhood_assign" type="property" display="PrintHood_Assign"/>
-		<memberdata name="programs" type="property" display="Programs"/>
-		<memberdata name="programs_access" type="property" display="Programs_Access"/>
-		<memberdata name="programs_assign" type="property" display="Programs_Assign"/>
-		<memberdata name="startmenu" type="property" display="StartMenu"/>
-		<memberdata name="startmenu_access" type="property" display="StartMenu_Access"/>
-		<memberdata name="startmenu_assign" type="property" display="StartMenu_Assign"/>
-		<memberdata name="temp" type="property" display="Temp"/>
-		<memberdata name="temp_access" type="property" display="Temp_Access"/>
-		<memberdata name="temp_assign" type="property" display="Temp_Assign"/>
-		<memberdata name="owsh" type="property" display="oWSH"/>
+	*<PropValue>
+		cnamespace = My.Computer.FileSystem.SpecialFolders
+		desktop = 
+		favorites = 
+		mydocuments = 
+		Name = "specialdirectories"
+		nethood = 
+		owsh = .NULL.
+		printhood = 
+		programs = 
+		startmenu = 
+		temp = 
+		_memberdata = <VFPData>
+			<memberdata name="openmytable" type="method" display="OpenMyTable"/>
+			<memberdata name="addmembers" type="method" display="AddMembers"/>
+			<memberdata name="cnamespace" type="property" display="cNameSpace"/>
+			<memberdata name="builder" type="property" display="Builder"/>
+			<memberdata name="desktop" type="property" display="Desktop"/>
+			<memberdata name="desktop_access" type="property" display="Desktop_Access"/>
+			<memberdata name="desktop_assign" type="property" display="Desktop_Assign"/>
+			<memberdata name="favorites" type="property" display="Favorites"/>
+			<memberdata name="favorites_access" type="property" display="Favorites_Access"/>
+			<memberdata name="favorites_assign" type="property" display="Favorites_Assign"/>
+			<memberdata name="mydocuments" type="property" display="MyDocuments"/>
+			<memberdata name="mydocuments_access" type="property" display="MyDocuments_Access"/>
+			<memberdata name="mydocuments_assign" type="property" display="MyDocuments_Assign"/>
+			<memberdata name="nethood" type="property" display="NetHood"/>
+			<memberdata name="nethood_access" type="property" display="NetHood_Access"/>
+			<memberdata name="nethood_assign" type="property" display="NetHood_Assign"/>
+			<memberdata name="printhood" type="property" display="PrintHood"/>
+			<memberdata name="printhood_access" type="property" display="PrintHood_Access"/>
+			<memberdata name="printhood_assign" type="property" display="PrintHood_Assign"/>
+			<memberdata name="programs" type="property" display="Programs"/>
+			<memberdata name="programs_access" type="property" display="Programs_Access"/>
+			<memberdata name="programs_assign" type="property" display="Programs_Assign"/>
+			<memberdata name="startmenu" type="property" display="StartMenu"/>
+			<memberdata name="startmenu_access" type="property" display="StartMenu_Access"/>
+			<memberdata name="startmenu_assign" type="property" display="StartMenu_Assign"/>
+			<memberdata name="temp" type="property" display="Temp"/>
+			<memberdata name="temp_access" type="property" display="Temp_Access"/>
+			<memberdata name="temp_assign" type="property" display="Temp_Assign"/>
+			<memberdata name="owsh" type="property" display="oWSH"/>
 		</VFPData>
+	*</PropValue>
 	
 	PROCEDURE desktop_access
 		with This

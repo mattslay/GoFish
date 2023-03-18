@@ -23,26 +23,28 @@ DEFINE CLASS gf_help AS gf_baseform OF "..\lib\gofishui.vcx"
 	*< OBJECTDATA: ObjPath="Label4" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Label5" UniqueID="" Timestamp="" />
 
-	BorderStyle = 0
-	Caption = "GoFish - Help"
-	Closable = .T.
-	cuisettingsfile = GF_Help_Form_Settings.xml
-	DoCreate = .T.
-	Height = 270
-	Left = -1
-	MaxButton = .F.
-	MinButton = .F.
-	MinHeight = 270
-	MinWidth = 450
-	Name = "GF_Help"
-	Top = 0
-	Visible = .T.
-	Width = 450
-	WindowType = 1
-	_memberdata = <VFPData>
-		<memberdata name="name" display="Name"/>
-		<memberdata name="caption" display="Caption"/>
+	*<PropValue>
+		BorderStyle = 0
+		Caption = "GoFish - Help"
+		Closable = .T.
+		cuisettingsfile = GF_Help_Form_Settings.xml
+		DoCreate = .T.
+		Height = 270
+		Left = -1
+		MaxButton = .F.
+		MinButton = .F.
+		MinHeight = 270
+		MinWidth = 450
+		Name = "GF_Help"
+		Top = 0
+		Visible = .T.
+		Width = 450
+		WindowType = 1
+		_memberdata = <VFPData>
+			<memberdata name="name" display="Name"/>
+			<memberdata name="caption" display="Caption"/>
 		</VFPData>
+	*</PropValue>
 
 	ADD OBJECT 'Gf_versionlabel1' AS gf_versionlabel WITH ;
 		Height = 13, ;

@@ -108,55 +108,57 @@ DEFINE CLASS gf_filter AS gf_baseform OF "..\lib\gofishui.vcx"
 		*p: ofilter
 	*</DefinedPropArrayMethod>
 
-	BorderStyle = 3
-	Caption = "GoFish Filter Builder"
-	ccodetypefilter = 
-	cfilenamefilter = 
-	cfiletypefilter = 
-	cfilter = 
-	cfilteroptionsclass = GF_SearchResultsFilter
-	cfilteroptionsxmlfile = GF_Filter_Settings.xml
-	csearchresults = 
-	cuisettingsfile = GF_Filter_PF_Form_Settings.xml
-	DoCreate = .T.
-	Height = 332
-	Left = 0
-	llreturn = .F.
-	Name = "GF_Filter"
-	ofilter = .NULL.
-	ShowTips = .T.
-	Top = 0
-	Visible = .T.
-	Width = 510
-	WindowType = 1
-	_memberdata = <VFPData>
-		<memberdata name="ofilter" display="oFilter"/>
-		<memberdata name="applychanges" display="ApplyChanges"/>
-		<memberdata name="cfilter" display="cFilter"/>
-		<memberdata name="cfiletypefilter" display="cFileTypeFilter"/>
-		<memberdata name="csearchresults" display="cSearchResults"/>
-		<memberdata name="enablecontrol" display="EnableControl"/>
-		<memberdata name="ccodetypefilter" display="cCodeTypeFilter"/>
-		<memberdata name="bind" display="Bind"/>
-		<memberdata name="cfilenamefilter" display="cFilenameFilter"/>
-		<memberdata name="buildfilterstring" display="BuildFilterString"/>
-		<memberdata name="loadformsettings" display="LoadFormSettings"/>
-		<memberdata name="saveformsettings" display="SaveFormSettings"/>
-		<memberdata name="cuisettingsfile" display="cUISettingsFile"/>
-		<memberdata name="loadfiltersettings" display="LoadFilterSettings"/>
-		<memberdata name="cfilteroptionsxmlfile" display="cFilterOptionsXMLFile"/>
-		<memberdata name="cfilteroptionsclass" display="cFilterOptionsClass"/>
-		<memberdata name="savefiltersettings" display="SaveFilterSettings"/>
-		<memberdata name="buildcheckboxfilter" display="BuildCheckBoxFilter"/>
-		<memberdata name="buildtextboxfilter" display="BuildTextboxFilter"/>
-		<memberdata name="buildcontainerfilters" display="BuildContainerFilters"/>
-		<memberdata name="llreturn" display="llReturn"/>
-		<memberdata name="decoratepage" display="DecoratePage"/>
-		<memberdata name="bindeachpage" display="BindEachPage"/>
-		<memberdata name="refreshpagecaptions" display="RefreshPageCaptions"/>
-		<memberdata name="clearallfilters" display="ClearAllFilters"/>
-		<memberdata name="refreshtextboxoptions" display="RefreshTextBoxOptions"/>
+	*<PropValue>
+		BorderStyle = 3
+		Caption = "GoFish Filter Builder"
+		ccodetypefilter = 
+		cfilenamefilter = 
+		cfiletypefilter = 
+		cfilter = 
+		cfilteroptionsclass = GF_SearchResultsFilter
+		cfilteroptionsxmlfile = GF_Filter_Settings.xml
+		csearchresults = 
+		cuisettingsfile = GF_Filter_PF_Form_Settings.xml
+		DoCreate = .T.
+		Height = 332
+		Left = 0
+		llreturn = .F.
+		Name = "GF_Filter"
+		ofilter = .NULL.
+		ShowTips = .T.
+		Top = 0
+		Visible = .T.
+		Width = 510
+		WindowType = 1
+		_memberdata = <VFPData>
+			<memberdata name="ofilter" display="oFilter"/>
+			<memberdata name="applychanges" display="ApplyChanges"/>
+			<memberdata name="cfilter" display="cFilter"/>
+			<memberdata name="cfiletypefilter" display="cFileTypeFilter"/>
+			<memberdata name="csearchresults" display="cSearchResults"/>
+			<memberdata name="enablecontrol" display="EnableControl"/>
+			<memberdata name="ccodetypefilter" display="cCodeTypeFilter"/>
+			<memberdata name="bind" display="Bind"/>
+			<memberdata name="cfilenamefilter" display="cFilenameFilter"/>
+			<memberdata name="buildfilterstring" display="BuildFilterString"/>
+			<memberdata name="loadformsettings" display="LoadFormSettings"/>
+			<memberdata name="saveformsettings" display="SaveFormSettings"/>
+			<memberdata name="cuisettingsfile" display="cUISettingsFile"/>
+			<memberdata name="loadfiltersettings" display="LoadFilterSettings"/>
+			<memberdata name="cfilteroptionsxmlfile" display="cFilterOptionsXMLFile"/>
+			<memberdata name="cfilteroptionsclass" display="cFilterOptionsClass"/>
+			<memberdata name="savefiltersettings" display="SaveFilterSettings"/>
+			<memberdata name="buildcheckboxfilter" display="BuildCheckBoxFilter"/>
+			<memberdata name="buildtextboxfilter" display="BuildTextboxFilter"/>
+			<memberdata name="buildcontainerfilters" display="BuildContainerFilters"/>
+			<memberdata name="llreturn" display="llReturn"/>
+			<memberdata name="decoratepage" display="DecoratePage"/>
+			<memberdata name="bindeachpage" display="BindEachPage"/>
+			<memberdata name="refreshpagecaptions" display="RefreshPageCaptions"/>
+			<memberdata name="clearallfilters" display="ClearAllFilters"/>
+			<memberdata name="refreshtextboxoptions" display="RefreshTextBoxOptions"/>
 		</VFPData>
+	*</PropValue>
 
 	ADD OBJECT 'cntTextBoxOptions' AS container WITH ;
 		Height = 52, ;

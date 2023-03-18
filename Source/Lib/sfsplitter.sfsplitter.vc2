@@ -30,39 +30,41 @@ DEFINE CLASS sfsplitter AS control
 		*p: _memberdata		&& XML Metadata for customizable properties
 	*</DefinedPropArrayMethod>
 
-	BackColor = 192,192,192
-	BackStyle = 1
-	BorderColor = 255,0,0
-	BorderWidth = 2
-	cobject1name = 		&& The name of the object above (for a vertical splitter) or to the left of (for a horizontal splitter) the splitter
-	cobject2name = 		&& The name of the object below (for a vertical splitter) or to the right of (for a horizontal splitter) the splitter
-	Height = 248
-	linitialized = .F.		&& .T. after the control has been initialized
-	Name = "sfsplitter"
-	ndots = 5		&& Enter a value between 0 and 5 for the number of dots to be shown on the gripper. Enter 0 for none.
-	nobject1minsize = 150		&& The minimum height (for a vertical splitter) or width (for a horizontal splitter) of Object 1
-	nobject2minsize = 150		&& The minimum height (for a vertical splitter) or width (for a horizontal splitter) of Object 2
-	Width = 25
-	_memberdata = <VFPData>
-		<memberdata name="getobjectnames" type="method" display="GetObjectNames"/>
-		<memberdata name="movesplittertoposition" type="method" display="MoveSplitterToPosition"/>
-		<memberdata name="linitialized" type="property" display="lInitialized"/>
-		<memberdata name="cobject1name" type="property" display="cObject1Name"/>
-		<memberdata name="cobject2name" type="property" display="cObject2Name"/>
-		<memberdata name="nobject1minsize" type="property" display="nObject1MinSize"/>
-		<memberdata name="nobject2minsize" type="property" display="nObject2MinSize"/>
-		<memberdata name="getobject1size" type="method" display="GetObject1Size"/>
-		<memberdata name="getobject2size" type="method" display="GetObject2Size"/>
-		<memberdata name="setposition" type="method" display="SetPosition"/>
-		<memberdata name="moveobject1" type="method" display="MoveObject1"/>
-		<memberdata name="moveobject2" type="method" display="MoveObject2"/>
-		<memberdata name="getposition" type="method" display="GetPosition"/>
-		<memberdata name="splittermoved" type="method" display="SplitterMoved"/>
-		<memberdata name="lshowgripper" type="property" display="lShowGripper"/>
-		<memberdata name="showballoontip" type="method" display="ShowBalloonTip"/>
-		<memberdata name="setupgripper" type="method" display="SetupGripper"/>
-		<memberdata name="ndots" type="property" display="nDots"/>
-		</VFPData>		&& XML Metadata for customizable properties
+	*<PropValue>
+		BackColor = 192,192,192
+		BackStyle = 1
+		BorderColor = 255,0,0
+		BorderWidth = 2
+		cobject1name = 
+		cobject2name = 
+		Height = 248
+		linitialized = .F.
+		Name = "sfsplitter"
+		ndots = 5
+		nobject1minsize = 150
+		nobject2minsize = 150
+		Width = 25
+		_memberdata = <VFPData>
+			<memberdata name="getobjectnames" type="method" display="GetObjectNames"/>
+			<memberdata name="movesplittertoposition" type="method" display="MoveSplitterToPosition"/>
+			<memberdata name="linitialized" type="property" display="lInitialized"/>
+			<memberdata name="cobject1name" type="property" display="cObject1Name"/>
+			<memberdata name="cobject2name" type="property" display="cObject2Name"/>
+			<memberdata name="nobject1minsize" type="property" display="nObject1MinSize"/>
+			<memberdata name="nobject2minsize" type="property" display="nObject2MinSize"/>
+			<memberdata name="getobject1size" type="method" display="GetObject1Size"/>
+			<memberdata name="getobject2size" type="method" display="GetObject2Size"/>
+			<memberdata name="setposition" type="method" display="SetPosition"/>
+			<memberdata name="moveobject1" type="method" display="MoveObject1"/>
+			<memberdata name="moveobject2" type="method" display="MoveObject2"/>
+			<memberdata name="getposition" type="method" display="GetPosition"/>
+			<memberdata name="splittermoved" type="method" display="SplitterMoved"/>
+			<memberdata name="lshowgripper" type="property" display="lShowGripper"/>
+			<memberdata name="showballoontip" type="method" display="ShowBalloonTip"/>
+			<memberdata name="setupgripper" type="method" display="SetupGripper"/>
+			<memberdata name="ndots" type="property" display="nDots"/>
+		</VFPData>
+	*</PropValue>
 
 	ADD OBJECT 'Gripper' AS gripper WITH ;
 		Height = 12, ;

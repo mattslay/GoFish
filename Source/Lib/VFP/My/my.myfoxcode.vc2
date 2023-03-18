@@ -22,22 +22,24 @@ DEFINE CLASS myfoxcode AS custom 		&& The IntelliSense handler for the My namesp
 		*p: _memberdata		&& XML Metadata for customizable properties
 	*</DefinedPropArrayMethod>
 
-	ccurrdeleted = 		&& The current setting of SET DELETED
-	lerroroccurred = .F.		&& .T. if an error occurred
-	Name = "myfoxcode"
-	Width = 17
-	_memberdata = <VFPData>
-		<memberdata name="main" type="method" display="Main"/>
-		<memberdata name="getmembers" type="method" display="GetMembers"/>
-		<memberdata name="getmymember" type="method" display="GetMyMember"/>
-		<memberdata name="openmytable" type="method" display="OpenMyTable"/>
-		<memberdata name="handlelocal" type="method" display="HandleLOCAL"/>
-		<memberdata name="displaymembers" type="method" display="DisplayMembers"/>
-		<memberdata name="displayenumeratedvalues" type="method" display="DisplayEnumeratedValues"/>
-		<memberdata name="openintellisense" type="method" display="OpenIntelliSense"/>
-		<memberdata name="lerroroccurred" type="property" display="lErrorOccurred"/>
-		<memberdata name="ccurrdeleted" type="property" display="cCurrDeleted"/>
-		</VFPData>		&& XML Metadata for customizable properties
+	*<PropValue>
+		ccurrdeleted = 
+		lerroroccurred = .F.
+		Name = "myfoxcode"
+		Width = 17
+		_memberdata = <VFPData>
+			<memberdata name="main" type="method" display="Main"/>
+			<memberdata name="getmembers" type="method" display="GetMembers"/>
+			<memberdata name="getmymember" type="method" display="GetMyMember"/>
+			<memberdata name="openmytable" type="method" display="OpenMyTable"/>
+			<memberdata name="handlelocal" type="method" display="HandleLOCAL"/>
+			<memberdata name="displaymembers" type="method" display="DisplayMembers"/>
+			<memberdata name="displayenumeratedvalues" type="method" display="DisplayEnumeratedValues"/>
+			<memberdata name="openintellisense" type="method" display="OpenIntelliSense"/>
+			<memberdata name="lerroroccurred" type="property" display="lErrorOccurred"/>
+			<memberdata name="ccurrdeleted" type="property" display="cCurrDeleted"/>
+		</VFPData>
+	*</PropValue>
 	
 	PROCEDURE Destroy
 		* Close the tables we opened and restore the setting of DELETED.

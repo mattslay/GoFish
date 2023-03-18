@@ -22,24 +22,26 @@ DEFINE CLASS mybase AS custom 		&& The base class for My namespace classes
 	*</DefinedPropArrayMethod>
 
 	PROTECTED addobject,addproperty,baseclass,class,classlibrary,cloneobject,comment,controlcount,controls,destroy,error,height,helpcontextid,Init,newobject,objects,parentclass,picture,removeobject,resettodefault,saveasclass,showwhatsthis,tag,whatsthishelpid,width,writeexpression,writemethod
-	builder = My.vcx,MyBuilderForm		&& The builder to use
-	ccaption = My Framework		&& The title for any MESSAGEBOX dialogs
-	cnamespace = 		&& The name space for this object
-	errormessage = 		&& The text of any error that occurred
-	Name = "mybase"
-	quietmode = .F.		&& .T. if we should not display any error messages
-	Width = 17
-	_memberdata = <VFPData>
-		<memberdata name="openmytable" type="method" display="OpenMyTable"/>
-		<memberdata name="addmembers" type="method" display="AddMembers"/>
-		<memberdata name="cnamespace" type="property" display="cNameSpace"/>
-		<memberdata name="builder" type="property" display="Builder"/>
-		<memberdata name="warning" type="method" display="Warning"/>
-		<memberdata name="ccaption" type="property" display="cCaption"/>
-		<memberdata name="errormessage" type="property" display="ErrorMessage"/>
-		<memberdata name="quietmode" type="property" display="QuietMode"/>
-		<memberdata name="calledfromthisclass" type="method" display="CalledFromThisClass"/>
-		</VFPData>		&& XML Metadata for customizable properties
+	*<PropValue>
+		builder = My.vcx,MyBuilderForm
+		ccaption = My Framework
+		cnamespace = 
+		errormessage = 
+		Name = "mybase"
+		quietmode = .F.
+		Width = 17
+		_memberdata = <VFPData>
+			<memberdata name="openmytable" type="method" display="OpenMyTable"/>
+			<memberdata name="addmembers" type="method" display="AddMembers"/>
+			<memberdata name="cnamespace" type="property" display="cNameSpace"/>
+			<memberdata name="builder" type="property" display="Builder"/>
+			<memberdata name="warning" type="method" display="Warning"/>
+			<memberdata name="ccaption" type="property" display="cCaption"/>
+			<memberdata name="errormessage" type="property" display="ErrorMessage"/>
+			<memberdata name="quietmode" type="property" display="QuietMode"/>
+			<memberdata name="calledfromthisclass" type="method" display="CalledFromThisClass"/>
+		</VFPData>
+	*</PropValue>
 	
 	PROTECTED PROCEDURE addmembers		&& Adds the member objects specified in the My table
 		* Add all member objects registered in the My table.

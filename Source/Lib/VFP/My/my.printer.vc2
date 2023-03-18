@@ -21,27 +21,29 @@ DEFINE CLASS printer AS mybase OF "my.vcx" 		&& Provides information about print
 		*p: defaultwindowsprinter		&& The name of the default Windows printer
 	*</DefinedPropArrayMethod>
 
-	availableprinters = .NULL.		&& A collection of objects containing information about the available printers
-	cnamespace = My.Computer.Printer
-	defaultvfpprinter = 		&& The name of the default VFP printer
-	defaultwindowsprinter = 		&& The name of the default Windows printer
-	Name = "printer"
-	_memberdata = <VFPData>
-		<memberdata name="openmytable" type="method" display="OpenMyTable"/>
-		<memberdata name="addmembers" type="method" display="AddMembers"/>
-		<memberdata name="cnamespace" type="property" display="cNameSpace"/>
-		<memberdata name="builder" type="property" display="Builder"/>
-		<memberdata name="availableprinters" type="property" display="AvailablePrinters"/>
-		<memberdata name="availableprinters_access" type="property" display="AvailablePrinters_Access"/>
-		<memberdata name="availableprinters_assign" type="property" display="AvailablePrinters_Assign"/>
-		<memberdata name="defaultvfpprinter" type="property" display="DefaultVFPPrinter"/>
-		<memberdata name="defaultvfpprinter_access" type="property" display="DefaultVFPPrinter_Access"/>
-		<memberdata name="defaultvfpprinter_assign" type="property" display="DefaultVFPPrinter_Assign"/>
-		<memberdata name="defaultwindowsprinter" type="property" display="DefaultWindowsPrinter"/>
-		<memberdata name="defaultwindowsprinter_access" type="property" display="DefaultWindowsPrinter_Access"/>
-		<memberdata name="defaultwindowsprinter_assign" type="property" display="DefaultWindowsPrinter_Assign"/>
-		<memberdata name="pagesetup" type="method" display="PageSetup"/>
+	*<PropValue>
+		availableprinters = .NULL.
+		cnamespace = My.Computer.Printer
+		defaultvfpprinter = 
+		defaultwindowsprinter = 
+		Name = "printer"
+		_memberdata = <VFPData>
+			<memberdata name="openmytable" type="method" display="OpenMyTable"/>
+			<memberdata name="addmembers" type="method" display="AddMembers"/>
+			<memberdata name="cnamespace" type="property" display="cNameSpace"/>
+			<memberdata name="builder" type="property" display="Builder"/>
+			<memberdata name="availableprinters" type="property" display="AvailablePrinters"/>
+			<memberdata name="availableprinters_access" type="property" display="AvailablePrinters_Access"/>
+			<memberdata name="availableprinters_assign" type="property" display="AvailablePrinters_Assign"/>
+			<memberdata name="defaultvfpprinter" type="property" display="DefaultVFPPrinter"/>
+			<memberdata name="defaultvfpprinter_access" type="property" display="DefaultVFPPrinter_Access"/>
+			<memberdata name="defaultvfpprinter_assign" type="property" display="DefaultVFPPrinter_Assign"/>
+			<memberdata name="defaultwindowsprinter" type="property" display="DefaultWindowsPrinter"/>
+			<memberdata name="defaultwindowsprinter_access" type="property" display="DefaultWindowsPrinter_Access"/>
+			<memberdata name="defaultwindowsprinter_assign" type="property" display="DefaultWindowsPrinter_Assign"/>
+			<memberdata name="pagesetup" type="method" display="PageSetup"/>
 		</VFPData>
+	*</PropValue>
 	
 	PROCEDURE availableprinters_access
 		local laPrinters[1], ;

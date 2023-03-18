@@ -38,36 +38,38 @@ DEFINE CLASS frxdevicehelper AS custom
 		*p: _memberdata		&& XML Metadata for customizable properties
 	*</DefinedPropArrayMethod>
 
-	actualx = 0		&& Physical width of page in device units
-	actualy = 0		&& Physical length of page in device units
-	dpix = 0		&& Logical pixels-per-inch in the X dimension
-	dpiy = 0		&& Logical pixels-per-inch in the Y dimension
-	errormessage = ("")		&& Occurs when the Valid event returns false (.F.), and provides a means to display an error message.
-	mmx = 0		&& Horizontal page size in millimeters
-	mmy = 0		&& Vertical page size in millimeters
-	Name = "frxdevicehelper"
-	offsetx = 0		&& Physical printable page left margin
-	offsety = 0		&& Physical printable page top margin
-	orientation = 0		&& 0=Portrait, 1=Landscape
-	printablex = 0		&& Horizontal page width in pixels
-	printabley = 0		&& Vertical page length in pixels
-	_memberdata = <VFPData>
-		<memberdata name="loaddeviceinfo" type="Method" display="LoadDeviceInfo" favorites="false" override="false" script=""/>
-		<memberdata name="loadfromfrx" type="Method" display="LoadFromFrx" favorites="false" override="false" script=""/>
-		<memberdata name="loadfromstrings" type="Method" display="LoadFromStrings" favorites="false" override="false" script=""/>
-		<memberdata name="loadfromhdc" type="Method" display="LoadFromHDC" favorites="false" override="false" script=""/>
-		<memberdata name="dpix" type="Property" display="DpiX" favorites="false" override="false" script=""/>
-		<memberdata name="dpiy" type="Property" display="DpiY" favorites="false" override="false" script=""/>
-		<memberdata name="offsetx" type="Property" display="OffsetX" favorites="false" override="false" script=""/>
-		<memberdata name="offsety" type="Property" display="OffsetY" favorites="false" override="false" script=""/>
-		<memberdata name="actualx" type="Property" display="ActualX" favorites="false" override="false" script=""/>
-		<memberdata name="actualy" type="Property" display="ActualY" favorites="false" override="false" script=""/>
-		<memberdata name="mmx" type="Property" display="mmX" favorites="false" override="false" script=""/>
-		<memberdata name="mmy" type="Property" display="mmY" favorites="false" override="false" script=""/>
-		<memberdata name="printablex" type="Property" display="PrintableX" favorites="false" override="false" script=""/>
-		<memberdata name="printabley" type="Property" display="PrintableY" favorites="false" override="false" script=""/>
-		<memberdata name="orientation" type="Property" display="Orientation" favorites="false" override="false" script=""/>
-		</VFPData>		&& XML Metadata for customizable properties
+	*<PropValue>
+		actualx = 0
+		actualy = 0
+		dpix = 0
+		dpiy = 0
+		errormessage = ("")
+		mmx = 0
+		mmy = 0
+		Name = "frxdevicehelper"
+		offsetx = 0
+		offsety = 0
+		orientation = 0
+		printablex = 0
+		printabley = 0
+		_memberdata = <VFPData>
+			<memberdata name="loaddeviceinfo" type="Method" display="LoadDeviceInfo" favorites="false" override="false" script=""/>
+			<memberdata name="loadfromfrx" type="Method" display="LoadFromFrx" favorites="false" override="false" script=""/>
+			<memberdata name="loadfromstrings" type="Method" display="LoadFromStrings" favorites="false" override="false" script=""/>
+			<memberdata name="loadfromhdc" type="Method" display="LoadFromHDC" favorites="false" override="false" script=""/>
+			<memberdata name="dpix" type="Property" display="DpiX" favorites="false" override="false" script=""/>
+			<memberdata name="dpiy" type="Property" display="DpiY" favorites="false" override="false" script=""/>
+			<memberdata name="offsetx" type="Property" display="OffsetX" favorites="false" override="false" script=""/>
+			<memberdata name="offsety" type="Property" display="OffsetY" favorites="false" override="false" script=""/>
+			<memberdata name="actualx" type="Property" display="ActualX" favorites="false" override="false" script=""/>
+			<memberdata name="actualy" type="Property" display="ActualY" favorites="false" override="false" script=""/>
+			<memberdata name="mmx" type="Property" display="mmX" favorites="false" override="false" script=""/>
+			<memberdata name="mmy" type="Property" display="mmY" favorites="false" override="false" script=""/>
+			<memberdata name="printablex" type="Property" display="PrintableX" favorites="false" override="false" script=""/>
+			<memberdata name="printabley" type="Property" display="PrintableY" favorites="false" override="false" script=""/>
+			<memberdata name="orientation" type="Property" display="Orientation" favorites="false" override="false" script=""/>
+		</VFPData>
+	*</PropValue>
 	
 	PROCEDURE Init
 		declare integer GetLastError ;

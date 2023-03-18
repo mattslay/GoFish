@@ -16,19 +16,21 @@ DEFINE CLASS _gofish AS custom
 		*p: _memberdata		&& XML Metadata for customizable properties
 	*</DefinedPropArrayMethod>
 
-	cappname = 
-	capppath = 
-	cbuilddate = 
-	cversion = 
-	Name = "_gofish"
-	oresultsform = .NULL.
-	_memberdata = <VFPData>
-		<memberdata name="cappname" display="cAppName"/>
-		<memberdata name="capppath" display="cAppPath"/>
-		<memberdata name="cversion" display="cVersion"/>
-		<memberdata name="oresultsform" display="oResultsForm"/>
-		<memberdata name="cbuilddate" display="cBuildDate"/>
-		</VFPData>		&& XML Metadata for customizable properties
+	*<PropValue>
+		cappname = 
+		capppath = 
+		cbuilddate = 
+		cversion = 
+		Name = "_gofish"
+		oresultsform = .NULL.
+		_memberdata = <VFPData>
+			<memberdata name="cappname" display="cAppName"/>
+			<memberdata name="capppath" display="cAppPath"/>
+			<memberdata name="cversion" display="cVersion"/>
+			<memberdata name="oresultsform" display="oResultsForm"/>
+			<memberdata name="cbuilddate" display="cBuildDate"/>
+		</VFPData>
+	*</PropValue>
 	
 	PROCEDURE Destroy
 		This.oResultsForm = .null.

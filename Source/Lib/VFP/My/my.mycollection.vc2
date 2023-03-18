@@ -8,9 +8,11 @@ DEFINE CLASS mycollection AS collection 		&& A case-insensitive Collection class
  	*< CLASSDATA: Baseclass="collection" Timestamp="" Scale="Pixels" Uniqueid="" />
 
 	#INCLUDE "myconstants.h"
-	Height = 23
-	Name = "mycollection"
-	Width = 23
+	*<PropValue>
+		Height = 23
+		Name = "mycollection"
+		Width = 23
+	*</PropValue>
 	
 	PROCEDURE Add
 		* Handle case-insensitive and duplicate keys.

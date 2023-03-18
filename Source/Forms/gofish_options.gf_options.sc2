@@ -215,82 +215,84 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		*p: ooptions		&& A reference to the oSearchOptions object on GF main form.
 	*</DefinedPropArrayMethod>
 
-	AlwaysOnTop = .T.
-	BindControls = .F.
-	BorderStyle = 3
-	Caption = "GoFish Options"
-	ccr_storelocal_option = 		&& Internal storage for new local path, just to display and set.
-	cuisettingsfile = GF_Options_Form_Settings.xml
-	dlastjanitorrundate = /  /  
-	DoCreate = .T.
-	Height = 600
-	KeyPreview = .T.
-	Left = 0
-	lrestoreprevioussearchresultsonstartup = .F.
-	lreturn = .F.
-	lsavesearchresults = .T.
-	lwarnwholeword = .F.
-	MinHeight = 600
-	MinWidth = 650
-	Name = "GF_Options"
-	ncontainerframecolour = 0		&& Frame colour for several containers, in case red is something you do not see.
-	ncss_tr_even_colour = 0		&& CSS für tr:even
-	ncss_tr_odd_colour = 0		&& CSS für tr:odd
-	ndockable = 0
-	nfiledefaultdynamicforecolour = 0		&& Grid, dynamic fore colour file type Default
-	nfileprgdynamicforecolour = 0		&& Grid, dynamic fore colour file type PRG
-	nfilescxdynamicforecolour = 0		&& Grid, dynamic fore colour file type SCX
-	nfilevcxdynamicforecolour = 0		&& Grid, dynamic fore colour file type VCX
-	njanitorreplacehistorydays = 0
-	njanitorsearchhistorydays = 0
-	nreplaceddynamicbackcolour = 0		&& Grid, dynamic back colour replaced
-	nreplacerisk = 0
-	nrisk1dynamicbackcolour = 0		&& Grid, dynamic back colour replace risk value 1
-	nrisk2dynamicbackcolour = 0		&& Grid, dynamic back colour replace risk value 2
-	nrisk3dynamicbackcolour = 0		&& Grid, dynamic back colour replace risk value 3
-	nriskexceededdynamicbackcolour = 0		&& Grid, dynamic back colour replace risk exceeds setting
-	ntabstospaces = 0
-	ntreesearchcolour = 0		&& Tree colour while searching?
-	ntreeupdatecolour = 0		&& Tree colour while updateing?
-	ntreeviewfontsize = 8
-	oform = .NULL.
-	ooptions = .NULL.		&& A reference to the oSearchOptions object on GF main form.
-	Top = -1
-	Visible = .T.
-	Width = 652
-	WindowType = 1
-	_memberdata = <VFPData>
-		<memberdata name="buildcolumncheckboxes" display="BuildColumnCheckBoxes"/>
-		<memberdata name="oform" display="oForm"/>
-		<memberdata name="applycolumnsettings" display="ApplyColumnSettings"/>
-		<memberdata name="loadformsettings" display="LoadFormSettings"/>
-		<memberdata name="cuisettingsfile" display="cUISettingsFile"/>
-		<memberdata name="saveformsettings" display="SaveFormSettings"/>
-		<memberdata name="ooptions" display="oOptions"/>
-		<memberdata name="name" display="Name"/>
-		<memberdata name="loadresultsformproperties" display="LoadResultsFormProperties"/>
-		<memberdata name="lreturn" display="lReturn"/>
-		<memberdata name="saveresultsformproperties" display="SaveResultsFormProperties"/>
-		<memberdata name="saveoptions" display="SaveOptions"/>
-		<memberdata name="loadoptions" display="LoadOptions"/>
-		<memberdata name="validate" display="Validate"/>
-		<memberdata name="ndockable" display="nDockable"/>
-		<memberdata name="nreplacerisk" display="nReplaceRisk"/>
-		<memberdata name="lwarnwholeword" display="lWarnWholeWord"/>
-		<memberdata name="lrestoreprevioussearchresultsonstartup" display="lRestorePreviousSearchResultsOnStartup"/>
-		<memberdata name="lsavesearchresults" display="lSaveSearchResults"/>
-		<memberdata name="ntreeviewfontsize" display="nTreeViewFontSize"/>
-		<memberdata name="njanitorsearchhistorydays" display="nJanitorSearchHistoryDays"/>
-		<memberdata name="njanitorreplacehistorydays" display="nJanitorReplaceHistoryDays"/>
-		<memberdata name="dlastjanitorrundate" display="dLastJanitorRunDate"/>
-		<memberdata name="ntabstospaces" display="nTabsToSpaces"/>
-		<memberdata name="set_localfolder" type="method" display="Set_LocalFolder" favorites="False"/>
-		<memberdata name="ccr_storelocal_option" type="property" display="cCR_StoreLocal_Option" favorites="False"/>
-		<memberdata name="lcr_local" type="property" display="lCR_Local" favorites="False"/>
-		<memberdata name="lmovenewcodetotopleft" type="property" display="lMoveNewCodeToTopLeft" favorites="False"/>
-		<memberdata name="ldesktop" type="property" display="lDesktop" favorites="False"/>
-		<memberdata name="ccr_storelocal_set" type="property" display="cCR_StoreLocal_Set"/>
+	*<PropValue>
+		AlwaysOnTop = .T.
+		BindControls = .F.
+		BorderStyle = 3
+		Caption = "GoFish Options"
+		ccr_storelocal_option = 
+		cuisettingsfile = GF_Options_Form_Settings.xml
+		dlastjanitorrundate = /  /  
+		DoCreate = .T.
+		Height = 600
+		KeyPreview = .T.
+		Left = 0
+		lrestoreprevioussearchresultsonstartup = .F.
+		lreturn = .F.
+		lsavesearchresults = .T.
+		lwarnwholeword = .F.
+		MinHeight = 600
+		MinWidth = 650
+		Name = "GF_Options"
+		ncontainerframecolour = 0
+		ncss_tr_even_colour = 0
+		ncss_tr_odd_colour = 0
+		ndockable = 0
+		nfiledefaultdynamicforecolour = 0
+		nfileprgdynamicforecolour = 0
+		nfilescxdynamicforecolour = 0
+		nfilevcxdynamicforecolour = 0
+		njanitorreplacehistorydays = 0
+		njanitorsearchhistorydays = 0
+		nreplaceddynamicbackcolour = 0
+		nreplacerisk = 0
+		nrisk1dynamicbackcolour = 0
+		nrisk2dynamicbackcolour = 0
+		nrisk3dynamicbackcolour = 0
+		nriskexceededdynamicbackcolour = 0
+		ntabstospaces = 0
+		ntreesearchcolour = 0
+		ntreeupdatecolour = 0
+		ntreeviewfontsize = 8
+		oform = .NULL.
+		ooptions = .NULL.
+		Top = -1
+		Visible = .T.
+		Width = 652
+		WindowType = 1
+		_memberdata = <VFPData>
+			<memberdata name="buildcolumncheckboxes" display="BuildColumnCheckBoxes"/>
+			<memberdata name="oform" display="oForm"/>
+			<memberdata name="applycolumnsettings" display="ApplyColumnSettings"/>
+			<memberdata name="loadformsettings" display="LoadFormSettings"/>
+			<memberdata name="cuisettingsfile" display="cUISettingsFile"/>
+			<memberdata name="saveformsettings" display="SaveFormSettings"/>
+			<memberdata name="ooptions" display="oOptions"/>
+			<memberdata name="name" display="Name"/>
+			<memberdata name="loadresultsformproperties" display="LoadResultsFormProperties"/>
+			<memberdata name="lreturn" display="lReturn"/>
+			<memberdata name="saveresultsformproperties" display="SaveResultsFormProperties"/>
+			<memberdata name="saveoptions" display="SaveOptions"/>
+			<memberdata name="loadoptions" display="LoadOptions"/>
+			<memberdata name="validate" display="Validate"/>
+			<memberdata name="ndockable" display="nDockable"/>
+			<memberdata name="nreplacerisk" display="nReplaceRisk"/>
+			<memberdata name="lwarnwholeword" display="lWarnWholeWord"/>
+			<memberdata name="lrestoreprevioussearchresultsonstartup" display="lRestorePreviousSearchResultsOnStartup"/>
+			<memberdata name="lsavesearchresults" display="lSaveSearchResults"/>
+			<memberdata name="ntreeviewfontsize" display="nTreeViewFontSize"/>
+			<memberdata name="njanitorsearchhistorydays" display="nJanitorSearchHistoryDays"/>
+			<memberdata name="njanitorreplacehistorydays" display="nJanitorReplaceHistoryDays"/>
+			<memberdata name="dlastjanitorrundate" display="dLastJanitorRunDate"/>
+			<memberdata name="ntabstospaces" display="nTabsToSpaces"/>
+			<memberdata name="set_localfolder" type="method" display="Set_LocalFolder" favorites="False"/>
+			<memberdata name="ccr_storelocal_option" type="property" display="cCR_StoreLocal_Option" favorites="False"/>
+			<memberdata name="lcr_local" type="property" display="lCR_Local" favorites="False"/>
+			<memberdata name="lmovenewcodetotopleft" type="property" display="lMoveNewCodeToTopLeft" favorites="False"/>
+			<memberdata name="ldesktop" type="property" display="lDesktop" favorites="False"/>
+			<memberdata name="ccr_storelocal_set" type="property" display="cCR_StoreLocal_Set"/>
 		</VFPData>
+	*</PropValue>
 
 	ADD OBJECT 'cmdCancel' AS commandbutton WITH ;
 		Anchor = 12, ;
@@ -485,7 +487,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Left = 27, ;
 		Name = "Spinner1", ;
 		SpinnerHighValue = 999999.00, ;
-		SpinnerLowValue = 0.00, ;
+		SpinnerLowValue =   0.00, ;
 		TabIndex = 10, ;
 		Top = 50, ;
 		Width = 69
@@ -499,7 +501,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Left = 27, ;
 		Name = "Spinner2", ;
 		SpinnerHighValue = 999999.00, ;
-		SpinnerLowValue = 0.00, ;
+		SpinnerLowValue =   0.00, ;
 		TabIndex = 10, ;
 		Top = 92, ;
 		Width = 69
@@ -1923,8 +1925,8 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		KeyboardLowValue = 6, ;
 		Left = 23, ;
 		Name = "Spinner1", ;
-		SpinnerHighValue = 24.00, ;
-		SpinnerLowValue = 6.00, ;
+		SpinnerHighValue =  24.00, ;
+		SpinnerLowValue =   6.00, ;
 		TabIndex = 16, ;
 		Top = 321, ;
 		Width = 59
@@ -1938,7 +1940,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Left = 23, ;
 		Name = "Spinner2", ;
 		SpinnerHighValue = 100.00, ;
-		SpinnerLowValue = 5.00, ;
+		SpinnerLowValue =   5.00, ;
 		TabIndex = 25, ;
 		Top = 383, ;
 		Width = 59
@@ -1952,7 +1954,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Left = 23, ;
 		Name = "Spinner3", ;
 		SpinnerHighValue = 100.00, ;
-		SpinnerLowValue = 1.00, ;
+		SpinnerLowValue =   1.00, ;
 		TabIndex = 27, ;
 		Top = 414, ;
 		Width = 59
@@ -1961,13 +1963,13 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 	ADD OBJECT 'pfSettings.pagePreferences.Spinner4' AS spinner WITH ;
 		ControlSource = "Thisform.nBrowserZoom", ;
 		Height = 27, ;
-		Increment = 0.10, ;
+		Increment =   0.10, ;
 		InputMask = "9.99", ;
 		KeyboardLowValue = 0, ;
 		Left = 23, ;
 		Name = "Spinner4", ;
-		SpinnerHighValue = 2.00, ;
-		SpinnerLowValue = 0.70, ;
+		SpinnerHighValue =   2.00, ;
+		SpinnerLowValue =   0.70, ;
 		TabIndex = 20, ;
 		Top = 352, ;
 		Value = 0.1, ;
@@ -1981,8 +1983,8 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		KeyboardLowValue = 6, ;
 		Left = 225, ;
 		Name = "Spinner5", ;
-		SpinnerHighValue = 24.00, ;
-		SpinnerLowValue = 6.00, ;
+		SpinnerHighValue =  24.00, ;
+		SpinnerLowValue =   6.00, ;
 		TabIndex = 17, ;
 		Top = 322, ;
 		Width = 59
@@ -1995,8 +1997,8 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		KeyboardLowValue = 0, ;
 		Left = 417, ;
 		Name = "Spinner6", ;
-		SpinnerHighValue = 10.00, ;
-		SpinnerLowValue = 0.00, ;
+		SpinnerHighValue =  10.00, ;
+		SpinnerLowValue =   0.00, ;
 		TabIndex = 21, ;
 		Top = 353, ;
 		Width = 59

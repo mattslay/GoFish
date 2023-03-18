@@ -97,47 +97,49 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 		*p: z_lincludesubdirectoriescurrent
 	*</DefinedPropArrayMethod>
 
-	BindControls = .F.
-	cactiveproject = 
-	Caption = "GoFish - Advanced Search"
-	ccurrentdir = 
-	cuisettingsfile = GF_Advanced_Form_Settings.xml
-	DataSession = 2
-	DoCreate = .T.
-	HalfHeightCaption = .T.
-	Height = 430
-	Left = 0
-	lreturn = .F.
-	MaxButton = .F.
-	MinButton = .F.
-	MinHeight = 350
-	MinWidth = 520
-	Name = "GF_Advanced"
-	ShowTips = .T.
-	Top = 0
-	Visible = .T.
-	Width = 520
-	WindowType = 1
-	z_lincludesubdirectoriesbrowsed = .F.
-	z_lincludesubdirectoriescurrent = .F.
-	_memberdata = <VFPData>
-		<memberdata name="osearchengine" display="oSearchEngine"/>
-		<memberdata name="oform" display="oForm"/>
-		<memberdata name="cuisettingsfile" display="cUISettingsFile"/>
-		<memberdata name="saveoptions" display="SaveOptions"/>
-		<memberdata name="setscope" display="SetScope"/>
-		<memberdata name="cactiveproject" display="cActiveProject"/>
-		<memberdata name="ccurrentdir" display="cCurrentDir"/>
-		<memberdata name="getcurrentscope" display="GetCurrentScope"/>
-		<memberdata name="validateinputs" display="ValidateInputs"/>
-		<memberdata name="updatesearchscopevariables" display="UpdateSearchScopeVariables"/>
-		<memberdata name="lreturn" display="lReturn"/>
-		<memberdata name="loadoptions" display="LoadOptions"/>
-		<memberdata name="caption" display="Caption"/>
-		<memberdata name="name" display="Name"/>
-		<memberdata name="z_lincludesubdirectoriesbrowsed" display="z_lIncludeSubDirectoriesBrowsed"/>
-		<memberdata name="z_lincludesubdirectoriescurrent" display="z_lIncludeSubDirectoriesCurrent"/>
+	*<PropValue>
+		BindControls = .F.
+		cactiveproject = 
+		Caption = "GoFish - Advanced Search"
+		ccurrentdir = 
+		cuisettingsfile = GF_Advanced_Form_Settings.xml
+		DataSession = 2
+		DoCreate = .T.
+		HalfHeightCaption = .T.
+		Height = 430
+		Left = 0
+		lreturn = .F.
+		MaxButton = .F.
+		MinButton = .F.
+		MinHeight = 350
+		MinWidth = 520
+		Name = "GF_Advanced"
+		ShowTips = .T.
+		Top = 0
+		Visible = .T.
+		Width = 520
+		WindowType = 1
+		z_lincludesubdirectoriesbrowsed = .F.
+		z_lincludesubdirectoriescurrent = .F.
+		_memberdata = <VFPData>
+			<memberdata name="osearchengine" display="oSearchEngine"/>
+			<memberdata name="oform" display="oForm"/>
+			<memberdata name="cuisettingsfile" display="cUISettingsFile"/>
+			<memberdata name="saveoptions" display="SaveOptions"/>
+			<memberdata name="setscope" display="SetScope"/>
+			<memberdata name="cactiveproject" display="cActiveProject"/>
+			<memberdata name="ccurrentdir" display="cCurrentDir"/>
+			<memberdata name="getcurrentscope" display="GetCurrentScope"/>
+			<memberdata name="validateinputs" display="ValidateInputs"/>
+			<memberdata name="updatesearchscopevariables" display="UpdateSearchScopeVariables"/>
+			<memberdata name="lreturn" display="lReturn"/>
+			<memberdata name="loadoptions" display="LoadOptions"/>
+			<memberdata name="caption" display="Caption"/>
+			<memberdata name="name" display="Name"/>
+			<memberdata name="z_lincludesubdirectoriesbrowsed" display="z_lIncludeSubDirectoriesBrowsed"/>
+			<memberdata name="z_lincludesubdirectoriescurrent" display="z_lIncludeSubDirectoriesCurrent"/>
 		</VFPData>
+	*</PropValue>
 
 	ADD OBJECT 'Check1' AS checkbox WITH ;
 		Alignment = 0, ;

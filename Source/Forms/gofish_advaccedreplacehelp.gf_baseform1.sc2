@@ -14,20 +14,22 @@ DEFINE CLASS gf_baseform1 AS gf_baseform OF "..\lib\gofishui.vcx"
 	*< OBJECTDATA: ObjPath="Command1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="lblGoFishOnVFPx" UniqueID="" Timestamp="" />
 
-	BorderStyle = 2
-	Caption = "GoFish - Advanced Replace"
-	cuisettingsfile = GF_Advanced_Repl_Form_Settings.xml
-	DoCreate = .T.
-	Height = 300
-	Left = 0
-	MaxButton = .F.
-	MinButton = .F.
-	Name = "GF_BaseForm1"
-	SizeBox = .F.
-	Top = 0
-	Width = 600
-	WindowType = 1
-	ZoomBox = .F.
+	*<PropValue>
+		BorderStyle = 2
+		Caption = "GoFish - Advanced Replace"
+		cuisettingsfile = GF_Advanced_Repl_Form_Settings.xml
+		DoCreate = .T.
+		Height = 300
+		Left = 0
+		MaxButton = .F.
+		MinButton = .F.
+		Name = "GF_BaseForm1"
+		SizeBox = .F.
+		Top = 0
+		Width = 600
+		WindowType = 1
+		ZoomBox = .F.
+	*</PropValue>
 
 	ADD OBJECT 'Command1' AS commandbutton WITH ;
 		Caption = "Ok", ;

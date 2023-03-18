@@ -26,30 +26,32 @@ DEFINE CLASS filesystem AS mybase OF "my.vcx" 		&& Provides access to file syste
 	*</DefinedPropArrayMethod>
 
 	PROTECTED ofso,owsh
-	cnamespace = My.Computer.FileSystem
-	drives = .NULL.		&& A collection of Drive objects
-	Name = "filesystem"
-	ofso = .NULL.		&& A reference to a FileSystemObject object
-	owsh = .NULL.		&& A reference to a Windows Script Host object
-	_memberdata = <VFPData>
-		<memberdata name="openmytable" type="method" display="OpenMyTable"/>
-		<memberdata name="addmembers" type="method" display="AddMembers"/>
-		<memberdata name="cnamespace" type="property" display="cNameSpace"/>
-		<memberdata name="copyfile" type="method" display="CopyFile"/>
-		<memberdata name="copydirectory" type="method" display="CopyDirectory"/>
-		<memberdata name="getdriveinfo" type="method" display="GetDriveInfo"/>
-		<memberdata name="getfileinfo" type="method" display="GetFileInfo"/>
-		<memberdata name="getdirectoryinfo" type="method" display="GetDirectoryInfo"/>
-		<memberdata name="ofso" type="method" display="oFSO"/>
-		<memberdata name="owsh" type="method" display="oWSH"/>
-		<memberdata name="getlongfilename" type="method" display="GetLongFileName"/>
-		<memberdata name="getshortfilename" type="method" display="GetShortFileName"/>
-		<memberdata name="movefile" type="method" display="MoveFile"/>
-		<memberdata name="movedirectory" type="method" display="MoveDirectory"/>
-		<memberdata name="drives" type="property" display="Drives"/>
-		<memberdata name="drives_access" type="method" display="Drives_Access"/>
-		<memberdata name="drives_assign" type="method" display="Drives_Assign"/>
+	*<PropValue>
+		cnamespace = My.Computer.FileSystem
+		drives = .NULL.
+		Name = "filesystem"
+		ofso = .NULL.
+		owsh = .NULL.
+		_memberdata = <VFPData>
+			<memberdata name="openmytable" type="method" display="OpenMyTable"/>
+			<memberdata name="addmembers" type="method" display="AddMembers"/>
+			<memberdata name="cnamespace" type="property" display="cNameSpace"/>
+			<memberdata name="copyfile" type="method" display="CopyFile"/>
+			<memberdata name="copydirectory" type="method" display="CopyDirectory"/>
+			<memberdata name="getdriveinfo" type="method" display="GetDriveInfo"/>
+			<memberdata name="getfileinfo" type="method" display="GetFileInfo"/>
+			<memberdata name="getdirectoryinfo" type="method" display="GetDirectoryInfo"/>
+			<memberdata name="ofso" type="method" display="oFSO"/>
+			<memberdata name="owsh" type="method" display="oWSH"/>
+			<memberdata name="getlongfilename" type="method" display="GetLongFileName"/>
+			<memberdata name="getshortfilename" type="method" display="GetShortFileName"/>
+			<memberdata name="movefile" type="method" display="MoveFile"/>
+			<memberdata name="movedirectory" type="method" display="MoveDirectory"/>
+			<memberdata name="drives" type="property" display="Drives"/>
+			<memberdata name="drives_access" type="method" display="Drives_Access"/>
+			<memberdata name="drives_assign" type="method" display="Drives_Assign"/>
 		</VFPData>
+	*</PropValue>
 	
 	PROCEDURE copydirectory		&& Copies the contents of the specified folder(s)
 		* Copy the contents of the specified folder.

@@ -42,39 +42,41 @@ DEFINE CLASS mybuilderform AS form 		&& The builder for My namespace classes
 		*p: _memberdata		&& XML Metadata for customizable properties
 	*</DefinedPropArrayMethod>
 
-	AllowOutput = .F.
-	AutoCenter = .T.
-	BindControls = .F.
-	Caption = "My Registration Editor"
-	cdescription = 		&& The description for the namespace
-	cnamespace = 		&& The namespace for the class
-	DataSession = 2
-	DoCreate = .T.
-	FontName = "Tahoma"
-	FontSize = 8
-	Height = 514
-	lautorelease = .F.		&& .T. if we're supposed to auto-release
-	lautoshow = .T.		&& .T. if we're supposed to be displayed
-	MaxButton = .F.
-	MinButton = .F.
-	MinHeight = 450
-	MinWidth = 350
-	Name = "mybuilderform"
-	oobject = .NULL.		&& A reference to the object being edited
-	ShowTips = .T.
-	Width = 514
-	WindowType = 1
-	_memberdata = <VFPData>
-		<memberdata name="loadtree" type="method" display="LoadTree"/>
-		<memberdata name="oobject" type="property" display="oObject"/>
-		<memberdata name="getobjectreference" type="method" display="GetObjectReference"/>
-		<memberdata name="openmytable" type="method" display="OpenMyTable"/>
-		<memberdata name="cnamespace" type="property" display="cNameSpace"/>
-		<memberdata name="save" type="method" display="Save"/>
-		<memberdata name="cdescription" type="property" display="cDescription"/>
-		<memberdata name="lautoshow" type="property" display="lAutoShow"/>
-		<memberdata name="lautorelease" type="property" display="lAutoRelease"/>
-		</VFPData>		&& XML Metadata for customizable properties
+	*<PropValue>
+		AllowOutput = .F.
+		AutoCenter = .T.
+		BindControls = .F.
+		Caption = "My Registration Editor"
+		cdescription = 
+		cnamespace = 
+		DataSession = 2
+		DoCreate = .T.
+		FontName = "Tahoma"
+		FontSize = 8
+		Height = 514
+		lautorelease = .F.
+		lautoshow = .T.
+		MaxButton = .F.
+		MinButton = .F.
+		MinHeight = 450
+		MinWidth = 350
+		Name = "mybuilderform"
+		oobject = .NULL.
+		ShowTips = .T.
+		Width = 514
+		WindowType = 1
+		_memberdata = <VFPData>
+			<memberdata name="loadtree" type="method" display="LoadTree"/>
+			<memberdata name="oobject" type="property" display="oObject"/>
+			<memberdata name="getobjectreference" type="method" display="GetObjectReference"/>
+			<memberdata name="openmytable" type="method" display="OpenMyTable"/>
+			<memberdata name="cnamespace" type="property" display="cNameSpace"/>
+			<memberdata name="save" type="method" display="Save"/>
+			<memberdata name="cdescription" type="property" display="cDescription"/>
+			<memberdata name="lautoshow" type="property" display="lAutoShow"/>
+			<memberdata name="lautorelease" type="property" display="lAutoRelease"/>
+		</VFPData>
+	*</PropValue>
 
 	ADD OBJECT 'cmdCancel' AS commandbutton WITH ;
 		Anchor = 12, ;

@@ -23,35 +23,37 @@ DEFINE CLASS clock AS mybase OF "my.vcx" 		&& Provides properties and methods to
 		*p: timezoneoffset		&& The offset from the current time zone to GMT in seconds
 	*</DefinedPropArrayMethod>
 
-	cnamespace = My.Computer.Clock
-	gmttime = {}		&& The current date and time as GMT
-	localtime = (/:}		&& The current local date and time
-	Name = "clock"
-	timezonedescription = 		&& The description for the current time zone
-	timezoneoffset = 0		&& The offset from the current time zone to GMT in seconds
-	_memberdata = <VFPData>
-		<memberdata name="openmytable" type="method" display="OpenMyTable"/>
-		<memberdata name="addmembers" type="method" display="AddMembers"/>
-		<memberdata name="cnamespace" type="property" display="cNameSpace"/>
-		<memberdata name="builder" type="property" display="Builder"/>
-		<memberdata name="warning" type="method" display="Warning"/>
-		<memberdata name="ccaption" type="property" display="cCaption"/>
-		<memberdata name="errormessage" type="property" display="ErrorMessage"/>
-		<memberdata name="quietmode" type="property" display="QuietMode"/>
-		<memberdata name="calledfromthisclass" type="method" display="CalledFromThisClass"/>
-		<memberdata name="timezonedescription" type="property" display="TimeZoneDescription"/>
-		<memberdata name="timezoneoffset" type="property" display="TimeZoneOffset"/>
-		<memberdata name="timezonedescription_assign" type="method" display="TimeZoneDescription_Assign"/>
-		<memberdata name="timezoneoffset_assign" type="method" display="TimeZoneOffset_Assign"/>
-		<memberdata name="localtime" type="property" display="LocalTime"/>
-		<memberdata name="localtime_access" type="method" display="LocalTime_Access"/>
-		<memberdata name="localtime_assign" type="method" display="LocalTime_Assign"/>
-		<memberdata name="gmttime" type="property" display="GMTTime"/>
-		<memberdata name="gmttime_access" type="method" display="GMTTime_Access"/>
-		<memberdata name="gmttime_assign" type="method" display="GMTTime_Assign"/>
-		<memberdata name="convertlocaltogmt" type="method" display="ConvertLocalToGMT"/>
-		<memberdata name="convertgmttolocal" type="method" display="ConvertGMTToLocal"/>
+	*<PropValue>
+		cnamespace = My.Computer.Clock
+		gmttime = {}
+		localtime = (/:}
+		Name = "clock"
+		timezonedescription = 
+		timezoneoffset = 0
+		_memberdata = <VFPData>
+			<memberdata name="openmytable" type="method" display="OpenMyTable"/>
+			<memberdata name="addmembers" type="method" display="AddMembers"/>
+			<memberdata name="cnamespace" type="property" display="cNameSpace"/>
+			<memberdata name="builder" type="property" display="Builder"/>
+			<memberdata name="warning" type="method" display="Warning"/>
+			<memberdata name="ccaption" type="property" display="cCaption"/>
+			<memberdata name="errormessage" type="property" display="ErrorMessage"/>
+			<memberdata name="quietmode" type="property" display="QuietMode"/>
+			<memberdata name="calledfromthisclass" type="method" display="CalledFromThisClass"/>
+			<memberdata name="timezonedescription" type="property" display="TimeZoneDescription"/>
+			<memberdata name="timezoneoffset" type="property" display="TimeZoneOffset"/>
+			<memberdata name="timezonedescription_assign" type="method" display="TimeZoneDescription_Assign"/>
+			<memberdata name="timezoneoffset_assign" type="method" display="TimeZoneOffset_Assign"/>
+			<memberdata name="localtime" type="property" display="LocalTime"/>
+			<memberdata name="localtime_access" type="method" display="LocalTime_Access"/>
+			<memberdata name="localtime_assign" type="method" display="LocalTime_Assign"/>
+			<memberdata name="gmttime" type="property" display="GMTTime"/>
+			<memberdata name="gmttime_access" type="method" display="GMTTime_Access"/>
+			<memberdata name="gmttime_assign" type="method" display="GMTTime_Assign"/>
+			<memberdata name="convertlocaltogmt" type="method" display="ConvertLocalToGMT"/>
+			<memberdata name="convertgmttolocal" type="method" display="ConvertGMTToLocal"/>
 		</VFPData>
+	*</PropValue>
 	
 	PROCEDURE convertgmttolocal		&& Converts the specified GMT date and time to local
 		lparameters GMTTime as DateTime

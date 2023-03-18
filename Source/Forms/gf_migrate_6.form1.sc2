@@ -11,14 +11,16 @@ DEFINE CLASS form1 AS form
 	*< OBJECTDATA: ObjPath="Edit1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Command1" UniqueID="" Timestamp="" />
 
-	AllowOutput = .F.
-	AutoCenter = .T.
-	Caption = "Migrating to Version 6"
-	Desktop = .T.
-	DoCreate = .T.
-	Height = 470
-	Name = "Form1"
-	Width = 832
+	*<PropValue>
+		AllowOutput = .F.
+		AutoCenter = .T.
+		Caption = "Migrating to Version 6"
+		Desktop = .T.
+		DoCreate = .T.
+		Height = 470
+		Name = "Form1"
+		Width = 832
+	*</PropValue>
 
 	ADD OBJECT 'Command1' AS commandbutton WITH ;
 		Cancel = .T., ;

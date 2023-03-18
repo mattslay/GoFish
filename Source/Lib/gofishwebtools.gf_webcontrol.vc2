@@ -25,24 +25,26 @@ DEFINE CLASS gf_webcontrol AS container
 		*p: _memberdata		&& XML Metadata for customizable properties
 	*</DefinedPropArrayMethod>
 
-	Height = 200
-	lgooglechromeframe = .F.
-	Name = "gf_webcontrol"
-	nzoom = 0
-	nzoominfactor = 1.1
-	nzoomoutfactor = 0.9
-	Width = 200
-	_memberdata = <VFPData>
-		<memberdata name="showhtml" display="ShowHtml"/>
-		<memberdata name="showhtmlfile" display="ShowHtmlFile"/>
-		<memberdata name="zoom" display="Zoom"/>
-		<memberdata name="navigatetoblankpage" display="NavigateToBlankPage"/>
-		<memberdata name="nzoom" display="nZoom"/>
-		<memberdata name="nzoominfactor" display="nZoomInFactor"/>
-		<memberdata name="nzoomoutfactor" display="nZoomOutFactor"/>
-		<memberdata name="cursortohtml" display="CursorToHtml"/>
-		<memberdata name="lgooglechromeframe" display="lGoogleChromeFrame"/>
-		</VFPData>		&& XML Metadata for customizable properties
+	*<PropValue>
+		Height = 200
+		lgooglechromeframe = .F.
+		Name = "gf_webcontrol"
+		nzoom = 0
+		nzoominfactor = 1.1
+		nzoomoutfactor = 0.9
+		Width = 200
+		_memberdata = <VFPData>
+			<memberdata name="showhtml" display="ShowHtml"/>
+			<memberdata name="showhtmlfile" display="ShowHtmlFile"/>
+			<memberdata name="zoom" display="Zoom"/>
+			<memberdata name="navigatetoblankpage" display="NavigateToBlankPage"/>
+			<memberdata name="nzoom" display="nZoom"/>
+			<memberdata name="nzoominfactor" display="nZoomInFactor"/>
+			<memberdata name="nzoomoutfactor" display="nZoomOutFactor"/>
+			<memberdata name="cursortohtml" display="CursorToHtml"/>
+			<memberdata name="lgooglechromeframe" display="lGoogleChromeFrame"/>
+		</VFPData>
+	*</PropValue>
 
 	ADD OBJECT 'cmdZoomIn' AS commandbutton WITH ;
 		Anchor = 8, ;

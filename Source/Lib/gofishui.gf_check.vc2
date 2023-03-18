@@ -7,14 +7,16 @@
 DEFINE CLASS gf_check AS checkbox 
  	*< CLASSDATA: Baseclass="checkbox" Timestamp="" Scale="Pixels" Uniqueid="" />
 
-	Alignment = 2
-	Caption = ""
-	Centered = .T.
-	FontSize = 8
-	Height = 17
-	Name = "gf_check"
-	Picture = ..\..\..\gofish_vfpx\source\images\
-	Width = 60
+	*<PropValue>
+		Alignment = 2
+		Caption = ""
+		Centered = .T.
+		FontSize = 8
+		Height = 17
+		Name = "gf_check"
+		Picture = ..\..\..\gofish_vfpx\source\images\
+		Width = 60
+	*</PropValue>
 	
 	PROCEDURE Click
 		Local;

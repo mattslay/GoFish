@@ -7,30 +7,32 @@
 DEFINE CLASS sfsplitterh AS sfsplitter OF "sfsplitter.vcx" 
  	*< CLASSDATA: Baseclass="control" Timestamp="" Scale="Pixels" Uniqueid="" />
 
-	Anchor = 13
-	MousePointer = 9
-	Name = "sfsplitterh"
-	gripper.Gripperdot1.Name = "Gripperdot1"
-	gripper.Gripperdot1.ShapeDark.Name = "ShapeDark"
-	gripper.Gripperdot1.ShapeLight.Name = "ShapeLight"
-	gripper.Gripperdot1.ShapeMiddle.Name = "ShapeMiddle"
-	gripper.Gripperdot2.Name = "Gripperdot2"
-	gripper.Gripperdot2.ShapeDark.Name = "ShapeDark"
-	gripper.Gripperdot2.ShapeLight.Name = "ShapeLight"
-	gripper.Gripperdot2.ShapeMiddle.Name = "ShapeMiddle"
-	gripper.Gripperdot3.Name = "Gripperdot3"
-	gripper.Gripperdot3.ShapeDark.Name = "ShapeDark"
-	gripper.Gripperdot3.ShapeLight.Name = "ShapeLight"
-	gripper.Gripperdot3.ShapeMiddle.Name = "ShapeMiddle"
-	gripper.Gripperdot4.Name = "Gripperdot4"
-	gripper.Gripperdot4.ShapeDark.Name = "ShapeDark"
-	gripper.Gripperdot4.ShapeLight.Name = "ShapeLight"
-	gripper.Gripperdot4.ShapeMiddle.Name = "ShapeMiddle"
-	gripper.Gripperdot5.Name = "Gripperdot5"
-	gripper.Gripperdot5.ShapeDark.Name = "ShapeDark"
-	gripper.Gripperdot5.ShapeLight.Name = "ShapeLight"
-	gripper.Gripperdot5.ShapeMiddle.Name = "ShapeMiddle"
-	gripper.Name = "gripper"
+	*<PropValue>
+		Anchor = 13
+		MousePointer = 9
+		Name = "sfsplitterh"
+		gripper.Gripperdot1.Name = "Gripperdot1"
+		gripper.Gripperdot1.ShapeDark.Name = "ShapeDark"
+		gripper.Gripperdot1.ShapeLight.Name = "ShapeLight"
+		gripper.Gripperdot1.ShapeMiddle.Name = "ShapeMiddle"
+		gripper.Gripperdot2.Name = "Gripperdot2"
+		gripper.Gripperdot2.ShapeDark.Name = "ShapeDark"
+		gripper.Gripperdot2.ShapeLight.Name = "ShapeLight"
+		gripper.Gripperdot2.ShapeMiddle.Name = "ShapeMiddle"
+		gripper.Gripperdot3.Name = "Gripperdot3"
+		gripper.Gripperdot3.ShapeDark.Name = "ShapeDark"
+		gripper.Gripperdot3.ShapeLight.Name = "ShapeLight"
+		gripper.Gripperdot3.ShapeMiddle.Name = "ShapeMiddle"
+		gripper.Gripperdot4.Name = "Gripperdot4"
+		gripper.Gripperdot4.ShapeDark.Name = "ShapeDark"
+		gripper.Gripperdot4.ShapeLight.Name = "ShapeLight"
+		gripper.Gripperdot4.ShapeMiddle.Name = "ShapeMiddle"
+		gripper.Gripperdot5.Name = "Gripperdot5"
+		gripper.Gripperdot5.ShapeDark.Name = "ShapeDark"
+		gripper.Gripperdot5.ShapeLight.Name = "ShapeLight"
+		gripper.Gripperdot5.ShapeMiddle.Name = "ShapeMiddle"
+		gripper.Name = "gripper"
+	*</PropValue>
 	
 	PROCEDURE getobject1size		&& Gets the size for Object 1
 		lparameters toObject

@@ -12,11 +12,13 @@ DEFINE CLASS gripperdot AS container
 	*< OBJECTDATA: ObjPath="ShapeLight" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="ShapeMiddle" UniqueID="" Timestamp="" />
 
-	BackStyle = 0
-	BorderWidth = 0
-	Height = 4
-	Name = "gripperdot"
-	Width = 4
+	*<PropValue>
+		BackStyle = 0
+		BorderWidth = 0
+		Height = 4
+		Name = "gripperdot"
+		Width = 4
+	*</PropValue>
 
 	ADD OBJECT 'ShapeDark' AS shape WITH ;
 		BackStyle = 1, ;

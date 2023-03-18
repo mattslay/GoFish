@@ -33,22 +33,24 @@ DEFINE CLASS gf_collectionexplorer AS form
 		*a: apems[1,0]
 	*</DefinedPropArrayMethod>
 
-	Caption = "Collection Explorer"
-	DoCreate = .T.
-	Height = 407
-	Left = 1
-	lshowarrays = .T.		&& Indicates that arrays should be displayed in the treeview.
-	lshowitems = .T.		&& Indicates the items in a collection should be displayed in the tree.
-	lshowmemberobjects = .T.		&& Indicates that member objects should be displayed in the treeview.
-	lshowobjectreferences = .T.		&& Indicates that properties that hold object references should be added to the treeview.
-	lshowproperties = .T.		&& Indicates that all properties should be displayed in the list view.
-	Name = "GF_CollectionExplorer"
-	ocollection = NULL		&& Contains an object reference to the top level collection in the treeview.
-	ofirstobject = .NULL.		&& Stores an object reference to the top most object in the treeview.
-	oflatcollection = .NULL.		&& Contains references to all of the items in all collections, without regard for hierarchy.
-	Top = 0
-	Width = 468
-	WindowType = 1
+	*<PropValue>
+		Caption = "Collection Explorer"
+		DoCreate = .T.
+		Height = 407
+		Left = 1
+		lshowarrays = .T.
+		lshowitems = .T.
+		lshowmemberobjects = .T.
+		lshowobjectreferences = .T.
+		lshowproperties = .T.
+		Name = "GF_CollectionExplorer"
+		ocollection = NULL
+		ofirstobject = .NULL.
+		oflatcollection = .NULL.
+		Top = 0
+		Width = 468
+		WindowType = 1
+	*</PropValue>
 
 	ADD OBJECT 'olePropList' AS olecontrol WITH ;
 		Anchor = 45, ;

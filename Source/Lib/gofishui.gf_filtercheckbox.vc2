@@ -12,20 +12,22 @@ DEFINE CLASS gf_filtercheckbox AS checkbox
 		*p: _memberdata		&& XML Metadata for customizable properties
 	*</DefinedPropArrayMethod>
 
-	Alignment = 0
-	AutoSize = .T.
-	BackStyle = 0
-	Caption = "<Caption>"
-	FontName = "Tahoma"
-	FontSize = 8
-	Height = 15
-	Name = "gf_filtercheckbox"
-	TabIndex = 1
-	Value = .T.
-	Width = 71
-	_memberdata = <VFPData>
-		<memberdata name="caption" display="Caption"/>
-		</VFPData>		&& XML Metadata for customizable properties
+	*<PropValue>
+		Alignment = 0
+		AutoSize = .T.
+		BackStyle = 0
+		Caption = "<Caption>"
+		FontName = "Tahoma"
+		FontSize = 8
+		Height = 15
+		Name = "gf_filtercheckbox"
+		TabIndex = 1
+		Value = .T.
+		Width = 71
+		_memberdata = <VFPData>
+			<memberdata name="caption" display="Caption"/>
+		</VFPData>
+	*</PropValue>
 	
 	PROCEDURE Click
 		*By the time we get here, the value has already been toggled by VFP.

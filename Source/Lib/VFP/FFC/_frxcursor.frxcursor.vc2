@@ -65,64 +65,66 @@ DEFINE CLASS frxcursor AS custom 		&& Provides methods to translate and manipula
 		*p: _memberdata		&& XML Metadata for customizable properties
 	*</DefinedPropArrayMethod>
 
-	Name = "frxcursor"
-	quietmode = .F.		&& Allows runtime users of frxCursor to specify whether the class displays error messages and other user feedback.
-	screendpi = 96		&& Contains the working DPI of the ReportDesigner.  Currently hard-coded to 96.
-	_memberdata = <VFPData>
-		<memberdata name="getmetadatadomdoc" type="Method" display="GetMetadataDomDoc" favorites="false" override="false" script=""/>
-		<memberdata name="createvariablecursor" type="Method" display="CreateVariableCursor"/>
-		<memberdata name="binstringtoint" type="Method" display="BinStringToInt"/>
-		<memberdata name="bintoint" type="Method" display="BinToInt"/>
-		<memberdata name="charsettolocale" type="Method" display="CharsetToLocale"/>
-		<memberdata name="createbandcursor" type="Method" display="CreateBandCursor"/>
-		<memberdata name="createcalcresetoncursor" type="Method" display="CreateCalcResetOnCursor"/>
-		<memberdata name="createdefaultprintenvcursor" type="Method" display="CreateDefaultPrintEnvCursor"/>
-		<memberdata name="creategroupcursor" type="Method" display="CreateGroupCursor"/>
-		<memberdata name="createobjcursorrecord" type="Method" display="CreateObjCursorRecord"/>
-		<memberdata name="createobjectcursor" type="Method" display="CreateObjectCursor"/>
-		<memberdata name="frutopixels" type="Method" display="FruToPixels"/>
-		<memberdata name="getbandfor" type="Method" display="GetBandFor"/>
-		<memberdata name="getfrutextheight" type="Method" display="GetFruTextHeight"/>
-		<memberdata name="getfrutextwidth" type="Method" display="GetFruTextWidth"/>
-		<memberdata name="getfrxtimestamp" type="Method" display="GetFrxTimeStamp"/>
-		<memberdata name="getobjectsinband" type="Method" display="GetObjectsInBand"/>
-		<memberdata name="getreportattribute" type="Method" display="GetReportAttribute"/>
-		<memberdata name="getselectedobjectcount" type="Method" display="GetSelectedObjectCount"/>
-		<memberdata name="gettargettypetext" type="Method" display="GetTargetTypeText"/>
-		<memberdata name="gettimestampstring" type="Method" display="GetTimeStampString"/>
-		<memberdata name="getunitvaluefromfru" type="Method" display="GetUnitValueFromFru"/>
-		<memberdata name="gorec" type="Method" display="GoRec"/>
-		<memberdata name="hasband" type="Method" display="HasBand"/>
-		<memberdata name="hasdetailheader" type="Method" display="HasDetailHeader"/>
-		<memberdata name="hasprotectionflag" type="Method" display="HasProtectionFlag"/>
-		<memberdata name="insertband" type="Method" display="InsertBand"/>
-		<memberdata name="insertdataenvrecord" type="Method" display="InsertDataEnvRecord"/>
-		<memberdata name="insertdetailband" type="Method" display="InsertDetailBand"/>
-		<memberdata name="insertdetailheaderfooter" type="Method" display="InsertDetailHeaderFooter"/>
-		<memberdata name="insertsummaryband" type="Method" display="InsertSummaryBand"/>
-		<memberdata name="inserttitleband" type="Method" display="InsertTitleBand"/>
-		<memberdata name="inttobin" type="Method" display="IntToBin"/>
-		<memberdata name="inttobinstring" type="Method" display="IntToBinString"/>
-		<memberdata name="islayoutcontrol" type="Method" display="IsLayoutControl"/>
-		<memberdata name="packupmemberdata" type="Method" display="PackupMemberData"/>
-		<memberdata name="pixelstofru" type="Method" display="PixelsToFru"/>
-		<memberdata name="popprintenv" type="Method" display="PopPrintEnv"/>
-		<memberdata name="pushprintenvtocursor" type="Method" display="PushPrintEnvToCursor"/>
-		<memberdata name="runtimemode" type="Property" display="RuntimeMode"/>
-		<memberdata name="screendpi" type="Property" display="ScreenDPI"/>
-		<memberdata name="setcolumncount" type="Method" display="SetColumnCount"/>
-		<memberdata name="stripquotes" type="Method" display="StripQuotes"/>
-		<memberdata name="synchobjectpositions" type="Method" display="SynchObjectPositions"/>
-		<memberdata name="unpackmemberdata" type="Method" display="UnpackMemberData"/>
-		<memberdata name="unpackfrxmemberdata" type="Method" display="UnpackFrxMemberData"/>
-		<memberdata name="cursortoxmlstr" type="Method" display="CursorToXmlStr"/>
-		<memberdata name="xmlstrtocursor" type="Method" display="XmlStrToCursor"/>
-		<memberdata name="getfrxrecdisplayname" type="Method" display="GetFrxRecDisplayName"/>
-		<memberdata name="quietmode" display="QuietMode" type="Property" favorites="True"/>
-		<memberdata name="generateevaluatecontentsscript" display="GenerateEvaluateContentsScript" type="Method" favorites="True"/>
-		<memberdata name="generateadjustobjectsizescript" display="GenerateAdjustObjectSizeScript" type="Method" favorites="True"/>
-		<memberdata name="resettextmerge" type="Method" display="ResetTextMerge"/>
-		</VFPData>		&& XML Metadata for customizable properties
+	*<PropValue>
+		Name = "frxcursor"
+		quietmode = .F.
+		screendpi = 96
+		_memberdata = <VFPData>
+			<memberdata name="getmetadatadomdoc" type="Method" display="GetMetadataDomDoc" favorites="false" override="false" script=""/>
+			<memberdata name="createvariablecursor" type="Method" display="CreateVariableCursor"/>
+			<memberdata name="binstringtoint" type="Method" display="BinStringToInt"/>
+			<memberdata name="bintoint" type="Method" display="BinToInt"/>
+			<memberdata name="charsettolocale" type="Method" display="CharsetToLocale"/>
+			<memberdata name="createbandcursor" type="Method" display="CreateBandCursor"/>
+			<memberdata name="createcalcresetoncursor" type="Method" display="CreateCalcResetOnCursor"/>
+			<memberdata name="createdefaultprintenvcursor" type="Method" display="CreateDefaultPrintEnvCursor"/>
+			<memberdata name="creategroupcursor" type="Method" display="CreateGroupCursor"/>
+			<memberdata name="createobjcursorrecord" type="Method" display="CreateObjCursorRecord"/>
+			<memberdata name="createobjectcursor" type="Method" display="CreateObjectCursor"/>
+			<memberdata name="frutopixels" type="Method" display="FruToPixels"/>
+			<memberdata name="getbandfor" type="Method" display="GetBandFor"/>
+			<memberdata name="getfrutextheight" type="Method" display="GetFruTextHeight"/>
+			<memberdata name="getfrutextwidth" type="Method" display="GetFruTextWidth"/>
+			<memberdata name="getfrxtimestamp" type="Method" display="GetFrxTimeStamp"/>
+			<memberdata name="getobjectsinband" type="Method" display="GetObjectsInBand"/>
+			<memberdata name="getreportattribute" type="Method" display="GetReportAttribute"/>
+			<memberdata name="getselectedobjectcount" type="Method" display="GetSelectedObjectCount"/>
+			<memberdata name="gettargettypetext" type="Method" display="GetTargetTypeText"/>
+			<memberdata name="gettimestampstring" type="Method" display="GetTimeStampString"/>
+			<memberdata name="getunitvaluefromfru" type="Method" display="GetUnitValueFromFru"/>
+			<memberdata name="gorec" type="Method" display="GoRec"/>
+			<memberdata name="hasband" type="Method" display="HasBand"/>
+			<memberdata name="hasdetailheader" type="Method" display="HasDetailHeader"/>
+			<memberdata name="hasprotectionflag" type="Method" display="HasProtectionFlag"/>
+			<memberdata name="insertband" type="Method" display="InsertBand"/>
+			<memberdata name="insertdataenvrecord" type="Method" display="InsertDataEnvRecord"/>
+			<memberdata name="insertdetailband" type="Method" display="InsertDetailBand"/>
+			<memberdata name="insertdetailheaderfooter" type="Method" display="InsertDetailHeaderFooter"/>
+			<memberdata name="insertsummaryband" type="Method" display="InsertSummaryBand"/>
+			<memberdata name="inserttitleband" type="Method" display="InsertTitleBand"/>
+			<memberdata name="inttobin" type="Method" display="IntToBin"/>
+			<memberdata name="inttobinstring" type="Method" display="IntToBinString"/>
+			<memberdata name="islayoutcontrol" type="Method" display="IsLayoutControl"/>
+			<memberdata name="packupmemberdata" type="Method" display="PackupMemberData"/>
+			<memberdata name="pixelstofru" type="Method" display="PixelsToFru"/>
+			<memberdata name="popprintenv" type="Method" display="PopPrintEnv"/>
+			<memberdata name="pushprintenvtocursor" type="Method" display="PushPrintEnvToCursor"/>
+			<memberdata name="runtimemode" type="Property" display="RuntimeMode"/>
+			<memberdata name="screendpi" type="Property" display="ScreenDPI"/>
+			<memberdata name="setcolumncount" type="Method" display="SetColumnCount"/>
+			<memberdata name="stripquotes" type="Method" display="StripQuotes"/>
+			<memberdata name="synchobjectpositions" type="Method" display="SynchObjectPositions"/>
+			<memberdata name="unpackmemberdata" type="Method" display="UnpackMemberData"/>
+			<memberdata name="unpackfrxmemberdata" type="Method" display="UnpackFrxMemberData"/>
+			<memberdata name="cursortoxmlstr" type="Method" display="CursorToXmlStr"/>
+			<memberdata name="xmlstrtocursor" type="Method" display="XmlStrToCursor"/>
+			<memberdata name="getfrxrecdisplayname" type="Method" display="GetFrxRecDisplayName"/>
+			<memberdata name="quietmode" display="QuietMode" type="Property" favorites="True"/>
+			<memberdata name="generateevaluatecontentsscript" display="GenerateEvaluateContentsScript" type="Method" favorites="True"/>
+			<memberdata name="generateadjustobjectsizescript" display="GenerateAdjustObjectSizeScript" type="Method" favorites="True"/>
+			<memberdata name="resettextmerge" type="Method" display="ResetTextMerge"/>
+		</VFPData>
+	*</PropValue>
 	
 	PROCEDURE binstringtoint		&& Returns a numeric equivalent of a given binary number given in byte string form.
 		*=======================================================

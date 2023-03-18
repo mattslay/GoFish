@@ -18,25 +18,27 @@ DEFINE CLASS data AS mybase OF "my.vcx" 		&& Provides data-handling features
 	*</DefinedPropArrayMethod>
 
 	PROTECTED acursors
-	cnamespace = My.Data
-	Name = "data"
-	_memberdata = <VFPData>
-		<memberdata name="openmytable" type="method" display="OpenMyTable"/>
-		<memberdata name="addmembers" type="method" display="AddMembers"/>
-		<memberdata name="cnamespace" type="property" display="cNameSpace"/>
-		<memberdata name="builder" type="property" display="Builder"/>
-		<memberdata name="warning" type="method" display="Warning"/>
-		<memberdata name="ccaption" type="property" display="cCaption"/>
-		<memberdata name="errormessage" type="property" display="ErrorMessage"/>
-		<memberdata name="quietmode" type="property" display="QuietMode"/>
-		<memberdata name="calledfromthisclass" type="method" display="CalledFromThisClass"/>
-		<memberdata name="opencursorsnapshot" type="method" display="OpenCursorSnapshot"/>
-		<memberdata name="acursors" type="property" display="aCursors"/>
-		<memberdata name="closeopenedcursors" type="method" display="CloseOpenedCursors"/>
-		<memberdata name="goto" type="method" display="GoTo"/>
-		<memberdata name="closeallinstances" type="method" display="CloseAllInstances"/>
-		<memberdata name="closeallinstancesindatasession" type="method" display="CloseAllInstancesInDataSession"/>
+	*<PropValue>
+		cnamespace = My.Data
+		Name = "data"
+		_memberdata = <VFPData>
+			<memberdata name="openmytable" type="method" display="OpenMyTable"/>
+			<memberdata name="addmembers" type="method" display="AddMembers"/>
+			<memberdata name="cnamespace" type="property" display="cNameSpace"/>
+			<memberdata name="builder" type="property" display="Builder"/>
+			<memberdata name="warning" type="method" display="Warning"/>
+			<memberdata name="ccaption" type="property" display="cCaption"/>
+			<memberdata name="errormessage" type="property" display="ErrorMessage"/>
+			<memberdata name="quietmode" type="property" display="QuietMode"/>
+			<memberdata name="calledfromthisclass" type="method" display="CalledFromThisClass"/>
+			<memberdata name="opencursorsnapshot" type="method" display="OpenCursorSnapshot"/>
+			<memberdata name="acursors" type="property" display="aCursors"/>
+			<memberdata name="closeopenedcursors" type="method" display="CloseOpenedCursors"/>
+			<memberdata name="goto" type="method" display="GoTo"/>
+			<memberdata name="closeallinstances" type="method" display="CloseAllInstances"/>
+			<memberdata name="closeallinstancesindatasession" type="method" display="CloseAllInstancesInDataSession"/>
 		</VFPData>
+	*</PropValue>
 	
 	PROCEDURE closeallinstances		&& Closes all open copies of a given table in all datasessions
 		lparameters TableName as String
