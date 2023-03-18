@@ -1600,9 +1600,20 @@ Define Class GoFishSearchEngine As Custom
 *===================== Colorize the match line ====================================================
 *-- Mark the match WORD(s), so I can find them after the VFP code is colorized...
 			lcReplaceExpression = '[:GOFISHMATCHWORDSTART:] + lcMatch + [:GOFISHMATCHWORDEND:]'
-*			lcColorizedCode = This.RegExReplace(tcMatchLine, '', lcReplaceExpression, .T.)
-			lcColorizedCode = This.RegExReplace(tcMatchLine, tcSearch, lcReplaceExpression, .T.)
+*!*	Changed by: LScheffler 18.3.2023
+*!*	<pdm>
+*!*	<change date="{^2023-03-18,08:47:00}">Changed by: LScheffler<br />
+*!*	<a href"https://github.com/VFPX/GoFish/issues/68">issue 68</a><br/>
+*!*	A change introduced with commit 965402a5aff67aa5
+*!*	It is not clear why the change was made, so rest to old version
+*!*	</change>
+*!*	</pdm>
 
+			lcColorizedCode = This.RegExReplace(tcMatchLine, '', lcReplaceExpression, .T.)
+*			lcColorizedCode = This.RegExReplace(tcMatchLine, tcSearch, lcReplaceExpression, .T.)
+
+*!*	/Changed by: LScheffler 18.3.2023
+ 
 			lcColorizedCode = This.HtmlEncode(lcColorizedCode)
 
 *-- Next, add <span> tags around previously marked match Word(s)
