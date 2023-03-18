@@ -183,7 +183,7 @@ DEFINE CLASS gf_combosearchscope AS combobox
 			If !Used(Juststem(lcTable))
 				Select 0
 				Try
-						Use (lcSearchExpressionTable) Exclusive
+						Use (lcTable) Exclusive
 						Pack
 						Use
 		

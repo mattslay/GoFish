@@ -1,3 +1,8 @@
+## Ver 6.0.008 **Released 2023-03-18**
+- Fixed: Some searches produce OLE error code 0x800a139c: Unknown COM status code #68
+- Fixed: GoFish 6.0 is not active by default #66
+- Fixed: issue with filter results
+
 ## Ver 6.0.007 **Released 2023-03-18**
 - Improved: Pre-update screen for bug search.
 

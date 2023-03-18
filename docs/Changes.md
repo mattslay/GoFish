@@ -5,10 +5,17 @@ Change list of GoFish - An advanced code search tool for MS Visual Foxpro 9
 This document list the changes of GoFish.   
 Replaces the lists in
 - [Readme.md](/readme.md)
-- ChangeLog_Ver_5.txt
+- ChangeLog_Ver_4.txt
 - ChangeLog_Ver_5.txt
 
 ----
+## Ver 6.0.008
+**Released 2023-03-18**
+### Changes
+- Fixed: Some searches produce OLE error code 0x800a139c: Unknown COM status code #68
+- Fixed: GoFish 6.0 is not active by default #66
+- Fixed: issue with filter results
+
 ## Ver 6.0.007
 **Released 2023-03-18**
 ### Changes
