@@ -9,6 +9,11 @@ Replaces the lists in
 - ChangeLog_Ver_5.txt
 
 ----
+## Ver 6.0.009
+**Released 2023-03-23**
+### Changes
+- Improved: Files of type SPR will be modified like PRG.
+
 ## Ver 6.0.008
 **Released 2023-03-18**
 ### Changes

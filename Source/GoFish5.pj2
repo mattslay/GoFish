@@ -180,23 +180,24 @@ WITH loProject.FILES
 	*</FileComments>
 
 	*<ExcludedFiles>
-	.ITEM(lcCurdir + 'buildgofish.h').Exclude = .T.
-	.ITEM(lcCurdir + 'buildgofish.prg').Exclude = .T.
-	.ITEM(lcCurdir + 'changelog_thor.txt').Exclude = .T.
-	.ITEM(lcCurdir + 'gofishgeneratescc.prg').Exclude = .T.
-	.ITEM(lcCurdir + 'lib\gofish.h').Exclude = .T.
+	.ITEM("buildgofish.h").Exclude = .T.
+	.ITEM("buildgofish.prg").Exclude = .T.
+	.ITEM("changelog_thor.txt").Exclude = .T.
+	.ITEM("gofishgeneratescc.prg").Exclude = .T.
+	.ITEM("lib\gofish.h").Exclude = .T.
 	*</ExcludedFiles>
 
 	*<TextFiles>
-	.ITEM(lcCurdir + 'buildgofish.h').Type = 'T'
-	.ITEM(lcCurdir + 'lib\gofish.h').Type = 'T'
-	.ITEM(lcCurdir + 'lib\peme_basetools.h').Type = 'T'
+	.ITEM("buildgofish.h").Type = 'T'
+	.ITEM("lib\gofish.h").Type = 'T'
+	.ITEM("lib\peme_basetools.h").Type = 'T'
 	*</TextFiles>
 ENDWITH
 
 WITH loProject
 	*<ProjectProperties>
-	.SetMain(lcCurdir + 'gofish.prg')
+	.SetMain("gofish.prg")
+
 	.Debug = .T.
 	.Encrypted = .F.
 	*<.CmntStyle = 1 />
