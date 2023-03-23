@@ -9,10 +9,10 @@ Replaces the lists in
 - ChangeLog_Ver_5.txt
 
 ----
-## Ver 6.0.009
+## Ver 6.0.010
 **Released 2023-03-23**
 ### Changes
-- Improved: Files of type SPR will be modified like PRG.
+- Improved: Files of type SPR will be modified like PRG. (again)
 
 ## Ver 6.0.008
 **Released 2023-03-18**
@@ -487,4 +487,4 @@ For more details check [Changes on V6](./New_6.md).
 - Park Ave Marketing firm suggests rename - "Go Fish"
 
 ----
-Last changed: _2023/03/18_  ![Picture](./pictures/vfpxpoweredby_alternative.gif)
+Last changed: _2023/03/23_  ![Picture](./pictures/vfpxpoweredby_alternative.gif)

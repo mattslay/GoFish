@@ -320,7 +320,7 @@ Define Class gf_peme_basetools As Custom
 									"lcMethod: " + lcMethod)
 					ENDIF 
 
-				Case lcExt = 'PRG SPR '
+				Case lcExt $ 'PRG SPR '
 					Modify Command(lcFileName) Range lnStartRange, lnEndRange Nowait
 
 				Case lcExt $ ' MPR QPR TXT H INI '

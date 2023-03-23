@@ -1,8 +1,8 @@
 Lparameters toUpdateInfo
 
 Text to lcNote NoShow
-## Ver 6.0.009 **Released 2023-03-23**
-- Improved: Files of type SPR will be modified like PRG.
+## Ver 6.0.010 **Released 2023-03-23**
+- Improved: Files of type SPR will be modified like PRG. (again)
 
 ## Ver 6.0.008 **Released 2023-03-18**
 - Fixed: Some searches produce OLE error code 0x800a139c: Unknown COM status code #68
@@ -40,7 +40,7 @@ For more details check https://github.com/VFPX/GoFish/docs/Changes.md
 
 EndText
 
-AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 6.0.009 - 23. März 2023,  - 20230323')
+AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 6.0.010 - 23. März 2023,  - 20230323')
 AddProperty(toUpdateInfo, 'SourceFileUrl', 'https://raw.githubusercontent.com/VFPX/GoFish/master/Source/Source.zip')
 AddProperty(toUpdateInfo, 'LinkPrompt', 'GoFish Home Page')
 AddProperty(toUpdateInfo, 'Link', 'https://github.com/VFPX/GoFish')
