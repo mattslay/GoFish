@@ -1,6 +1,6 @@
 # ![](content/home.png "Home") GoFish!
 ![Go!Fish](./docs/Screenshots/GoFish_image_8.png)   
-**Version 6.0.010, 2023-03-23**   
+**Version 6.1.000, 2023-04-15**
 GoFish is an advanced code search tool for fast searching and replacing of Visual FoxPro source code.
 > Note: Matt's original repository is at https://github.com/mattslay/GoFish but since he sadly passed away in 2021, this fork is now the one the VFPX project list links to so others can contribute to the project. The main project is now https://github.com/VFPX/GoFish
 
@@ -52,4 +52,4 @@ The search brings one hit per line, even if there is more then one hit in this l
 The replace function just replaces all hits per line. There is not hint about multiple hits at all.
 
 ----
-Last changed: _2023/03/23_  ![Picture](./docs/pictures/vfpxpoweredby_alternative.gif)
+Last changed: _2023/04/15_  ![Picture](./docs/pictures/vfpxpoweredby_alternative.gif)

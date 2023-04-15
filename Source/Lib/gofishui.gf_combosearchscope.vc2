@@ -222,7 +222,12 @@ DEFINE CLASS gf_combosearchscope AS combobox
 	PROCEDURE savesearchscope
 		Lparameters tcSearchScope
 		
-		Local lcTable, lnExpressionsToStore, lnSelect
+		Local;
+			lcTable           As String,;
+			lnExpressionsToStore As Number,;
+			lnSelect          As Number
+		*:Global;
+		tcScope
 		
 		lnSelect = Select()
 		
@@ -232,7 +237,7 @@ DEFINE CLASS gf_combosearchscope AS combobox
 		
 		Thisform.SaveDBC_Open()
 		
-		lcTable = JUSTSTEM(This.cTable)
+		lcTable = Juststem(This.cTable)
 		
 		*!*	lcSearchScopeTable = This.cTable
 		lnExpressionsToStore = This.nExpressionsToStore
@@ -242,28 +247,33 @@ DEFINE CLASS gf_combosearchscope AS combobox
 		*!*	lcTable = Thisform.cCR_StoreLocal + lcSearchScopeTable + '.dbf'
 		*/SF 20221018 -> local storage
 		
-		tcScope = Rtrim(Alltrim(tcSearchScope), 0, '\')
+		tcScope = Rtrim(Alltrim(m.tcSearchScope), 0, '\')
 		
 		This.OpenTable()
 		
 		Locate;
 			For Lower(Rtrim(scope, ' ',  '\')) == Lower(Rtrim(m.tcScope, ' ', '\'))
 		
-		If !Found() Then
-			Replace All;
-				Item With Item + 1;
-				In (m.lcTable)
+		If Found() Then
+		    Replace;
+		     Item With 0;
+		     In (m.lcTable)
 		
+		Else  &&Found()
 			Insert Into (m.lcTable);
 				(Item, scope) ;
-				values;
-				(1, m.tcSearchScope)
+				Values;
+				(0, m.tcSearchScope)
 		
-			Delete;
-				FOR Item > m.lnExpressionsToStore;
-				In (m.lcTable)
+		Endif &&FOUND()
 		
-		Endif &&!FOUND()
+		Replace All;
+		 Item With Item + 1;
+		 In (m.lcTable)
+		
+		Delete;
+		 For Item > m.lnExpressionsToStore+1;
+		 In (m.lcTable)
 		
 		Use In Select(m.lcTable)
 		Thisform.SaveDBC_Close()
@@ -332,7 +342,7 @@ DEFINE CLASS gf_combosearchscope AS combobox
 		
 			Case '.PJX' $ Upper(lcValue)
 				If !File(lcValue)
-					MessageBox('File not found.', 16, 'Error')
+					MessageBox('File not found:' + 0h0D0A + '"' + lcValue + '"', 16, 'Error')
 					This.Value = lcValue
 					Return
 				Endif
@@ -346,7 +356,7 @@ DEFINE CLASS gf_combosearchscope AS combobox
 		
 			Otherwise
 				If !Directory(lcValue, 1)
-					MessageBox('Invalid directory.', 16, 'Error')
+					MessageBox('Invalid directory:' + 0h0D0A + '"' + lcValue + '"', 16, 'Error')
 					This.Value = lcValue
 					Return
 				Endif

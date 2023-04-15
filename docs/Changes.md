@@ -9,6 +9,16 @@ Replaces the lists in
 - ChangeLog_Ver_5.txt
 
 ----
+## Ver 6.1.000
+**Released 2023-04-15**
+### Changes
+- Improved: Update of storage structure by version change
+- Improved: Highlight searched text in opened window; merged #75
+- Improved: Max length of field FileName set to 100, issue #78
+- Fixed: Files with to long filename where sorted to wrong node, fixing #78
+- Fixed: Error while exporting, fixing #79
+- Fixed: Scope disappears after a project search, fixing #69 
+
 ## Ver 6.0.010
 **Released 2023-03-23**
 ### Changes
@@ -487,4 +497,4 @@ For more details check [Changes on V6](./New_6.md).
 - Park Ave Marketing firm suggests rename - "Go Fish"
 
 ----
-Last changed: _2023/03/23_  ![Picture](./pictures/vfpxpoweredby_alternative.gif)
+Last changed: _2023/04/15_  ![Picture](./pictures/vfpxpoweredby_alternative.gif)

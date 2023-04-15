@@ -1,36 +1,9 @@
-## Ver 6.0.010 **Released 2023-03-23**
-- Improved: Files of type SPR will be modified like PRG. (again)
-
-## Ver 6.0.008 **Released 2023-03-18**
-- Fixed: Some searches produce OLE error code 0x800a139c: Unknown COM status code #68
-- Fixed: GoFish 6.0 is not active by default #66
-- Fixed: issue with filter results
-
-## Ver 6.0.007 **Released 2023-03-18**
-- Improved: Pre-update screen for bug search.
-
-## Ver 6.0.006 **Released 2023-03-12**
-- Fixed: Suppress error with odd ORDER BY from old version #53
-- Fixed: Check box *Whole Word* was not framed when non default value #7
-
-## Ver 6.0.005  **Released 2023-03-11**
-- Improved: Screen to help with the duplicate issue #53
-  SET SAFETY ON to help to find the problem
-
-## Ver 6.0.004  **Released 2023-03-11**
-- Improved: `SET SAFETY OFF` to circumvent a problem with double copy. (issue #53) Until real fix.
-
-## Ver 6.0.003  **Released 2023-03-10**
-For more details check https://github.com/VFPX/GoFish/docs/Changes.md
-- New: Mode to display history in tree
-- New: Modified structure to store history to speed up display of history in tree while keeeping common history table small.
-- New: Option to swap buttons in search history. Send OK / Cancel buttom left.
-- New: Option to show search history by active scope
-- New: Option to set scope to Active Project / Active Path as default
-- New: Additional parameters for active scope
-- New: Additional parameters to clear settings / storage
-- Improved: Alternative button layout for *Load History Form*
-- Improved: Load history faster
-- Improved: Storage of replace history
-- Improved: Display of replace history
-- Improved: Sort per filepath rather then filename
+## Ver 6.1.000
+**Released 2023-04-15**
+### Changes
+- Improved: Update of storage structure by version change
+- Improved: Highlight searched text in opened window; merged #75
+- Improved: Max length of field FileName set to 100, issue #78
+- Fixed: Files with to long filename where sorted to wrong node, fixing #78
+- Fixed: Error while exporting, fixing #79
+- Fixed: Scope disappears after a project search, fixing #69 
