@@ -1,5 +1,6 @@
 * Change log:
 * 2021-03-19	See GF_RemoveFolder() function.
+* see git history
 *=======================================================================
 
 
@@ -739,6 +740,7 @@ Procedure GF_Change_TableStruct	&&Update structure of storage tables from versio
 
 	Local;
 		lcAlias2 As String,;
+		lcComment As String,;
 		lcDBF    As String,;
 		lcDBF_H  As String,;
 		lcDatabase As String,;
@@ -750,12 +752,14 @@ Procedure GF_Change_TableStruct	&&Update structure of storage tables from versio
 		lcOldDir As String,;
 		lcUni    As String,;
 		llReturn As Boolean,;
+		lnCompare As Integer,;
 		lnCount  As Number,;
 		lnReccount As Number,;
 		lnResult As Integer,;
 		lnResults As Integer,;
 		lnReturn As Integer,;
 		lnSelect As Integer,;
+		lnVerNo  As Integer,;
 		loException As Object
 
 	lcDBF   = Addbs(m.tcRoot) + m.toResultForm.cUISettingsFile
@@ -767,6 +771,35 @@ Procedure GF_Change_TableStruct	&&Update structure of storage tables from versio
 
 	lcDbc = m.tcRoot + m.toResultForm.cSaveDBC
 	If File(m.lcDbc) Then
+*Version control
+		Open Database (m.lcDbc)
+		lcComment = DBGetProp(Justfname(m.lcDbc),'DATABASE','COMMENT')
+		lnCompare = Compare_VerNo(, m.lcComment, @lnVerNo)
+		Do Case
+			Case m.lnCompare=0
+* Database fits to app
+			Case m.lnCompare=2
+* database newer then GoFish
+				Close Databases
+				RETURN 3
+			Otherwise
+*update
+				NewVersion(m.lnVerNo)
+
+				DBSetProp(Justfname(m.lcDbc),'DATABASE','COMMENT',_Screen._GoFish.cVersion)
+*/update
+		Endcase
+		Close Databases
+
+*just check that the folder exists
+		lcDir = Addbs(m.tcRoot) + m.tcSavedSearchResults
+		If !Directory(m.lcDir) Then
+			Mkdir (m.lcDir)
+			lcDir = Addbs(m.lcDir)
+
+			GF_Write_Readme_Text(3, m.lcDir + "README.md")
+		Endif &&!Directory(m.lcDir)
+
 		Return 0
 	Endif &&File(m.lcDbc)
 
@@ -801,6 +834,7 @@ Procedure GF_Change_TableStruct	&&Update structure of storage tables from versio
 			GF_Write_Readme_Text(3, m.lcDir + "README.md")
 
 			Create Database (m.lcDbc)
+			DBSetProp(Justfname(m.lcDbc),'DATABASE','COMMENT',_Screen._GoFish.cVersion)
 
 *- Add existing tables to DBC
 			If File("GF_Search_Expression_History.Dbf") Then
@@ -1057,7 +1091,7 @@ Procedure GF_Change_TableStruct	&&Update structure of storage tables from versio
 				 From GoFishReplaceHistory As Cur1;
 				 Into Cursor GoFishReplace_History NoFilter;
 				 Group By 1,2,3,4
-*append 
+*append
 				Insert Into (m.lcDBF_H);
 					(cUni,;
 					 Datetime,;
@@ -1436,3 +1470,131 @@ Procedure GF_GetMonitorStatistics
 	Return m.loMonitor
 
 Endproc &&GF_GetMonitorStatistics
+
+Procedure Compare_VerNo
+************************************************************************
+* Compare_VerNo
+****************************************
+***  Function: Compares Version numbers in the form aaaa[.bbbb[.cccc[.ddddd]]]
+***      Pass:
+***       tcVerNoSys
+***          System side of the comparision, usually this of the app.
+***          Type 	Character
+***          Direction 	Input
+***          Optional
+***          If empty, _Screen._GoFish.cVersion is used.
+***      tcVerNoDBC
+***          File side of the comparison
+***          Typ 	Character
+***          Direction 	Input
+***          Typicaly the version of a database.
+***      tnVerNoDBC
+***          The return of tcVerNoDBC as numerical value, depending on tnPos
+***          Typ 	Numeric
+***          By refernce
+***          Direction 	Output
+***          Optional
+***      tnPos
+***          Sets how many levels of the versions are compared
+***          Typ 	Numeric
+***          By refernce
+***          Direction 	Input
+***			 Value 	Description
+***          1 	only the aaaa part
+***          2 	10^4*aaaa+bbbb (this is the default)
+***          3 	10^4*(10^4*aaaa+bbbb)+cccc
+***          4 	10^4*(10^4*(10^4*aaaa+bbbb)+cccc)+dddd
+***          
+***    Return:  numeric
+***    Value 	Description
+***    0 	tcVerNoSys=tcVerNoDBC
+***    1 	tcVerNoSys>tcVerNoDBC
+***    2 	tcVerNoSys<tcVerNoDBC
+***
+*** SF 20230414
+***
+************************************************************************
+
+	Lparameters ;
+		tcVerNoSys,;
+		tcVerNoDBC,;
+		tnVerNoDBC,;
+		tnPos
+
+	Local;
+		lnVerNoSys As Number
+
+	If Empty(m.tcVerNoSys) Then
+		tcVerNoSys = _Screen._GoFish.cVersion
+	Endif &&EMPTY(tcVerNoSys)
+
+	If Vartype(m.tnPos)#"N" Then
+		tnPos = 2
+	Endif &&VARTYPE(tnPos)#"N"
+
+
+	lnVerNoSys = Val(Getwordnum(m.tcVerNoSys, 1, '.'))
+	tnVerNoDBC = Val(Getwordnum(m.tcVerNoDBC, 1, '.'))
+
+	If m.tnPos>1 Then
+		lnVerNoSys = m.lnVerNoSys*10^4+Val(Getwordnum(m.tcVerNoSys, 2, '.'))
+		tnVerNoDBC = m.tnVerNoDBC*10^4+Val(Getwordnum(m.tcVerNoDBC, 2, '.'))
+		If m.tnPos>2 Then
+			lnVerNoSys = m.lnVerNoSys*10^4+Val(Getwordnum(m.tcVerNoSys, 3, '.'))
+			tnVerNoDBC = m.tnVerNoDBC*10^4+Val(Getwordnum(m.tcVerNoDBC, 3, '.'))
+			If m.tnPos>3 Then
+				lnVerNoSys = m.lnVerNoSys*10^4+Val(Getwordnum(m.tcVerNoSys, 4, '.'))
+				tnVerNoDBC = m.tnVerNoDBC*10^4+Val(Getwordnum(m.tcVerNoDBC, 4, '.'))
+			Endif &&tnPos>3
+		Endif &&tnPos>2
+	Endif &&tnPos>1
+
+	Do Case
+		Case m.lnVerNoSys=m.tnVerNoDBC
+			Return 0
+		Case m.lnVerNoSys>m.tnVerNoDBC
+			Return 1
+		Case m.lnVerNoSys<m.tnVerNoDBC
+			Return 2
+	Endcase
+Endproc &&Compare_VerNo
+
+Procedure NewVersion
+************************************************************************
+* NewVersion
+****************************************
+***  Function: The programm is newer then the data, change the data
+***      Pass:
+***      tnVerNoDBC
+***          The version of the DBC as numerical value
+***
+*** SF 20230415
+***
+************************************************************************
+
+	Lparameters ;
+		tnVerNoDBC
+
+	Do Case
+		Case Val(Getwordnum(_Screen._GoFish.cVersion, 1, "."))=6;
+				And Val(Getwordnum(_Screen._GoFish.cVersion, 2, "."))=1
+*update to 6.1.*
+			Do Case
+				Case m.tnVerNoDBC=0
+*from older version (i.e. 6.0)
+* field FileName to short, change size, rewrite
+					Use GF_Results_Form_Settings Exclusive
+					Alter Table GF_Results_Form_Settings;
+						Alter Column FileName c(100)
+
+					Update GF_Results_Form_Settings Set;
+					 FileName = Justfname(FilePath)
+					Use
+
+				Otherwise
+
+			Endcase
+		Otherwise
+
+	Endcase
+Endproc &&NewVersion

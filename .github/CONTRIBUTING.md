@@ -12,7 +12,7 @@
 - on top of **[readme.md](/readme.md)**, change:
   - version number and
   - date
-- In **Source\Changelog_Thor.txt**, copy the changes of the recent (and only the recent) version. File isavailable in the project.
+- In **Source\Changelog_Thor.txt**, copy the changes of the recent (and only the recent) version. File is available in the project.
 - If there is more documentation, alter appropriate files
 - In the footer of any file changed, alter date.
 
@@ -33,4 +33,4 @@
 - Create a pull request; ensure the description clearly describes the problem and solution or the enhancement.
 
 ----
-Last changed: 2023-03-18
+Last changed: 2023-04-15
