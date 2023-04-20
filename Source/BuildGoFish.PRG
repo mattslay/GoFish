@@ -18,7 +18,7 @@ lcSourceLoc =  Addbs(Justpath(Sys(16))) && Change this to location of source fil
 Cd (lcSourceLoc)
 
 *== Most of these local variables will make their way into BuildGoFish.h
-lcVersion = '6.1'	&& This level is to be used to control structure changes in the storage
+lcVersion = '6.2'	&& This level is to be used to control structure changes in the storage
 *					&& see NewVersion OF GoFishProc.prg
 lcBuild = '000' && <---- Set your desired version level of the tool here
 && This will be used on the GoFish form and will live on the

@@ -70,6 +70,8 @@ MODIFY PROJECT 'GoFish5.pjx' NOWAIT NOSHOW NOPROJECTHOOK
 loProject = _VFP.Projects('GoFish5.pjx')
 
 WITH loProject.FILES
+	.ADD('..\docs\changes.md')		&& *< FileMetadata: Type="T" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
+	.ADD('..\readme.md')		&& *< FileMetadata: Type="T" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('buildgofish.h')		&& *< FileMetadata: Type="T" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('buildgofish.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" User="" />
 	.ADD('changelog_thor.txt')		&& *< FileMetadata: Type="T" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
@@ -180,6 +182,8 @@ WITH loProject.FILES
 	*</FileComments>
 
 	*<ExcludedFiles>
+	.ITEM("..\docs\changes.md").Exclude = .T.
+	.ITEM("..\readme.md").Exclude = .T.
 	.ITEM("buildgofish.h").Exclude = .T.
 	.ITEM("buildgofish.prg").Exclude = .T.
 	.ITEM("changelog_thor.txt").Exclude = .T.
