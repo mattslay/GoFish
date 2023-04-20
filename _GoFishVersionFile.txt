@@ -1,6 +1,11 @@
 Lparameters toUpdateInfo
 
 Text to lcNote NoShow
+## Ver 6.2.000 **Released 2023-04-20**
+- Fixed: Update failed when no search was started after first run
+- Improved: First run sets now version to settings DBC
+- Improved: Update messages give info for storage path
+
 ## Ver 6.1.000
 **Released 2023-04-15**
  Changes
@@ -13,7 +18,7 @@ Text to lcNote NoShow
 
 EndText
 
-AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 6.1.000 - 15. April 2023,  - 20230415')
+AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 6.2.000 - 20. April 2023,  - 20230420')
 AddProperty(toUpdateInfo, 'SourceFileUrl', 'https://raw.githubusercontent.com/VFPX/GoFish/master/Source/Source.zip')
 AddProperty(toUpdateInfo, 'LinkPrompt', 'GoFish Home Page')
 AddProperty(toUpdateInfo, 'Link', 'https://github.com/VFPX/GoFish')

@@ -9,6 +9,13 @@ Replaces the lists in
 - ChangeLog_Ver_5.txt
 
 ----
+## Ver 6.2.000
+**Released 2023-04-20**
+### Changes
+- Fixed: Update failed when no search was started after first run
+- Improved: First run sets now version to settings DBC
+- Improved: Update messages give info for storage path
+
 ## Ver 6.1.000
 **Released 2023-04-15**
 ### Changes
@@ -497,4 +504,4 @@ For more details check [Changes on V6](./New_6.md).
 - Park Ave Marketing firm suggests rename - "Go Fish"
 
 ----
-Last changed: _2023/04/15_  ![Picture](./pictures/vfpxpoweredby_alternative.gif)
+Last changed: _2023/04/20_  ![Picture](./pictures/vfpxpoweredby_alternative.gif)

@@ -213,8 +213,8 @@ Define Class CreateExports As Session
 		Use (m.lcSourceFile) In 0
 		lcDestFile = This.GetCursorName(m.lcCursorName)
 		Select *;
-		 From (Juststem(m.lcSourceFile));
-		 Into Cursor (Juststem(m.lcDestFile)) Readwrite
+			From (Juststem(m.lcSourceFile));
+			Into Cursor (Juststem(m.lcDestFile)) Readwrite
 		Use In (Juststem(m.lcSourceFile))
 		Erase (Forceext(m.lcSourceFile, "*"))
 		Return m.lcDestFile
@@ -633,10 +633,10 @@ Procedure GF_Put_LocalPath	&&Put the local storage path to resource file
 
 	If m.llFound Then
 *found, needs update
-        Replace;
-         CkVal   With Val (Sys(2007, m.tcFolder)),;
-         Data    With m.tcFolder,;
-         Updated With Date()
+		Replace;
+			CkVal   With Val (Sys(2007, m.tcFolder)),;
+			Data    With m.tcFolder,;
+			Updated With Date()
 
 	Else  &&m.llFound
 *not found, needs insert
@@ -772,6 +772,7 @@ Procedure GF_Change_TableStruct	&&Update structure of storage tables from versio
 	lcDbc = m.tcRoot + m.toResultForm.cSaveDBC
 	If File(m.lcDbc) Then
 *Version control
+        llReturn = .T.
 		Open Database (m.lcDbc)
 		lcComment = DBGetProp(Justfname(m.lcDbc),'DATABASE','COMMENT')
 		lnCompare = Compare_VerNo(, m.lcComment, @lnVerNo)
@@ -781,13 +782,15 @@ Procedure GF_Change_TableStruct	&&Update structure of storage tables from versio
 			Case m.lnCompare=2
 * database newer then GoFish
 				Close Databases
-				RETURN 3
+				Return 3
 			Otherwise
 *update
-				NewVersion(m.lnVerNo)
+				llReturn = NewVersion(m.lnVerNo)
 
-				DBSetProp(Justfname(m.lcDbc),'DATABASE','COMMENT',_Screen._GoFish.cVersion)
-*/update
+				If m.llReturn Then
+					DBSetProp(Justfname(m.lcDbc),'DATABASE','COMMENT',_Screen._GoFish.cVersion)
+				Endif &&m.llReturn
+				*/update
 		Endcase
 		Close Databases
 
@@ -800,7 +803,7 @@ Procedure GF_Change_TableStruct	&&Update structure of storage tables from versio
 			GF_Write_Readme_Text(3, m.lcDir + "README.md")
 		Endif &&!Directory(m.lcDir)
 
-		Return 0
+		Return IIF(m.llReturn, 0, 4)
 	Endif &&File(m.lcDbc)
 
 	lcDBF    = Forceext(m.lcDBF, "DBF")
@@ -905,22 +908,22 @@ Procedure GF_Change_TableStruct	&&Update structure of storage tables from versio
 
 						If !Empty(m.lcMakro) Then
 							Select;
-							 &lcMakro;
-							  Cur1.*,;
-							 .F.          As lMemLoaded,;
-							 Cast(0 As I) As iReplaceFolder,;
-							 .F.          As lJustReplaced,;
-							 .T.          As lSaved;
-							 From (m.lcAlias2) As Cur1;
-							 Into Cursor (m.lcAlias2) NoFilter Readwrite
+								&lcMakro;
+								Cur1.*,;
+								.F.          As lMemLoaded,;
+								Cast(0 As I) As iReplaceFolder,;
+								.F.          As lJustReplaced,;
+								.T.          As lSaved;
+								From (m.lcAlias2) As Cur1;
+								Into Cursor (m.lcAlias2) NoFilter Readwrite
 
 						Endif &&!Empty(m.lcMakro)
 
 						If Datetime#m.lcDate Then
-                            Replace All;
-                             cUni      With m.lcUni,;
-                             cUni_File With m.lcUni + "_" + Sys(2007, Trim(Padl(Id, 11)), 0 ,1) + "_",;
-                             Datetime  With m.lcDate
+							Replace All;
+								cUni      With m.lcUni,;
+								cUni_File With m.lcUni + "_" + Sys(2007, Trim(Padl(Id, 11)), 0 ,1) + "_",;
+								Datetime  With m.lcDate
 							Go Top
 
 						Endif &&Datetime#m.lcDate
@@ -940,10 +943,10 @@ Procedure GF_Change_TableStruct	&&Update structure of storage tables from versio
 						Scan
 							Strtofile(ProcCode, m.lcDir + Trim(cUni_File) + "ProcCode.txt")
 							Strtofile(Code    , m.lcDir + Trim(cUni_File) + "Code.txt")
-                            Replace;
-                             ProcCode   With "",;
-                             Code       With "",;
-                             lMemLoaded With .F.
+							Replace;
+								ProcCode   With "",;
+								Code       With "",;
+								lMemLoaded With .F.
 							Do Case
 								Case m.lnCount%1000=0
 									??""+0h0d+" "+0h0d+"\"
@@ -999,8 +1002,8 @@ Procedure GF_Change_TableStruct	&&Update structure of storage tables from versio
 *		Alter Table GF_Search_History Add Column lReplace L
 
 				Update Cur1 Set;
-				 lSaved = .T.;
-				 From GF_Search_History As Cur1
+					lSaved = .T.;
+					From GF_Search_History As Cur1
 
 				Use In GF_SearchHistory
 			Endif &&USED("GF_SearchHistory")
@@ -1011,8 +1014,8 @@ Procedure GF_Change_TableStruct	&&Update structure of storage tables from versio
 
 			Append Blank
 * Todo: Get the ID of existing folder from GF_Replace_History.dbf
-            Replace;
-             iID With 1000
+			Replace;
+				iID With 1000
 
 *Replace History
 			If Directory(Addbs(m.tcRoot) + "GF_ReplaceBackups");
@@ -1025,22 +1028,22 @@ Procedure GF_Change_TableStruct	&&Update structure of storage tables from versio
 *GF_Replace_History.dbf
 				Open Database (Addbs(m.tcRoot) + "GF_REPLACE_DETAILV5.DBC")
 				Select;
-				 "_" + Sys(2007, Ttoc(Date_time), 0, 1)                  As cUni,;
-				 "_" + Sys(2007, Ttoc(Date_time), 0, 1);
-				  + "_" + Sys(2007, Trim(Padl(Cur2.PK, 11)), 0 ,1) + "_" As cUni_File,;
-				 Ttoc(Date_time)                                         As Datetime,;
-				 .F.                                                     As lMemLoaded,;
-				 Cur2.historyFK                                          As iReplaceFolder,;
-				 ;
-				 Cur1.scope, ;
-				 Cur1.searchstr                                          As Search, ;
-				 Cur1.replacestr                                         As Replace_String, ;
-				 Cur2.* ;
-				 From       (Addbs(m.tcRoot) + "GF_Replace_History.DBF")  As Cur1 ;
-				 Inner Join (Addbs(m.tcRoot) + "GF_REPLACE_DETAILV5.DBF") As Cur2;
-				 On Cur1.Id = Cur2.historyFK ;
-				 Into Cursor GoFishReplaceHistory NoFilter Readwrite ;
-				 Order By Cur1.Id  Desc, Cur2.PK
+					"_" + Sys(2007, Ttoc(Date_time), 0, 1)                  As cUni,;
+					"_" + Sys(2007, Ttoc(Date_time), 0, 1);
+					+ "_" + Sys(2007, Trim(Padl(Cur2.PK, 11)), 0 ,1) + "_" As cUni_File,;
+					Ttoc(Date_time)                                         As Datetime,;
+					.F.                                                     As lMemLoaded,;
+					Cur2.historyFK                                          As iReplaceFolder,;
+					;
+					Cur1.scope, ;
+					Cur1.searchstr                                          As Search, ;
+					Cur1.replacestr                                         As Replace_String, ;
+					Cur2.* ;
+					From       (Addbs(m.tcRoot) + "GF_Replace_History.DBF")  As Cur1 ;
+					Inner Join (Addbs(m.tcRoot) + "GF_REPLACE_DETAILV5.DBF") As Cur2;
+					On Cur1.Id = Cur2.historyFK ;
+					Into Cursor GoFishReplaceHistory NoFilter Readwrite ;
+					Order By Cur1.Id  Desc, Cur2.PK
 
 				Use In GF_Replace_History
 				Use In GF_REPLACE_DETAILV5
@@ -1070,45 +1073,45 @@ Procedure GF_Change_TableStruct	&&Update structure of storage tables from versio
 
 *backup folder number
 				Select;
-				 Max(iReplaceFolder) As iReplaceFolder;
-				 From GoFishReplaceHistory As Cur1;
-				 Into Cursor GoFishReplace_History
+					Max(iReplaceFolder) As iReplaceFolder;
+					From GoFishReplaceHistory As Cur1;
+					Into Cursor GoFishReplace_History
 
 				If Reccount()=1
 					Select GF_ReplaceID
-                    Replace;
-                     iID With GoFishReplace_History.iReplaceFolder+1
+					Replace;
+						iID With GoFishReplace_History.iReplaceFolder+1
 				Endif &&Reccount()=1
 */backup folder number
 
 *history
 				Select;
-				 Cur1.cUni,;
-				 Cur1.Datetime, ;
-				 Cur1.Search, ;
-				 Cur1.scope, ;
-				 Count (*) As RESULTS;
-				 From GoFishReplaceHistory As Cur1;
-				 Into Cursor GoFishReplace_History NoFilter;
-				 Group By 1,2,3,4
+					Cur1.cUni,;
+					Cur1.Datetime, ;
+					Cur1.Search, ;
+					Cur1.scope, ;
+					Count (*) As RESULTS;
+					From GoFishReplaceHistory As Cur1;
+					Into Cursor GoFishReplace_History NoFilter;
+					Group By 1,2,3,4
 *append
 				Insert Into (m.lcDBF_H);
 					(cUni,;
-					 Datetime,;
-					 Search,;
-					 RESULTS,;
-					 scope,;
-					 lSaved,;
-					 lReplace);
+					Datetime,;
+					Search,;
+					RESULTS,;
+					scope,;
+					lSaved,;
+					lReplace);
 					Select;
-					 Cur1.cUni,;
-					 Cur1.Datetime, ;
-					 Cur1.Search, ;
-					 Cur1.RESULTS, ;
-					 Cur1.scope,;
-					 .F. As lSaved,;
-					 .T. As lReplace;
-					 From GoFishReplace_History As Cur1
+					Cur1.cUni,;
+					Cur1.Datetime, ;
+					Cur1.Search, ;
+					Cur1.RESULTS, ;
+					Cur1.scope,;
+					.F. As lSaved,;
+					.T. As lReplace;
+					From GoFishReplace_History As Cur1
 
 				Use In GoFishReplace_History
 */history
@@ -1117,64 +1120,64 @@ Procedure GF_Change_TableStruct	&&Update structure of storage tables from versio
 *save, if
 				Insert Into (m.lcDBF);
 					(cUni,cUni_File,Datetime,;
-					 scope,Search,lMemLoaded,;
-					 Process,FilePath,FileName,;
-					 TrimmedMatchLine,BaseClass,ParentClass,;
-					 Class,Name,MethodName,;
-					 ContainingClass,Classloc,MatchType,;
-					 Timestamp,FileType,Type,;
-					 Recno,ProcStart,ProcEnd,;
-					 Statement,StatementStart,firstmatchinstatement,;
-					 firstmatchinprocedure,MatchStart,MatchLen,;
-					 lIsText,Column,Id,;
-					 MatchLine,Replaced,TrimmedReplaceLine,;
-					 ReplaceLine,ReplaceRisk,Replace_DT,;
-					 iReplaceFolder,;
-					 lJustReplace;
-					 );
+					scope,Search,lMemLoaded,;
+					Process,FilePath,FileName,;
+					TrimmedMatchLine,BaseClass,ParentClass,;
+					Class,Name,MethodName,;
+					ContainingClass,Classloc,MatchType,;
+					Timestamp,FileType,Type,;
+					Recno,ProcStart,ProcEnd,;
+					Statement,StatementStart,firstmatchinstatement,;
+					firstmatchinprocedure,MatchStart,MatchLen,;
+					lIsText,Column,Id,;
+					MatchLine,Replaced,TrimmedReplaceLine,;
+					ReplaceLine,ReplaceRisk,Replace_DT,;
+					iReplaceFolder,;
+					lJustReplace;
+					);
 					Select;
-					 cUni,;
-					 cUni_File,;
-					 Datetime,;
-					 scope,;
-					 Search,;
-					 .F.,;
-					 Process,;
-					 FilePath,;
-					 FileName,;
-					 TrimmedMatchLine,;
-					 BaseClass,;
-					 ParentClass,;
-					 Class,;
-					 Name,;
-					 MethodName,;
-					 ContainingClass,;
-					 Classloc,;
-					 MatchType,;
-					 Timestamp,;
-					 FileType,;
-					 Type,;
-					 Recno,;
-					 ProcStart,;
-					 ProcEnd,;
-					 Statement,;
-					 StatementStart,;
-					 firstmatchinstatement,;
-					 firstmatchinprocedure,;
-					 MatchStart,;
-					 MatchLen,;
-					 lIsText,;
-					 Column,;
-					 Id,;
-					 MatchLine,;
-					 Replaced,;
-					 TrimmedReplaceLine,;
-					 ReplaceLine,;
-					 100,;
-					 Replace_DT,;
-					 iReplaceFolder,;
-					 .T.;
-					 From GoFishReplaceHistory As Cur1
+					cUni,;
+					cUni_File,;
+					Datetime,;
+					scope,;
+					Search,;
+					.F.,;
+					Process,;
+					FilePath,;
+					FileName,;
+					TrimmedMatchLine,;
+					BaseClass,;
+					ParentClass,;
+					Class,;
+					Name,;
+					MethodName,;
+					ContainingClass,;
+					Classloc,;
+					MatchType,;
+					Timestamp,;
+					FileType,;
+					Type,;
+					Recno,;
+					ProcStart,;
+					ProcEnd,;
+					Statement,;
+					StatementStart,;
+					firstmatchinstatement,;
+					firstmatchinprocedure,;
+					MatchStart,;
+					MatchLen,;
+					lIsText,;
+					Column,;
+					Id,;
+					MatchLine,;
+					Replaced,;
+					TrimmedReplaceLine,;
+					ReplaceLine,;
+					100,;
+					Replace_DT,;
+					iReplaceFolder,;
+					.T.;
+					From GoFishReplaceHistory As Cur1
 *search result
 
 				Use In GoFishReplaceHistory
@@ -1314,7 +1317,7 @@ Procedure GF_Write_Readme_Text  	&&Create for README.md files
 		Do Case
 			Case m.tnFile=1
 *base folder
-				Text To m.lcText Noshow
+				TEXT To m.lcText Noshow
 ## GoFish settings folder
 This folder contains the settings and history table for GoFish! code search tool.
 
@@ -1328,11 +1331,11 @@ This folder contains the settings and history table for GoFish! code search tool
 
 GoFish! is available in VFP9 SP2 or VFPA from Thor or from https://github.com/VFPX/GoFish
 
-				Endtext &&lcText
+				ENDTEXT &&lcText
 
 			Case m.tnFile=2
 *settings folder
-				Text To m.lcText Noshow
+				TEXT To m.lcText Noshow
 ## VFP settings folder with GoFish settings
 This folder contains the settings and history table for GoFish! code search tool.
 
@@ -1346,11 +1349,11 @@ This folder contains the settings and history table for GoFish! code search tool
 
 GoFish! is available in VFP9 SP2 or VFPA from Thor or from https://github.com/VFPX/GoFish
 
-				Endtext &&lcText
+				ENDTEXT &&lcText
 
 			Case m.tnFile=3
 *history folder
-				Text To m.lcText Noshow
+				TEXT To m.lcText Noshow
 ## GoFish history files folder
 This folder contains the history files for GoFish! code search tool.
 The files are not in a memo, so that the size might grow above 2GiB and faster access for the history is possible.
@@ -1366,11 +1369,11 @@ If the folder grows to large **Do not delete single files**.
 
 GoFish! is available in VFP9 SP2 or VFPA from Thor or from https://github.com/VFPX/GoFish
 
-				Endtext &&lcText
+				ENDTEXT &&lcText
 
 			Case m.tnFile=4
 *Replace Backup folder
-				Text To m.lcText Noshow
+				TEXT To m.lcText Noshow
 ## GoFish replace backup directories folder
 This folder contains the backups of files replaced by GoFish! code search tool.
 
@@ -1385,11 +1388,11 @@ This folder contains the backups of files replaced by GoFish! code search tool.
 
 GoFish! is available in VFP9 SP2 or VFPA from Thor or from https://github.com/VFPX/GoFish
 
-				Endtext &&lcText
+				ENDTEXT &&lcText
 
 			Case m.tnFile=5
 *a Replace Backup
-				Text To m.lcText Noshow
+				TEXT To m.lcText Noshow
 ## GoFish replace backup directories folder
 This folder contains the backups of a replace by GoFish! code search tool. See bottom.
 
@@ -1404,7 +1407,7 @@ This folder contains the backups of a replace by GoFish! code search tool. See b
 
 GoFish! is available in VFP9 SP2 or VFPA from Thor or from https://github.com/VFPX/GoFish
 
-				Endtext &&lcText
+				ENDTEXT &&lcText
 
 			Otherwise
 				lcText = ""
@@ -1504,7 +1507,7 @@ Procedure Compare_VerNo
 ***          2 	10^4*aaaa+bbbb (this is the default)
 ***          3 	10^4*(10^4*aaaa+bbbb)+cccc
 ***          4 	10^4*(10^4*(10^4*aaaa+bbbb)+cccc)+dddd
-***          
+***
 ***    Return:  numeric
 ***    Value 	Description
 ***    0 	tcVerNoSys=tcVerNoDBC
@@ -1574,27 +1577,115 @@ Procedure NewVersion
 
 	Lparameters ;
 		tnVerNoDBC
-
+	
+	Local;
+		llReturn As Boolean
+	
+	llReturn = .T.
 	Do Case
 		Case Val(Getwordnum(_Screen._GoFish.cVersion, 1, "."))=6;
 				And Val(Getwordnum(_Screen._GoFish.cVersion, 2, "."))=1
-*update to 6.1.*
+	*update to 6.1.*
 			Do Case
 				Case m.tnVerNoDBC=0
-*from older version (i.e. 6.0)
-* field FileName to short, change size, rewrite
-					Use GF_Results_Form_Settings Exclusive
-					Alter Table GF_Results_Form_Settings;
-						Alter Column FileName c(100)
-
-					Update GF_Results_Form_Settings Set;
-					 FileName = Justfname(FilePath)
-					Use
-
+	*from older version (i.e. 6.0)
+					llReturn = Update_to_6_1()
+	
 				Otherwise
-
+	
 			Endcase
+		Case Val(Getwordnum(_Screen._GoFish.cVersion, 1, "."))=6;
+				And Val(Getwordnum(_Screen._GoFish.cVersion, 2, "."))=2
+	*update to 6.2.*
+			Do Case
+				Case m.tnVerNoDBC=0
+	*from older version (i.e. 6.0)
+					llReturn = Update_to_6_2()
+	
+				Case m.tnVerNoDBC=60001
+	*from version 6.1
+					llReturn = Update_to_6_2()
+	
+				Otherwise
+	
+			Endcase
+	
 		Otherwise
-
+	
 	Endcase
-Endproc &&NewVersion
+	Return m.llReturn
+	Endproc &&NewVersion
+	
+Procedure Update_to_6_1
+************************************************************************
+* Update_to_6_1
+****************************************
+***  Update to version 6.1 (from lower versions)
+***
+*** field FileName to short, change size, rewrite
+*** SF 20230415
+***
+*** would fail if no search was running ever
+*** SF 20230415
+***
+************************************************************************
+	If Indbc("GF_Results_Form_Settings", "Table") Then
+		Use GF_Results_Form_Settings Exclusive
+		Alter Table GF_Results_Form_Settings;
+			Alter Column FileName c(100)
+
+		Update GF_Results_Form_Settings Set;
+		 FileName = Justfname(FilePath)
+		Use
+	Endif &&Indbc("GF_Results_Form_Settings", "Table")
+
+	RETURN .T.
+Endproc &&Update_to_6_1
+
+Procedure Update_to_6_2
+************************************************************************
+* Update_to_6_2
+****************************************
+***  Update to from version 6.1 to version 6.2
+***
+*** Tables might not be part of the DBC
+***
+*** SF 20230419
+***
+************************************************************************
+	Local;
+		lcPath As String,;
+		lnTable As Number
+
+	Local Array;
+		laTables(5, 2)
+
+	laTables = .T.
+
+	laTables[1, 1] = "GF_ReplaceID"
+	laTables[2, 1] = "GF_Search_History"
+	laTables[3, 1] = "GF_Search_Scope_History"
+	laTables[4, 1] = "GF_Results_Form_Settings"
+	laTables[4, 2] = .F.
+	laTables[5, 1] = "GF_Search_Expression_History"
+	lcPath         = Addbs(Justpath(Dbc()))
+
+	For lnTable = 1 To 5
+		If !Indbc(laTables[m.lnTable, 1], "Table") Then
+			laTables[m.lnTable, 1] = m.lcPath + laTables[m.lnTable, 1] + ".DBF"
+			If File(laTables[m.lnTable, 1]) Then
+				Add Table (laTables[m.lnTable, 1] + ".DBF")
+
+			Else &&File(laTables[m.lnTable, 1])
+				If laTables[m.lnTable, 2] Then
+					Return .F.
+				Endif &&laTables[m.lnTable, 2]
+
+			Endif &&File(laTables[m.lnTable, 1])
+		Endif &&!Indbc(laTables[1, 1], "Table")
+	Endfor &&lnTable
+	
+	llReturn = Update_to_6_1()
+
+	RETURN .T.
+Endproc &&Update_to_6_2
