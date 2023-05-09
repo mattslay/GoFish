@@ -50,24 +50,24 @@ DEFINE CLASS form1 AS form
 		TEXT TO lcx NOSHOW  
 		Hi!
 		 
-		There is an ongoning bug while migrating to Version 6.
-		I'm unbable to solve, I do not have the data to run into this bug.
+		There is an ongoing bug while migrating to version 6.*.
+		I'm unable to solve, I do not have the data to run into this bug.
 		 
 		If there are "File Exists" Messageboxes, something with your old data is odd.
 		 
 		To fix the bug:
 		- Cancel out
 		- Open folder HOME(7)
-		- Delete anything that looks like GoFish (GF*.* / GoFish files and folders) EXCEPT "GoFish_Backup" folders.
+		- Delete anything that looks like GoFish (GF*.* / GoFish files and folders) except "GoFish_Backup" folders.
 		 
-		Since this bug is not solveable without the old Data:
+		Since this bug is not solvable without the old data:
 		
 		Consider to zip the HOME(7)+"GoFish_Backup" folder and mail to VFPX@Scheffler-Software.de
 		Note:
-		This folder may contain a lot of your work and sensible stuff. I promisse to wipe A.S.A.P, anyway transport is e amil.
+		This folder may contain a lot of your work and sensible stuff. I promise to wipe A.S.A.P, anyway transport is email.
 		If you favour a different way, notify me via mail above.
 		
-		IF you run into this problem, please notify under https://github.com/VFPX/GoFish/issues/53
+		If you run into this problem, please notify under https://github.com/VFPX/GoFish/issues/83
 		
 		This message will show again if the HOME(7)+"GoFish_" folder is removed. (In case of fixing the bug.)
 		
