@@ -9,6 +9,18 @@ Replaces the lists in
 - ChangeLog_Ver_5.txt
 
 ----
+## Ver 6.2.001
+**Released 2023-05-09**
+### Changes
+- Fixed: Code - window shows info for files without hit in filter #94  
+- Fixed: If search is restored via "History", restore search settings; fixed #92
+- Fixed: Sort for full file path and date of search has higher order then the column clicked; fixed #91
+- Fixed:  Filter Builder errors when filter string is equal sign #8 
+- Improved: Messagebox text
+- Improved: Different colours for filter in search result #88
+  - Note: Filter expressions in the *Like* style are not highlighted (and never will be)
+- Improved: CSS for "Code Window" in settings folder to alter colours
+- Improved: DotNet-RegExp for some operations (not search)
 ## Ver 6.2.000
 **Released 2023-04-20**
 ### Changes
@@ -504,4 +516,4 @@ For more details check [Changes on V6](./New_6.md).
 - Park Ave Marketing firm suggests rename - "Go Fish"
 
 ----
-Last changed: _2023/04/20_  ![Picture](./pictures/vfpxpoweredby_alternative.gif)
+Last changed: _2023/05/09_  ![Picture](./pictures/vfpxpoweredby_alternative.gif)

@@ -11,11 +11,14 @@ Lparameters;
 
 Local;
 	lcInitialSource   As String,;
+	lcOlSafety        As String,;
+	lcPath            As String,;
 	lcSettingsFile    As String,;
 	llResetCommonStorage As Boolean,;
 	llResetLocalStorage As Boolean,;
 	llReturn          As Boolean,;
 	loMy              As "My" Of "My.vcx",;
+	loRegexp          As Object,;
 	loSettings        As Object
 
 lcInitialSource = Evl(m.tcInitialSource, "")
@@ -54,32 +57,32 @@ lcSettingsFile = Addbs(Home(7)) + "GoFish_"
 
 If !Directory(m.lcSettingsFile) Then
 	Mkdir (Addbs(Home(7)) + "GoFish_")
-	DO FORM gf_migrate_6.scx
-	READ EVENTS
+	Do Form gf_migrate_6.scx
+	Read Events
 	If File(Addbs(Home(7)) + "GF_Results_Form_Settings.xml") Then
-lcOlSafety = SET("Safety")
-SET Safety OFF
-	    GF_Backup_GlobalPath()
+		lcOlSafety = Set("Safety")
+		Set Safety Off
+		GF_Backup_GlobalPath()
 		GF_Move_GlobalPath()
-SET Safety &lcOlSafety
+		Set Safety &lcOlSafety
 	Endif &&File(Addbs(Home(7)) + "GF_Results_Form_Settings.xml")
 Endif &&DIRECTORY(m.lcSettingsFile)
 * /SF 20221123 use subfolder of Home(7) by default
 
-If INLIST(Upper(Alltrim(m.lcInitialSource)), "/?", "-?", "/H", "-H","HELP")
+If Inlist(Upper(Alltrim(m.lcInitialSource)), "/?", "-?", "/H", "-H","HELP")
 	HelpScreen()
 	Return
-ENDIF &&INLIST(Upper(Alltrim(m.lcInitialSource)), "/?", "-?", "/H", "-H","HELP")
+Endif &&INLIST(Upper(Alltrim(m.lcInitialSource)), "/?", "-?", "/H", "-H","HELP")
 
 *-- Erase all existing GF XML files to reset to default
 If Upper(Alltrim(m.lcInitialSource)) == "-RESETLOCAL"
 	llResetLocalStorage = .T.
-	lcInitialSource = ""
+	lcInitialSource     = ""
 Endif &&Upper(Alltrim(lcInitialSource)) == "-RESETLOCAL"
 
 If Upper(Alltrim(m.lcInitialSource)) == "-RESET"
 	llResetCommonStorage = .T.
-	lcInitialSource = ""
+	lcInitialSource      = ""
 
 Endif &&Upper(Alltrim(lcInitialSource)) == "-RESET"
 
@@ -106,6 +109,18 @@ If loSettings.Exists("lCR_Allow") And m.loSettings.lCR_Allow Then
 Endif &&loSettings.EXISTS("lCR_Allow") And m.loSettings.lCR_Allow
 */ SF 20221017
 
+lnSys16 = 1
+DO WHILE !LOWER(JUSTFNAME(SYS(16,m.lnSys16)))=="gofish5.app"
+   lnSys16 = m.lnSys16+1
+ENDDO
+
+lcPath = Sys(16,m.lnSys16)
+
+lcPath = Right(m.lcPath,Len(m.lcPath)-At(" ",m.lcPath,2))
+lcPath = Justpath(m.lcPath)+'\SF_RegExp'
+
+loRegexp = SF_RegExp(m.lcPath)
+
 If Pemstatus(m.loSettings, "lDesktop", 5) And m.loSettings.lDesktop
 	Do Form GoFish_Results_Desktop With m.lcInitialSource
 Else
@@ -127,6 +142,7 @@ Procedure SetupEnvironment
 		lcAppName As String,;
 		lcAppPath As String,;
 		loGoFish As Object
+
 *:Global;
 x
 
@@ -501,9 +517,9 @@ Procedure RegisterDiscussionGroupWithThor()
 		.Description = m.lcCommonText && may be lengthy, including CRs, etc
 *		.Author      = "Matt Slay"
 *		.PRGName     = "Thor_Tool_GoFish_Discussion_Group"  && a unique name for the tool; note the required prefix
-		.Author      = "Lutz Scheffler"
-		.PRGName     = "Issues"  && a unique name for the tool; note the required prefix
-		.Category    = "Applications|GoFish"
+		.Author   = "Lutz Scheffler"
+		.PRGName  = "Issues"  && a unique name for the tool; note the required prefix
+		.Category = "Applications|GoFish"
 
 		.AppName      = GOFISH_APP_FILE && no path, but include the extension; for example, GoFish4.App
 		lcFolderName  = .FolderName

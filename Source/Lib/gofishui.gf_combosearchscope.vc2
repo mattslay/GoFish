@@ -342,7 +342,7 @@ DEFINE CLASS gf_combosearchscope AS combobox
 		
 			Case '.PJX' $ Upper(lcValue)
 				If !File(lcValue)
-					MessageBox('File not found:' + 0h0D0A + '"' + lcValue + '"', 16, 'Error')
+					MessageBox('Scope file not found:' + 0h0D0A + '"' + lcValue + '"', 16, 'Error')
 					This.Value = lcValue
 					Return
 				Endif
@@ -356,7 +356,7 @@ DEFINE CLASS gf_combosearchscope AS combobox
 		
 			Otherwise
 				If !Directory(lcValue, 1)
-					MessageBox('Invalid directory:' + 0h0D0A + '"' + lcValue + '"', 16, 'Error')
+					MessageBox('Invalid scope directory:' + 0h0D0A + '"' + lcValue + '"', 16, 'Error')
 					This.Value = lcValue
 					Return
 				Endif

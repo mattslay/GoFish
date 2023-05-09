@@ -76,7 +76,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 	*< OBJECTDATA: ObjPath="ButtonContainer.cmdSearch" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="ButtonContainer.cmdAdvanced" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="ButtonContainer.cmdOptions" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="ButtonContainer.Command1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="ButtonContainer.cmdHistory" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="ButtonContainer.Container1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="ButtonContainer.Container1.chkApplyFilter" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="ButtonContainer.comboViewPosition" UniqueID="" Timestamp="" />
@@ -88,7 +88,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 	*< OBJECTDATA: ObjPath="ButtonContainer.lblSearchTime" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="ButtonContainer.cmdHelp" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="ButtonContainer.cmdRegexpHelp" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="ButtonContainer.Command2" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="ButtonContainer.cmdSave" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="tmrEvent" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="imgProj_Pick" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="lblReplaceHistory" UniqueID="" Timestamp="" />
@@ -400,7 +400,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		ogrid = .NULL.
 		otree = .NULL.
 		owebcontrol = .NULL.
-		Picture = ..\..\data\default\
+		Picture = ..\
 		ShowTips = .T.
 		TabStop = .T.
 		Top = -1
@@ -597,6 +597,22 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Width = 24
 		*< END OBJECT: BaseClass="commandbutton" />
 
+	ADD OBJECT 'ButtonContainer.cmdHistory' AS commandbutton WITH ;
+		Anchor = 8, ;
+		Caption = " \<History", ;
+		FontSize = 8, ;
+		Height = 22, ;
+		Left = 362, ;
+		Name = "cmdHistory", ;
+		Picture = ('images\openfold.bmp'), ;
+		PicturePosition = 1, ;
+		SpecialEffect = 2, ;
+		TabIndex = 9, ;
+		ToolTipText = "See context menu", ;
+		Top = 34, ;
+		Width = 65
+		*< END OBJECT: BaseClass="commandbutton" />
+
 	ADD OBJECT 'ButtonContainer.cmdOptions' AS commandbutton WITH ;
 		Anchor = 8, ;
 		Caption = "\<Options", ;
@@ -628,6 +644,23 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Width = 22
 		*< END OBJECT: BaseClass="commandbutton" />
 
+	ADD OBJECT 'ButtonContainer.cmdSave' AS commandbutton WITH ;
+		Anchor = 8, ;
+		Caption = " Save", ;
+		FontSize = 8, ;
+		Height = 22, ;
+		Left = 417, ;
+		Name = "cmdSave", ;
+		Picture = ('save.bmp'), ;
+		PicturePosition = 1, ;
+		SpecialEffect = 2, ;
+		TabIndex = 9, ;
+		ToolTipText = "See context menu", ;
+		Top = 42, ;
+		Visible = .F., ;
+		Width = 65
+		*< END OBJECT: BaseClass="commandbutton" />
+
 	ADD OBJECT 'ButtonContainer.cmdSearch' AS commandbutton WITH ;
 		Anchor = 8, ;
 		Caption = " \<Go Fish", ;
@@ -649,7 +682,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Height = 24, ;
 		Left = 118, ;
 		Name = "comboViewPosition", ;
-		Picture = ..\..\data\default\, ;
+		Picture = ..\, ;
 		Style = 2, ;
 		TabIndex = 24, ;
 		TabStop = .F., ;
@@ -658,39 +691,6 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Width = 128, ;
 		ZOrderSet = 8
 		*< END OBJECT: BaseClass="combobox" />
-
-	ADD OBJECT 'ButtonContainer.Command1' AS commandbutton WITH ;
-		Anchor = 8, ;
-		Caption = " \<History", ;
-		FontSize = 8, ;
-		Height = 22, ;
-		Left = 362, ;
-		Name = "Command1", ;
-		Picture = ('images\openfold.bmp'), ;
-		PicturePosition = 1, ;
-		SpecialEffect = 2, ;
-		TabIndex = 9, ;
-		ToolTipText = "See context menu", ;
-		Top = 34, ;
-		Width = 65
-		*< END OBJECT: BaseClass="commandbutton" />
-
-	ADD OBJECT 'ButtonContainer.Command2' AS commandbutton WITH ;
-		Anchor = 8, ;
-		Caption = " Save", ;
-		FontSize = 8, ;
-		Height = 22, ;
-		Left = 417, ;
-		Name = "Command2", ;
-		Picture = ('save.bmp'), ;
-		PicturePosition = 1, ;
-		SpecialEffect = 2, ;
-		TabIndex = 9, ;
-		ToolTipText = "See context menu", ;
-		Top = 42, ;
-		Visible = .F., ;
-		Width = 65
-		*< END OBJECT: BaseClass="commandbutton" />
 
 	ADD OBJECT 'ButtonContainer.Container1' AS container WITH ;
 		BackStyle = 0, ;
@@ -824,7 +824,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Left = 47, ;
 		Name = "comboSearchExpressionHistory", ;
 		nexpressionstostore = 50, ;
-		Picture = ..\..\data\default\, ;
+		Picture = ..\, ;
 		TabIndex = 9, ;
 		TabStop = .F., ;
 		Top = 3, ;
@@ -838,7 +838,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Height = 26, ;
 		Left = 446, ;
 		Name = "comboSearchExpressionHistoryDropDownArrow", ;
-		Picture = ..\..\data\default\, ;
+		Picture = ..\, ;
 		TabIndex = 3, ;
 		TabStop = .F., ;
 		Top = 14, ;
@@ -853,7 +853,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Left = 69, ;
 		Name = "comboSearchScopeHistory", ;
 		nexpressionstostore = 40, ;
-		Picture = ..\..\data\default\, ;
+		Picture = ..\, ;
 		SelectOnEntry = .T., ;
 		TabIndex = 5, ;
 		Top = 31, ;
@@ -917,7 +917,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Name = "oTreeView", ;
 		Top = 0, ;
 		Width = 186
-		*< END OBJECT: BaseClass="olecontrol" OLEObject="c:\windows\syswow64\mscomctl.ocx" Value="0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAEAAAAgAAAAEAAAD+////AAAAAAAAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9/////v////7///8EAAAA/v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////1IAbwBvAHQAIABFAG4AdAByAHkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAUA//////////8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANDLQbNNc9kBAwAAAEACAAAAAAAAAwBPAGwAZQBPAGIAagBlAGMAdABEAGEAdABhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAgEDAAAAAgAAAP////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAagAAAAAAAAADAEEAYwBjAGUAcwBzAE8AYgBqAFMAaQB0AGUARABhAHQAYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgACAP///////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABcAAAAAAAAAAMAQwBoAGEAbgBnAGUAZABQAHIAbwBwAHMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAIA////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAACABAAAAAAAABAAAAAIAAAD+////BQAAAP7///8GAAAABwAAAAgAAAD+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+2kEHHiYXREbFqAMDwKDYoIUM0EggAAAA5EwAABTUAALE8wWoBAAYAIgAAABkAAAARAgAACgAAAAEAAAAB782rXAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACQAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5MzY4MjY1RS04NUZFLTExZDEtOEJFMy0wMDAwRjg3NTREQTEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACADgAAAEhpZGVTZWxlY3Rpb24ABQAAAEwAAAAADAAAAEluZGVudGF0aW9uABEAAABODQAAAAcAAAAAAAAAAAAFAECxsQAGAAAAAAAAAAUAAIC45xkAAQAAAFwAH97svQEABQAA6BkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANEAKAAAATGluZVN0eWxlAAkAAABJCgAAAAEAAAANAAAATW91c2VQb2ludGVyAAkAAABJCgAAAAAAAAAOAAAAUGF0aFNlcGFyYXRvcgAKAAAASAAAAAABAAAAXAYAAABTdHlsZQAJAAAASQoAAAAGAAAADAAAAE9MRURyYWdNb2RlAAkAAABJCgAAAAAAAAAMAAAAT0xFRHJvcE1vZGUACQAAAEkKAAAAAAAAAA4AAABGdWxsUm93U2VsZWN0AAUAAABMAQAAAAoAAABTaW5nbGVTZWwABQAAAEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+		*< END OBJECT: BaseClass="olecontrol" OLEObject="c:\windows\syswow64\mscomctl.ocx" Value="0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAEAAAAgAAAAEAAAD+////AAAAAAAAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9/////v////7///8EAAAA/v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////1IAbwBvAHQAIABFAG4AdAByAHkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAUA//////////8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFApORJ5gtkBAwAAAEACAAAAAAAAAwBPAGwAZQBPAGIAagBlAGMAdABEAGEAdABhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAgEDAAAAAgAAAP////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAagAAAAAAAAADAEEAYwBjAGUAcwBzAE8AYgBqAFMAaQB0AGUARABhAHQAYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgACAP///////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABcAAAAAAAAAAMAQwBoAGEAbgBnAGUAZABQAHIAbwBwAHMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAIA////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAACABAAAAAAAABAAAAAIAAAD+////BQAAAP7///8GAAAABwAAAAgAAAD+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+2kEHHiYXREbFqAMDwKDYoIUM0EggAAAA5EwAABTUAALE8wWoBAAYAIgAAABkAAAARAgAACgAAAAEAAAAB782rXAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACQAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5MzY4MjY1RS04NUZFLTExZDEtOEJFMy0wMDAwRjg3NTREQTEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACADgAAAEhpZGVTZWxlY3Rpb24ABQAAAEwAAAAADAAAAEluZGVudGF0aW9uABEAAABODQAAAAcAAAAAAAAAAAAFACj7ugQGAAAAAAAAAAUAAIC45xkAAQAAAFwAH97svQEABQAA6BkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANEAKAAAATGluZVN0eWxlAAkAAABJCgAAAAEAAAANAAAATW91c2VQb2ludGVyAAkAAABJCgAAAAAAAAAOAAAAUGF0aFNlcGFyYXRvcgAKAAAASAAAAAABAAAAXAYAAABTdHlsZQAJAAAASQoAAAAGAAAADAAAAE9MRURyYWdNb2RlAAkAAABJCgAAAAAAAAAMAAAAT0xFRHJvcE1vZGUACQAAAEkKAAAAAAAAAA4AAABGdWxsUm93U2VsZWN0AAUAAABMAQAAAAoAAABTaW5nbGVTZWwABQAAAEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
 
 	ADD OBJECT 'containerRight' AS container WITH ;
 		Anchor = 15, ;
@@ -1608,7 +1608,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		FontSize = 8, ;
 		Left = 108, ;
 		Name = "comboViewPosition", ;
-		Picture = ..\..\data\default\, ;
+		Picture = ..\, ;
 		Style = 2, ;
 		TabIndex = 24, ;
 		TabStop = .F., ;
@@ -4080,12 +4080,14 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 
 	PROCEDURE get_resultorderby		&& Get the Order By clause for the reult cursor
 		Local;
-			lcField  As String,;
-			lcOrderBy As String,;
-			lcSortField As String,;
-			lcSortOrder As String,;
-			loColumn As Object,;
-			lcSearchEngineResultsAlias As String
+			lcField                 As String,;
+			lcOrderBy               As String,;
+			lcSearchEngineResultsAlias As String,;
+			lcSortField             As String,;
+			lcSortOrder             As String,;
+			lnLen                   As Number,;
+			lnPos                   As Number,;
+			loColumn                As Object
 		
 		lcSearchEngineResultsAlias = Thisform.oSearchEngine.cSearchResultsAlias
 		
@@ -4121,7 +4123,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Endif
 		
 		If Empty(m.lcOrderBy)
-			lcOrderBy           = "filename, class, name, methodname"
+			lcOrderBy           = "filename, filepath , class, name, methodname"
 			Thisform.cSortField = Getwordnum(m.lcOrderBy, 1, ",")
 		Else
 			lcOrderBy = Alltrim(m.lcOrderBy, 1, ",")
@@ -4140,17 +4142,9 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 			Endfor
 		Endif
 		
-		If !"filepath "$Lower(m.lcOrderBy) Then
-			lcOrderBy =  "filepath," + m.lcOrderBy
-		Endif &&!"filepath "$Lower(m.lcOrderBy)
-		
-		If !Empty(Field("datetime",m.lcSearchEngineResultsAlias)) Then
-			lcOrderBy =  "datetime ," + m.lcOrderBy
-		Endif &&!Empty(Field("datetime",m.lcSearchEngineResultsAlias))
-		
 		If !"filename "$Lower(m.lcOrderBy) Then
-			lcOrderBy = m.lcOrderBy + ",filename "
-		Endif &&!"filename "$Lower(m.lcOrderBy)
+			lcOrderBy = m.lcOrderBy + ",filename ASC"
+		Endif &&"filename "$Lower(m.lcOrderBy)
 		If !"class "$Lower(m.lcOrderBy) Then
 			lcOrderBy = m.lcOrderBy + ",class "
 		Endif &&!"class "$Lower(m.lcOrderBy)
@@ -4164,7 +4158,28 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 			lcOrderBy = m.lcOrderBy + ",MatchStart "
 		Endif &&!"matchstart "$Lower(m.lcOrderBy)
 		
+		If !"filepath "$Lower(m.lcOrderBy) Then
+			lnPos = At("filename ", m.lcOrderBy)
+			lnLen = At(",", Substr(m.lcOrderBy, m.lnPos))
+			If Empty(m.lnLen) Then
+				lcOrderBy = m.lcOrderBy + ", filepath ASC"
+			Else  &&EMPTY(m.lnLen)
+				lcOrderBy = Stuff(m.lcOrderBy, m.lnPos + m.lnLen,0," filepath ASC,")
+			Endif &&EMPTY(m.lnLen)
+		Endif &&"!filepath "$Lower(m.lcOrderBy)
+		
+		If !"datetime "$Lower(m.lcOrderBy) Then
+			lnPos = At("filepath ", m.lcOrderBy)
+			lnLen = At(",", Substr(m.lcOrderBy, m.lnPos))
+			If Empty(m.lnLen) Then
+				lcOrderBy = m.lcOrderBy + ", datetime ASC"
+			Else  &&EMPTY(m.lnLen)
+				lcOrderBy = Stuff(m.lcOrderBy, m.lnPos + m.lnLen,0," datetime ASC,")
+			Endif &&EMPTY(m.lnLen)
+		Endif &&"!datetime "$Lower(m.lcOrderBy)
+		
 		Return m.lcOrderBy
+		
 	ENDPROC
 
 	PROCEDURE gridcolumnrightclick
@@ -4524,7 +4539,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 			Thisform.timerShowAdvancedForm.Interval = 100
 		Endif
 		
-		This.ButtonContainer.Command2.Move(This.ButtonContainer.Command1.Left, This.ButtonContainer.Command1.Top)
+		This.ButtonContainer.cmdSave.Move(This.ButtonContainer.cmdHistory.Left, This.ButtonContainer.cmdHistory.Top)
 		
 		This.lblReplaceHistory.Move(1, 10, This.Width-2)
 		This.lblReplaceHistory.Anchor = 10
@@ -4685,7 +4700,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		*new structrure found
 			Case m.lnChange_TableStructur=2
 		*new structrure failed
-				Messagebox("Failed to update history storage." + 0h0D0A + "Clear storage folder." +;
+				Messagebox("Failed to update history storage." + 0h0D0A + "Delete storage folder." +;
 				 0h0D0A0D0A +'"' + ADDBS(Thisform.cCR_StoreLocal) + 'GF_Saved_Search_Results"', 0, "Gofish")
 				Return .F.
 			Case m.lnChange_TableStructur=3
@@ -4695,7 +4710,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 				Return .F.
 			Case m.lnChange_TableStructur=4
 		*update failed
-				Messagebox("Failed to update settings storage." + 0h0D0A + "Clear settings folder." +;
+				Messagebox("Failed to update settings storage." + 0h0D0A + "Delete settings folder." +;
 				 0h0D0A0D0A +'"' + Thisform.cCR_StoreLocal + '"', 0, "Gofish")
 				Return .F.
 			Otherwise
@@ -5110,8 +5125,8 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		This.Set_GridColour()
 		Thisform.FormatGridForReplaceMode()
 		
-		This.ButtonContainer.Command1.Visible = !(Thisform.lCR_HistoryTree And Thisform.lRestorePreviousSearchResultsOnStartup)
-		This.ButtonContainer.Command2.Visible = !This.ButtonContainer.Command1.Visible And !Thisform.lSaveSearchResults
+		This.ButtonContainer.cmdHistory.Visible = !(Thisform.lCR_HistoryTree And Thisform.lRestorePreviousSearchResultsOnStartup)
+		This.ButtonContainer.cmdSave.Visible = !This.ButtonContainer.cmdHistory.Visible And !Thisform.lSaveSearchResults
 		
 		If m.tcForceRebuild Then
 		*all stuff stored cleared, fresh interface
@@ -5236,18 +5251,18 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 			lcMacro = Strtran(m.lcMacro, " AND", " WHERE", 1, 1)
 		
 		*show replaced mode
-		*!*	IF glReplace 
+		*!*	IF glReplace
 		*!*			lcMacro = m.lcMacro + " AND Cur1.lReplaced"
-		*!*	ENDIF &&glReplace 
+		*!*	ENDIF &&glReplace
 		
 			lcSortMacro  = Iif(Thisform.lCR_SortTreeAlpha,"Cur1.Search ASC,","")
 		
 			Select;
-			 Cur1.*;
-			 From (m.lcDBF) As Cur1;
-			  &lcMacro;
-			 Order By &lcSortMacro Cur1.Datetime Asc, Cur1.filename, Cur1.Class, Cur1.Name, Cur1.methodname;
-			 Into Cursor (m.lcSearchEngineResultsAlias) NoFilter Readwrite
+				Cur1.*;
+				From (m.lcDBF) As Cur1;
+				&lcMacro;
+				Order By &lcSortMacro Cur1.Datetime Asc, Cur1.filename, Cur1.Class, Cur1.Name, Cur1.methodname;
+				Into Cursor (m.lcSearchEngineResultsAlias) NoFilter Readwrite
 		
 		*!*			Order By Cur1.Datetime, Cur1.filename, Cur1.Class, Cur1.Name, Cur1.methodname;
 		
@@ -5317,10 +5332,10 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 						Endif &&Empty(Field("Scope"))
 		
 						Select;
-						 &lcMakroField *;
-						 From (m.lcName);
-						 Order By &lcMakroOrder filename, Class, Name, methodname;
-						 Into Cursor (m.lcSearchEngineResultsAlias) NoFilter Readwrite
+							&lcMakroField *;
+							From (m.lcName);
+							Order By &lcMakroOrder filename, Class, Name, methodname;
+							Into Cursor (m.lcSearchEngineResultsAlias) NoFilter Readwrite
 		
 		*Thisform.comboSearchScopeHistory.Value = lcScope
 						Use In Select(m.lcName)
@@ -5340,11 +5355,16 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		
 		loSearchEngine.nMatchLines = Reccount(m.lcSearchEngineResultsAlias)
 		
-		*we skip this.Activate e history should not fiddle with actual search settings. RefreshResultsset while refreshing results, nut not here
+		If Type("loSearchEngine.oSearchErrors") = "O" And !Isnull(loSearchEngine.oSearchErrors) Then
+			loSearchEngine.oSearchErrors.Remove(-1)
+		Endif &&TYPE("loSearchEngine.oSearchErrors") = "O" AND !ISNULL(loSearchEngine.oSearchErrors)
+		
+		If This.ButtonContainer.cmdHistory.Visible Then
+		*we skip this.Activate e history should not fiddle with actual search settings. RefreshResultsset while refreshing results, but not here
 		*!*	If !This.lReplace_History And m.loSearchEngine.nMatchLines > 0
-		*!*		loSearchOptions              = m.loSearchEngine.oSearchOptions
-		*!*		loSearchEngine.LoadOptions(m.lcSearchEnginerOptionsFile) && Load search settings from previous session
-		*!*		Thisform.nOriginalSearchScope = m.loSearchOptions.nSearchScope
+			loSearchOptions              = m.loSearchEngine.oSearchOptions
+			loSearchEngine.LoadOptions(m.lcSearchEnginerOptionsFile) && Load search settings from previous session
+			Thisform.nOriginalSearchScope = m.loSearchOptions.nSearchScope
 		
 		*!*		Alines(laInfo, Filetostr(m.lcInfoFile))
 		*!*	*lcSearchExpression = laInfo[2]
@@ -5355,6 +5375,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		*!*		Endif &&!m.tlNoFormupdate
 		
 		*!*	Endif &&!This.lReplace_History And m.loSearchEngine.nMatchLines > 0
+		Endif &&This.ButtonContainer.cmdHistory.Visible
 		
 		Select (m.lcSearchEngineResultsAlias)
 		
@@ -6599,8 +6620,9 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		
 			If (Empty(m.tcRoot) And !Thisform.lCR_HistoryTree);
 					Or (m.loTree.Nodes.Count = 0  And Thisform.lCR_HistoryTreeAuto);
-					Or ((m.loTree.Nodes.Count = 0  And !Thisform.lRestorePreviousSearchResultsOnStartup And Thisform.lCR_HistoryTree);
-					AND !m.tlSearchResult) THEN 
+					Or ((m.loTree.Nodes.Count = 0  And !Thisform.lRestorePreviousSearchResultsOnStartup And Thisform.lCR_HistoryTree))
+					*;
+					*AND !m.tlSearchResult) THEN 
 		*create topmost and first node
 		* If we like to show a topmost single node
 				.Clear()
@@ -6612,7 +6634,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 				loNode.ForeColor = m.lnForeColor
 				loNode           = .Null.
 		
-				llSubNode = !(m.loTree.Nodes.Count = 1 And !Thisform.lRestorePreviousSearchResultsOnStartup And Thisform.lCR_HistoryTree)
+				llSubNode = !(m.loTree.Nodes.Count = 1 And !Thisform.lRestorePreviousSearchResultsOnStartup And Thisform.lCR_HistoryTree) OR m.tlSearchResult
 		        llClear   = .T.  
 		
 		
@@ -8377,9 +8399,12 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		lcReplaceLine = &lcCursor..replaceline
 		lcSearch      = &lcCursor..Search
 		
-		lcCssFile		 = _Screen._GoFish.cAppPath + "CSS\GoFish.css"
+		lcCssFile		 = HOME(7)+"GoFish_\GoFish_.css"
 		lcJavaScriptFile = _Screen._GoFish.cAppPath + "HTML\GoFish.js"
 		
+		IF !File(m.lcCssFile) THEN
+		 STRTOFILE(Filetostr("GoFish.css"),m.lcCssFile)
+		ENDIF &&!File(m.lcCssFile) 
 		lcCss		 = Iif(File(m.lcCssFile), Filetostr(m.lcCssFile), "")
 		lcJavaScript = Iif(File(m.lcJavaScriptFile), Filetostr(m.lcJavaScriptFile), "")
 		
@@ -8404,9 +8429,6 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Else
 			m.loWebControl.ShowHTML(m.lcHTML)
 		Endif
-		
-		
-		
 		
 	ENDPROC
 
@@ -8599,20 +8621,20 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Lparameters;
 			toNode
 		
+		Local;
+			lcFileType As String,;
+			lcFilter As String,;
+			lcNewFilter As String,;
+			lnID     As Number,;
+			lnSelect As Number,;
+			loTree   As Object
+		
 		If Vartype(m.toNode.Tag)="O" And m.toNode.Tag.glNeedFill Then
 		*not expanded, no data. We use the Expand method to gather data, but they will not expand
 		
 			Thisform.TreeView_NodeExpand(m.toNode)
 		
 		Else  &&Vartype(m.toNode.Tag)="O" And m.toNode.Tag.glNeedFill
-			Local;
-				lcFileType     As String,;
-				lcFilter       As String,;
-				lcNewFilter    As String,;
-				lnID           As Number,;
-				lnSelect       As Number,;
-				loTree         As Object
-		
 			loTree = This.oTree
 		
 			lnSelect = Select()
@@ -8624,7 +8646,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		
 			Thisform.cTreeViewFilter = m.lcFilter
 		
-			THIS.Set_SearchResultsAlias_Filter(m.lcFilter)
+			This.Set_SearchResultsAlias_Filter(m.lcFilter)
 		
 			Goto Top In (Thisform.cSearchResultsAlias)
 		
@@ -8634,6 +8656,11 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 			toNode.ENSUREVISIBLE()
 		
 			Thisform.oGrid.SetFocus
+			If Eof(Thisform.cSearchResultsAlias) Then
+				Thisform.Containerright.Container2.containerWebControl.ShowHTML("Not in filter.")
+				Thisform.cCurrentId =  ""
+				thisform.Refresh
+			Endif &&EOF(Thisform.cSearchResultsAlias)
 			loTree.SetFocus()
 		*Thisform.Refresh()
 		
@@ -9092,7 +9119,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		
 			lcPath = Addbs(lcScope)
 			If !Directory(lcPath, 1)
-				Messagebox("Invalid Directory [" + lcPath + "]. Please correct.", 0, "GoFish Error:")
+				Messagebox('Invalid scope directory "' + lcPath + '". Please correct.', 0, "GoFish Error:")
 				Return .F.
 			Endif
 		Endif
@@ -9100,7 +9127,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		*-- Validate Project file can be found (for Active Project and Browsed Project)
 		If Inlist(loSearchOptions.nSearchScope, 1, 2)
 			If !File(lcScope)
-				Messagebox("Cannot find project file [" + lcScope + "]. Please correct.", 0, "GoFish Error:")
+				Messagebox('Cannot find scope project file "' + lcScope + '". Please correct.', 0, "GoFish Error:")
 				Return .F.
 			Endif
 		Endif
@@ -9472,6 +9499,82 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		This.Enabled = !Thisform.lSearching
 	ENDPROC
 
+	PROCEDURE ButtonContainer.cmdHistory.Click
+		Thisform.RestoreSearchFromHistory()
+	ENDPROC
+
+	PROCEDURE ButtonContainer.cmdHistory.Refresh
+		This.Enabled = !Thisform.lSearching
+	ENDPROC
+
+	PROCEDURE ButtonContainer.cmdHistory.RightClick
+		Local lcChoice, lnBar, lnSelect, lnRecordId
+		
+		lnSelect = Select()
+		
+		SELECT (Thisform.cSearchResultsAlias)
+		lnRecordId = Id
+		
+		lcChoice = ""
+		lnBar	 = 0
+		GF_CreateContextMenu("AccessContextMenu")
+		
+		If !Thisform.lSaveSearchResults Then
+			lnBar = m.lnBar + 1
+			Define Bar (m.lnBar) Of AccessContextMenu Prompt "\<Save last search"
+			On Selection Bar (m.lnBar) Of AccessContextMenu m.lcChoice = "Save last search"
+		Endif &&!Thisform.lSaveSearchResults
+		
+		lnBar = m.lnBar + 1
+		Define Bar (m.lnBar) Of AccessContextMenu Prompt "\<Restore last saved search"
+		On Selection Bar (m.lnBar) Of AccessContextMenu m.lcChoice = "Restore last search"
+		
+		lnBar = m.lnBar + 1
+		Define Bar (m.lnBar) Of AccessContextMenu Prompt "\<Browse saved search history"
+		On Selection Bar (m.lnBar) Of AccessContextMenu m.lcChoice = "Restore from history"
+		
+		lnBar = m.lnBar + 1
+		
+		Define Bar (m.lnBar) Of AccessContextMenu Prompt "\-"
+		
+		lnBar = m.lnBar + 1
+		Define Bar (m.lnBar) Of AccessContextMenu Prompt "Save \<All search results"
+		On Selection Bar (m.lnBar) Of AccessContextMenu m.lcChoice = "Save all search results"
+		Set Mark Of Bar (m.lnBar) Of AccessContextMenu To Thisform.lSaveSearchResults
+		
+		lnBar = m.lnBar + 1
+		Define Bar (m.lnBar) Of AccessContextMenu Prompt "Restore \<Previous results on startup"
+		On Selection Bar (m.lnBar) Of AccessContextMenu m.lcChoice = "Restore previous results on startup"
+		Set Mark Of Bar (m.lnBar) Of AccessContextMenu To Thisform.lRestorePreviousSearchResultsOnStartup
+		
+		
+		Activate Popup AccessContextMenu
+		Release Popups AccessContextMenu
+		
+		Do Case
+			Case m.lcChoice = "Save last search"
+				If Thisform.SaveSearchResults()
+					Messagebox("Saved")
+				Endif &&Thisform.SaveSearchResults()
+			Case m.lcChoice = "Restore last search"
+		*		Thisform.RestoreLastSearch()
+				Thisform.RestorePreviousSearch()
+			Case m.lcChoice = "Restore from history"
+				Thisform.RestoreSearchFromHistory()
+		
+			Case m.lcChoice = "Save all search results"
+				Thisform.lSaveSearchResults = Not Thisform.lSaveSearchResults
+			Case m.lcChoice = "Restore previous results on startup"
+				Thisform.lRestorePreviousSearchResultsOnStartup = Not Thisform.lRestorePreviousSearchResultsOnStartup
+		Endcase
+		
+		
+		SELECT(Thisform.cSearchResultsAlias)
+		Locate For Id = lnRecordId
+		
+		Select(m.lnSelect)
+	ENDPROC
+
 	PROCEDURE ButtonContainer.cmdOptions.Click
 		ThisForm.ShowOptionsForm()
 		
@@ -9580,6 +9683,31 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		This.Visible = Thisform.oSearchOptions.nSearchMode = 3
 	ENDPROC
 
+	PROCEDURE ButtonContainer.cmdSave.Click
+		Local;
+			lnRecordId As Number,;
+			lnSelect As Number
+		
+		lnSelect = Select()
+		
+		Select (Thisform.cSearchResultsAlias)
+		lnRecordId = Id
+		
+		If Thisform.SaveSearchResults()
+			Messagebox("Saved")
+		Endif &&Thisform.SaveSearchResults()
+		
+		
+		Select(Thisform.cSearchResultsAlias)
+		Locate For Id = m.lnRecordId
+		
+		Select(m.lnSelect)
+	ENDPROC
+
+	PROCEDURE ButtonContainer.cmdSave.Refresh
+		This.Enabled = !Thisform.lSearching
+	ENDPROC
+
 	PROCEDURE ButtonContainer.cmdSearch.Click
 		ThisForm.Search()
 		
@@ -9610,107 +9738,6 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		DoDefault()
 		This.Parent.cmdRegexpHelp.Refresh()
 		
-	ENDPROC
-
-	PROCEDURE ButtonContainer.Command1.Click
-		Thisform.RestoreSearchFromHistory()
-	ENDPROC
-
-	PROCEDURE ButtonContainer.Command1.Refresh
-		This.Enabled = !Thisform.lSearching
-	ENDPROC
-
-	PROCEDURE ButtonContainer.Command1.RightClick
-		Local lcChoice, lnBar, lnSelect, lnRecordId
-		
-		lnSelect = Select()
-		
-		SELECT (Thisform.cSearchResultsAlias)
-		lnRecordId = Id
-		
-		lcChoice = ""
-		lnBar	 = 0
-		GF_CreateContextMenu("AccessContextMenu")
-		
-		If !Thisform.lSaveSearchResults Then
-			lnBar = m.lnBar + 1
-			Define Bar (m.lnBar) Of AccessContextMenu Prompt "\<Save last search"
-			On Selection Bar (m.lnBar) Of AccessContextMenu m.lcChoice = "Save last search"
-		Endif &&!Thisform.lSaveSearchResults
-		
-		lnBar = m.lnBar + 1
-		Define Bar (m.lnBar) Of AccessContextMenu Prompt "\<Restore last saved search"
-		On Selection Bar (m.lnBar) Of AccessContextMenu m.lcChoice = "Restore last search"
-		
-		lnBar = m.lnBar + 1
-		Define Bar (m.lnBar) Of AccessContextMenu Prompt "\<Browse saved search history"
-		On Selection Bar (m.lnBar) Of AccessContextMenu m.lcChoice = "Restore from history"
-		
-		lnBar = m.lnBar + 1
-		
-		Define Bar (m.lnBar) Of AccessContextMenu Prompt "\-"
-		
-		lnBar = m.lnBar + 1
-		Define Bar (m.lnBar) Of AccessContextMenu Prompt "Save \<All search results"
-		On Selection Bar (m.lnBar) Of AccessContextMenu m.lcChoice = "Save all search results"
-		Set Mark Of Bar (m.lnBar) Of AccessContextMenu To Thisform.lSaveSearchResults
-		
-		lnBar = m.lnBar + 1
-		Define Bar (m.lnBar) Of AccessContextMenu Prompt "Restore \<Previous results on startup"
-		On Selection Bar (m.lnBar) Of AccessContextMenu m.lcChoice = "Restore previous results on startup"
-		Set Mark Of Bar (m.lnBar) Of AccessContextMenu To Thisform.lRestorePreviousSearchResultsOnStartup
-		
-		
-		Activate Popup AccessContextMenu
-		Release Popups AccessContextMenu
-		
-		Do Case
-			Case m.lcChoice = "Save last search"
-				If Thisform.SaveSearchResults()
-					Messagebox("Saved")
-				Endif &&Thisform.SaveSearchResults()
-			Case m.lcChoice = "Restore last search"
-		*		Thisform.RestoreLastSearch()
-				Thisform.RestorePreviousSearch()
-			Case m.lcChoice = "Restore from history"
-				Thisform.RestoreSearchFromHistory()
-		
-			Case m.lcChoice = "Save all search results"
-				Thisform.lSaveSearchResults = Not Thisform.lSaveSearchResults
-			Case m.lcChoice = "Restore previous results on startup"
-				Thisform.lRestorePreviousSearchResultsOnStartup = Not Thisform.lRestorePreviousSearchResultsOnStartup
-		Endcase
-		
-		
-		SELECT(Thisform.cSearchResultsAlias)
-		Locate For Id = lnRecordId
-		
-		Select(m.lnSelect)
-	ENDPROC
-
-	PROCEDURE ButtonContainer.Command2.Click
-		Local;
-			lnRecordId As Number,;
-			lnSelect As Number
-		
-		lnSelect = Select()
-		
-		Select (Thisform.cSearchResultsAlias)
-		lnRecordId = Id
-		
-		If Thisform.SaveSearchResults()
-			Messagebox("Saved")
-		Endif &&Thisform.SaveSearchResults()
-		
-		
-		Select(Thisform.cSearchResultsAlias)
-		Locate For Id = m.lnRecordId
-		
-		Select(m.lnSelect)
-	ENDPROC
-
-	PROCEDURE ButtonContainer.Command2.Refresh
-		This.Enabled = !Thisform.lSearching
 	ENDPROC
 
 	PROCEDURE ButtonContainer.Container1.chkApplyFilter.Valid
@@ -10541,6 +10568,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 
 	PROCEDURE containerRight.Container1.GridFiles.AfterRowColChange
 		Lparameters nColIndex
+		
 		
 		thisform.tmrGrid.reset()
 		thisform.tmrGrid.Enabled = .t.
