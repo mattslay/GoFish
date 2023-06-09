@@ -9,6 +9,11 @@ Replaces the lists in
 - ChangeLog_Ver_5.txt
 
 ----
+## Ver 6.2.002
+**Released 2023-06-09**
+### Changes
+- Fixed: problem withg spaces in app path #99  
+
 ## Ver 6.2.001
 **Released 2023-05-09**
 ### Changes
@@ -516,4 +521,4 @@ For more details check [Changes on V6](./New_6.md).
 - Park Ave Marketing firm suggests rename - "Go Fish"
 
 ----
-Last changed: _2023/05/09_  ![Picture](./pictures/vfpxpoweredby_alternative.gif)
+Last changed: _2023/06/09_  ![Picture](./pictures/vfpxpoweredby_alternative.gif)

@@ -116,7 +116,7 @@ ENDDO
 
 lcPath = Sys(16,m.lnSys16)
 
-lcPath = Right(m.lcPath,Len(m.lcPath)-At(" ",m.lcPath,2))
+*lcPath = Right(m.lcPath,Len(m.lcPath)-At(" ",m.lcPath,2))
 lcPath = Justpath(m.lcPath)+'\SF_RegExp'
 
 loRegexp = SF_RegExp(m.lcPath)
