@@ -9,10 +9,10 @@ Text to lcNote NoShow
 ## Ver 6.2.004
 **Released 2023-09-04**
  Changes
-- fixed problem with replace backupfolder missing
-- fixed an issue where whole history was popuplated in tree, while only that of the recent session was turned on
+- fixed problem with replace backup folder missing
+- fixed an issue where whole history was populated in tree, while only that of the recent session was turned on
 - fixed an issue with history tree turned on and search not returning result
-- fixed: Scope combo could not be changed with kbd, if CodeReferences option where turned on.
+- fixed: Scope combo could not be changed with keyboard, if CodeReferences option where turned on.
 - added option to enter * or *.* in Advanced Search \-\> Filetypes \-\> Others to express **ALL**
 - added option to enter multiple file skeletons to file templates
 - better UI to set/unset file types
@@ -21,7 +21,7 @@ Text to lcNote NoShow
 - ignore GoFish's settings folder, but allow to search the GF_Saved_Search_Results by explicitly selecting it (on your own risk)
 - fixed Button to show menu tree should not appear for MPR files; fixed #102
 - MPR are now in the "Dangerous risk" replace group; closing #109
-- DynamicBackColour for Replacerisk 3 - Dangerous was wrong
+- DynamicBackColor for Replacerisk 3 - Dangerous was wrong
 - files not in filter visible in tree; fixed issue #118
 - wrong property used of SF_RegExp
 - searching for file without extension is now allowed in "Advanced Search", "File template". #84
@@ -58,7 +58,7 @@ Text to lcNote NoShow
 
 EndText
 
-AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish - 6.2.005 - September 24, 2023 - 20230924')
+AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish - 6.2.005 - October 1, 2023 - 20231001')
 AddProperty(toUpdateInfo, 'SourceFileUrl', 'https://raw.githubusercontent.com/VFPX/GoFish/master/Source/Source.zip')
 AddProperty(toUpdateInfo, 'LinkPrompt', 'GoFish Home Page')
 AddProperty(toUpdateInfo, 'Link', 'https://github.com/VFPX/GoFish')
