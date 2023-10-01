@@ -20,11 +20,11 @@ Cd (lcSourceLoc)
 *== Most of these local variables will make their way into BuildGoFish.h
 lcVersion = '6.2'	&& This level is to be used to control structure changes in the storage
 *					&& see NewVersion OF GoFishProc.prg
-lcBuild = '002' && <---- Set your desired version level of the tool here
+lcBuild = '005' && <---- Set your desired version level of the tool here
 && This will be used on the GoFish form and will live on the
 && the _GoFish object that gets attached to _Screen at run time.
 
-lcApplicationName	= 'GoFish5'
+lcApplicationName	= 'GoFish'
 lcVersionLocalFile	= 'GoFishVersionFile.txt'
 lcVersionFileURL	= 'https://github.com/VFPX/GoFish/_GoFishVersionFile.txt'
 lcDownloadUrl		= 'https://raw.githubusercontent.com/VFPX/GoFish/master/Source/Source.zip'
@@ -107,7 +107,7 @@ Strtofile(lcIncludeFileText, lcBuildGoFishHeaderFile)
 lcBootStrap = 'GoFish.prg'
 Compile (lcBootStrap)
 
-lcProject = lcSourceLoc + 'GoFish5.Pjx'
+lcProject = lcSourceLoc + 'GoFish.Pjx'
 
 If File(lcProject)
 	Build App (lcApplicationName) From (lcProject)

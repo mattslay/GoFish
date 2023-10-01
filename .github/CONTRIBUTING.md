@@ -6,9 +6,9 @@
 
 ## Fix a bug or add an enhancement
 - Fork the project: see this [guide](https://www.dataschool.io/how-to-contribute-on-github/) for setting up and using a fork.
-  - If allready forked, pull the recent state, or get most recent version otherwise.
+  - If already forked, pull the recent state, or get most recent version otherwise.
 - Make whatever changes are necessary.
-- In **[docs\Changes.md](/docs/Changes.md)** add a description of the changes . See previous changes.
+- In **[docs\ChangeLog.md](/docs/ChangeLog.md)** add a description of the changes . See previous changes.
 - on top of **[readme.md](/readme.md)**, change:
   - version number and
   - date
@@ -22,9 +22,9 @@
 
 - run **Source\BuildGoFish.prg** to
   - update several files
-  - build GoFish5.app,
+  - build GoFis5.app,
    - and generate the text equivalents for all VFP binary files (SCX, VCX, DBF, etc.) using FoxBin2PRG.
-   > **Note: use VFP 9 SP2 rather than VFP Advanced to run BuildGoFish.prg since GoFish5.app must be built in VFP rather than VFPA for compatibility for all users.**
+   > **Note: use VFP 9 SP2 rather than VFP Advanced to run BuildGoFish.prg since GoFish.app must be built in VFP rather than VFPA for compatibility for all users.**
 
 - **close the project**
 - In File Explorer, right-click **Source\BuildCloudZip.ps1** and choose *Run with PowerShell* to create Source.zip.

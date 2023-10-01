@@ -1,6 +1,35 @@
 Lparameters toUpdateInfo
 
 Text to lcNote NoShow
+## Ver 6.2.005
+**Released 2023-09-07**
+ Changes
+- Added file .FoxBin2Prg_Ignore in local storage directory, to stop FoxBin2Prg after version [1.20.07](https://github.com/lscheffler/foxbin2prg/releases/tag/1.20.07) from processing this directories.
+
+## Ver 6.2.004
+**Released 2023-09-04**
+ Changes
+- fixed problem with replace backupfolder missing
+- fixed an issue where whole history was popuplated in tree, while only that of the recent session was turned on
+- fixed an issue with history tree turned on and search not returning result
+- fixed: Scope combo could not be changed with kbd, if CodeReferences option where turned on.
+- added option to enter * or *.* in Advanced Search \-\> Filetypes \-\> Others to express **ALL**
+- added option to enter multiple file skeletons to file templates
+- better UI to set/unset file types
+- optimized speed of folder search
+- ignore git toplevel folder instead of .git
+- ignore GoFish's settings folder, but allow to search the GF_Saved_Search_Results by explicitly selecting it (on your own risk)
+- fixed Button to show menu tree should not appear for MPR files; fixed #102
+- MPR are now in the "Dangerous risk" replace group; closing #109
+- DynamicBackColour for Replacerisk 3 - Dangerous was wrong
+- files not in filter visible in tree; fixed issue #118
+- wrong property used of SF_RegExp
+- searching for file without extension is now allowed in "Advanced Search", "File template". #84
+  - Note: "\*" is all files WITH extension, without extension is like "\*."
+- fixed: Error "invalid path or file name" on startup; fixed #120 (PatrickvonDeetzen)
+- forced to use of APP over PRG
+- Renamed GoFish5 to GoFish
+
 ## Ver 6.2.001 **Released 2023-05-09**
 - Fixed: Code - window shows info for files without hit in filter #94
 - Fixed: If search is restored via "History", restore search settings; fixed #92
@@ -29,7 +58,7 @@ Text to lcNote NoShow
 
 EndText
 
-AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish5 - 6.2.002 - 9. Juni 2023,  - 20230609')
+AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish - 6.2.005 - September 24, 2023 - 20230924')
 AddProperty(toUpdateInfo, 'SourceFileUrl', 'https://raw.githubusercontent.com/VFPX/GoFish/master/Source/Source.zip')
 AddProperty(toUpdateInfo, 'LinkPrompt', 'GoFish Home Page')
 AddProperty(toUpdateInfo, 'Link', 'https://github.com/VFPX/GoFish')

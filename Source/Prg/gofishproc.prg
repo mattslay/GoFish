@@ -545,7 +545,7 @@ Procedure GF_Get_LocalSettings	&& Determine storage place global / local
 		lcSourceFile As String,;
 		llFound   As Boolean
 
-*only if resource file is oon and used
+*only if resource file is on and used
 	If toSettings.Exists("lCR_AllowEd") And m.toSettings.lCR_Allow Then
 		toSettings.lCR_AllowEd = Set("Resource")=="ON" And File(Set("Resource",1))
 
@@ -715,6 +715,10 @@ Procedure GF_Create_LocalPath	&&Create the local storage path, with user interfa
 		If !File(Addbs(m.tcFolder)+".gitignore") Then
 			Strtofile("#Set by GoFish."+0h0D0A+"*.*"+0h0D0A,Addbs(m.tcFolder)+".gitignore")
 		Endif &&!FILE(ADDBS(m.tcFolder)+".gitignore")
+*create .FoxBin2Prg_Ignore, if neeeded
+		If !File(Addbs(m.tcFolder)+".FoxBin2Prg_Ignore") Then
+			Strtofile("#Set by GoFish",Addbs(m.tcFolder)+".FoxBin2Prg_Ignore")
+		Endif &&!FILE(ADDBS(m.tcFolder)+".FoxBin2Prg_Ignore")
 
 		If m.llFill Then
 			lnFiles = Adir(laDir, Addbs(Home(7)) + "GoFish_\GF_*.xml", "", 1)

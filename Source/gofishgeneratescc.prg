@@ -13,5 +13,5 @@ if not file(lcFoxBin2PRG)
 	Return
 EndIf
 
-Do (lcFoxBin2Prg) With "GoFish5.pjx", "*"
+Do (lcFoxBin2Prg) With "GoFish.pjx", "*"
 Return

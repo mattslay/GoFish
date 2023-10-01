@@ -293,6 +293,8 @@ Define Class GoFishSearchEngine As Custom
 		lcMatchType = m.toObject.MatchType
 
 		Do Case
+			Case Inlist(m.lcFileType, 'MPR') && not good to replace
+				lcMatchType = MATCHTYPE_MPR
 			Case Empty(m.lcMatchType)
 				lcMatchType = MATCHTYPE_CODE
 
@@ -583,7 +585,7 @@ ccBACKUPFOLDER
 
 		If Not Directory (ccBACKUPFOLDER) && Create main folder for backups, if necessary
 			Mkdir (ccBACKUPFOLDER)
-			GF_Write_Readme_Text(4, Addbs(m.lcBackupFolder) + 'README.md', .T.)
+			GF_Write_Readme_Text(4, Addbs(m.ccBACKUPFOLDER) + 'README.md', .T.)
 
 		Endif
 
@@ -641,7 +643,7 @@ ccBACKUPFOLDER
 
 
 *----------------------------------------------------------------------------------
-	Procedure BuildDirectoriesCollection(tcDir)
+	Procedure BuildDirectoriesCollection(tcDir, tlWithRepo, tcRepo)
 
 *-- Note: This method is called recursively on itself if subfolders are found. See the For loop at the bottom...
 *-- For more good info on recursive processing of directories, see this page: http://fox.wikis.com/wc.dll?Wiki~RecursiveDirectoryProcessing
@@ -666,6 +668,37 @@ ccBACKUPFOLDER
 			Clear Typeahead
 			Return 0
 		Endif
+
+*get the toplevel folder, if we are in a repo
+		If !m.tlWithRepo Then
+			lcCommand = 'git rev-parse --git-dir>git_x.tmp'
+			Run &lcCommand
+
+			If File('git_x.tmp') Then
+*the result is either the git base folder or empty for no git repo
+				tcRepo = Upper(Fullpath(Chrtran(Filetostr('git_x.tmp'), '/' + Chr(13) + Chr(10), '\')))
+				Delete File git_x.tmp
+				tlWithRepo = .T.
+			Else &&file('git_x.tmp')
+* no file, no git
+				tcRepo = ''
+			Endif &&file('git_x.tmp')
+
+		Endif &&!m.tlWithRepo
+
+*SF 20221216 special folders to skip
+		If Upper(Fullpath(m.tcDir)) == m.tcRepo
+*git toplevel folder. We do not look this up
+			Return 0
+		Endif
+		If Directory(Fullpath(Addbs(m.tcDir) + "GF_Saved_Search_Results" ))
+*			;
+Or "GF_SAVED_SEARCH_RESULTS" $ Upper(m.tcDir) THEN
+*GoFish storage folder. Do not touch. Might create havoc
+*One still might search the GF_Saved_Search_Results folder itself
+			Return 0
+		Endif &&Directory(Fullpath(Addbs(m.tcDir) + "GF_Saved_Search_Results" ))
+*/SF 20221216 special folders to skip
 
 		Try
 				Chdir (m.tcDir)
@@ -699,7 +732,7 @@ ccBACKUPFOLDER
 				Endif
 				lcCurrentDirectory = laDirList(m.lnPtr, 1)
 				If m.lcCurrentDirectory <> '.' And m.lcCurrentDirectory <> '..'
-					This.BuildDirectoriesCollection(m.lcCurrentDirectory)
+					This.BuildDirectoriesCollection(m.lcCurrentDirectory, m.tlWithRepo, m.tcRepo)
 				Endif
 			Endif
 		Endfor
@@ -794,56 +827,58 @@ ccBACKUPFOLDER
 
 
 *----------------------------------------------------------------------------------
-	Procedure CheckFileExtTemplate(tcFile)
+*SF 20230620 unused
+*!*		Procedure CheckFileExtTemplate(tcFile)
 
-		Local;
-			lcFileExtTemplate As String,;
-			lcFileName     As String,;
-			lcFilenameMask As String,;
-			llFilenameMatch As Boolean,;
-			llReturn       As Boolean
+*!*			Local;
+*!*				lcFileExtTemplate As String,;
+*!*				lcFileName     As String,;
+*!*				lcFilenameMask As String,;
+*!*				llFilenameMatch As Boolean,;
+*!*				llReturn       As Boolean
 
-		lcFileExtTemplate = Justext(This.oSearchOptions.cFileTemplate)
+*!*			lcFileExtTemplate = Justext(This.oSearchOptions.cFileTemplate)
 
-		llReturn = This.MatchTemplate(m.tcFile, m.lcFileExtTemplate)
+*!*			llReturn = This.MatchTemplate(m.tcFile, m.lcFileExtTemplate)
 
-	Endproc
+*!*		Endproc
 
 
 *----------------------------------------------------------------------------------
-	Procedure CheckFilenameTemplate(tcFile)
+*SF 20230620 unused
+*!*		Procedure CheckFilenameTemplate(tcFile)
 
-		Local;
-			lcFileName  As String,;
-			lcFilenameMask As String,;
-			llMatch     As Boolean,;
-			lnLength    As Number
+*!*			Local;
+*!*				lcFileName  As String,;
+*!*				lcFilenameMask As String,;
+*!*				llMatch     As Boolean,;
+*!*				lnLength    As Number
 
-		If Empty(Juststem(This.oSearchOptions.cFileTemplate))
-			Return .T.
-		Endif
+*!*			If Empty(Juststem(This.oSearchOptions.cFileTemplate))
+*!*				Return .T.
+*!*			Endif
 
-		lcFilenameMask = Upper(Juststem(This.oSearchOptions.cFileTemplate))
-		lcFileName     = Upper(Juststem(m.tcFile))
+*!*			lcFilenameMask = Upper(Juststem(This.oSearchOptions.cFileTemplate))
+*!*			lcFileName     = Upper(Juststem(m.tcFile))
 
-		Do Case
-			Case m.lcFilenameMask = '*'
-				llMatch = .T.
-			Case (Left(m.lcFilenameMask, 1) = '*' And Right(m.lcFilenameMask, 1) = '*') Or Atc('*', m.lcFilenameMask) = 0
-				llMatch = m.lcFilenameMask $ m.lcFileName
-			Case Right(m.lcFilenameMask, 1) = '*'
-				lnLength       = Len(cFilenameMask) - 1
-				lcFilenameMask = Left(m.lcFilenameMask, m.lnLength)
-				llMatch        = Left(m.lcFileName, m.lnLength) = m.lcFilenameMask
-			Case Left(m.lcFilenameMask, 1) = '*'
-				lnLength       = Len(cFilenameMask) - 1
-				lcFilenameMask = Right(m.lcFilenameMask, m.lnLength)
-				llMatch        = Right(m.lcFileName, m.lnLength) = m.lcFilenameMask
-		Endcase
+*!*			Do Case
+*!*				Case m.lcFilenameMask = '*'
+*!*					llMatch = .T.
+*!*				Case (Left(m.lcFilenameMask, 1) = '*' And Right(m.lcFilenameMask, 1) = '*') Or Atc('*', m.lcFilenameMask) = 0
+*!*					llMatch = m.lcFilenameMask $ m.lcFileName
+*!*				Case Right(m.lcFilenameMask, 1) = '*'
+*!*					lnLength       = Len(cFilenameMask) - 1
+*!*					lcFilenameMask = Left(m.lcFilenameMask, m.lnLength)
+*!*					llMatch        = Left(m.lcFileName, m.lnLength) = m.lcFilenameMask
+*!*				Case Left(m.lcFilenameMask, 1) = '*'
+*!*					lnLength       = Len(cFilenameMask) - 1
+*!*					lcFilenameMask = Right(m.lcFilenameMask, m.lnLength)
+*!*					llMatch        = Right(m.lcFileName, m.lnLength) = m.lcFilenameMask
+*!*			Endcase
 
-		Return m.llMatch
+*!*			Return m.llMatch
 
-	Endproc
+*!*		Endproc
 
 
 *----------------------------------------------------------------------------------
@@ -907,52 +942,52 @@ x
 		lcSearchResultsAlias = This.cSearchResultsAlias
 
 		Create Cursor (m.lcSearchResultsAlias)( ;
-			 cUni      c(11), ;
-			 cUni_File c(23), ;
-			 Datetime c(24), ;
-			 Scope v(254), ;
-			 Search v(254), ;
-			 lMemLoaded L,;
-			 lMemSaved  L,;
-			 Process L, ;
-			 FilePath c(254), ;
-			 FileName c(100), ;
-			 TrimmedMatchLine c(254), ;
-			 BaseClass c(254), ;
-			 ParentClass c(254), ;
-			 Class c(254), ;
-			 Name c(254), ;
-			 MethodName c(80), ;
-			 ContainingClass c(254), ;
-			 ClassLoc c(254), ;
-			 MatchType c(25), ;
-			 Timestamp T, ;
-			 FileType c(4), ;
-			 Type c(12), ;
-			 Recno N(6, 0), ;
-			 ProcStart I, ;
-			 procend I, ;
-			 proccode M, ;
-			 statement M, ;
-			 statementstart I, ;
-			 firstmatchinstatement L, ;
-			 firstmatchinprocedure L, ;
-			 MatchStart I, ;
-			 MatchLen I, ;
-			 lIsText L, ;
-			 Column c(10), ;
-			 Code M, ;
-			 Id I, ;
-			 MatchLine M, ;
-			 Replaced L, ;
-			 TrimmedReplaceLine c(254), ;
-			 ReplaceLine c(254), ;
-			 ReplaceRisk I, ;
-			 Replace_DT T, ;
-			 iReplaceFolder I, ;
-			 lJustReplace L, ;
-			 lSaved L ;
-			 )
+			cUni      c(11), ;
+			cUni_File c(23), ;
+			Datetime c(24), ;
+			Scope v(254), ;
+			Search v(254), ;
+			lMemLoaded L,;
+			lMemSaved  L,;
+			Process L, ;
+			FilePath c(254), ;
+			FileName c(100), ;
+			TrimmedMatchLine c(254), ;
+			BaseClass c(254), ;
+			ParentClass c(254), ;
+			Class c(254), ;
+			Name c(254), ;
+			MethodName c(80), ;
+			ContainingClass c(254), ;
+			ClassLoc c(254), ;
+			MatchType c(25), ;
+			Timestamp T, ;
+			FileType c(4), ;
+			Type c(12), ;
+			Recno N(6, 0), ;
+			ProcStart I, ;
+			procend I, ;
+			proccode M, ;
+			statement M, ;
+			statementstart I, ;
+			firstmatchinstatement L, ;
+			firstmatchinprocedure L, ;
+			MatchStart I, ;
+			MatchLen I, ;
+			lIsText L, ;
+			Column c(10), ;
+			Code M, ;
+			Id I, ;
+			MatchLine M, ;
+			Replaced L, ;
+			TrimmedReplaceLine c(254), ;
+			ReplaceLine c(254), ;
+			ReplaceRisk I, ;
+			Replace_DT T, ;
+			iReplaceFolder I, ;
+			lJustReplace L, ;
+			lSaved L ;
+			)
 
 		Select (m.lnSelect)
 
@@ -1190,10 +1225,10 @@ statementstart
 
 			Catch To m.loException When m.loException.ErrorNo=1190
 * Abzufangender Fehler
-				If Messagebox('File to large "' + m.FilePath + '"',1) = 2
+				If Messagebox('File too large "' + m.FilePath + '"',1) = 2
 					llReturn = .F.
 					Assert .F.
-				Endif &&Messagebox('File to large "' + m.FilePath + '"',1) = 2
+				Endif &&Messagebox('File too large "' + m.FilePath + '"',1) = 2
 
 			Catch To m.loException
 * andere Fehler, Standardhandler rufen
@@ -1364,8 +1399,8 @@ statementstart
 		lcMatchType = Alltrim(&tcCursor..MatchType)
 *	Try to select searched text if found in normal windows only - exclude internal for VFP places
 		If !Inlist(m.lcMatchType, MATCHTYPE_FILENAME, MATCHTYPE_CLASS_DEF, MATCHTYPE_CLASS_DESC, MATCHTYPE_METHOD_DEF, MATCHTYPE_PROPERTY_DEF, ;
-				 MATCHTYPE_CONTAINING_CLASS, MATCHTYPE_PARENTCLASS, MATCHTYPE_BASECLASS, MATCHTYPE_METHOD_DESC, MATCHTYPE_PROPERTY, ;
-				 MATCHTYPE_PROPERTY_DESC, MATCHTYPE_PROPERTY_NAME, MATCHTYPE_PROPERTY_VALUE)
+				MATCHTYPE_CONTAINING_CLASS, MATCHTYPE_PARENTCLASS, MATCHTYPE_BASECLASS, MATCHTYPE_METHOD_DESC, MATCHTYPE_PROPERTY, ;
+				MATCHTYPE_PROPERTY_DESC, MATCHTYPE_PROPERTY_NAME, MATCHTYPE_PROPERTY_VALUE)
 			This.SelectSearchedText(&tcCursor..MatchStart,&tcCursor..MatchLen, Trim(&tcCursor..Search))
 		Endif
 *!*	/Changed by: nmpetkov 27.3.2023
@@ -1406,8 +1441,8 @@ statementstart
 			loMatch    As Object,;
 			loMatches  As Object
 
-LOCAL ARRAY;
-aEdEnv(25)
+		Local Array;
+			aEdEnv(25)
 
 		If Atc("foxtools.fll", Set("LIBRARY")) = 0
 			lcFoxtoolsFll = Sys(2004) + "foxtools.fll"
@@ -1863,7 +1898,7 @@ Result
 
 *----------------------------------------------------------------------------------
 	Procedure GenerateHTMLCode(tcCode, tcMatchLine, tnMatchStart, tcCss, tcJavaScript, tcReplaceLine, tlAlreadyReplaced, tnTabsToSpaces, ;
-			 tcSearch, tcStatementFilter, tcProcFilter)
+			tcSearch, tcStatementFilter, tcProcFilter)
 
 		Local;
 			lcBr             As String,;
@@ -1997,7 +2032,7 @@ Result
 			If 'C' = Vartype(m.tcStatementFilter) And Not Empty(m.tcStatementFilter)
 *for statement
 				lcHtmlBody = This.HighlightStatementFilter(m.lcHtmlBody, m.tcStatementFilter, m.lcStateFilterPrefix, m.lcStateFilterSuffix,;
-					 M.lcMatchLinePrefix, m.lcMatchLineSuffix)
+					M.lcMatchLinePrefix, m.lcMatchLineSuffix)
 *for replace (if)
 *				If !Empty(m.tcReplaceLine) THEN
 *						lcHtmlBody = This.HighlightStatementFilter(lcHtmlBody, tcStatementFilter, lcStateFilterPrefix, lcStateFilterSuffix,;
@@ -2023,7 +2058,7 @@ m.lcReplaceLinePrefix, m.lcReplaceLineSuffix)
 		Endif
 
 *-- Build the whole Html by combining the html parts defined above -------------
-		Text To m.lcHTML Noshow Textmerge Pretext 3
+		TEXT To m.lcHTML Noshow Textmerge Pretext 3
 <html>
  <head>
   <title>GoFish code snippet</title>
@@ -2036,7 +2071,7 @@ m.lcReplaceLinePrefix, m.lcReplaceLineSuffix)
   <<m.lcJavaScript>>
  </body>
 </html>
-		Endtext
+		ENDTEXT
 
 
 		Return m.lcHTML
@@ -2113,8 +2148,8 @@ m.lcReplaceLinePrefix, m.lcReplaceLineSuffix)
 			Try
 					Use (m.tcFile) Again In 0 Alias 'GF_GetMaxTimeStamp' Shared
 					Select Max(Timestamp);
-					 From GF_GetMaxTimeStamp;
-					 Into Array laMaxDateTime
+						From GF_GetMaxTimeStamp;
+						Into Array laMaxDateTime
 					ldFileDate = Ctot(This.TimeStampToDate(m.laMaxDateTime))
 				Catch
 				Finally
@@ -2429,15 +2464,15 @@ m.lcReplaceLinePrefix, m.lcReplaceLineSuffix)
 		Do Case
 
 			Case Inlist(m.lcMatchType, MatchType_Name, MATCHTYPE_CONSTANT, '<Parent>', ;
-					 MATCHTYPE_PROPERTY_DEF, MATCHTYPE_PROPERTY_DESC, MATCHTYPE_PROPERTY_NAME, ;
-					 MATCHTYPE_PROPERTY, MATCHTYPE_PROPERTY_VALUE, ;
-					 MATCHTYPE_METHOD_DEF, MATCHTYPE_METHOD_DESC, MatchType_Method ;
-					 )
+					MATCHTYPE_PROPERTY_DEF, MATCHTYPE_PROPERTY_DESC, MATCHTYPE_PROPERTY_NAME, ;
+					MATCHTYPE_PROPERTY, MATCHTYPE_PROPERTY_VALUE, ;
+					MATCHTYPE_METHOD_DEF, MATCHTYPE_METHOD_DESC, MatchType_Method, ;
+					MATCHTYPE_MPR )
 
 				lnReturn = 3
 
 			Case Inlist(m.lcMatchType, MATCHTYPE_INCLUDE_FILE, '<Expr>', '<Supexpr>', '<Picture>', '<Prompt>', '<Procedure>', ;
-					 '<Skipfor>', '<Message>', '<Tag>', '<Tag2>');
+					'<Skipfor>', '<Message>', '<Tag>', '<Tag2>');
 					Or ;
 					M.toObject.UserField.FileType = 'DBF'
 
@@ -2457,23 +2492,23 @@ m.lcReplaceLinePrefix, m.lcReplaceLineSuffix)
 
 *----------------------------------------------------------------------------------
 	Procedure HighlightStatementFilter(tcCode, tcProcFilter, tcMatchWordPrefix, tcMatchWordSuffix, tcMatchLinePrefix, tcMatchLineSuffix)
-	*just for now
-	*to do
-	*get statement snippet
-	*run HighlightProcFilter for the value of the snippet
-	*stuff into tcCode
-	
+*just for now
+*to do
+*get statement snippet
+*run HighlightProcFilter for the value of the snippet
+*stuff into tcCode
+
 		Local;
 			lcReturn As String,;
 			loMatch As Object,;
 			loRegExp As Object
-	
+
 		loRegExp = SF_RegExp()
-	
+
 		loRegExp.IgnoreCase       = .T.
 		loRegExp.MultiLine        = .T.
 		loRegExp.ReturnFoxObjects = .T.
-		loRegExp.AutoExpandGroup  = .T.
+		loRegExp.AutoExpandGroups = .T.
 		loRegExp.Singleline       = .T.
 		loRegExp.Pattern          = loRegExp.Escape(m.tcMatchLinePrefix) + "(.*)" + loRegExp.Escape(m.tcMatchLineSuffix)
 		loMatch                   = loRegExp.Match(m.tcCode)
@@ -2487,7 +2522,7 @@ m.lcReplaceLinePrefix, m.lcReplaceLineSuffix)
 		Return m.lcReturn
 
 	Endproc &&HighlightStatementFilter(tcCode, tcProcFilter, tcMatchWordPrefix, tcMatchWordSuffix, tcMatchLinePrefix, ...
-	
+
 	Procedure HighlightProcFilter(tcCode, tcProcFilter, tcMatchWordPrefix, tcMatchWordSuffix)
 
 		#Define VISIBLE_AND   '|and|'
@@ -2555,7 +2590,7 @@ m.lcReplaceLinePrefix, m.lcReplaceLineSuffix)
 		loRegExp.IgnoreCase       = .T.
 		loRegExp.MultiLine        = .T.
 		loRegExp.ReturnFoxObjects = .T.
-		loRegExp.AutoExpandGroup  = .T.
+		loRegExp.AutoExpandGroups = .T.
 		loRegExp.Pattern          = "\<[^\>]*?(?:" + m.lcPattern + ")+?.*?\>|(" + m.lcPattern + ")"
 		loMatches                 = loRegExp.Matches(m.tcCode)
 *		_cliptext = loRegExp.Show_Unwind(m.loMatches)
@@ -2695,7 +2730,7 @@ m.lcReplaceLinePrefix, m.lcReplaceLineSuffix)
 *-- Note: Each word below contains a space at the beginning and end of the word so the final match test
 *-- wil not return .t. for partial matches.
 
-		Text To m.lcBaseclasses Noshow
+		TEXT To m.lcBaseclasses Noshow
 			 CheckBox
 			 Collection
 			 Column
@@ -2739,7 +2774,7 @@ m.lcReplaceLinePrefix, m.lcReplaceLineSuffix)
 			 XMLAdapter
 			 XMLField
 			 XMLTable
-		Endtext
+		ENDTEXT
 
 		Return  Upper((' ' + Alltrim(m.tcString) + ' ')) $ Upper(m.lcBaseclasses)
 
@@ -2800,54 +2835,105 @@ m.lcReplaceLinePrefix, m.lcReplaceLineSuffix)
 
 
 *----------------------------------------------------------------------------------
-	Procedure IsFileTypeIncluded(tcFileType)
+	Procedure IsFileIncluded(tcFile)
 
-		If This.oSearchOptions.lIncludeAllFileTypes
-			Return .T.
-		Endif
+*SF Depricated
+*!*			If This.oSearchOptions.lIncludeAllFileTypes
+*!*				Return .T.
+*!*			Endif
 
-		tcFileType = Upper(m.tcFileType)
+* Two (i.e.three) ways to include all, set cOtherIncludes, this is text below to file types in advanced, to * -> all
+* or set the Templates (the textbox above) to all -> *.* or old style *
+		If Empty(This.oSearchOptions.cFileTemplate)
+*only if no template, because this disables extensions
 
-		If !Empty(Justext(This.oSearchOptions.cFileTemplate))
-			Return This.MatchTemplate(m.tcFileType, Justext(This.oSearchOptions.cFileTemplate))
-		Endif
+			If !Empty(This.oSearchOptions.cOtherIncludes) And;
+					"*" == This.oSearchOptions.cOtherIncludes
+*check for all-in-cOtherIncludes
+				Return .T.
+			Endif
+
+			lcFileType = Upper(Justext(m.tcFile))
+
+*!*			If !Empty(Justext(This.oSearchOptions.cFileTemplate))
+*!*				Return This.MatchTemplate(m.lcFileType, Justext(This.oSearchOptions.cFileTemplate))
+*!*			Endif
+
+*SF 20230620, it is with extension turned on or not no need for the group
+*-- Table-based Files --------------------------------------
+*!*			If Inlist(m.lcFileType, 'SCX', 'VCX', 'FRX', 'DBC', 'MNX', 'LBX', 'PJX')
+*!*				Return Icase(m.lcFileType = 'SCX', This.oSearchOptions.lIncludeSCX, ;
+*!*					M.lcFileType = 'VCX', This.oSearchOptions.lIncludeVCX, ;
+*!*					M.lcFileType = 'FRX', This.oSearchOptions.lIncludeFRX, ;
+*!*					M.lcFileType = 'DBC', This.oSearchOptions.lIncludeDBC, ;
+*!*					M.lcFileType = 'MNX', This.oSearchOptions.lIncludeMNX, ;
+*!*					M.lcFileType = 'LBX', This.oSearchOptions.lIncludeLBX, ;
+*!*					M.lcFileType = 'PJX', This.oSearchOptions.lIncludePJX, ;
+*!*					.F.)		&& Last ".F." is a default value, in case one check is missing in this ICASE()
+*!*			Endif
+
+*!*	*-- Code based files ----------------------------------
+*!*			If Inlist(m.lcFileType, 'PRG', 'MPR', 'TXT', 'INI', 'H', 'XML', 'SPR', 'ASP', 'JSP', 'JAVA')
+*!*				Return Icase(m.lcFileType = 'PRG', This.oSearchOptions.lIncludePRG, ;
+*!*					M.lcFileType = 'MPR', This.oSearchOptions.lIncludeMPR, ;
+*!*					M.lcFileType = 'TXT', This.oSearchOptions.lIncludeTXT, ;
+*!*					M.lcFileType = 'INI', This.oSearchOptions.lIncludeINI, ;
+*!*					M.lcFileType = 'H', This.oSearchOptions.lIncludeH, ;
+*!*					M.lcFileType = 'XML', This.oSearchOptions.lIncludeXML, ;
+*!*					M.lcFileType = 'SPR', This.oSearchOptions.lIncludeSPR, ;
+*!*					M.lcFileType = 'ASP', This.oSearchOptions.lIncludeASP, ;
+*!*					M.lcFileType = 'JSP', This.oSearchOptions.lIncludeJSP, ;
+*!*					M.lcFileType = 'JAVA', This.oSearchOptions.lIncludeJAVA, ;
+*!*					.F.)		&& Last ".F." is a default value, in case one check is missing in this ICASE()
+*!*			Endif
 
 *-- Table-based Files --------------------------------------
-		If Inlist(m.tcFileType, 'SCX', 'VCX', 'FRX', 'DBC', 'MNX', 'LBX', 'PJX')
-			Return Icase(m.tcFileType = 'SCX', This.oSearchOptions.lIncludeSCX, ;
-				 M.tcFileType = 'VCX', This.oSearchOptions.lIncludeVCX, ;
-				 M.tcFileType = 'FRX', This.oSearchOptions.lIncludeFRX, ;
-				 M.tcFileType = 'DBC', This.oSearchOptions.lIncludeDBC, ;
-				 M.tcFileType = 'MNX', This.oSearchOptions.lIncludeMNX, ;
-				 M.tcFileType = 'LBX', This.oSearchOptions.lIncludeLBX, ;
-				 M.tcFileType = 'PJX', This.oSearchOptions.lIncludePJX, ;
-				 .F.)		&& Last ".F." is a default value, in case one check is missing in this ICASE()
-		Endif
-
-*-- Code based files ----------------------------------
-		If Inlist(m.tcFileType, 'PRG', 'MPR', 'TXT', 'INI', 'H', 'XML', 'SPR', 'ASP', 'JSP', 'JAVA')
-			Return Icase(m.tcFileType = 'PRG', This.oSearchOptions.lIncludePRG, ;
-				 M.tcFileType = 'MPR', This.oSearchOptions.lIncludeMPR, ;
-				 M.tcFileType = 'TXT', This.oSearchOptions.lIncludeTXT, ;
-				 M.tcFileType = 'INI', This.oSearchOptions.lIncludeINI, ;
-				 M.tcFileType = 'H', This.oSearchOptions.lIncludeH, ;
-				 M.tcFileType = 'XML', This.oSearchOptions.lIncludeXML, ;
-				 M.tcFileType = 'SPR', This.oSearchOptions.lIncludeSPR, ;
-				 M.tcFileType = 'ASP', This.oSearchOptions.lIncludeASP, ;
-				 M.tcFileType = 'JSP', This.oSearchOptions.lIncludeJSP, ;
-				 M.tcFileType = 'JAVA', This.oSearchOptions.lIncludeJAVA, ;
-				 .F.)		&& Last ".F." is a default value, in case one check is missing in this ICASE()
-		Endif
+			If (This.oSearchOptions.lIncludeSCX And m.lcFileType = 'SCX');
+					Or (This.oSearchOptions.lIncludeVCX  And m.lcFileType = 'VCX' );
+					Or (This.oSearchOptions.lIncludeFRX  And m.lcFileType = 'FRX' );
+					Or (This.oSearchOptions.lIncludeDBC  And m.lcFileType = 'DBC' );
+					Or (This.oSearchOptions.lIncludeMNX  And m.lcFileType = 'MNX' );
+					Or (This.oSearchOptions.lIncludeLBX  And m.lcFileType = 'LBX' );
+					Or (This.oSearchOptions.lIncludePJX  And m.lcFileType = 'PJX' );
+					Or (This.oSearchOptions.lIncludePRG  And m.lcFileType = 'PRG' );
+					Or (This.oSearchOptions.lIncludeMPR  And m.lcFileType = 'MPR' );
+					Or (This.oSearchOptions.lIncludeTXT  And m.lcFileType = 'TXT' );
+					Or (This.oSearchOptions.lIncludeINI  And m.lcFileType = 'INI' );
+					Or (This.oSearchOptions.lIncludeH    And m.lcFileType = 'H'   );
+					Or (This.oSearchOptions.lIncludeXML  And m.lcFileType = 'XML' );
+					Or (This.oSearchOptions.lIncludeSPR  And m.lcFileType = 'SPR' );
+					Or (This.oSearchOptions.lIncludeASP  And m.lcFileType = 'ASP' );
+					Or (This.oSearchOptions.lIncludeJSP  And m.lcFileType = 'JSP' );
+					Or (This.oSearchOptions.lIncludeJAVA And m.lcFileType = 'JAVA')
+				Return .T.
+			Endif
+*/SF 20230620, it is with extension turned on or not no need for the group
 
 *-- Code based files (any HTM* file) ----------------------------------
-		If 'HTM' $ m.tcFileType
-			Return This.oSearchOptions.lIncludeHTML
-		Endif
+			If This.oSearchOptions.lIncludeHTML And 'HTM' $ m.lcFileType
+				Return .T.
+			Endif
 
-*-- Lastly, is it match with other includes???
-		If m.tcFileType $ Upper(This.oSearchOptions.cOtherIncludes) And !Empty(This.oSearchOptions.cOtherIncludes)
-			Return .T.
-		Endif
+*-- Lastly, is it match with other includes??? (but only if no template, because this disables extensions)
+			If !Empty(This.oSearchOptions.cOtherIncludes) And m.lcFileType $ Upper(This.oSearchOptions.cOtherIncludes)
+				Return .T.
+			Endif
+
+		Else  &&Empty(This.oSearchOptions.cFileTemplate)
+*just template
+
+*check for all-in-template (no regexp, faster)
+			If "*.*" == This.oSearchOptions.cFileTemplate Or "*" == This.oSearchOptions.cFileTemplate
+				Return .T.
+			Endif
+*SF 20230619
+** try for full file patterns in cFileTemplate
+			If !Empty(This.oSearchOptions.cFileTemplate)
+*			 SET STEP ON 
+				Return This.oSearchOptions.oRegExpFileTemplate.IsMatch(Justfname(m.tcFile))
+			Endif
+
+		Endif &&Empty(This.oSearchOptions.cFileTemplate)
 
 *** No matching filetype found => so don't include in this search!
 		Return .F.
@@ -3097,6 +3183,8 @@ x
 		This.oSearchErrors  = Createobject('Collection')
 		This.oReplaceErrors = Createobject('Collection')
 		This.oDirectories   = Createobject('Collection')
+
+		This.SetIncludePattern()
 
 		This.SetFilesToSkip()
 
@@ -3446,14 +3534,14 @@ x
 			Endif
 
 			Update (m.tcCursor) ;
-			 Set TrimmedReplaceLine = m.loResult.cTrimmedReplaceLine, ;
-			 ReplaceLine = m.loResult.cReplaceLine,;
-			 iReplaceFolder = m.tnReplaceId;
-			 Where cUni == m.lcUni And ;
-			  FilePath == m.lcFileToModify And ;
-			  Recno = m.lnResultRecno And ;
-			  Column = m.lcColumn And ;
-			  MatchStart = m.lnMatchStart
+				Set TrimmedReplaceLine = m.loResult.cTrimmedReplaceLine, ;
+				ReplaceLine = m.loResult.cReplaceLine,;
+				iReplaceFolder = m.tnReplaceId;
+				Where cUni == m.lcUni And ;
+				FilePath == m.lcFileToModify And ;
+				Recno = m.lnResultRecno And ;
+				Column = m.lcColumn And ;
+				MatchStart = m.lnMatchStart
 
 			Try
 					Goto (m.lnCurrentRecno)
@@ -3891,7 +3979,7 @@ x
 
 			For x = 1 To Alen(m.laProperties)
 				lcProperty = laProperties[x]
-				If !Inlist(m.lcProperty, '_MEMBERDATA', 'CPROJECTS')
+				If !Inlist(m.lcProperty, '_MEMBERDATA', 'CPROJECTS', 'OREGEXPFILETEMPLATE')
 					.Add(m.lcProperty, Evaluate('This.oSearchOptions.' + m.lcProperty))
 				Endif
 			Endfor
@@ -3922,23 +4010,23 @@ x
 * Change suggested by Chen, see issue #34
 * splitted lon string comaprision into single ones
 		Update Results ;
-		 Set firstmatchinstatement = .T. ;
-		 From (This.cSearchResultsAlias) As Results ;
-		 Join (Select FilePath, ;
-				Class, ;
-				Name, ;
-				MethodName, ;
-				statementstart, ;
-				Min(MatchStart) As MatchStart ;
-				From (This.cSearchResultsAlias)            ;
-				Group By FilePath, Class, Name, MethodName, statementstart) ;
-										 As FirstMatch ;
-		 On Results.FilePath = FirstMatch.FilePath And ;
-		  Results.Class = FirstMatch.Class And ;
-		  Results.Name = FirstMatch.Name And ;
-		  Results.MethodName = FirstMatch.MethodName ;
-		  And Results.statementstart = FirstMatch.statementstart ;
-		  And Results.MatchStart = FirstMatch.MatchStart
+			Set firstmatchinstatement = .T. ;
+			From (This.cSearchResultsAlias) As Results ;
+			Join (Select FilePath, ;
+			Class, ;
+			Name, ;
+			MethodName, ;
+			statementstart, ;
+			Min(MatchStart) As MatchStart ;
+			From (This.cSearchResultsAlias)            ;
+			Group By FilePath, Class, Name, MethodName, statementstart) ;
+			As FirstMatch ;
+			On Results.FilePath = FirstMatch.FilePath And ;
+			Results.Class = FirstMatch.Class And ;
+			Results.Name = FirstMatch.Name And ;
+			Results.MethodName = FirstMatch.MethodName ;
+			And Results.statementstart = FirstMatch.statementstart ;
+			And Results.MatchStart = FirstMatch.MatchStart
 *!*			Update  Results ;
 *!*				Set firstmatchinstatement = .T. ;
 *!*				From (This.cSearchResultsAlias)    As  Results ;
@@ -3958,18 +4046,18 @@ x
 */SF 20221111 (Helau!)
 
 		Update Results ;
-		 Set firstmatchinprocedure = .T. ;
-		 From (This.cSearchResultsAlias) As Results ;
-		 Join (Select FilePath, ;
-				Class, ;
-				Name, ;
-				MethodName, ;
-				Min(MatchStart) As MatchStart ;
-				From (This.cSearchResultsAlias) ;
-				Group By FilePath, Class, Name, MethodName)           As FirstMatch ;
-		 On Results.FilePath + Results.Class + Results.Name + Results.MethodName ;
-		  = FirstMatch.FilePath + FirstMatch.Class + FirstMatch.Name + FirstMatch.MethodName ;
-		  And Results.MatchStart = FirstMatch.MatchStart
+			Set firstmatchinprocedure = .T. ;
+			From (This.cSearchResultsAlias) As Results ;
+			Join (Select FilePath, ;
+			Class, ;
+			Name, ;
+			MethodName, ;
+			Min(MatchStart) As MatchStart ;
+			From (This.cSearchResultsAlias) ;
+			Group By FilePath, Class, Name, MethodName)           As FirstMatch ;
+			On Results.FilePath + Results.Class + Results.Name + Results.MethodName ;
+			= FirstMatch.FilePath + FirstMatch.Class + FirstMatch.Name + FirstMatch.MethodName ;
+			And Results.MatchStart = FirstMatch.MatchStart
 
 		Select (m.tnSelect)
 
@@ -4086,19 +4174,20 @@ x
 			Return 0
 		Endif
 
-*-- See if the filename matches the File template filter (if one is set) ----
-		If !Empty(This.oSearchOptions.cFileTemplate)
-			If !This.MatchTemplate(Justfname(m.tcFile), Juststem(Justfname(This.oSearchOptions.cFileTemplate)))
-				This.ReduceProgressBarMaxValue(1)
-				Return 0
-			Endif
-		Endif
+*SF 20230620 will be called in IsFileIncluded anyway
+*!*	*-- See if the filename matches the File template filter (if one is set) ----
+*!*			If !Empty(This.oSearchOptions.cFileTemplate)
+*!*				If !This.MatchTemplate(Justfname(m.tcFile), Juststem(Justfname(This.oSearchOptions.cFileTemplate)))
+*!*					This.ReduceProgressBarMaxValue(1)
+*!*					Return 0
+*!*				Endif
+*!*			Endif
 
 		If This.FilesToSkip(m.tcFile)
 			Return 0
 		Endif
 
-		If !This.IsFileTypeIncluded(Justext(m.tcFile)) And !m.tlForce
+		If !This.IsFileIncluded(m.tcFile) And !m.tlForce
 *This.ReduceProgressBarMaxValue(1)
 			Return 0
 		Endif
@@ -4306,19 +4395,6 @@ j
 				Loop
 			Endif
 
-*SF 20221216 special folders to skip
-			If m.lcDirectory2 == ".git"
-*just force standard git folder.
-*we know, the repo could be in a different folder, but we keep it simple
-				Loop
-			Endif
-			If Directory(m.lcDirectory + "GF_Saved_Search_Results" );
-					Or m.lcDirectory2 == "gf_saved_search_results" Then
-*GoFish storage folder. Do not touch
-				Loop
-			Endif &&Directory(lcDirectory + "GF_Saved_Search_Results" ) OR lcDirectory2 == "gf_saved_search_results"
-*/SF 20221216 special folders to skip
-
 			lcFileFilter = Addbs(m.lcDirectory) + '*.*'
 
 			If Adir(laTemp, m.lcFileFilter) = 0 && 0 means no files in the Dir
@@ -4408,13 +4484,13 @@ j
 		Endif
 
 		Select Name,;
-		 Type ;
-		 From (m.lcProjectAlias) ;
-		 Where Type $ 'EHKMPRVBdTxD' And ;
-		  Not Deleted() ;
-		  And !(Upper(Justext(Name)) $ This.cGraphicsExtensions) ;
-		 Order By Type ;
-		 Into Array laProjectFiles
+			Type ;
+			From (m.lcProjectAlias) ;
+			Where Type $ 'EHKMPRVBdTxD' And ;
+			Not Deleted() ;
+			And !(Upper(Justext(Name)) $ This.cGraphicsExtensions) ;
+			Order By Type ;
+			Into Array laProjectFiles
 
 		If Type('laProjectFiles') = 'L'
 			This.SearchFinished(m.lnSelect)
@@ -4573,8 +4649,8 @@ ii
 * lnEndColumn = 21
 				If Len(Field('timestamp', 'GF_TableSearch')) > 0 && Some really old reports may not have this field.
 					Select Max(Timestamp);
-					 From 'GF_TableSearch';
-					 Into Array laMaxTimeStamp
+						From 'GF_TableSearch';
+						Into Array laMaxTimeStamp
 				Else
 					laMaxTimeStamp = {}
 				Endif
@@ -4734,10 +4810,10 @@ ii
 *-- Get some info about the parent of this field
 									lnParentId = parentId
 									Select ObjectType,;
-									 ObjectName;
-									 From (m.tcFile);
-									 Where objectid = m.lnParentId;
-									 Into Array laParent
+										ObjectName;
+										From (m.tcFile);
+										Where objectid = m.lnParentId;
+										Into Array laParent
 									lcParentName = Alltrim(laParent[2])
 
 *-- Parse the field into a field name and field source
@@ -4929,6 +5005,85 @@ ii
 
 	Endproc
 
+*----------------------------------------------------------------------------------
+*-- Read file patterns to include in the search
+* SF 20230619
+	Procedure SetIncludePattern()
+
+		This.oSearchOptions.cFileTemplate  = Alltrim(This.oSearchOptions.cFileTemplate)
+		This.oSearchOptions.cOtherIncludes = Alltrim(This.oSearchOptions.cOtherIncludes)
+
+		If !Empty(This.oSearchOptions.cFileTemplate) Then
+			If Isnull(This.oSearchOptions.oRegExpFileTemplate) Then
+				loRegExp = SF_RegExp()
+				loRegExp.IgnoreCase       = .T.
+				loRegExp.MultiLine        = .T.
+				loRegExp.ReturnFoxObjects = .T.
+*				loRegExp.AutoExpandGroups  = .T.
+				loRegExp.Singleline       = .T.
+				This.oSearchOptions.oRegExpFileTemplate = loRegExp
+
+			Else &&ISNULL(This.oSearchOptions.oRegExpFileTemplate)
+				loRegExp = This.oSearchOptions.oRegExpFileTemplate
+
+			Endif &&ISNULL(This.oSearchOptions.oRegExpFileTemplate)
+
+			lnPatterns = Alines(laPattern, This.oSearchOptions.cFileTemplate, 1, ",", ";")
+			If m.lnPatterns = 1 Then
+*!*						If Justext(laPattern(1))=="" Then
+*!*							If Juststem(laPattern(1))=="" Then
+*!*								lcPattern = ""
+*!*							Endif &&JUSTSTEM(laPattern(1))==""
+*!*	*filename without extension
+*SET STEP ON 
+*!*							lcPattern = This.EscapePattern(m.loRegExp, Justext(laPattern(1))) + "(?<!\..+)$"
+*!*						Else  &&JUSTEXT(laPattern(1))==""
+						lcPattern = This.EscapePattern(m.loRegExp, laPattern(1))
+*!*						Endif &&JUSTEXT(laPattern(1))==""
+
+*				lcPattern = This.EscapePattern(m.loRegExp, laPattern(1))
+
+			Else  &&m.lnPatterns = 1
+				lcPattern = ""
+
+				For lnPattern = 1 To m.lnPatterns
+					If Justext(laPattern(m.lnPattern))=="" Then
+						If Juststem(laPattern(m.lnPattern))=="" Then
+							Loop
+						Endif &&JUSTSTEM(laPattern(m.lnPattern))==""
+*filename without extension
+						lcPattern = m.lcPattern + "|(" + This.EscapePattern(m.loRegExp, Justext(laPattern(m.lnPattern))) + "(?<!\..+)$)"
+					Else  &&JUSTEXT(laPattern(m.lnPattern))==""
+						lcPattern = m.lcPattern + "|(" + This.EscapePattern(m.loRegExp, laPattern(m.lnPattern)) + ")"
+					Endif &&JUSTEXT(laPattern(m.lnPattern))==""
+
+*					IIF("." $ laPattern(m.lnPattern),;
+loRegExp.Escape_Like(JUSTSTEM(laPattern(m.lnPattern))) + "\." + loRegExp.Escape_Like(justext(laPattern(m.lnPattern))),;
+".*\." + loRegExp.Escape_Like(laPattern(m.lnPattern))) +;
+")"
+				Endfor &&lnPattern
+				lcPattern = Substr(m.lcPattern, 2)
+			Endif &&m.lnPatterns
+			loRegExp.Pattern = m.lcPattern
+
+		Endif &&!Empty(This.oSearchOptions.cFileTemplate)
+	Endproc
+
+*----------------------------------------------------------------------------------
+*-- Escape a file pattern
+	Procedure EscapePattern()
+		Lparameters;
+			toRegExp,;
+			tcPattern
+
+		Return Icase(;
+			Left(tcPattern, 1)  = "." , ".*\." + toRegExp.Escape_Like(Justext(m.tcPattern)),;
+			Right(tcPattern, 1) = "." , toRegExp.Escape_Like(Juststem(m.tcPattern)) + "(?<!\..+)$",;
+			"." $ m.tcPattern         , loRegExp.Escape_Like(Juststem(m.tcPattern)) + "\." + loRegExp.Escape_Like(Justext(m.tcPattern)),;
+			EMPTY(tcPattern)          , "",;
+			toRegExp.Escape_Like(m.tcPattern) + "\..*")
+
+	Endproc
 
 *----------------------------------------------------------------------------------
 *-- Read a user file set the the cFilesToSkip property
@@ -5289,36 +5444,36 @@ ii
 *-- the same oringal source line with replacd = .t., and also update the matchlen
 
 		Update &tcCursor ;
-		 Set Replaced = .T., ;
-		 Replace_DT = Datetime(),;
-		 MatchLen = Max(MatchLen + m.lnChangeLength, 0) ;
-		 Where Alltrim(FilePath) == m.lcFileToModify And ;
-		  Recno = m.lnResultRecno And ;
-		  Column = m.lcColumn And ;
-		  MatchStart = m.lnMatchStart
+			Set Replaced = .T., ;
+			Replace_DT = Datetime(),;
+			MatchLen = Max(MatchLen + m.lnChangeLength, 0) ;
+			Where Alltrim(FilePath) == m.lcFileToModify And ;
+			Recno = m.lnResultRecno And ;
+			Column = m.lcColumn And ;
+			MatchStart = m.lnMatchStart
 
 *-- Update the stored code with the new code for all records of the same original source
 		Update &tcCursor ;
-		 Set Code = m.toResult.cNewCode;
-		 Where Alltrim(FilePath) == m.lcFileToModify And ;
-		  Recno = m.lnResultRecno And ;
-		  Column = m.lcColumn
+			Set Code = m.toResult.cNewCode;
+			Where Alltrim(FilePath) == m.lcFileToModify And ;
+			Recno = m.lnResultRecno And ;
+			Column = m.lcColumn
 
 *-- Update matchstart values on remaining records of same file, recno, and column type
 		Update &tcCursor ;
-		 Set MatchStart = (MatchStart + m.lnChangeLength) ;
-		 Where Alltrim(FilePath) == m.lcFileToModify And ;
-		  Recno = m.lnResultRecno And ;
-		  Column = m.lcColumn And ;
-		  MatchStart > m.lnMatchStart
+			Set MatchStart = (MatchStart + m.lnChangeLength) ;
+			Where Alltrim(FilePath) == m.lcFileToModify And ;
+			Recno = m.lnResultRecno And ;
+			Column = m.lcColumn And ;
+			MatchStart > m.lnMatchStart
 
 *-- Update procstart values on remaining records of same file, recno, and column type
 		Update &tcCursor ;
-		 Set ProcStart = (ProcStart + m.lnChangeLength) ;
-		 Where Alltrim(FilePath) == m.lcFileToModify And ;
-		  Recno = m.lnResultRecno And ;
-		  Column = m.lcColumn And ;
-		  ProcStart > m.lnProcStart
+			Set ProcStart = (ProcStart + m.lnChangeLength) ;
+			Where Alltrim(FilePath) == m.lcFileToModify And ;
+			Recno = m.lnResultRecno And ;
+			Column = m.lcColumn And ;
+			ProcStart > m.lnProcStart
 
 		Goto (m.lnCurrentRecno)
 
