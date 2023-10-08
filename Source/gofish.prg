@@ -433,6 +433,22 @@ Return
 
 	llRegister = .Register()
 
+	if llRegister
+		lnSelect = select()
+		try
+			select 0
+			use (_screen.cThorFolder + 'Tables\ToolHotkeyAssignments') shared again
+			locate for upper(PrgName) = 'THOR_TOOL_GOFISH5.PRG'
+			if found() and ;
+				messagebox('Do you want to change the hotkey for the older GoFish to the newer one?', 32 + 4, 'GoFish Update') = 6
+				replace PrgName with strtran(PrgName, '5')
+			endif found() ...
+			use
+		catch
+		endtry
+		select (lnSelect)
+	endif llRegister
+
 Endwith
 
 Return llRegister
