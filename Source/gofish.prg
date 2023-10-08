@@ -32,8 +32,6 @@ Endif &&!SetupEnvironment()
 If !Empty(tcInitialSource) And Upper(tcInitialSource) = 'THOR'
 	llReturn = TryRegisterWithThor(.T., !tlSuppressRegisteredWithThorDialog)
 	Return llReturn
-Else
-	TryRegisterWithThor() && GoFish is re-registered with Thor every time
 Endif
 
 *-- Only allow one instance of the form to be running
