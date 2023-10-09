@@ -140,7 +140,7 @@ Procedure SetupEnvironment
 	Clear Class "GF_PEME_BaseTools"
 
 	lcApp     = Sys(16, program(-1))
-	lcAppPath = Getwordnum(m.lcApp, 3)
+	lcAppPath = substr(m.lcApp, at(' ', m.lcApp, 2) + 1)
 	lcAppName = Justfname(m.lcAppPath)
 	lcAppPath = Addbs(Justpath(m.lcAppPath))
 
