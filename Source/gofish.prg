@@ -145,13 +145,13 @@ Procedure SetupEnvironment
 	lcAppPath = Addbs(Justpath(m.lcAppPath))
 
 	Do Case
-		Case Justext(m.lcAppName)=="APP"
+		Case upper(Justext(m.lcAppName))=="APP"
 * all fine, app
 		Case !dlAllowDevMode
 *we can not go into DevelopmentMode
-			Messagebox("Error starting. DevelopmentMode not allowed.", 0, GOFISH_APP_NAME)
+			Messagebox("Error starting: the running app is " + lcAppName, 0, GOFISH_APP_NAME)
 			Return .F.
-		Case Justext(m.lcAppName)=="FXP"
+		Case upper(Justext(m.lcAppName))=="FXP"
 *DevelopmentMode
 			SetPathsForDevelopmentMode(m.lcAppPath)
 			lcAppName = GOFISH_APP_FILE
