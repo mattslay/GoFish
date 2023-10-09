@@ -139,24 +139,12 @@ Procedure SetupEnvironment
 	Clear Class "GoFishSearchOptions"
 	Clear Class "GF_PEME_BaseTools"
 
-	lnSys16   = 1
-	lcApp     = Sys(16, m.lnSys16)
+	lcApp     = Sys(16, program(-1))
 	lcAppPath = Getwordnum(m.lcApp, 3)
 	lcAppName = Justfname(m.lcAppPath)
 	lcAppPath = Addbs(Justpath(m.lcAppPath))
-	Do While !Empty(m.lcApp) And !m.lcAppName==[dcGoFishName.APP] And !m.lcAppName==[GOFISH.FXP]
-		lnSys16   = m.lnSys16+1
-		lcApp     = Sys(16, m.lnSys16)
-		lcAppPath = Getwordnum(m.lcApp, 3)
-		lcAppName = Justfname(m.lcAppPath)
-		lcAppPath = Addbs(Justpath(m.lcAppPath))
-	Enddo &&!Empty(m.lcApp) And !m.lcAppName==[dcGoFishName.APP] And !m.lcAppName==[GOFISH.FXP]
 
 	Do Case
-		Case Empty(m.lcApp)
-* nothing found
-			Messagebox("Error starting.", 0, GOFISH_APP_NAME)
-			Return .F.
 		Case Justext(m.lcAppName)=="APP"
 * all fine, app
 		Case !dlAllowDevMode
