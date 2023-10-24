@@ -125,6 +125,9 @@ Define Class GoFishSearchOptions As Custom
 
 	* 1 = Active Project, 2=Browse Project, 3 = Current Dir, 4= Browse Directory.
 	nSearchScope                           = 1
+*!* - rk - 2023-10-22 - added property to stop problem in 
+*!* - gofishSearchEngine.prg|SetIncludePattern 
+	oRegExpFileTemplate              = .Null.
 
 	*---------------------------------------------------------------------
 

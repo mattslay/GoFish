@@ -9,6 +9,12 @@ Replaces the lists in
 - ChangeLog_Ver_5.txt
 
 ----
+## Ver 6.2.006
+**Released 2023-10-24**
+### Changes
+- fixed issue with missing property declaration.
+
+----
 ## Ver 6.2.005
 **Released 2023-09-07**
 ### Changes
