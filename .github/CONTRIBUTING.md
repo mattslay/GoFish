@@ -22,7 +22,7 @@
 
 - run **Source\BuildGoFish.prg** to
   - update several files
-  - build GoFis5.app,
+  - build GoFish.app,
    - and generate the text equivalents for all VFP binary files (SCX, VCX, DBF, etc.) using FoxBin2PRG.
    > **Note: use VFP 9 SP2 rather than VFP Advanced to run BuildGoFish.prg since GoFish.app must be built in VFP rather than VFPA for compatibility for all users.**
 
