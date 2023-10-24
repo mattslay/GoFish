@@ -127,7 +127,7 @@ Define Class GoFishSearchOptions As Custom
 	nSearchScope                           = 1
 *!* - rk - 2023-10-22 - added property to stop problem in 
 *!* - gofishSearchEngine.prg|SetIncludePattern 
-oRegExpFileTemplate              = .Null.
+	oRegExpFileTemplate              = .Null.
 
 	*---------------------------------------------------------------------
 
