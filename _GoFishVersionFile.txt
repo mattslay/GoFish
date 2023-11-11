@@ -1,6 +1,16 @@
 Lparameters toUpdateInfo
 
 Text to lcNote NoShow
+## Ver 6.2.007
+**Released 2023-11-11**
+ Changes
+- Installing GoFish now provides an option to remove GoFish5.
+
+## Ver 6.2.006
+**Released 2023-10-24**
+ Changes
+- fixed issue with missing property declaration.
+
 ## Ver 6.2.005
 **Released 2023-09-07**
  Changes
@@ -58,7 +68,7 @@ Text to lcNote NoShow
 
 EndText
 
-AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish - 6.2.006 - October 24, 2023 - 20231024')
+AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish - 6.2.007 - November 11, 2023 - 20231111')
 AddProperty(toUpdateInfo, 'SourceFileUrl', 'https://raw.githubusercontent.com/VFPX/GoFish/master/Source/Source.zip')
 AddProperty(toUpdateInfo, 'LinkPrompt', 'GoFish Home Page')
 AddProperty(toUpdateInfo, 'Link', 'https://github.com/VFPX/GoFish')

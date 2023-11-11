@@ -9,6 +9,12 @@ Replaces the lists in
 - ChangeLog_Ver_5.txt
 
 ----
+## Ver 6.2.007
+**Released 2023-11-11**
+### Changes
+- Installing GoFish now provides an option to remove GoFish5.
+
+----
 ## Ver 6.2.006
 **Released 2023-10-24**
 ### Changes
