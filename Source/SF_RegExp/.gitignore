@@ -1,0 +1,6 @@
+#include special
+#default git
+!*.dll
+!*.pdb
+!*.ps1
+!*.xml

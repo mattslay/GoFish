@@ -3,12 +3,19 @@
 /Source/DeployGoFish.bat
 *.bak
 *.BAK
-FOXUSER.*
+FOXUSER*.*
 *_ref.*
 *.err
 *.fxp
 *.fxp
 *.zip
 *.ZIP
+_command.prg
 /Source/tempview.*
 /Source/temptext.*
+
+#special SF:
+-*.fpw*
+-gofish.prg
+bin2txt.*
+/data/

@@ -1,129 +1,233 @@
 #INCLUDE BuildGoFish.h
+#Define dcGoFishName	GOFISH
+#Define dlAllowDevMode	.F.
+
 
 *---------------------------------------------------------------------------------------------
-Lparameters tcInitialSource, tlSuppressRegisteredWithThorDialog
+Lparameters;
+	tcInitialSource,;
+	tlSuppressRegisteredWithThorDialog,;
+	tv03,tv04,tv05,tv06,tv07,tv08,;
+	tv09,tv10,tv11,tv12,tv13,tv14,tv15,tv16,;
+	tv17,tv18,tv19,tv20,tv21,tv22,tv23,tv24
 
 
-Local lcInitialSource, lcVersionFile, lcVersionLocalFilename, lcXMLFiles, llReturn
-Local loGoFish, loTool
+Local;
+	lcInitialSource   As String,;
+	lcOlSafety        As String,;
+	lcPath            As String,;
+	lcSettingsFile    As String,;
+	llResetCommonStorage As Boolean,;
+	llResetLocalStorage As Boolean,;
+	llReturn          As Boolean,;
+	loMy              As "My" Of "My.vcx",;
+	loSettings        As Object
 
-lcInitialSource = Evl(tcInitialSource, '')
+lcInitialSource = Evl(m.tcInitialSource, "")
 
-SetupEnvironment()
+If !SetupEnvironment() Then
+	Return .F.
+Endif &&!SetupEnvironment()
 
-*!* ******************** Removed 11/03/2015 *****************
-*!* CreateVersionFile() && Version file is re-built every time 
-
-If !Empty(tcInitialSource) and Upper(tcInitialSource) = 'THOR'
-	llReturn = TryRegisterWithThor(.t., !tlSuppressRegisteredWithThorDialog)
+If !Empty(tcInitialSource) And Upper(tcInitialSource) = 'THOR'
+	llReturn = TryRegisterWithThor(.T., !tlSuppressRegisteredWithThorDialog)
 	Return llReturn
-Else
-	TryRegisterWithThor() && GoFish is re-registered with Thor every time
-EndIf
+Endif
 
-*-- Only allow one instance of the form to be running 
-If Type('_Screen._GoFish.oResultsForm') = 'O' And !Isnull(_Screen._GoFish.oResultsForm)
-	If _screen._gofish.oResultsForm.WindowState = 1
-		_screen._gofish.oResultsForm.WindowState = 0	
+*-- Only allow one instance of the form to be running
+If Type("_Screen._GoFish.oResultsForm") = "O" And !Isnull(_Screen._GoFish.oResultsForm)
+	If _Screen._GoFish.oResultsForm.WindowState = 1
+		_Screen._GoFish.oResultsForm.WindowState = 0
 	Else
 		_Screen._GoFish.oResultsForm.Show()
-	EndIf
+	Endif
 
 	Return
 Endif
 
+Set Procedure To "GoFishProc" Additive
+Set Procedure To "mhHtmlCode" Additive
+Set Procedure To "GoFishSearchEngine.prg" Additive
+Set Procedure To "GoFishSearchOptions.prg" Additive
+Set Procedure To "GF_PEME_BaseTools.prg" Additive
+
+* SF 20221123 use subfolder of Home(7) by default
+lcSettingsFile = Addbs(Home(7)) + "GoFish_"
+
+If !Directory(m.lcSettingsFile) Then
+	Mkdir (Addbs(Home(7)) + "GoFish_")
+	Do Form gf_migrate_6.scx
+	Read Events
+	If File(Addbs(Home(7)) + "GF_Results_Form_Settings.xml") Then
+		lcOlSafety = Set("Safety")
+		Set Safety Off
+		GF_Backup_GlobalPath()
+		GF_Move_GlobalPath()
+		Set Safety &lcOlSafety
+	Endif &&File(Addbs(Home(7)) + "GF_Results_Form_Settings.xml")
+Endif &&DIRECTORY(m.lcSettingsFile)
+* /SF 20221123 use subfolder of Home(7) by default
+
+If Inlist(Upper(Alltrim(m.lcInitialSource)), "/?", "-?", "/H", "-H","HELP")
+	HelpScreen()
+	Return
+Endif &&INLIST(Upper(Alltrim(m.lcInitialSource)), "/?", "-?", "/H", "-H","HELP")
+
 *-- Erase all existing GF XML files to reset to default
-If Upper(Alltrim(lcInitialSource)) = 'RESET'
-	lcXMLFiles = '"' + Home(7) + 'GF_*.xml' + '"'
-	Delete File (lcXMLFiles)
-	lcInitialSource = ''
+If Upper(Alltrim(m.lcInitialSource)) == "-RESETLOCAL"
+	llResetLocalStorage = .T.
+	lcInitialSource     = ""
+Endif &&Upper(Alltrim(lcInitialSource)) == "-RESETLOCAL"
+
+If Upper(Alltrim(m.lcInitialSource)) == "-RESET"
+	llResetCommonStorage = .T.
+	lcInitialSource      = ""
+
+Endif &&Upper(Alltrim(lcInitialSource)) == "-RESET"
+
+If m.llResetCommonStorage
+	GF_RemoveFolder(m.lcSettingsFile)
 Endif
 
-Set Procedure To 'GoFishProc' Additive
-Set Procedure To 'mhHtmlCode' Additive
-Set Procedure To 'GoFishSearchEngine.prg' Additive
-Set Procedure To 'GoFishSearchOptions.prg' Additive
-Set Procedure To 'GF_PEME_BaseTools.prg' Additive
+*-- Erase all existing GF XML files to reset to default
 
-Do Form GoFish_Results With lcInitialSource
+loMy           = Newobject("My", "My.vcx")
+loSettings     = m.loMy.Settings
+lcSettingsFile = m.lcSettingsFile + "\GF_Results_Form_Settings.xml"
+* SF 20221017 test for file
+If File(m.lcSettingsFile)
+	loSettings.Load(m.lcSettingsFile)
+Endif
+* /SF 20221017 test for file
+
+* SF 20221017
+* special local settings
+If loSettings.Exists("lCR_Allow") And m.loSettings.lCR_Allow Then
+	GF_Get_LocalSettings(@loSettings, m.lcSettingsFile, m.llResetLocalStorage)
+
+Endif &&loSettings.EXISTS("lCR_Allow") And m.loSettings.lCR_Allow
+*/ SF 20221017
+
+If Pemstatus(m.loSettings, "lDesktop", 5) And m.loSettings.lDesktop
+	Do Form GoFish_Results_Desktop With m.lcInitialSource
+Else
+	Do Form GoFish_Results With m.lcInitialSource
+Endif Pemstatus(m.loSettings, "lDesktop", 5) ...
 
 If Version(2) = 0 && If running as an .EXE, setup Read Events loop
-	ON SHUTDOWN CLEAR EVENTS
+	On Shutdown Clear Events
 	Read Events
 	On Shutdown
-	
+
 Endif
 
 *----------------------------------------------------------------------------
 Procedure SetupEnvironment
 
 
-	Local loGoFish
-	Local lcAppName, lcAppPath
+	Local;
+		lcApp     As String,;
+		lcAppName As String,;
+		lcAppPath As String,;
+		lnSys16   As Integer,;
+		loGoFish  As Object,;
+		loRegexp  As Object
 
-	*-- 4.2.003 - Need to clear out these class definitions which may be cached by VFP from an
-	*-- older version of GoFish
-	Clear Class 'GoFishSearchEngine'
-	Clear Class 'GoFishSearchOptions'
-	Clear Class 'GF_PEME_BaseTools'
-	
-	For x = Program(-1) To 1 Step -1 && Look up through run stack to find the name of the running .APP file
-		lcAppName = Sys(16, x)
-		If '.APP' $ Upper(lcAppName)
-			Exit
-		Else
-			lcAppName = ''
-		Endif
-	EndFor
-	
-	lcAppName = Evl(lcAppName, Sys(16, 1))
-	lcAppPath = Addbs(Justpath (GetWordNum(lcAppName, 3)))
-	If Empty(lcAppPath)
-		lcAppPath = Addbs(JustPath(lcAppName))
-	Endif
-	lcAppName = Justfname(lcAppName)
+*-- 4.2.003 - Need to clear out these class definitions which may be cached by VFP from an
+*-- older version of GoFish
+	Clear Class "GoFishSearchEngine"
+	Clear Class "GoFishSearchOptions"
+	Clear Class "GF_PEME_BaseTools"
 
-	If '.FXP' $ lcAppName
-		SetPathsForDevelopmentMode(lcAppPath)
-		lcAppName = GOFISH_APP_FILE  
-	EndIf
-	
-	If Type('_Screen._GoFish.oResultsForm') = 'O' And !Isnull(_Screen._GoFish.oResultsForm)
+	lcApp     = Sys(16, program(-1))
+	lcAppPath = substr(m.lcApp, at(' ', m.lcApp, 2) + 1)
+	lcAppName = Justfname(m.lcAppPath)
+	lcAppPath = Addbs(Justpath(m.lcAppPath))
+
+	Do Case
+		Case upper(Justext(m.lcAppName))=="APP"
+* all fine, app
+		Case !dlAllowDevMode
+*we can not go into DevelopmentMode
+			Messagebox("Error starting: the running app is " + lcAppName, 0, GOFISH_APP_NAME)
+			Return .F.
+		Case upper(Justext(m.lcAppName))=="FXP"
+*DevelopmentMode
+			SetPathsForDevelopmentMode(m.lcAppPath)
+			lcAppName = GOFISH_APP_FILE
+		Otherwise
+*some error	  
+			Messagebox("Error starting.", 0, GOFISH_APP_NAME)
+			Return .F.
+	Endcase
+
+	loRegexp = SF_RegExp(m.lcAppPath+'SF_RegExp')
+
+	If Type("_Screen._GoFish.oResultsForm") = "O" And !Isnull(_Screen._GoFish.oResultsForm)
 		Return
 	Else
-	
-		*-- 4.2.003 - Create this object locally, rather than getting if from the VCX
-		*-- This is better since finding the VCX during a Thor installation of GoFish can
-		*-- be tricky.
-		loGoFish = CreateObject('Empty')
-		AddProperty(loGoFish, 'cAppPath', lcAppPath)
-		AddProperty(loGoFish, 'cAppName', lcAppName)
-		AddProperty(loGoFish, 'cVersion', GOFISH_VERSION)
-		AddProperty(loGoFish, 'cBuildDate', GOFISH_BUILDDATE)
-		AddProperty(loGoFish, 'dBuildDate', GOFISH_dBUILDDATE)
-		AddProperty(loGoFish, 'oResultsForm', .null.)
 
-		_Screen.AddProperty('_GoFish', loGoFish) && Add this object onto _Screen, so it can accessed from GoFish forms
+*-- 4.2.003 - Create this object locally, rather than getting if from the VCX
+*-- This is better since finding the VCX during a Thor installation of GoFish can
+*-- be tricky.
+		loGoFish = Createobject("Empty")
+		AddProperty(m.loGoFish, "cAppPath", m.lcAppPath)
+		AddProperty(m.loGoFish, "cAppName", m.lcAppName)
+		AddProperty(m.loGoFish, "cVersion", GOFISH_VERSION)
+		AddProperty(m.loGoFish, "cBuildDate", GOFISH_BUILDDATE)
+		AddProperty(m.loGoFish, "dBuildDate", GOFISH_dBUILDDATE)
+		AddProperty(m.loGoFish, "oResultsForm", .Null.)
+
+		_Screen.AddProperty("_GoFish", m.loGoFish) && Add this object onto _Screen, so it can accessed from GoFish forms
 
 	Endif
-	
+
 Endproc
 
 *--------------------------------------------------------------------------------
 Procedure SetPathsForDevelopmentMode(tcAppPath)
 
-	*-- If running this bootstrap in dev mode,we need to setup these paths
-	*--  Note: This is not required when the compiled .app file is running
-	Set Path To (tcAppPath) Additive
-	Set Path To (tcAppPath + 'Prg') Additive
-	Set Path To (tcAppPath + 'Forms') Additive
-	Set Path To (tcAppPath + 'Lib') Additive
-	Set Path To (tcAppPath + 'Lib\VFP\My') Additive
-	Set Path To (tcAppPath + 'Lib\VFP\FFC') Additive
-	Set Path To (tcAppPath + 'Images') Additive
-	Set Path To (tcAppPath + 'Menus') Additive
-	
+*-- If running this bootstrap in dev mode,we need to setup these paths
+*--  Note: This is not required when the compiled .app file is running
+	Set Path To (m.tcAppPath) Additive
+	Set Path To (m.tcAppPath + "Prg") Additive
+	Set Path To (m.tcAppPath + "Forms") Additive
+	Set Path To (m.tcAppPath + "Lib") Additive
+	Set Path To (m.tcAppPath + "Lib\VFP\My") Additive
+	Set Path To (m.tcAppPath + "Lib\VFP\FFC") Additive
+	Set Path To (m.tcAppPath + "Images") Additive
+	Set Path To (m.tcAppPath + "Menus") Additive
+	Set Path To (m.tcAppPath + "SF_RegExp") Additive
+
 Endproc
+
+*----------------------------------------------------------------------------
+Procedure HelpScreen
+	Local;
+		lcText As String
+
+	Text To m.lcText Noshow
+DO GoFish.APP WITH ["/?"]|["-Reset"]|["-ResetLocal"]|["-Clear"]
+An advanced code search tool for MS Visual Foxpro 9
+
+PARAMETERS (only one parameter)
+/?                  This help screen
+-Reset           Reset the common settings in HOME(7)+"\GoFish_"
+-ResetLocal  Reset the settings local to the ressource file, if used
+-Clear           Delete stored searches and replace data
+
+DO GoFish.APP WITH ["-P"]|["-F"]|["cFolder"]|["cProject"]
+Initial scope for the search, or the restore history:
+-P             Use the active project as scope
+-F             Use the active folder as scope
+cProject   A project as scope
+cFolder    A folder as scope
+
+IF no parameter is given, the scope on startup will depend on settings.
+	Endtext &&lcText
+
+	Messagebox(m.lcText, 0, "GoFish parameters")
+Endproc &&HelpScreen
 
 *----------------------------------------------------------------------------
 Procedure TryRegisterWithThor(tlForcedRegister, tlShowConfirmationDialog)
@@ -131,53 +235,49 @@ Procedure TryRegisterWithThor(tlForcedRegister, tlShowConfirmationDialog)
 Local lcThorVersion, llReturn, llThorPresent
 
 
-	Try && See if Thor is running
-		lcThorVersion = ExecScript(_Screen.cThorDispatcher, "Version=")
-		llThorPresent = .t.
+Try && See if Thor is running
+		lcThorVersion = Execscript(_Screen.cThorDispatcher, "Version=")
+		llThorPresent = .T.
 	Catch
 		If tlShowConfirmationDialog
-			MessageBox('Thor is not presently running on your system. Please install/run it first.', 0, 'Thor required.')
+			Messagebox('Thor is not presently running on your system. Please install/run it first.', 0, 'Thor required.')
 		Endif
-		llThorPresent = .f.
+		llThorPresent = .F.
 	Finally
-	EndTry
-	
-	If !llThorPresent
-		Return .f.
-	EndIf
-			
-	llReturn = RegisterWithThor()
-	
-	If !tlForcedRegister
-		Return
-	EndIf
-	
-	If tlShowConfirmationDialog
-		If llReturn 
-			MessageBox('Successfully registered with Thor.', 0, GOFISH_APP_NAME)
-		Else
-			MessageBox('Error attempting to register with Thor.', 0, GOFISH_APP_NAME)
-		Endif
+Endtry
+
+If !llThorPresent
+	Return .F.
+Endif
+
+llReturn = RegisterWithThor()
+
+If !tlForcedRegister
+	Return
+Endif
+
+If tlShowConfirmationDialog
+	If llReturn
+		Messagebox('Successfully registered with Thor.', 0, GOFISH_APP_NAME)
+	Else
+		Messagebox('Error attempting to register with Thor.', 0, GOFISH_APP_NAME)
 	Endif
-	
-	Return llReturn
+Endif
+
+Return llReturn
 
 Endproc
 
 *------------------------------------------------------------------------------------------------------
 Procedure RegisterWithThor
 
-	Local llRegisterApp, llRegisterUpdater
+Local llRegisterApp, llRegisterUpdater
 
-	llRegisterApp = RegisterAppWithThor()
+llRegisterApp = RegisterAppWithThor()
 
-	llRegisterUpdater = RegisterUpdaterWithThor()
+llRegisterUpdater = RegisterUpdaterWithThor()
 
-	RegisterVfpxLinkWithThor()
-	RegisterDiscussionGroupWithThor()
-	RegisterBitBucketLinkWithThor()
-	
-	Return (llRegisterApp and llRegisterUpdater)
+Return (llRegisterApp And llRegisterUpdater)
 
 Endproc
 
@@ -185,55 +285,53 @@ Endproc
 *--------------------------------------------------------------------------------------
 Procedure RegisterAppWithThor()
 
-	Local lcFolderName, lcFullAppName, loThorInfo, lcCode, lcPlugIn
+Local lcFolderName, lcFullAppName, loThorInfo, lcCode, lcPlugIn
 
-	Try
+Try
 		loThorInfo = Execscript (_Screen.cThorDispatcher, 'Thor Register=')
 	Catch
 		loThorInfo = .Null.
-	Endtry
+Endtry
 
-	If Isnull (loThorInfo)
-		Return .F.
-	Endif
+If Isnull (loThorInfo)
+	Return .F.
+Endif
 
 
-	With loThorInfo
-	* Required
-		.Prompt		 = GOFISH_APP_NAME && used when tool appears in a menu
-		.Description = 'Advanced Code Search Tool' && may be lengthy, including CRs, etc
-		.Author 	 = 'Matt Slay'
-		.PRGName	 = THOR_TOOL_NAME  && a unique name for the tool; note the required prefix
-		.Category 	 = 'Applications|GoFish'
-		
-		.AppName     = GOFISH_APP_FILE  && no path, but include the extension; for example, GoFish5.App
-		* Note that this creates This.FullAppName, which determines the full path of the APP
-		* and also This.FolderName
+With loThorInfo
+* Required
+	.Prompt		 = 'GoFish' && used when tool appears in a menu
+	.Description = 'Advanced Code Search Tool' && may be lengthy, including CRs, etc
+	.Author 	 = 'Matt Slay'
+	.PRGName	 = 'Thor_Tool_GoFish'  && a unique name for the tool; note the required prefix
+	.Category 	 = 'Applications|GoFish'
 
-		*	.FolderName = 'C:\Visual FoxPro\Programs\GoFish All Versions\GoFish5\Source'
-		*	.FullAppName = .FolderName + '\' + GOFISH_APP_FILE  
-				
-		lcFolderName = .FolderName
-		lcFullAppName = .FullAppName
+	.AppName     = GOFISH_APP_FILE  && no path, but include the extension; for example, GoFish5.App
+* Note that this creates This.FullAppName, which determines the full path of the APP
+* and also This.FolderName
 
-		.PlugInClasses   = 'clsGoFishFormatGrid'
-		.PlugIns		 = 'GoFish Results Grid'
- 		
-		Text To lcCode Noshow Textmerge
+	lcFolderName = .FolderName
+	lcFullAppName = .FullAppName
+
+	.PlugInClasses   = 'clsGoFishFormatGrid'
+	.PlugIns		 = 'GoFish Results Grid'
+
+	TEXT To lcCode Noshow Textmerge
   		Do '<<lcFullAppName>>'
-  		EndText
-  		
-  		Text To lcPlugIn Noshow 
-  		
-EndProc 
+
+	ENDTEXT
+
+	TEXT To lcPlugIn Noshow
+
+EndProc
 
 
 Define Class clsGoFishFormatGrid As Custom
 
-	Source				= 'GoFish5'
+	Source				= 'GoFish'
 	PlugIn				= 'GoFish Results Grid'
 	Description			= 'Provides access to GoFish results grid to set colors and other dynamic properties.'
-	Tools				= 'GoFish5'
+	Tools				= 'GoFish'
 	FileNames			= 'Thor_Proc_GoFish_FormatGrid.PRG'
 	DefaultFileName		= '*Thor_Proc_GoFish_FormatGrid.PRG'
 	DefaultFileContents	= ''
@@ -245,7 +343,7 @@ Define Class clsGoFishFormatGrid As Custom
 Lparameters toGrid, tcResultsCursor
 
 *-- Sample 1: Dynamic row coloring as used by GF
-Local lcComments, lcPRG, lcPRGColor, lcSCX, lcSCXColor, lcVCX, lcVCXColor
+Local lcFileNameColor, lcPRG, lcPRGColor, lcSCX, lcSCXColor, lcVCX, lcVCXColor
 
 lcSCX	   = 'Upper(' + tcResultsCursor + '.filetype) = "SCX"'
 lcSCXColor = 'RGB(0,0,128)'
@@ -270,7 +368,7 @@ Return
 #Define ccPropertyValue "<Property Value>"
 
 Local lcBolds, lcCode, lcCodeColor, lcComments, lcCommentsColor, lcFileName, lcOthersColor
-Local lcPropNameColor, lcPropertyName
+Local lcPropNameColor, lcPropertyName, llRegister
 
 lcPropertyName = [0 # Atc("<Property", ] + m.tcResultsCursor + [.MatchType)]
 lcComments	   = [0 # Atc("<Comment", ] + m.tcResultsCursor + [.MatchType)]
@@ -303,35 +401,63 @@ m.toGrid.SetAll ('DynamicFontBold', m.lcBolds)
 
 Return
 		End***TEXT***
-  		  
-		EndText
-		.Code = Strtran(lcCode + Evl(lcPlugIn, ''), '***TEXT***', 'Text')
+		endproc
+	enddefine
+	ENDTEXT
+	.Code = Strtran(lcCode + Evl(lcPlugIn, ''), '***TEXT***', 'Text')
 
-		* Optional
-		.StatusBarText = GOFISH_APP_NAME
-		.Summary	   = 'Code Search Tool' && if empty, first line of .Description is used
-		.Classes	   = 'loGoFish = gofishsearchengine of lib\gofishsearchengine.vcx|http://vfpx.codeplex.com/wikipage?title=GoFishSearchEngine'
+* Optional
+	.StatusBarText = GOFISH_APP_NAME
+	.Summary	   = 'Code Search Tool' && if empty, first line of .Description is used
+	.Classes	   = 'loGoFish = gofishsearchengine of lib\gofishsearchengine.vcx'
 
-		* For public tools, such as PEM Editor, etc.
-		.Source	 = 'GoFish' && e.g., 'PEM Editor'
-		.Version = GOFISH_VERSION  && e.g., 'Version 7, May 18, 2011'
-		.Sort	 = Iif('BETA' $ Upper(GOFISH_APP_NAME), 5, 1) && the sort order for all items from the same .Source
-		.Link	 = GOFISH_HOME_PAGE 
+* For public tools, such as PEM Editor, etc.
+	.Source	 = 'GoFish' && e.g., 'PEM Editor'
+	.Version = GOFISH_VERSION  && e.g., 'Version 7, May 18, 2011'
+	.Sort	 = Iif('BETA' $ Upper(GOFISH_APP_NAME), 5, 1) && the sort order for all items from the same .Source
+	.Link	 = GOFISH_HOME_PAGE
 
-		llRegister = .Register()
+	llRegister = .Register()
 
-	Endwith
+	*!* ******** JRN Removed 2023-11-07 ******** 
+	*!* if llRegister
+	*!* 	lnSelect = select()
+	*!* 	try
+	*!* 		select 0
+	*!* 		use (_screen.cThorFolder + 'Tables\ToolHotkeyAssignments') shared again
+	*!* 		locate for upper(PrgName) = 'THOR_TOOL_GOFISH5.PRG'
+	*!* 		if found() and ;
+	*!* 			messagebox('Do you want to change the hotkey for the older GoFish to the newer one?', 32 + 4, 'GoFish Update') = 6
+	*!* 			replace PrgName with strtran(PrgName, '5')
+	*!* 		endif found() ...
+	*!* 		use
+	*!* 	catch
+	*!* 	endtry
+	*!* 	select (lnSelect)
+	*!* endif llRegister
 
-	Return llRegister
+	*** JRN 2023-11-07 : new version 
+	if llRegister
+		lnSelect = select()
+		try
+			ExecScript(_Screen.cThorDispatcher, 'Thor_Proc_UnInstallGoFish5')
+		catch
+		endtry
+		select (lnSelect)
+	endif llRegister
+
+Endwith
+
+Return llRegister
 Endproc
 
 *--------------------------------------------------------------------------------------
 Procedure RegisterUpdaterWithThor()
 
-	*-- ToDo: 2011-10-18: Jim Nelson needs to add support for this call in Thor Framework.
-	*-- See: https://bitbucket.org/JimRNelson/thor/issue/3/need-a-thor-api-call-to-create-an-updater
+*-- ToDo: 2011-10-18: Jim Nelson needs to add support for this call in Thor Framework.
+*-- See: https://bitbucket.org/JimRNelson/thor/issue/3/need-a-thor-api-call-to-create-an-updater
 
-	Return
+Return
 
 
 Endproc
@@ -339,181 +465,78 @@ Endproc
 *--------------------------------------------------------------------------------------
 Procedure RegisterVfpxLinkWithThor()
 
-	Local lcFolderName, lcFullAppName, loThorInfo
+Local lcFolderName, lcFullAppName, loThorInfo, lcCommonText, llRegister
 
-	Try
+Try
 		loThorInfo = Execscript (_Screen.cThorDispatcher, 'Thor Register=')
 	Catch
 		loThorInfo = .Null.
-	Endtry
+Endtry
 
-	If Isnull (loThorInfo)
-		Return .F.
-	Endif
+If Isnull (loThorInfo)
+	Return .F.
+Endif
 
-	lcCommonText = 'GoFish page on VFPx'
+lcCommonText = 'GoFish page on VFPx'
 
-	With loThorInfo
-		* Required
-		.Prompt		 = lcCommonText && used when tool appears in a menu
-		.Description = lcCommonText && may be lengthy, including CRs, etc
-		.Author 	 = 'Matt Slay'
-		.PRGName	 = 'Thor_Tool_GoFish_VFPx_Page'  && a unique name for the tool; note the required prefix
-		.Category 	 = 'Applications|GoFish'
+With loThorInfo
+* Required
+	.Prompt		 = lcCommonText && used when tool appears in a menu
+	.Description = lcCommonText && may be lengthy, including CRs, etc
+	.Author 	 = 'Matt Slay'
+	.PRGName	 = 'Thor_Tool_GoFish_VFPx_Page'  && a unique name for the tool; note the required prefix
+	.Category 	 = 'Applications|GoFish'
 
-		.AppName     = GOFISH_APP_FILE && no path, but include the extension; for example, GoFish5.App
-		lcFolderName = .FolderName
-		lcFullAppName = .FullAppName
+	.AppName     = GOFISH_APP_FILE && no path, but include the extension; for example, GoFish5.App
+	lcFolderName = .FolderName
+	lcFullAppName = .FullAppName
 
-		Text To .Code Noshow Textmerge
+	TEXT To .Code Noshow Textmerge
 			oShell = Createobject("wscript.shell")
-			oShell.Run('http://vfpx.codeplex.com/wikipage?title=GoFish')
-		Endtext
+			oShell.Run('https://github.com/VFPX/GoFish')
+	ENDTEXT
 
-		* Optional
-		.StatusBarText = lcCommonText
-		.Summary	   = lcCommonText && if empty, first line of .Description is used
+* Optional
+	.StatusBarText = lcCommonText
+	.Summary	   = lcCommonText && if empty, first line of .Description is used
 
-		* For public tools, such as PEM Editor, etc.
-		.Source	 = 'GoFish' && e.g., 'PEM Editor'
-		.Version = '' && e.g., 'Version 7, May 18, 2011'
-		.Sort	 = 3 && the sort order for all items from the same .Source
-		.Link	 = 'http://vfpx.codeplex.com/wikipage?title=GoFish'
+* For public tools, such as PEM Editor, etc.
+	.Source	 = 'GoFish' && e.g., 'PEM Editor'
+	.Version = '' && e.g., 'Version 7, May 18, 2011'
+	.Sort	 = 3 && the sort order for all items from the same .Source
+	.Link	 = 'https://github.com/VFPX/GoFish'
 
-		llRegister = .Register()
+	llRegister = .Register()
 
-	Endwith
+Endwith
 
-	Return llRegister
-EndProc
-
-*--------------------------------------------------------------------------------------
-Procedure RegisterDiscussionGroupWithThor()
-
-	Local lcFolderName, lcFullAppName, loThorInfo
-
-	Try
-		loThorInfo = Execscript (_Screen.cThorDispatcher, 'Thor Register=')
-	Catch
-		loThorInfo = .Null.
-	Endtry
-
-	If Isnull (loThorInfo)
-		Return .F.
-	Endif
-
-	lcCommonText = 'GoFish discussion group'
-
-	With loThorInfo
-		* Required
-		.Prompt		 = lcCommonText && used when tool appears in a menu
-		.Description = lcCommonText && may be lengthy, including CRs, etc
-		.Author 	 = 'Matt Slay'
-		.PRGName	 = 'Thor_Tool_GoFish_Discussion_Group'  && a unique name for the tool; note the required prefix
-		.Category 	 = 'Applications|GoFish'
-
-		.AppName     = GOFISH_APP_FILE && no path, but include the extension; for example, GoFish4.App
-		lcFolderName = .FolderName
-		lcFullAppName = .FullAppName
-
-		Text To .Code Noshow Textmerge
-			oShell = Createobject("wscript.shell")
-			oShell.Run('http://groups.google.com/group/foxprogofish')
-		Endtext
-
-		* Optional
-		.StatusBarText = lcCommonText
-		.Summary	   = lcCommonText && if empty, first line of .Description is used
-
-		* For public tools, such as PEM Editor, etc.
-		.Source	 = 'GoFish' && e.g., 'PEM Editor'
-		.Version = '' && e.g., 'Version 7, May 18, 2011'
-		.Sort	 = 2 && the sort order for all items from the same .Source
-		.Link	 = 'http://vfpx.codeplex.com/wikipage?title=GoFish'
-
-		llRegister = .Register()
-
-	Endwith
-
-	Return llRegister
+Return llRegister
 Endproc
-
-*--------------------------------------------------------------------------------------
-Procedure RegisterBitBucketLinkWithThor()
-
-	Local lcFolderName, lcFullAppName, loThorInfo
-
-	Try
-		loThorInfo = Execscript (_Screen.cThorDispatcher, 'Thor Register=')
-	Catch
-		loThorInfo = .Null.
-	Endtry
-
-	If Isnull (loThorInfo)
-		Return .F.
-	Endif
-
-	lcCommonText = 'GoFish repository on BitBucket.org'
-
-	With loThorInfo
-		* Required
-		.Prompt		 = lcCommonText && used when tool appears in a menu
-		.Description = lcCommonText && may be lengthy, including CRs, etc
-		.Author 	 = 'Matt Slay'
-		.PRGName	 = 'Thor_Tool_GoFish_On_BitBucket'  && a unique name for the tool; note the required prefix
-		.Category 	 = 'Applications|GoFish'
-
-		.AppName     = GOFISH_APP_FILE && no path, but include the extension; for example, GoFish4.App
-		lcFolderName = .FolderName
-		lcFullAppName = .FullAppName
-
-		Text To .Code Noshow Textmerge
-			oShell = Createobject("wscript.shell")
-			oShell.Run('https://bitbucket.org/mattslay/gofish4/wiki/Home')
-		Endtext
-
-		* Optional
-		.StatusBarText = lcCommonText
-		.Summary	   = lcCommonText && if empty, first line of .Description is used
-
-		* For public tools, such as PEM Editor, etc.
-		.Source	 = 'GoFish' && e.g., 'PEM Editor'
-		.Version = '' && e.g., 'Version 7, May 18, 2011'
-		.Sort	 = 4 && the sort order for all items from the same .Source
-		.Link	 = 'https://bitbucket.org/mattslay/gofish4/wiki/Home'
-
-		llRegister = .Register()
-
-	Endwith
-
-	Return llRegister
-EndProc
 
 
 *-----------------------------------------------------------------------------------------
 Procedure CreateVersionFile
 
-	Local lcFileData, lcOldVersionFile, lcVersionFile, loGoFish
-	
-	*-- Rebuild Version File ------------------
-	loGoFish = _Screen._GoFish
+Local lcFileData, lcOldVersionFile, lcVersionFile, loGoFish
 
-	*-- Delete an older verison filename that is no longer used.
-	lcOldVersionFile = Addbs(loGoFish.cAppPath) + 'GoFishVersion.txt'
-	Delete File (lcOldVersionFile) 
+*-- Rebuild Version File ------------------
+loGoFish = _Screen._GoFish
 
-	*== Write the current version to a file ========================
-	lcVersionFile = Addbs(loGoFish.cAppPath) + VERSION_LOCAL_FILE
+*-- Delete an older verison filename that is no longer used.
+lcOldVersionFile = Addbs(loGoFish.cAppPath) + 'GoFishVersion.txt'
+Delete File (lcOldVersionFile)
 
-	lcFileData = GOFISH_APP_NAME + Chr(13) + Chr(10) + ;
-				 GOFISH_VERSION_STRING_FOR_VERSION_FILE + Chr(13) + Chr(10) + ;
-				 GOFISH_DOWNLOAD_URL 
+*== Write the current version to a file ========================
+lcVersionFile = Addbs(loGoFish.cAppPath) + VERSION_LOCAL_FILE
 
-	*-- Delete current file
-	Delete File (lcVersionFile)
-	
-	*-- Re-create local version file
-	StrToFile(lcFileData, lcVersionFile, 0)
+lcFileData = GOFISH_APP_NAME + Chr(13) + Chr(10) + ;
+	GOFISH_VERSION_STRING_FOR_VERSION_FILE + Chr(13) + Chr(10) + ;
+	GOFISH_DOWNLOAD_URL
+
+*-- Delete current file
+Delete File (lcVersionFile)
+
+*-- Re-create local version file
+Strtofile(lcFileData, lcVersionFile, 0)
 
 Endproc
-    

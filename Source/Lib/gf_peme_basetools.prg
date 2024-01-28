@@ -1,3 +1,5 @@
+#Include GoFish.h		&& Include constants so these, for example "CR", can be used here ...
+
 Define Class gf_peme_basetools As Custom
 
 	lReleaseOnDestroy = .F.
@@ -250,14 +252,13 @@ Define Class gf_peme_basetools As Custom
 	*----------------------------------------------------------------------------------
 	Procedure EditSourceX(tcFileName, tcClass, tnStartRange, tnEndRange, tcMethod, tnRecno)
 
-		Local lcClass, lcCursor, lcExt, lcFileName, lcMethod, lnEndRange, lnStartRange, loException, loTools
+		Local lcClass, lcCursor, lcExt, lcFileName, lcMethod, lnEndRange, lnStartRange, loException, loTools, lnSuccess
 
 		lcExt = Upper(Justext(tcFileName))
 
 		*** From JRN 11/21/2011 : Use EditSourceX from IDE Tools, if available,
 		*** which provides for source control and maintains MRU lists
 		If Type('_Screen.cThorDispatcher') = 'C' and (lcExt <> 'DBF')
-			* tools home page = http://vfpx.codeplex.com/wikipage?title=thor%20tools%20object
 			loTools = Execscript(_Screen.cThorDispatcher, "Class= tools from pemeditor")
 			If Not IsNull(loTools)
 				loTools.EditSourceX(tcFileName, tcClass, tcMethod, tnStartRange, tnEndRange)
@@ -290,13 +291,36 @@ Define Class gf_peme_basetools As Custom
 					Local lnDataSession
 					lnDataSession = Set('Datasession')
 					Set DataSession To 1
-					EditSource(lcFileName)
+					lnSuccess = EditSource(lcFileName)
+					IF lnSuccess > 0
+						*** Error handling for wrong object reference call or already/still used files.
+						MESSAGEBOX("There was an error opening the file:" + CHR(13) + ;
+									lcFileName + CHR(13) + CHR(13) + ;
+									"Error-Code: " + ALLTRIM(STR(lnSuccess)) + CHR(13) + ;
+									ICASE(INLIST(lnSuccess,132,705), "File in use. Cannot be opened.", ;
+											lnSuccess=200, "File not opened due to invalid object reference. Verify the presence of cMethodName in the object referenced by the cClassName parameter.", ;
+											lnSuccess=901, "File opened but invalid object reference in cMethodName. Check the reference in the cMethodName parameter. Use a reference such as MyForm.MyList.CLICK.", ;
+											"<Unknown Error Code>"))
+					ENDIF 
 					Set DataSession To &lnDataSession
 
-				Case lcExt $ ' VCX SCX FRX LBX MNX '
-					Editsource(lcFileName, lnStartRange, lcClass, lcMethod)
+				Case lcExt $ ' VCX SCX '
+					lnSuccess = Editsource(lcFileName, lnStartRange, lcClass, lcMethod)
+					IF lnSuccess > 0
+						*** Error handling for wrong object reference call or already/still used files.
+						MESSAGEBOX("There was an error opening the file:" + CHR(13) + ;
+									lcFileName + CHR(13) + CHR(13) + ;
+									"Error-Code: " + ALLTRIM(STR(lnSuccess)) + CHR(13) + ;
+									ICASE(INLIST(lnSuccess,132,705), "File in use. Cannot be opened.", ;
+											lnSuccess=200, "File not opened due to invalid object reference. Verify the presence of cMethodName in the object referenced by the cClassName parameter.", ;
+											lnSuccess=925, "File opened but invalid object reference in cMethodName. Check the reference in the cMethodName parameter. Use a reference such as MyForm.MyList.CLICK.", ;
+											"<Unknown Error Code>") + CHR(13) + CHR(13) + ;
+									"lnStartRange: " + ALLTRIM(STR(lnStartRange)) + CHR(13) + ;
+									"lcClass : " + lcClass + CHR(13) + ;
+									"lcMethod: " + lcMethod)
+					ENDIF 
 
-				Case 'PRG' == lcExt
+				Case lcExt $ 'PRG SPR '
 					Modify Command(lcFileName) Range lnStartRange, lnEndRange Nowait
 
 				Case lcExt $ ' MPR QPR TXT H INI '
