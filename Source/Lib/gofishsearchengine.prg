@@ -101,6 +101,11 @@ Define Class GoFishSearchEngine As Custom
 
 	oRegExForSearch                  = .Null.
 
+	*** JRN 2024-02-14 : Separate RegEx for searching in code:
+	* for plain searches, identical to oRegExForSearch
+	* for wild card searches, only searches for everything up to the *
+	oRegExForSearchInCode            = .Null.
+
 	oRegExForCommentSearch           = .Null.
 
 	oReplaceErrors                   = .Null.
@@ -116,6 +121,9 @@ Define Class GoFishSearchEngine As Custom
 
 	Dimension aMenuStartPositions[1]
 	Dimension aWildcardFiles[1]
+
+	*** JRN 2024-02-14 : Used if wild cards using whole word search
+	cWholeWordSearch = ''
 
 *----------------------------------------------------------------------------------
 	Procedure AddColumn(tcTable, tcColumnName, tcColumnDetails)
@@ -203,7 +211,7 @@ Define Class GoFishSearchEngine As Custom
 * This area contains a few overrides that I've had to build in to make final tweeks on columns
 *=============================================================================================
 *-- Sometimes in a VCX/SCX the MethodName will be empty and MatchLine will contain the PROCEDURE name
-		If Empty(m.toObject.MethodName) And Upper(Getwordnum(m.lcTrimmedMatchLine, 1)) = 'PROCEDURE'
+		If Empty(m.toObject.MethodName) And Upper(Getwordnum(m.lcTrimmedMatchLine, 1)) = 'PROCEDURE'  and GetWordNum(lcTrimmedMatchLine, 2) # '='
 			toObject.MethodName = Getwordnum(m.lcTrimmedMatchLine, 2)
 		Endif
 
@@ -1026,27 +1034,23 @@ x
 *----------------------------------------------------------------------------------
 	Procedure CreateMenuDisplay(tcMenu)
 
+		*** JRN 2024-02-05 : Change the layout, slightly, of the menu display
+		
 		#Define SPACING 3
-		#Define PREFIX '*'
+		#Define PREFIX ''
 
-		Local;
-			lcPrompt As String,;
-			lcResult As String,;
-			lnLevel As Number,;
-			lnSelect As Number
-
-		Local Array;
-			laLevels(1)
+		Local laLevels[1], lcIndent, lcPrompt, lcResult, lnLevel, lnSelect
 
 		lnSelect = Select()
-		Select (m.tcMenu)
+		Select (tcMenu)
 
 		lcResult = ''
-		lnLevel  = 1
-		Dimension This.aMenuStartPositions[Reccount(m.tcmenu)]
+		lnLevel = 1
+		Dimension This.aMenuStartPositions[Reccount(tcmenu)]
 
 		Scan
-			This.aMenuStartPositions[Recno(m.tcmenu)] = Len(m.lcResult)
+			This.aMenuStartPositions[Recno(tcmenu)] = Len(lcResult)
+			lcIndent = Replicate(Tab, m.lnLevel - 1)
 			Do Case
 				Case objCode = 22
 
@@ -1055,25 +1059,26 @@ x
 
 				Case objCode = 77
 					lcPrompt = Prompt
-					lnLevel  = Ascan(m.laLevels, Trim(LevelName))
+					lnLevel	 = Ascan(m.laLevels, Trim(LevelName))
 
 				Case objCode = 0
-					lcResult = m.lcResult + PREFIX + Space(SPACING * m.lnLevel) + Strtran(m.lcPrompt, '\-', '-----') + CR
-					lnLevel  = m.lnLevel + 1
-					Dimension laLevels[m.lnLevel]
+					lcResult = m.lcResult + m.lcIndent + Strtran(m.lcPrompt, '\-', Replicate('-', 8)) + CR
+					lnLevel	 = m.lnLevel + 1
+					Dimension m.laLevels[m.lnLevel]
 					laLevels[m.lnLevel]	= Name
 
 				Otherwise
-					lnLevel  = Ascan(m.laLevels, Trim(LevelName))
-					lcResult = m.lcResult + PREFIX + Space(SPACING * m.lnLevel) + Strtran(Prompt, '\-', '-----') + CR
+					lnLevel	 = Ascan(m.laLevels, Trim(LevelName))
+					lcResult = m.lcResult + m.lcIndent + Strtran(Prompt, '\-', Replicate('-', 8)) + CR 
 			Endcase
 		Endscan
 
 		Select(m.lnSelect)
 
 		Return m.lcResult
+		
+	EndProc
 
-	Endproc
 
 *----------------------------------------------------------------------------------
 	Procedure CreateResult(toObject)
@@ -1246,6 +1251,7 @@ statementstart
 
 		This.oRegExForProcedureStartPositions = .Null.
 		This.oRegExForSearch                  = .Null.
+		This.oRegExForSearchInCode 			  = .Null.
 		This.oResults                         = .Null.
 		This.oSearchOptions                   = .Null.
 		This.oFrxCursor                       = .Null.
@@ -1388,7 +1394,18 @@ statementstart
 
 		Endif
 
-		loPBT.EditSourceX(m.lcFileToEdit, m.lcClass, m.lnStart, m.lnStart, m.lcMethodString, m.lnRecNo)
+		If m.lcExt = 'MNX'
+			*** JRN 2024-02-05 : special handling for MNXs - if possible, using the keyboard buffer
+			* to navigate to the actual record and procedure
+			lcKeyStrokes = This.GetMenuKeystrokes(m.lcFileToEdit, m.lnRecNo, m.lcMatchType)
+			m.loPBT.EditSourceX(m.lcFileToEdit, m.lcClass, m.lnStart, m.lnStart, m.lcMethodString, m.lnRecNo)
+			If not Empty(m.lcKeyStrokes)
+				Keyboard(m.lcKeyStrokes)
+			Endif
+		Else
+			m.loPBT.EditSourceX(m.lcFileToEdit, m.lcClass, m.lnStart, m.lnStart, m.lcMethodString, m.lnRecNo)
+		EndIf
+
 
 *!*	Changed by: nmpetkov 27.3.2023
 *!*	<pdm>
@@ -1974,17 +1991,32 @@ Result
 *===================== Colorize the match line ====================================================
 *-- Mark the match WORD(s), so I can find them after the VFP code is colorized...
 			lcReplaceExpression = '[:GOFISHMATCHWORDSTART:] + lcMatch + [:GOFISHMATCHWORDEND:]'
-*!*	Changed by: LScheffler 18.3.2023
-*!*	<pdm>
-*!*	<change date="{^2023-03-18,08:47:00}">Changed by: LScheffler<br />
-*!*	<a href"https://github.com/VFPX/GoFish/issues/68">issue 68</a><br/>
-*!*	A change introduced with commit 965402a5aff67aa5
-*!*	It is not clear why the change was made, so rest to old version
-*!*	</change>
-*!*	</pdm>
 
-			lcColorizedCode = This.RegExReplace(m.tcMatchLine, '', m.lcReplaceExpression, .T.)
-*			lcColorizedCode = This.RegExReplace(tcMatchLine, tcSearch, lcReplaceExpression, .T.)
+			*** JRN 2024-02-17 : highlighting search words
+			Local lcColorizedCode, lcSearch, lnI
+			Do Case
+				*** JRN 2024-02-17 : old case, no wildcards
+				Case Not This.IsWildCardStatementSearch()
+					lcColorizedCode = This.RegExReplace(tcMatchLine, '', lcReplaceExpression, .T.)
+				*** JRN 2024-02-17 : whole word match
+				Case This.oSearchOptions.lMatchWholeWord
+					lcColorizedCode = m.tcMatchLine
+					For lnI = 1 To Getwordcount(This.cWholeWordSearch, '.*')
+						lcSearch = Getwordnum(This.cWholeWordSearch, m.lnI, '.*')
+						If Not Empty(m.lcSearch)
+							lcColorizedCode = This.RegExReplace(m.lcColorizedCode, m.lcSearch, lcReplaceExpression, .T.)
+						Endif
+					EndFor
+				*** JRN 2024-02-17 : wildcards, not whole word
+				Otherwise
+					lcColorizedCode = m.tcMatchLine
+					For lnI = 1 To Getwordcount(This.oSearchOptions.cSearchExpression, '*')
+						lcSearch = Getwordnum(This.oSearchOptions.cSearchExpression, m.lnI, '*')
+						If Not Empty(m.lcSearch)
+							lcColorizedCode = This.RegExReplace(m.lcColorizedCode, m.lcSearch, lcReplaceExpression, .T.)
+						Endif
+					Endfor
+			Endcase
 
 *!*	/Changed by: LScheffler 18.3.2023
 
@@ -2240,6 +2272,136 @@ m.lcReplaceLinePrefix, m.lcReplaceLineSuffix)
 	Endproc
 
 
+	*----------------------------------------------------------------------------------
+	Procedure GetFullMenuPrompt
+		*** JRN 2024-02-05 : Get the Full menu prompt (includes prompts for parent sub-menus)
+		* Assumes current record in current table; written this way to avoid modifying record pointer
+		Local laField[1], laParent[1], lcDBF, lcPrompt, lnLevelName, lnRecNo
+	
+		lcPrompt = Alltrim(Prompt)
+		lcDBF	 = Dbf()
+		lnRecNo	 = Recno()
+	
+		Select  LevelName,					;
+				Prompt						;
+			From (m.lcDBF)					;
+			Where Recno() = m.lnRecNo		;
+			Into Array laField
+	
+		Do While m.laField[1] # '_MSYSMENU'
+			lnLevelName = m.laField[1]
+			Select  Recno()										;
+				From (m.lcDBF)									;
+				Where objCode = 0								;
+					And Trim(Name) = Trim(m.lnLevelName)		;
+				Into Array laParent
+			If _Tally = 0
+				Exit
+			Endif
+			lnRecNo = m.laParent[1] - 1
+			Select  LevelName,					;
+					Prompt						;
+				From (m.lcDBF)					;
+				Where Recno() = m.lnRecNo		;
+				Into Array laField
+			lcPrompt = Alltrim(m.laField[2]) + ' => ' + m.lcPrompt
+		Enddo
+	
+		Return m.lcPrompt
+	Endproc
+	
+	*----------------------------------------------------------------------------------
+	Procedure GetMenuKeystrokes(lcFileToEdit, lnRecNo, lcMatchType)
+	
+		*** JRN 2024-02-05 : Retrieves keystrokes to navigate an MNX down to the
+		*   record for <lnRecno>
+	
+		*** JRN 2024-02-04 : Apparently, pausing briefly between keystrokes is necessary
+		#Define ccDownArrow '{Pause .2}{DnArrow}'
+		#Define ccTab		'{Pause .2}{Tab}'
+		#Define ccEnter		'{Pause .2}{Enter}'
+	
+		Local laField[1], laParent[1], lcKeystrokes, llSuccess, lnLevelName, lnSelect
+	
+		lcKeystrokes = ''
+		lnSelect	 = Select()
+	
+		*** JRN 2024-02-04 : Only works if we can open the file
+		Select 0
+		Try
+			Use (m.lcFileToEdit) In 0 Alias GF_Menu
+			llSuccess = .T.
+		Catch
+			llSuccess = .F.
+		Endtry
+	
+		If m.llSuccess
+	
+			Select  LevelName,					;
+					Prompt,						;
+					Int(Val(ItemNum))			;
+				From GF_Menu					;
+				Where Recno() = m.lnRecNo		;
+				Into Array laField
+	
+			If _Tally = 0
+				lcKeystrokes = ''
+			Endif
+	
+			* down arrow to get to our record
+			If m.laField[3] > 1
+				lcKeystrokes = Replicate(ccDownArrow, m.laField[3] - 1)
+			Endif
+	
+			* and if a procedure or command, tab over to it
+			Do Case
+				Case Upper(m.lcMatchType) = '<COMMAND>'
+					lcKeystrokes = m.lcKeystrokes + ccTab + ccTab
+				Case Upper(m.lcMatchType) = '<PROCEDURE>'
+					lcKeystrokes = m.lcKeystrokes + ccTab + ccTab + ccEnter
+			Endcase
+	
+			Do While m.laField[1] # '_MSYSMENU'
+				lnLevelName = m.laField[1]
+				Select Recno() From GF_Menu Where objCode = 0 And Trim(Name) = Trim(m.lnLevelName) Into Array laParent
+				If _Tally = 0
+					lcKeystrokes = ''
+					Exit
+				Endif
+				lnRecNo = m.laParent[1] - 1
+				Select  LevelName,					;
+						Prompt,						;
+						Int(Val(ItemNum))			;
+					From GF_Menu					;
+					Where Recno() = m.lnRecNo		;
+					Into Array laField
+				If _Tally = 0
+					lcKeystrokes = ''
+					Exit
+				Endif
+	
+				* tab over to the submenu definition
+				lcKeystrokes = ccTab + ccTab + ccEnter + m.lcKeystrokes
+	
+				* down arrow to get to our record
+				If m.laField[3] > 1
+					lcKeystrokes = Replicate(ccDownArrow, m.laField[3] - 1) + m.lcKeystrokes
+				Endif
+	
+			Enddo
+	
+		Else
+	
+			Return ''
+	
+		Endif
+	
+		Use
+		Select (m.lnSelect)
+	
+		Return m.lcKeystrokes
+	Endproc
+			
 *----------------------------------------------------------------------------------
 	Procedure GetProcedureStartPositions(tcCode, tcName)
 
@@ -2693,6 +2855,12 @@ m.lcReplaceLinePrefix, m.lcReplaceLineSuffix)
 			Return .F.
 		Endif
 
+		This.oRegExForSearchInCode = This.GetRegExForSearch()
+		If Isnull(This.oRegExForSearchInCode)
+			Messagebox('Error creating oRegExForSearchInCode')
+			Return .F.
+		Endif
+		
 		This.oRegExForCommentSearch = This.GetRegExForSearch()
 		If Isnull(This.oRegExForCommentSearch)
 			Messagebox('Error creating oRegExForCommentSearch')
@@ -2978,6 +3146,12 @@ m.lcReplaceLinePrefix, m.lcReplaceLineSuffix)
 	Endproc
 
 
+	*----------------------------------------------------------------------------------
+	Procedure IsWildCardStatementSearch
+		Return This.oSearchOptions.nSearchMode = GF_SEARCH_MODE_LIKE and '*' $ This.oSearchOptions.cSearchExpression
+	EndProc 	
+
+
 *----------------------------------------------------------------------------------
 	Procedure LoadOptions(tcFile)
 
@@ -3191,6 +3365,40 @@ x
 	Endproc
 
 
+	* ================================================================================
+	Procedure PrepareForWholeWordSearch(lcText)
+	
+		Local lInWord, lcLetter, lcResult, lnPos
+	
+		lcResult = ''
+		lcText = this.EscapeSearchExpression(lcText)	
+
+		lInWord	 = .F.
+		For lnPos = 1 To Len(m.lcText)
+			lcLetter = Substr(m.lcText, m.lnPos, 1)
+			If Isalpha(m.lcLetter) Or Isdigit(m.lcLetter) Or m.lcLetter = '_'
+				If Not m.lInWord
+					lcResult = m.lcResult + '\b'
+					lInWord	 = .T.
+				Endif
+			Else
+				If m.lInWord
+					lcResult = m.lcResult + '\b'
+					lInWord	 = .F.
+				Endif
+			Endif
+			lcResult = m.lcResult + m.lcLetter
+		Endfor
+	
+		If m.lInWord
+			lcResult = m.lcResult + '\b'
+		EndIf
+		
+		Return m.lcResult
+	Endproc
+		
+
+
 *----------------------------------------------------------------------------------
 	Procedure PrepareRegExForReplace
 
@@ -3216,66 +3424,80 @@ x
 	Endproc
 
 
-*----------------------------------------------------------------------------------
+	*----------------------------------------------------------------------------------
 	Procedure PrepareRegExForSearch
-
-		Local;
-			lcPattern       As String,;
-			lcRegexPattern  As String,;
-			lcSearchExpression As String,;
-			loRegEx         As Object
-
-		loRegEx            = This.oRegExForSearch
+		Local lcSearchExpression
+	
 		lcSearchExpression = This.oSearchOptions.cSearchExpression
+		*** JRN 2024-02-14 : "Normal" regex for non wild-card searches
+		This.PrepareRegExForSearchV2(This.oRegExForSearch, m.lcSearchExpression, .T.)
+	
+		If This.IsWildCardStatementSearch()
+			*** JRN 2024-02-14 : for wild card searches, only search for up to the first *
+			If This.oSearchOptions.lMatchWholeWord
+				This.cWholeWordSearch = This.PrepareForWholeWordSearch(m.lcSearchExpression)
+			Endif
+			lcSearchExpression		= Left(m.lcSearchExpression, Atc('*', m.lcSearchExpression) - 1)
+		Endif
+		This.PrepareRegExForSearchV2(This.oRegExForSearchInCode, m.lcSearchExpression, .F.)
+	
+	Endproc
+			
+	
+	Procedure PrepareRegExForSearchV2(loRegEx, lcSearchExpression, llMain)
+	
+		Local lcPattern, lcRegexPattern, lcSearchExpression, loRegEx
 
-		With m.loRegEx
+		With loRegEx
 
 			.IgnoreCase = ! This.oSearchOptions.lMatchCase
-			.Global     = .T.
-			.MultiLine  = .T.
+			.Global = .T.
+			.MultiLine = .T.
 
 			If This.oSearchOptions.lRegularExpression
 
-				If Left(m.lcSearchExpression, 1) != '^'
-					lcSearchExpression = '.*' + m.lcSearchExpression
+				If Left(lcSearchExpression, 1) != '^'
+					lcSearchExpression = '.*' + lcSearchExpression
 				Endif
 
-				If Right(m.lcSearchExpression, 1) != '$'
-					lcSearchExpression = m.lcSearchExpression + '.*'
+				If Right(lcSearchExpression, 1) != '$'
+					lcSearchExpression = lcSearchExpression + '.*'
 				Endif
 
-				lcPattern = m.lcSearchExpression
+				lcPattern = lcSearchExpression
 
 			Else
 
-				lcPattern = This.EscapeSearchExpression(m.lcSearchExpression)
+				lcPattern = This.EscapeSearchExpression(lcSearchExpression)
 
 				If This.oSearchOptions.lMatchWholeWord
-					lcPattern = '.*\b' + m.lcPattern + '\b.*'
+					lcPattern = '.*\b' + lcPattern + '\b.*'
 				Else
-					lcPattern = '.*' + m.lcPattern + '.*'
+					lcPattern = '.*' + lcPattern + '.*'
 				Endif
 
 			Endif
 
-			This.oSearchOptions.cEscapedSearchExpression = m.lcPattern
+			If llMain
+				This.oSearchOptions.cEscapedSearchExpression = lcPattern	
+			EndIf 
 
-*-- Need to add some extra markings around lcPattern to use it as the lcRegExpression
-			lcRegexPattern = m.lcPattern
+			*-- Need to add some extra markings around lcPattern to use it as the lcRegExpression
+			lcRegexPattern = lcPattern
 
-			If Left(m.lcRegexPattern, 1) != '^'
-				lcRegexPattern = '^' + m.lcRegexPattern
+			If Left(lcRegexPattern, 1) != '^'
+				lcRegexPattern = '^' + lcRegexPattern
 			Endif
 
-			If Right(m.lcRegexPattern, 1) != '$'
-				lcRegexPattern = m.lcRegexPattern + '$'
+			If Right(lcRegexPattern, 1) != '$'
+				lcRegexPattern = lcRegexPattern + '$'
 			Endif
 
-			.Pattern = m.lcRegexPattern
+			.Pattern = lcRegexPattern
 
 		Endwith
-
-	Endproc
+		
+	EndProc
 
 
 *----------------------------------------------------------------------------------
@@ -4086,7 +4308,7 @@ x
 		Endif
 *-- Be sure that oRegExForSearch has been setup... Use This.PrepareRegExForSearch() or roll-your-own
 		Try
-				loMatches = This.oRegExForSearch.Execute(m.tcCode)
+				loMatches = This.oRegExForSearchInCode.Execute(tcCode)
 			Catch
 		Endtry
 
@@ -4101,6 +4323,7 @@ x
 		If m.lnMatchCount > 0
 
 			loProcedureStartPositions = Iif(m.tlHasProcedures, This.GetProcedureStartPositions(m.tcCode), .Null.)
+			lnCount = 0
 
 			For Each m.loMatch In m.loMatches FoxObject
 
@@ -4139,6 +4362,35 @@ x
 *	Assert Upper(JustExt(Trim(loobject.uSERFIELD.FILENAME)))  # 'PRG'
 
 				This.FindStatement(m.loObject)
+
+				*** JRN 2024-02-14 : for wild card searches, we have only found matches to first "word" (preceding the *)
+				* since the remainder of the matches may be on continuation lines and the original search does not
+				* search continuation lines, we find the entire statement and search the remainder of the statement
+				If This.IsWildCardStatementSearch()
+					Local lcOldPattern, lcStatement, lnStartPos, loMatches, loRegEx
+					
+					lcStatement	= loObject.Statement
+					lnStartPos	= Atc(loObject.MatchLine, m.lcStatement)
+					If m.lnStartPos > 0
+						lcStatement = Substr(m.lcStatement, m.lnStartPos)
+					Endif
+					Do Case
+						Case Not Like('*' + Upper(This.oSearchOptions.cSearchExpression) + '*', Upper(m.lcStatement))
+							Loop
+						Case This.oSearchOptions.lMatchWholeWord
+							loRegEx			= This.oRegExForSearchInCode
+							lcOldPattern	= m.loRegEx.Pattern
+							loRegEx.Pattern	= This.cWholeWordSearch
+							loMatches		= m.loRegEx.Execute(Chrtran(m.lcStatement, CR + LF + Tab, '   '))
+							loRegEx.Pattern	= m.lcOldPattern
+					
+							If m.loMatches.Count = 0
+								Loop
+							Endif
+					Endcase
+				Endif
+
+				lnCount = lnCount + 1
 
 				If !This.ProcessSearchResult(m.loObject)
 					Exit
@@ -4314,7 +4566,11 @@ x
 		Endwith
 
 		If This.IsTextFile(m.tcFile)
-			loSearchResultObject.Code = Filetostr(m.tcFile)
+			*** JRN 2024-02-05 : Correction to show the entire file
+			* 	(Previously, leading characters got lost)
+			loSearchResultObject.Code = loSearchResultObject.MatchLine 		;
+				+ Replicate('=', Max(Len(loSearchResultObject.MatchLine), 60)) + Chr[13]			;
+				+ Filetostr(tcFile)
 		Endif
 
 		This.ProcessSearchResult(m.loSearchResultObject)
@@ -4787,6 +5043,14 @@ ii
 						Case m.lcExt = 'DBF'
 							.MatchType = '<Field>'
 							._Name     = Proper(m.lcField)
+
+						*** JRN 2024-02-05 : For some MNX matches, show more info from the same record
+						Case m.lcExt = 'MNX' and InList(Upper(m.lcField), 'PROMPT', 'COMMAND', 'PROCEDURE', 'SKIPFOR')
+							lcCode = ;
+								Iif(Empty(Prompt), 	  '' , 'Prompt    = "' + This.GetFullMenuPrompt() + '"' + CRLF) + ;
+								Iif(Empty(Command),   '' , 'Command   = ' + Command + CRLF) + ;
+								Iif(Empty(Procedure), '' , 'Procedure = ' + Iif(CR $ Trim(Procedure, 1, CR, LF, Tab,' '), CRLF, '') + Procedure + CRLF) + ;
+								Iif(Empty(SkipFor),   '' , 'SkipFor   = ' + SkipFor + CRLF) 
 
 						Case m.lcExt = 'DBC'
 							._Name  = Alltrim(ObjectName)

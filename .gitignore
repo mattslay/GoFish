@@ -8,8 +8,8 @@ FOXUSER*.*
 *.err
 *.fxp
 *.fxp
-*.zip
-*.ZIP
+# *.zip
+# *.ZIP
 _command.prg
 /Source/tempview.*
 /Source/temptext.*
