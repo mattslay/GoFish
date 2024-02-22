@@ -1693,3 +1693,26 @@ Procedure Update_to_6_2
 
 	RETURN .T.
 Endproc &&Update_to_6_2
+
+
+
+
+* ================================================================================
+
+Procedure GF_RelativePath
+	Lparameters tcFileName, toForm, toOptions
+
+	Local lcScope
+
+	If m.toForm.lShowRelativePath
+		lcScope = m.toOptions.cRecentScope
+		If File(m.lcScope)
+			Return Lower(Sys(2014, m.tcFileName, m.lcScope))
+		Else
+			Return Lower(Sys(2014, m.tcFileName, Addbs(m.lcScope)))
+		Endif
+	Else
+		Return m.tcFileName
+	Endif && toOptions.lRelativePath
+
+Endproc

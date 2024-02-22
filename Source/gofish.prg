@@ -1,6 +1,6 @@
 #INCLUDE BuildGoFish.h
 #Define dcGoFishName	GOFISH
-#Define dlAllowDevMode	.F.
+#Define dlAllowDevMode	.T.
 
 
 *---------------------------------------------------------------------------------------------

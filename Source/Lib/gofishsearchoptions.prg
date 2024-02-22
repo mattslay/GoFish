@@ -129,6 +129,18 @@ Define Class GoFishSearchOptions As Custom
 *!* - gofishSearchEngine.prg|SetIncludePattern 
 	oRegExpFileTemplate              = .Null.
 
+	* Indicates whether column 'File Name with Path' shows a Relative Path
+	lShowRelativePath                      = .F.
+
+	* Indicates whether to filter history form by the current Scope
+	lFilterHistoryByScope                  = .F.
+
+	* Name of the field used to filter history form by the current Scope
+	cSearchHistorySort			           = ''
+
+	* Indicates where the projects/folders in the scope dropdown are to be sorted.
+	lSortScopeDropdown			           = .F.
+
 	*---------------------------------------------------------------------
 
 	Procedure lRegularExpression_Access
