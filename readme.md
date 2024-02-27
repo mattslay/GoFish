@@ -2,6 +2,12 @@
 ![Go!Fish](./docs/Screenshots/GoFish_image_8.png)   
 **Version 6.2.007, 2023-11-11**   
 GoFish is an advanced code search tool for fast searching and replacing of Visual FoxPro source code.
+
+[What's new in this release](Change%20Log.md)
+
+
+_Requires VFP9_
+
 > Note: Matt's original repository is at https://github.com/mattslay/GoFish but since he sadly passed away in 2021, this fork is now the one the VFPX project list links to so others can contribute to the project. The main project is now https://github.com/VFPX/GoFish
 
 ### Synopsis

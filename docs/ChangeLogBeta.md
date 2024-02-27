@@ -1,15 +1,15 @@
-## Version 7.0 - Major version update
+## Version 7.0.04 - Major version update - 2024-02-26
 
 #### Major Enhancements 
-* Wildcard searching now finds matches across continuation lines.
+* Wildcard searching now finds matches across continuation lines. (#67) 
 * "Whole Word" searching now applies to each word in the search phrase in wildcard searching.
 
 #### Code View pane enhancements
 * The Code View pane emphasizes the entire statement (that is, including continuation lines) instead of just the line where the match occurred:
     * The entire statement is enclosed in a red box.
     * All matches in the statement are highlighted.
-* Colors in the Code View pane match the user's own colors in IDE code windows. (Experimental)
-* The Code View pane for matches in MNX files has been enhanced to be more descriptive, showing the `Prompt`, `Command`, `Procedure`, or `SkipFor` fields for the match.
+* Colors in the Code View pane match the user's own colors in IDE code windows. (Experimental) - (#89)
+* The Code View pane for matches in MNX files has been enhanced to be more descriptive, showing the `Prompt`, `Command`, `Procedure`, or `SkipFor` fields for the match. (#87)
 
 #### Other enhancements
 * New feature for editing MNXs: Double-clicking on a match in an MNX (`Prompt`, `Command`, or `Procedure`) now opens the MNX to that exact row for editing. (Experimental)
@@ -18,9 +18,12 @@
     * In MNX files in `Command`, `Procedure`, or `SkipFor` fields
     * In FRX files in `Field` records (`ObjType = 8`)
 * In the History form, sort on columns by clicking column headings. 
+* When upgrading from version 5 to version 7:
+    * the search and history files for version 5 are no longer removed, so version 5 and GF Classic will still work.
+    * however, the search and history files are not imported into version 7.
 
 #### New UI elements
-* New checkbox filter "Comments Only" has been added.
+* New checkbox filter "Comments Only" has been added. (#150)
 * Two new links at bottom left:
     * Issues page in GitHub for GoFish
     * Change Log page in GitHub for Gofish
@@ -31,14 +34,17 @@
     * Code view pane highlights only the match line (not the entire statement)
 
 #### Restored Features
-* Restore the previous setting (GF v5 and earlier) such that selecting 'Active Project' from the scope dropdown is a permanent setting, so that if GF is next opened with a different active project, that project becomes the scope.
-* Restored feature from  (GF v5 and earlier) that kept the controls at top right from moving all the way to far right (visible only when form is 
-sufficiently wide.)
+* Restore the previous setting (GF v5 and earlier) such that selecting 'Active Project' from the scope dropdown is a permanent setting, so that if GF is next opened with a different active project, that project becomes the scope. #137
+* Restored feature from  (GF v5 and earlier) that kept the controls at top right from moving all the way to far right (visible only when form is sufficiently wide.) - (#105, #155)
 
 #### Bug fixes
-* With Version 6 options enabled, it had not been possible to type or paste anything into the Scope combobox.
+* In Filter Builder, misleading "Match Anywhere" checkbox has been removed.  (#9)
+* When the match is to a file name of a text file (such as a PRG), the Code View pane shows the text correctly.  Previously the beginning text was lost. (#90)
+* With Version 6 options enabled, it had not been possible to type or paste anything into the Scope combobox. (#122, #123)
+* Crash on Replace (#148)
+* Bug reported when changing Desktop checkbox (#162)
+* Settings on Options/Colours page were not taking effect (#163)
 * Restoring latest search (from "History button context menu) was not selecting the *latest* search.
-* When the match is to a file name of a text file (such as a PRG), the Code View pane shows the text correctly.  Previously the beginning text was lost.
 
 
 ----

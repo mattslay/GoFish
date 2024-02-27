@@ -58,13 +58,14 @@
 #DEFINE LF Chr(10)
 #DEFINE Tab Chr[9]
 
+#DEFINE MEMOFIELDMINSIZE	4096 && Minimum size to be saved in separate folder as a text file
 
 *-----------------------------------------------------------------------------------
 * This section is related to Replace operations:
 
 
-#DEFINE GF_REPLACE_NOTTTOUCHED						 0	
-#DEFINE GF_REPLACE_SUCCESS							 1	
+#DEFINE GF_REPLACE_NOTTTOUCHED						 0
+#DEFINE GF_REPLACE_SUCCESS							 1
 #DEFINE GF_REPLACE_RECORD_IS_NOT_MARKED_FOR_REPLACE	-1
 #DEFINE GF_REPLACE_FILE_HAS_ALREADY_BEEN_PROCESSED	-2
 #DEFINE GF_REPLACE_BACKUP_ERROR						-3

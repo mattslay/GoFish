@@ -769,9 +769,18 @@ Procedure GF_Change_TableStruct	&&Update structure of storage tables from versio
 	lcDBF   = Addbs(m.tcRoot) + m.toResultForm.cUISettingsFile
 	lcDBF_H = Addbs(m.tcRoot) + "GF_Search_History"
 
-	If !File(m.lcDBF) Then
+	If File(ForceExt(m.lcdbf_h, 'dbf')) Then
 		Return 0
 	Endif &&!File(m.lcDBF)
+
+	Text To m.lcMsg Noshow Textmerge
+Converting to Version 6/7 table structures.
+
+Search and replace history from Version 5 have not been imported.
+
+However, they are still available in GoFish 5 and GoFish Classic.
+	Endtext
+	MessageBox(lcmsg, 64, 'Table structure changes', 10000)
 
 	lcDbc = m.tcRoot + m.toResultForm.cSaveDBC
 	If File(m.lcDbc) Then
@@ -847,6 +856,7 @@ Procedure GF_Change_TableStruct	&&Update structure of storage tables from versio
 			If File("GF_Search_Expression_History.Dbf") Then
 				Add Table GF_Search_Expression_History.Dbf
 				Use GF_Search_Expression_History Exclusive
+				Delete all
 				Pack
 				Index On Item Tag _Item
 				Use
@@ -871,6 +881,9 @@ Procedure GF_Change_TableStruct	&&Update structure of storage tables from versio
 
 *-- Create search history mother table
 			lnResults = toResultForm.BuildSearchHistoryCursor(.T., .T.)
+			
+			*** JRN 2024-02-26 : Act like we found NO records, since we are not converting history
+			lnResults = 0
 
 			If m.lnResults > 0 Then
 				Messagebox("Updating search history structure." + 0h0D0A + "Please be patient.", 0, "GoFish", 5000)
@@ -946,6 +959,7 @@ Procedure GF_Change_TableStruct	&&Update structure of storage tables from versio
 						lnCount = 0
 						Scan
 							Strtofile(ProcCode, m.lcDir + Trim(cUni_File) + "ProcCode.txt")
+
 							Strtofile(Code    , m.lcDir + Trim(cUni_File) + "Code.txt")
 							Replace;
 								ProcCode   With "",;
@@ -999,7 +1013,8 @@ Procedure GF_Change_TableStruct	&&Update structure of storage tables from versio
 *-- Create the table to save the search results main info
 			If Used("GF_SearchHistory") Then
 				Select GF_SearchHistory
-				Copy To (m.lcDBF_H) Database (m.lcDbc)
+				*** JRN 2024-02-26 : Empty it ... we are not converting search history
+				Copy To (m.lcDBF_H) Database (m.lcDbc) For .F.
 
 				Alter Table GF_Search_History Drop Column SearchHistoryFolder
 *		Alter Table GF_Search_History Add Column lSaved L
@@ -1022,7 +1037,10 @@ Procedure GF_Change_TableStruct	&&Update structure of storage tables from versio
 				iID With 1000
 
 *Replace History
-			If Directory(Addbs(m.tcRoot) + "GF_ReplaceBackups");
+
+			*** JRN 2024-02-26 : We are not converting history
+			If .F. ;
+					And Directory(Addbs(m.tcRoot) + "GF_ReplaceBackups");
 					And File(Addbs(m.tcRoot) + "GF_REPLACE_DETAILV5.DBC");
 					And File(Addbs(m.tcRoot) + "GF_REPLACE_DETAILV5.DBF");
 					And File(Addbs(m.tcRoot) + "GF_Replace_History.DBF") Then
@@ -1177,7 +1195,7 @@ Procedure GF_Change_TableStruct	&&Update structure of storage tables from versio
 					Replaced,;
 					TrimmedReplaceLine,;
 					ReplaceLine,;
-					100,;
+					ReplaceRisk,;
 					Replace_DT,;
 					iReplaceFolder,;
 					.T.;
@@ -1307,6 +1325,27 @@ Procedure GF_Backup_GlobalPath  		&&Move GF settings from Home(7) to HOME(7)+"Go
 	Endif &&DIRECTORY(lcSource)
 
 Endproc &&GF_Backup_GlobalPath
+
+
+* ================================================================================ 
+Procedure GF_Copy_GlobalPath  		&& Copy GF settings from Home(7) to HOME(7)+"GoFish\"
+	Local lcSource As String
+	Local lcTarget As String
+	Local loFSO As 'Scripting.FileSystemObject'
+
+	loFSO = Createobject('Scripting.FileSystemObject')
+
+	lcSource = Home(7) + 'GF_*.*'
+	lcTarget = Home(7) + 'GoFish_'
+	m.loFSO.CopyFile(m.lcSource, m.lcTarget)
+
+	Mkdir(m.lcTarget + '\GF_Saved_Search_Results')
+
+Endproc &&GF_Copy_GlobalPath
+
+
+
+* ================================================================================
 
 Procedure GF_Write_Readme_Text  	&&Create for README.md files
 	Lparameters;

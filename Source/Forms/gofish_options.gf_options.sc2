@@ -3339,21 +3339,20 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 	ENDPROC
 
 	PROCEDURE pfSettings.pagePreferences.chkDesktop.InteractiveChange
-		local loMy, ;
-			loSettings, ;
-			lcSettingsFile
-		loMy = newobject('My', 'My.vcx')
-		loSettings = loMy.Settings
+		Local lcSettingsFile, loMy, loSettings
+		
+		loMy	   = Newobject('My', 'My.vcx')
+		loSettings = m.loMy.Settings
 		
 		*SF 20221018 -> local storage
 		*lcSettingsFile = addbs(home(7)) + Thisform.oForm.cUISettingsFile
-		lcSettingsFile = Thisform.oForm.cUISettingsFile
+		lcSettingsFile = Thisform.oForm.cCR_StoreLocal + Thisform.oForm.cUISettingsFile
 		*/SF 20221018 -> local storage
 		
 		m.loSettings.Load(m.lcSettingsFile)
 		m.loSettings.Add('lDesktop', This.Value)
 		m.loSettings.Save(m.lcSettingsFile)
-		messagebox('Note: this change takes effect the next time you run GoFish.', 64, 'GoFish')
+		Messagebox('Note: This change takes effect the next time you run GoFish.', 64, 'GoFish')
 		
 	ENDPROC
 

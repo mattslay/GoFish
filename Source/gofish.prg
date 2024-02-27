@@ -56,15 +56,21 @@ lcSettingsFile = Addbs(Home(7)) + "GoFish_"
 
 If !Directory(m.lcSettingsFile) Then
 	Mkdir (Addbs(Home(7)) + "GoFish_")
-	Do Form gf_migrate_6.scx
-	Read Events
+	
+	*!* ******** JRN Removed 2024-02-26 ********
+	*!* Do Form gf_migrate_6.scx
+	*!* Read Events
 	If File(Addbs(Home(7)) + "GF_Results_Form_Settings.xml") Then
 		lcOlSafety = Set("Safety")
 		Set Safety Off
-		GF_Backup_GlobalPath()
-		GF_Move_GlobalPath()
+		*!* ******** JRN Removed 2024-02-26 ********
+		*!* GF_Backup_GlobalPath()
+		*!* GF_Move_GlobalPath()
+		GF_Copy_GlobalPath()
 		Set Safety &lcOlSafety
+		
 	Endif &&File(Addbs(Home(7)) + "GF_Results_Form_Settings.xml")
+	
 Endif &&DIRECTORY(m.lcSettingsFile)
 * /SF 20221123 use subfolder of Home(7) by default
 

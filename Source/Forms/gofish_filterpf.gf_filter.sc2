@@ -79,7 +79,6 @@ DEFINE CLASS gf_filter AS gf_baseform OF "..\lib\gofishui.vcx"
 	*< OBJECTDATA: ObjPath="cntTextBoxOptions.Check2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cntTextBoxOptions.Check1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cntTextBoxOptions.Label1" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="cntTextBoxOptions.chkFilterExactMatch" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Command3" UniqueID="" Timestamp="" />
 
 	*<DefinedPropArrayMethod>
@@ -174,7 +173,7 @@ DEFINE CLASS gf_filter AS gf_baseform OF "..\lib\gofishui.vcx"
 		Caption = "Use leading ! (for NOT)", ;
 		ControlSource = "Thisform.oFilter.FilterNot", ;
 		Height = 17, ;
-		Left = 321, ;
+		Left = 266, ;
 		Name = "Check1", ;
 		Top = 26, ;
 		Width = 144, ;
@@ -187,24 +186,10 @@ DEFINE CLASS gf_filter AS gf_baseform OF "..\lib\gofishui.vcx"
 		Caption = "Use wildcards (* and ?)", ;
 		ControlSource = "Thisform.oFilter.FilterLike", ;
 		Height = 17, ;
-		Left = 146, ;
+		Left = 50, ;
 		Name = "Check2", ;
 		Top = 26, ;
 		Width = 147, ;
-		ZOrderSet = 6
-		*< END OBJECT: BaseClass="checkbox" />
-
-	ADD OBJECT 'cntTextBoxOptions.chkFilterExactMatch' AS checkbox WITH ;
-		Alignment = 0, ;
-		AutoSize = .T., ;
-		Caption = "Match anywhere", ;
-		ControlSource = "", ;
-		Height = 17, ;
-		Left = 12, ;
-		Name = "chkFilterExactMatch", ;
-		ToolTipText = "If not selected, only exact matches are found, although you can over-ride this by selecting to use wildcards.", ;
-		Top = 26, ;
-		Width = 106, ;
 		ZOrderSet = 6
 		*< END OBJECT: BaseClass="checkbox" />
 
@@ -1665,13 +1650,13 @@ DEFINE CLASS gf_filter AS gf_baseform OF "..\lib\gofishui.vcx"
 		Do Case
 			Case This.oFilter.OnlyFirstMatchInProcedure = .F. and This.oFilter.OnlyFirstMatchInStatement = .F. 
 			
-			Case Empty(lcFilter) and This.oFilter.OnlyFirstMatchInProcedure
+			Case Empty(lcFilter) and This.oFilter.OnlyFirstMatchInProcedure = .T.
 				lcFilter = [(FirstMatchInProcedure or MatchType # 'Code  ')]
 		
-			Case Empty(lcFilter) and This.oFilter.OnlyFirstMatchInStatement
+			Case Empty(lcFilter) and This.oFilter.OnlyFirstMatchInStatement = .T.
 				lcFilter = [(FirstMatchInStatement or MatchType # 'Code  ')]
 		
-			Case This.oFilter.OnlyFirstMatchInProcedure
+			Case This.oFilter.OnlyFirstMatchInProcedure = .T.
 				lcFilter = [(FirstMatchInProcedure or MatchType # 'Code  ') and (] + m.lcFilter + ')'
 		
 			Otherwise 
@@ -1724,32 +1709,54 @@ DEFINE CLASS gf_filter AS gf_baseform OF "..\lib\gofishui.vcx"
 					llNot		  = .T.
 				Endif
 		
-				lcField		  = m.tcField
-				If Thisform.oFilter.FilterLike
-					If Thisform.oFilter.FilterExactMatch
-						lcField = 'Alltrim(' + m.tcField + ', chr[9], chr[10], chr[13], " ")'
-					Else
-						lcSearchValue = '*' + m.lcSearchValue + '*'
-					Endif
-					llLike		  = .T.
-				Endif
+				* ================================================================================
+				* ================================================================================
 		
-				lcText = ["] + Strtran(m.lcSearchValue, '"', '" + ["] + "') + ["]
-		
+				lcSearchField = m.tcField
+				* if spaces in search value, map Tabs, CRs, and LFs to spaces in the search field
 				If ' ' $ m.lcSearchValue
-					lcSearchField = 'Upper(Chrtran(' + m.lcField + ', chr[9] + chr[10] + chr[13], "   "))'
-				Else
-					lcSearchField = 'Upper(' + m.lcField + ')'
+					lcSearchField = 'Chrtran(' + m.lcSearchField + ', chr[9] + chr[10] + chr[13], "   ")'
 				Endif
 		
-				Do Case
-					Case m.llLike = .T.
-						lcFilter = 'Like(' + m.lcText + ', ' + m.lcSearchField + ')'
-					Case Thisform.oFilter.FilterExactMatch
-						lcFilter = m.lcText + ' = ' + m.lcSearchField
-					Otherwise 
-						lcFilter = m.lcText + ' $ ' + m.lcSearchField
-				Endcase
+				* 'FilterLike' is misnamed -- if actually means wild cards
+				If Thisform.oFilter.FilterLike and '*' $ lcSearchValue or '?' $ lcSearchValue
+					lcText = ["*] + Strtran(m.lcSearchValue, '"', '" + ["] + "') + [*"]
+					lcFilter = Textmerge('Like(Upper(<<m.lcText>>), Upper(<<m.lcSearchField>>))')
+				Else
+					lcText = ["] + Strtran(m.lcSearchValue, '"', '" + ["] + "') + ["]
+					lcFilter = Textmerge('Atc(<<m.lcText>>, <<m.lcSearchField>>) > 0')
+				EndIf 
+					
+				* ================================================================================
+				* ================================================================================
+		
+				*!* ******** JRN Replaced 2024-01-29 ********
+				*!* lcField		  = m.tcField
+				*!* If Thisform.oFilter.FilterLike
+				*!* 	If Thisform.oFilter.FilterExactMatch
+				*!* 		lcField = 'Alltrim(' + m.tcField + ', chr[9], chr[10], chr[13], " ")'
+				*!* 	Else
+				*!* 		lcSearchValue = '*' + m.lcSearchValue + '*'
+				*!* 	Endif
+				*!* 	llLike		  = .T.
+				*!* Endif
+		
+				*!* lcText = ["] + Strtran(m.lcSearchValue, '"', '" + ["] + "') + ["]
+		
+				*!* If ' ' $ m.lcSearchValue
+				*!* 	lcSearchField = 'Upper(Chrtran(' + m.lcField + ', chr[9] + chr[10] + chr[13], "   "))'
+				*!* Else
+				*!* 	lcSearchField = 'Upper(' + m.lcField + ')'
+				*!* Endif
+		
+				*!* Do Case
+				*!* 	Case m.llLike = .T.
+				*!* 		lcFilter = 'Like(' + m.lcText + ', ' + m.lcSearchField + ')'
+				*!* 	Case Thisform.oFilter.FilterExactMatch
+				*!* 		lcFilter = m.lcSearchField + ' = ' + m.lcText
+				*!* 	Otherwise 
+				*!* 		lcFilter = m.lcText + ' $ ' + m.lcSearchField
+				*!* Endcase
 		
 				If m.llNot
 					lcFilter = '!(' + m.lcFilter + ')'
@@ -1994,26 +2001,13 @@ DEFINE CLASS gf_filter AS gf_baseform OF "..\lib\gofishui.vcx"
 	ENDPROC
 
 	PROCEDURE Unload
-		If Thisform.llReturn
+		If Thisform.llReturn = .t.
 			Return Thisform.cFilter
 		Else
 			Return .null.
 		Endif
 		
 		 
-	ENDPROC
-
-	PROCEDURE cntTextBoxOptions.Check2.Valid
-		Thisform.cntTextBoxOptions.chkFilterExactMatch.Refresh()
-		
-	ENDPROC
-
-	PROCEDURE cntTextBoxOptions.chkFilterExactMatch.Refresh
-		This.Value = Not Thisform.oFilter.FilterExactMatch
-	ENDPROC
-
-	PROCEDURE cntTextBoxOptions.chkFilterExactMatch.Valid
-		Thisform.oFilter.FilterExactMatch = Not This.Value
 	ENDPROC
 
 	PROCEDURE Command1.Click
