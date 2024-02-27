@@ -105,6 +105,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		*m: applyfilter
 		*m: buildsearchhistorycursor
 		*m: captureresizingproperties
+		*m: check2gblimit
 		*m: checkall
 		*m: clearall
 		*m: cleargfsefilter
@@ -124,6 +125,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		*m: exporttoexcel
 		*m: fillsearchresultscursor
 		*m: filtergfse
+		*m: fixcolumnheadings
 		*m: focusonreplacepageframe
 		*m: formatgrid
 		*m: formatgridforreplacemode
@@ -981,7 +983,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Name = "oTreeView", ;
 		Top = 0, ;
 		Width = 186
-		*< END OBJECT: BaseClass="olecontrol" OLEObject="c:\windows\syswow64\mscomctl.ocx" Value="0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAEAAAAgAAAAEAAAD+////AAAAAAAAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9/////v////7///8EAAAA/v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////1IAbwBvAHQAIABFAG4AdAByAHkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAUA//////////8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAECipprHZdoBAwAAAEACAAAAAAAAAwBPAGwAZQBPAGIAagBlAGMAdABEAGEAdABhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAgEDAAAAAgAAAP////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAagAAAAAAAAADAEEAYwBjAGUAcwBzAE8AYgBqAFMAaQB0AGUARABhAHQAYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgACAP///////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABcAAAAAAAAAAMAQwBoAGEAbgBnAGUAZABQAHIAbwBwAHMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAIA////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAACABAAAAAAAABAAAAAIAAAD+////BQAAAP7///8GAAAABwAAAAgAAAD+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+2kEHHiYXREbFqAMDwKDYoIUM0EggAAAA5EwAABTUAALE8wWoBAAYAIgAAABkAAAARAgAACgAAAAEAAAAB782rXAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACQAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5MzY4MjY1RS04NUZFLTExZDEtOEJFMy0wMDAwRjg3NTREQTEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACADgAAAEhpZGVTZWxlY3Rpb24ABQAAAEwAAAAADAAAAEluZGVudGF0aW9uABEAAABODQAAAAcAAAAAAAAAAAAFAMDh+AIGAAAAAAAAAAUAAIBw5xkAAQAAAFwAH97svQEABQC45xkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANEAKAAAATGluZVN0eWxlAAkAAABJCgAAAAEAAAANAAAATW91c2VQb2ludGVyAAkAAABJCgAAAAAAAAAOAAAAUGF0aFNlcGFyYXRvcgAKAAAASAAAAAABAAAAXAYAAABTdHlsZQAJAAAASQoAAAAGAAAADAAAAE9MRURyYWdNb2RlAAkAAABJCgAAAAAAAAAMAAAAT0xFRHJvcE1vZGUACQAAAEkKAAAAAAAAAA4AAABGdWxsUm93U2VsZWN0AAUAAABMAQAAAAoAAABTaW5nbGVTZWwABQAAAEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+		*< END OBJECT: BaseClass="olecontrol" OLEObject="c:\windows\syswow64\mscomctl.ocx" Value="0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAEAAAAgAAAAEAAAD+////AAAAAAAAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9/////v////7///8EAAAA/v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////1IAbwBvAHQAIABFAG4AdAByAHkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAUA//////////8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACFnE8NadoBAwAAAEACAAAAAAAAAwBPAGwAZQBPAGIAagBlAGMAdABEAGEAdABhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAgEDAAAAAgAAAP////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAagAAAAAAAAADAEEAYwBjAGUAcwBzAE8AYgBqAFMAaQB0AGUARABhAHQAYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgACAP///////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABcAAAAAAAAAAMAQwBoAGEAbgBnAGUAZABQAHIAbwBwAHMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAIA////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAACABAAAAAAAABAAAAAIAAAD+////BQAAAP7///8GAAAABwAAAAgAAAD+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+2kEHHiYXREbFqAMDwKDYoIUM0EggAAAA5EwAABTUAALE8wWoBAAYAIgAAABkAAAARAgAACgAAAAEAAAAB782rXAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACQAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5MzY4MjY1RS04NUZFLTExZDEtOEJFMy0wMDAwRjg3NTREQTEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACADgAAAEhpZGVTZWxlY3Rpb24ABQAAAEwAAAAADAAAAEluZGVudGF0aW9uABEAAABODQAAAAcAAAAAAAAAAAAFAHDVaQkGAAAAAAAAAAUAAIBw5xkAAQAAAFwAH97svQEABQC45xkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANEAKAAAATGluZVN0eWxlAAkAAABJCgAAAAEAAAANAAAATW91c2VQb2ludGVyAAkAAABJCgAAAAAAAAAOAAAAUGF0aFNlcGFyYXRvcgAKAAAASAAAAAABAAAAXAYAAABTdHlsZQAJAAAASQoAAAAGAAAADAAAAE9MRURyYWdNb2RlAAkAAABJCgAAAAAAAAAMAAAAT0xFRHJvcE1vZGUACQAAAEkKAAAAAAAAAA4AAABGdWxsUm93U2VsZWN0AAUAAABMAQAAAAoAAABTaW5nbGVTZWwABQAAAEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
 
 	ADD OBJECT 'containerRight' AS container WITH ;
 		Anchor = 15, ;
@@ -2380,6 +2382,36 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		
 	ENDPROC
 
+	PROCEDURE check2gblimit
+		* Checking if close to 2GB limit
+		#Define cnLimit  		2**31
+		#Define cnWarningSize	80 && that is, start warning at 80%
+		
+		Local laFiles[1], lcText, lnI, lnMax, lnCount
+		
+		lnCount =  Adir(laFiles, This.cCR_StoreLocal + 'GF_RESULTS_FORM_SETTINGS.*')
+		
+		lnMax = 0
+		For lnI = 1 To m.lnCount
+			lnMax = Max(m.lnMax, 100 * m.laFiles[m.lnI, 2] / cnLimit)
+		Endfor
+		
+		If m.lnMax < cnWarningSize
+			Return
+		Endif
+		
+		Text To m.lcText Noshow Textmerge
+		Warning! Search history table approaching 2GB limit (<<Round(m.lnMax, 1)>>%)
+		
+		You will need to remove old searches, in either of two ways:
+		   1) Clicking on the History button and deleting them manually.
+		   2) Using the Janitor ("Options" form => Janitor)    
+		Endtext
+		
+		Messagebox(m.lcText, 64, 'Approaching 2GB limit')
+		
+	ENDPROC
+
 	PROCEDURE checkall
 		Thisform.FilterGFSE()
 		
@@ -3405,8 +3437,9 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		
 			If m.tlAppend Then
 				Try
-						Update (m.lcSearchResultsAlias) Set;
-						 ReplaceRisk = 100
+						*!* ******** JRN Removed 2024-02-23 ********
+						*!* Update (m.lcSearchResultsAlias) Set;
+						*!*  ReplaceRisk = 100
 						Insert Into (m.lcSearchEngineResultsAlias);
 							Select;
 							 Cur1.*;
@@ -3490,6 +3523,19 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		lcFilter = Filter(this.cSearchResultsAlias)         
 		Set Filter To &lcFilter in (This.oSearchEngine.cSearchResultsAlias)
 		 
+	ENDPROC
+
+	PROCEDURE fixcolumnheadings
+		Local loColumn
+		
+		For Each m.loColumn In This.oGrid.Columns FoxObject
+			If Atc('filepath', m.loColumn.ControlSource) # 0
+				loColumn.Header1.Caption = Iif(Thisform.lShowRelativePath, 'Path relative to Scope', 'Full Path')
+			Endif
+		Endfor
+		
+		loColumn = Null
+		
 	ENDPROC
 
 	PROCEDURE focusonreplacepageframe
@@ -3595,7 +3641,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		lnRow = m.lnRow+1
 		laFields(m.lnRow, 1) = "FILEPATH"
 		laFields(m.lnRow, 2) = 10
-		laFields(m.lnRow, 3) = "File Name with Path"
+		laFields(m.lnRow, 3) = "Full Path"
 		laFields(m.lnRow, 4) = 1
 		laFields(m.lnRow, 5) = 200
 		
@@ -4779,6 +4825,8 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		*!*	issue #66
 		*!*	</change>
 		*!*	</pdm>
+		
+		This.FixColumnHeadings()
 		
 		This.editSearch.SetFocus()
 		
@@ -7325,6 +7373,8 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		
 		Thisform.SaveDBC_Close()
 		
+		This.Check2GBLimit()
+		
 		Return
 		
 	ENDPROC
@@ -7709,7 +7759,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 						 Replaced,;
 						 TrimmedReplaceLine,;
 						 ReplaceLine,;
-						 100,;
+						 ReplaceRisk,;
 						 Replace_DT,;
 						 iReplaceFolder,;
 						 .T.;
@@ -7742,12 +7792,19 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 				Use In Select (m.lcDBF)
 				Select 0
 				Use (m.lcDBF) Exclusive
+		        *!* ** { JRN -- 2/23/2024 3:09:01 PM - Begin
+		        *!* Replace All;
+		        *!*  ProcCode     With "",;
+		        *!*  Code         With "",;
+		        *!*  lMemLoaded   With .F.,;
+		        *!*  ReplaceRisk  With 100,;
+		        *!*  lJustReplace With .T.
 		        Replace All;
 		         ProcCode     With "",;
 		         Code         With "",;
 		         lMemLoaded   With .F.,;
-		         ReplaceRisk  With 100,;
 		         lJustReplace With .T.
+		        *!* ** } JRN -- 2/23/2024 3:09:01 PM - End
 		
 				Pack
 		
@@ -7970,12 +8027,17 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 			Use In Select (m.lcDBF)
 			Select 0
 			Use (m.lcDBF) Exclusive
+		    *!* ** { JRN -- 2/23/2024 3:09:24 PM - Begin
+		    *!* Replace All;
+		    *!*  ProcCode    With "",;
+		    *!*  Code        With "",;
+		    *!*  lMemLoaded  With .F.,;
+		    *!*  ReplaceRisk With 100,;
+		    *!*  lSaved      With .T.
 		    Replace All;
-		     ProcCode    With "",;
-		     Code        With "",;
 		     lMemLoaded  With .F.,;
-		     ReplaceRisk With 100,;
 		     lSaved      With .T.
+		    *!* ** } JRN -- 2/23/2024 3:09:24 PM - End
 		
 			Pack
 			Select (m.lcSearchEngineResultsAlias)
@@ -8003,7 +8065,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 				 lIsText,Column,Id,;
 				 MatchLine,Replaced,TrimmedReplaceLine,;
 				 ReplaceLine,ReplaceRisk,Replace_DT,;
-				 lSaved;
+				 code, lSaved;
 				 );
 				Select;
 				 cUni,;
@@ -8043,8 +8105,9 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 				 Replaced,;
 				 TrimmedReplaceLine,;
 				 ReplaceLine,;
-				 100,;
+				 ReplaceRisk,;
 				 Replace_DT,;
+				 Code,;
 				 .T.;
 				 From (m.lcSearchEngineResultsAlias);
 				 Where cUni==m.tcUni
@@ -8103,37 +8166,50 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 	ENDPROC
 
 	PROCEDURE save_resultmemo		&& Save the code snippets from memo to file, to stop the memo file to overgrow
-		Lparameters;
+		Lparameters			;
 			tcUni
 		
 		*lcTable = JustStem(This.cSaveResultsDbc)
+		Local lcName, lcRoot
+		
 		lcName = Thisform.cSavedSearchResultsFolder
 		
 		*SF 20221018 -> local storage
 		*lcRoot = Home(7) + lcName
-		lcRoot = Addbs(This.cCR_StoreLocal + lcName)
+		lcRoot = Addbs(This.cCR_StoreLocal + m.lcName)
 		*/SF 20221018 -> local storage
 		
 		*-- Create root folder of saved searches
-		If !Directory(m.lcRoot) Then
+		If Not Directory(m.lcRoot) Then
 			Try
-					Mkdir (m.lcRoot)
-				Catch
+				Mkdir (m.lcRoot)
+			Catch
 			Endtry
 			GF_Write_Readme_Text(3, m.lcRoot + 'README.md')
 		Endif &&!DIRECTORY(m.lcRoot)
 		
-		m.lcRoot = Addbs(m.lcRoot)
+		lcRoot = Addbs(m.lcRoot)
 		
 		Thisform.SaveFormSettings(m.lcRoot, m.tcUni + Substr(This.cUISettingsFile, 4))
-		Thisform.oSearchEngine.SaveOptions(m.lcRoot + m.tcUni + Trim(Substr(This.cSearchOptionsXMLFile,4)))
+		Thisform.oSearchEngine.SaveOptions(m.lcRoot + m.tcUni + Trim(Substr(This.cSearchOptionsXMLFile, 4)))
 		
-		Scan For !lMemSaved
-			Strtofile(ProcCode, m.lcRoot + Trim(cUni_File) + "ProcCode.txt")
-			Strtofile(Code    , m.lcRoot + Trim(cUni_File) + "Code.txt")
+		*** JRN 2024-02-24 :  only write CODE field to separate files if they are large enough
+		* the idea being to minimize the activity without endangering the 2GB limit for FPT
+		Scan For Not lMemSaved
+			*!* ******** JRN Removed 2024-02-24 ********
+			*!* Not needed, as ProcCode can be derived from Code instead
+			*!* If Len(ProcCode) >= MEMOFIELDMINSIZE
+			*!* 	Strtofile(ProcCode, m.lcRoot + Trim(cUni_File) + 'ProcCode.txt')
+			*!* 	Replace Proccode with ''
+			*!* Endif
 		
-			Replace;
-				lMemSaved With .T.
+			If Len(Code) >= MEMOFIELDMINSIZE
+				Strtofile(Code, m.lcRoot + Trim(cUni_File) + 'Code.txt')
+				Replace Code with ''
+			Endif
+		
+			Replace			;
+					lMemSaved  With	 .T.
 		Endscan &&All
 		Go Top
 		
@@ -8332,68 +8408,69 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 	ENDPROC
 
 	PROCEDURE set_gridcolour		&& Set the colours for the grid, moved to load options
-		Local lcFormatGridPrg, lcPRG, lcPRGColor, lcResultsCursor, lcSCX, lcSCXColor, lcVCX, lcVCXColor, lcDefaultColor, lcAppPath
-		
-		Local;
-			lcDynamicBackColor As String,;
-			loColumn           As Object
+		Local lcDynamicBackColor As String
+		Local loColumn As Object
+		Local lcDefaultColor, lcDynamicForeColor, lcFileName, lcFormatGridPrg, lcPRG, lcPRGColor
+		Local lcResultsCursor, lcSCX, lcSCXColor, lcVCX, lcVCXColor
 		
 		lcResultsCursor = Thisform.cSearchResultsAlias
 		
-		lcFormatGridPrg = "GoFish_FormatGrid.PRG"
+		lcFormatGridPrg = 'GoFish_FormatGrid.PRG'
 		
 		* First choice: Thor
-		If Type("_Screen.cThorDispatcher") = "C"
-			lcFileName = Execscript(_Screen.cThorDispatcher, "Full Path=Thor_Proc_GoFish_FormatGrid.PRG")
-			If (Not Isnull(m.lcFileName)) And File(lcFileName)
+		If Type('_Screen.cThorDispatcher') = 'C'
+			lcFileName = Execscript(_Screen.cThorDispatcher, 'Full Path=Thor_Proc_GoFish_FormatGrid.PRG')
+			If (Not Isnull(m.lcFileName)) And File(m.lcFileName)
 				lcFormatGridPrg = m.lcFileName
 			Endif
 		Endif
 		
-		
-		If !File(lcFormatGridPrg) && If not found in the VFP path
-			lcFormatGridPrg = Addbs(_Screen._gofish.capppath) + lcFormatGridPrg && Look for it in the GoFish folder.
+		If Not File(m.lcFormatGridPrg) && If not found in the VFP path
+			lcFormatGridPrg = Addbs(_Screen._GoFish.cAppPath) + m.lcFormatGridPrg && Look for it in the GoFish folder.
 		Endif
 		
-		If File (lcFormatGridPrg) && Call user file to assign colors, if present, otherwise use default
-			Do (lcFormatGridPrg) With Thisform.oGrid, lcResultsCursor
+		If File (m.lcFormatGridPrg) && Call user file to assign colors, if present, otherwise use default
+			Do (m.lcFormatGridPrg) With Thisform.oGrid, m.lcResultsCursor
 		Else
 		
-		*SF 20221016 added colour options
-			lcSCX = [Upper(" + lcResultsCursor + ".filetype) = "SCX"]
-		*	lcSCXColor = "RGB(0,0,128)"
-			lcSCXColor = Padr(Thisform.nFileSCXDynamicForeColour,8)
+			*SF 20221016 added colour options
+			lcSCX = [<<m.lcResultsCursor>>.filetype = "SCX"]
+			*	lcSCXColor = "RGB(0,0,128)"
+			lcSCXColor = Padr(Thisform.nFileScxDynamicForeColour, 8)
 		
-			lcVCX = [Upper(" + lcResultsCursor + ".filetype) = "VCX"]
-		*	lcVCXColor = "RGB(0,128,0)"
-			lcVCXColor = Padr(Thisform.nFileVCXDynamicForeColour,8)
+			lcVCX = [<<m.lcResultsCursor>>.filetype = "VCX"]
+			*	lcVCXColor = "RGB(0,128,0)"
+			lcVCXColor = Padr(Thisform.nFileVcxDynamicForeColour, 8)
 		
-			lcPRG = [Upper(" + lcResultsCursor + ".filetype) $ PRG TXT H INI XML HTM HTML ASP ASPX"]
-		*	lcPRGColor = "RGB(255,0,0)"
-			lcPRGColor = Padr(Thisform.nFilePRGDynamicForeColour,8)
+			lcPRG = [<<m.lcResultsCursor>>.filetype $ " PRG TXT H INI XML HTM HTML ASP ASPX"]
+			*	lcPRGColor = "RGB(255,0,0)"
+			lcPRGColor = Padr(Thisform.nFilePrgDynamicForeColour, 8)
 		
-			lcDefaultColor = Padr(Thisform.nFileDefaultDynamicForeColour,8)
+			lcDefaultColor = Padr(Thisform.nFileDefaultDynamicForeColour, 8)
 		
-			Thisform.oGrid.SetAll("DynamicForeColor", "Iif(" + lcSCX + ", " + lcSCXColor + ", " +  ;
-				"Iif(" + lcVCX + ", " + lcVCXColor + ", " + ;
-				"Iif(" + lcPRG + "," + lcPRGColor + ",  "+ ;
-				lcDefaultColor + " )"+ ;
-				")" + ;
-				")", "COLUMN")
-		*/ SF 20221016 added colour options
+			lcDynamicForeColor = 'ICase(' +					;
+				m.lcSCX + ', ' + m.lcSCXColor + ', ' +		;
+				m.lcVCX + ', ' + m.lcVCXColor + ', ' +		;
+				m.lcPRG + ',' + m.lcPRGColor + ',  ' +		;
+				m.lcDefaultColor +							;
+				' )'
 		
-		*SF 20221029 fix column restore
-			loColumn = Thisform.oGrid.FindColumn("TrimmedReplaceLine")
-		*lcDynamicBackColor = "ICase(replaced, RGB(149,249,147), replacerisk > Thisform.nReplaceRisk, Rgb(210,210,210), Rgb(255,255,255))"
-			If Vartype(m.loColumn) = "O" Then
-				lcDynamicBackColor = "ICase(" +;
-					"replaced, " + Padr(Thisform.nReplacedDynamicBackColour,8) + ", " +;
-					"replacerisk > Thisform.nReplaceRisk, " + Padr(Thisform.nRiskExceededDynamicBackColour,8) + ", " +;
-					"Rgb(255,255,255))"
+			Thisform.oGrid.SetAll('DynamicForeColor', Textmerge(m.lcDynamicForeColor), 'COLUMN')
+		
+			*/ SF 20221016 added colour options
+		
+			*SF 20221029 fix column restore
+			loColumn = Thisform.oGrid.FindColumn('TrimmedReplaceLine')
+			*lcDynamicBackColor = "ICase(replaced, RGB(149,249,147), replacerisk > Thisform.nReplaceRisk, Rgb(210,210,210), Rgb(255,255,255))"
+			If Vartype(m.loColumn) = 'O' Then
+				lcDynamicBackColor = 'ICase(' +															;
+					'replaced, ' + Padr(Thisform.nReplacedDynamicBackColour, 8) + ', ' +				;
+					'replacerisk > Thisform.nReplaceRisk, ' + Padr(Thisform.nRiskExceededDynamicBackColour, 8) + ', ' + ;
+					'Rgb(255,255,255))'
 				loColumn.DynamicBackColor = m.lcDynamicBackColor
 		
 			Endif &&Vartype(m.loColumn) = "O"
-		*SF 20221029 fix column restore
+			*SF 20221029 fix column restore
 		Endif
 		
 	ENDPROC
@@ -8437,42 +8514,61 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		
 		*-- This method will only generate the html if the ROW has changed, not the colum. This prevents
 		*-- the html from being regenerated if the user tabs to a new column in the grid, without changing rows.
-		Local;
-			lcFile     As String,;
-			lcUni      As String,;
-			lcUni_File As String,;
-			lcId       As String
+		Local lcFile As String
+		Local lcID As String
+		Local lcUni As String
+		Local lcUni_File As String
+		Local lcAlias, lnSelect
 		
 		If Eof(Thisform.cSearchResultsAlias) Or Thisform.lSearching
-			Thisform.containerRight.container2.ContainerWebControl.ShowHTML("")
+			Thisform.Containerright.Container2.ContainerWebControl.ShowHTML('')
 		
 			Return
 		Endif
 		
-		lcUni      = Trim(Evaluate(Thisform.cSearchResultsAlias + ".cUni"))
-		lcId       = PADL(Evaluate(Thisform.cSearchResultsAlias + ".id"), 11, "0") + m.lcUni
-		lcUni_File = Trim(Evaluate(Thisform.cSearchResultsAlias + ".cUni_File"))
+		lcUni	   = Trim(Evaluate(Thisform.cSearchResultsAlias + '.cUni'))
+		lcID	   = Padl(Evaluate(Thisform.cSearchResultsAlias + '.id'), 11, '0') + m.lcUni
+		lcUni_File = Trim(Evaluate(Thisform.cSearchResultsAlias + '.cUni_File'))
 		
 		*If (m.lcId <> Thisform.nCurrentId And m.lnId > 0) Or m.tlForce
-		If m.lcId <> Thisform.cCurrentId Or m.tlForce
-			If !Evaluate(Thisform.cSearchResultsAlias + ".lMemLoaded") Then
-				lcFile = Addbs(Thisform.cCR_StoreLocal + Thisform.cSavedSearchResultsFolder) + m.lcUni_File
-				If File(m.lcFile + "ProcCode.txt") And File(m.lcFile + "Code.txt")
-		            Replace;
-		             In (Thisform.cSearchResultsAlias);
-		             ProcCode   With Filetostr(m.lcFile + "ProcCode.txt"),;
-		             Code       With Filetostr(m.lcFile + "Code.txt"),;
-		             lMemLoaded With .T.
+		If m.lcID # Thisform.cCurrentId Or m.tlForce
 		
-				Endif &&File(m.lcFile + "ProcCode.txt") AND File(m.lcFile + "Code.txt")
-			Endif &&!Evaluate(Thisform.cSearchResultsAlias + ".lMemLoaded")
+			lnSelect = Select()
+			lcAlias	 = Thisform.cSearchResultsAlias
+			Select (m.lcAlias)
 		
+			lcFile	= Addbs(Thisform.cCR_StoreLocal + Thisform.cSavedSearchResultsFolder) + m.lcUni_File
+		
+			If Empty(Code) And File(m.lcFile + 'Code.txt')
+				Replace	Code With Filetostr(m.lcFile + 'Code.txt')
+			Endif
+		
+			*!* ******** JRN Removed 2024-02-24 ********
+			*!* Not needed, as ProcCode can be derived from Code
+			*!* If Empty(&lcAlias..ProcCode) And File(m.lcFile + 'ProcCode.txt')
+			*!* 	Replace	ProcCode With Filetostr(m.lcFile + 'ProcCode.txt') In (m.lcAlias)
+			*!* Endif
+		
+			Do Case
+				Case Empty(Field('ProcCode'))
+		
+				Case Not Empty(ProcCode)
+		
+				Case ProcStart > 0
+					Replace ProcCode With Substr(Code, ProcStart, 1 + ProcEnd - ProcStart)
+		
+				Otherwise
+					Replace ProcCode With Code
+		
+			Endcase
+		
+			Select(m.lnSelect)
 			Thisform.LoadReplaceLine()
 			Thisform.Refresh()
 			Thisform.ShowHtmlCodeView()
 		Endif
 		
-		Thisform.cCurrentId = m.lcId
+		Thisform.cCurrentId = m.lcID
 		
 	ENDPROC
 
@@ -10199,7 +10295,12 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 	ENDPROC
 
 	PROCEDURE containerLeft.cntVersion.Gf_versionlabel3.Click
-		GF_Shell('https://github.com/VFPX/GoFish/blob/master/docs/ChangeLog.md')
+		If Atc('Beta', _Screen._GoFish.cVersion) # 0
+			GF_Shell('https://github.com/VFPX/GoFish/blob/master/docs/ChangeLogBeta.md')
+		Else
+			GF_Shell('https://github.com/VFPX/GoFish/blob/master/docs/ChangeLog.md')
+		EndIf
+		
 	ENDPROC
 
 	PROCEDURE containerLeft.cntVersion.Gf_versionlabel3.Refresh

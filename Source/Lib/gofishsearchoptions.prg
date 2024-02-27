@@ -141,6 +141,9 @@ Define Class GoFishSearchOptions As Custom
 	* Indicates where the projects/folders in the scope dropdown are to be sorted.
 	lSortScopeDropdown			           = .F.
 
+	*** JRN 2024-02-14 : Used if wild cards use whole word search
+	cWholeWordSearch = ''
+
 	*---------------------------------------------------------------------
 
 	Procedure lRegularExpression_Access

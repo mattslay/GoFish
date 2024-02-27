@@ -563,16 +563,16 @@ Define Class GoFishSearchEngine As Custom
 			lcSourceFile    As String,;
 			lcThisBackupFolder As String,;
 			llCopyError     As Boolean,;
-			lnI             As Number
+			lnI             As Number,;
+			lcBACKUPFOLDER
 
 		Local Array;
 			laExtensions(1)
+			
 
-*:Global;
-ccBACKUPFOLDER
 
 *		ccBACKUPFOLDER = Addbs(This.cCR_StoreLocal + 'GoFishBackups')
-		ccBACKUPFOLDER = Addbs(This.cCR_StoreLocal + 'GF_ReplaceBackups')
+		lcBACKUPFOLDER = Addbs(This.cCR_StoreLocal + 'GF_ReplaceBackups')
 */SF 20230131 -> issue #41
 */SF 20221018 -> local storage
 
@@ -591,14 +591,14 @@ ccBACKUPFOLDER
 			Return
 		Endif
 
-		If Not Directory (ccBACKUPFOLDER) && Create main folder for backups, if necessary
-			Mkdir (ccBACKUPFOLDER)
-			GF_Write_Readme_Text(4, Addbs(m.ccBACKUPFOLDER) + 'README.md', .T.)
+		If Not Directory (lcBACKUPFOLDER) && Create main folder for backups, if necessary
+			Mkdir (lcBACKUPFOLDER)
+			GF_Write_Readme_Text(4, Addbs(m.lcBACKUPFOLDER) + 'README.md', .T.)
 
 		Endif
 
 * Create folder for this ReplaceHistorrID, if necessary
-		lcThisBackupFolder = Addbs (ccBACKUPFOLDER + Transform (m.tnReplaceHistoryId))
+		lcThisBackupFolder = Addbs (lcBACKUPFOLDER + Transform (m.tnReplaceHistoryId))
 
 		If Not Directory (m.lcThisBackupFolder)
 			Mkdir (m.lcThisBackupFolder)
@@ -2001,8 +2001,8 @@ Result
 				*** JRN 2024-02-17 : whole word match
 				Case This.oSearchOptions.lMatchWholeWord
 					lcColorizedCode = m.tcMatchLine
-					For lnI = 1 To Getwordcount(This.cWholeWordSearch, '.*')
-						lcSearch = Getwordnum(This.cWholeWordSearch, m.lnI, '.*')
+					For lnI = 1 To Getwordcount(This.oSearchOptions.cWholeWordSearch, '.*')
+						lcSearch = Getwordnum(This.oSearchOptions.cWholeWordSearch, m.lnI, '.*')
 						If Not Empty(m.lcSearch)
 							lcColorizedCode = This.RegExReplace(m.lcColorizedCode, m.lcSearch, lcReplaceExpression, .T.)
 						Endif
@@ -2061,21 +2061,22 @@ Result
 *!* 	lcHtmlBody = This.HighlightProcFilter(lcHtmlBody, tcSearch, lcMatchWordPrefix, lcMatchWordSuffix)
 *!* Endif
 
-			If 'C' = Vartype(m.tcStatementFilter) And Not Empty(m.tcStatementFilter)
-*for statement
-				lcHtmlBody = This.HighlightStatementFilter(m.lcHtmlBody, m.tcStatementFilter, m.lcStateFilterPrefix, m.lcStateFilterSuffix,;
-					M.lcMatchLinePrefix, m.lcMatchLineSuffix)
-*for replace (if)
-*				If !Empty(m.tcReplaceLine) THEN
-*						lcHtmlBody = This.HighlightStatementFilter(lcHtmlBody, tcStatementFilter, lcStateFilterPrefix, lcStateFilterSuffix,;
-m.lcReplaceLinePrefix, m.lcReplaceLineSuffix)
-*				ENDIF &&!Empty(m.tcReplaceLine)
-			Endif
+			*!* ******** JRN Removed 2024-02-24 ******** Buggy, may be re-investigated at a later time
+			*!* If 'C' = Vartype(m.tcStatementFilter) And Not Empty(m.tcStatementFilter)
+*!* *for statement
+			*!* 	lcHtmlBody = This.HighlightStatementFilter(m.lcHtmlBody, m.tcStatementFilter, m.lcStateFilterPrefix, m.lcStateFilterSuffix,;
+			*!* 		M.lcMatchLinePrefix, m.lcMatchLineSuffix)
+*!* *for replace (if)
+*!* *				If !Empty(m.tcReplaceLine) THEN
+*!* *						lcHtmlBody = This.HighlightStatementFilter(lcHtmlBody, tcStatementFilter, lcStateFilterPrefix, lcStateFilterSuffix,;
+*!* m.lcReplaceLinePrefix, m.lcReplaceLineSuffix)
+*!* *				ENDIF &&!Empty(m.tcReplaceLine)
+			*!* Endif
 
-			If 'C' = Vartype(m.tcProcFilter) And Not Empty(m.tcProcFilter)
-*for proc
-				lcHtmlBody = This.HighlightProcFilter(m.lcHtmlBody, m.tcProcFilter, m.lcProcFilterPrefix, m.lcProcFilterSuffix)
-			Endif
+			*!* If 'C' = Vartype(m.tcProcFilter) And Not Empty(m.tcProcFilter)
+*!* *for proc
+			*!* 	lcHtmlBody = This.HighlightProcFilter(m.lcHtmlBody, m.tcProcFilter, m.lcProcFilterPrefix, m.lcProcFilterSuffix)
+			*!* Endif
 
 			If Not Empty(m.tnTabsToSpaces)
 				lcHtmlBody = Strtran(m.lcHtmlBody, Chr[9], Space(m.tnTabsToSpaces))
@@ -2670,7 +2671,7 @@ m.lcReplaceLinePrefix, m.lcReplaceLineSuffix)
 		loRegExp.IgnoreCase       = .T.
 		loRegExp.MultiLine        = .T.
 		loRegExp.ReturnFoxObjects = .T.
-		loRegExp.AutoExpandGroups = .T.
+*		loRegExp.AutoExpandGroups = .T.
 		loRegExp.Singleline       = .T.
 		loRegExp.Pattern          = loRegExp.Escape(m.tcMatchLinePrefix) + "(.*)" + loRegExp.Escape(m.tcMatchLineSuffix)
 		loMatch                   = loRegExp.Match(m.tcCode)
@@ -2752,7 +2753,7 @@ m.lcReplaceLinePrefix, m.lcReplaceLineSuffix)
 		loRegExp.IgnoreCase       = .T.
 		loRegExp.MultiLine        = .T.
 		loRegExp.ReturnFoxObjects = .T.
-		loRegExp.AutoExpandGroups = .T.
+*		loRegExp.AutoExpandGroups = .T.
 		loRegExp.Pattern          = "\<[^\>]*?(?:" + m.lcPattern + ")+?.*?\>|(" + m.lcPattern + ")"
 		loMatches                 = loRegExp.Matches(m.tcCode)
 *		_cliptext = loRegExp.Show_Unwind(m.loMatches)
@@ -3435,7 +3436,7 @@ x
 		If This.IsWildCardStatementSearch()
 			*** JRN 2024-02-14 : for wild card searches, only search for up to the first *
 			If This.oSearchOptions.lMatchWholeWord
-				This.cWholeWordSearch = This.PrepareForWholeWordSearch(m.lcSearchExpression)
+				This.oSearchOptions.cWholeWordSearch = This.PrepareForWholeWordSearch(m.lcSearchExpression)
 			Endif
 			lcSearchExpression		= Left(m.lcSearchExpression, Atc('*', m.lcSearchExpression) - 1)
 		Endif
@@ -3626,18 +3627,25 @@ x
 			loMatches As Object,;
 			loRegEx As Object
 
-		This.PrepareRegExForSearch()
-		This.PrepareRegExForReplace()
+		*** JRN 2024-02-23 : There are some conditions where the RegEx fails, presumably
+		*   because there are reserved characters in the search.
+		*	Since code is merely to "pretty things up", no harm in just exiting
+		Try 
+			This.PrepareRegExForSearch()
+			This.PrepareRegExForReplace()
 
-		loRegEx = This.oRegExForSearch
+			loRegEx = This.oRegExForSearch
 
-		If !Empty(m.lcRegEx)
-			loRegEx.Pattern = m.lcRegEx
-		Endif
+			If !Empty(m.lcRegEx)
+				loRegEx.Pattern = m.lcRegEx
+			Endif
 
-		loMatches = loRegEx.Execute(m.lcSource)
+			loMatches = loRegEx.Execute(m.lcSource)
 
-		lnCount = m.loMatches.Count
+			lnCount = m.loMatches.Count
+		Catch to loException
+			m.lnCount = 0
+		EndTry
 
 		If m.lnCount = 0
 			Return m.lcSource
@@ -4380,7 +4388,7 @@ x
 						Case This.oSearchOptions.lMatchWholeWord
 							loRegEx			= This.oRegExForSearchInCode
 							lcOldPattern	= m.loRegEx.Pattern
-							loRegEx.Pattern	= This.cWholeWordSearch
+							loRegEx.Pattern	= This.oSearchOptions.cWholeWordSearch
 							loMatches		= m.loRegEx.Execute(Chrtran(m.lcStatement, CR + LF + Tab, '   '))
 							loRegEx.Pattern	= m.lcOldPattern
 					
