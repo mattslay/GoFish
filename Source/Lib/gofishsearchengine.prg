@@ -2556,7 +2556,7 @@ Result
 			lcPattern As String,;
 			loRegExp As 'VBScript.RegExp'
 
-		loRegExp = Createobject('VBScript.RegExp')
+		loRegExp = GF_GetRegExp()
 
 		With m.loRegExp
 			.IgnoreCase = .T.
@@ -2583,16 +2583,15 @@ Result
 
 *----------------------------------------------------------------------------------
 	Procedure GetRegExForSearch
-
-		Local;
-			loRegEx As 'VBScript.RegExp'
-
-		loRegEx = Createobject ('VBScript.RegExp')
-
+	
+		Local loRegEx As 'VBScript.RegExp'
+	
+		loRegEx = GF_GetRegExp()
+	
 		Return m.loRegEx
-
+	
 	Endproc
-
+	
 
 *----------------------------------------------------------------------------------
 	Procedure GetReplaceResultObject
@@ -2666,7 +2665,7 @@ Result
 			loMatch As Object,;
 			loRegExp As Object
 
-		loRegExp = SF_RegExp()
+		loRegExp = GF_GetRegExp()
 
 		loRegExp.IgnoreCase       = .T.
 		loRegExp.MultiLine        = .T.
@@ -2731,7 +2730,7 @@ Result
 		lnFilterCount = Alines(laValues, m.lcValue, 0, OR_DELIMITER, AND_DELIMITER)
 		lcCode        = m.tcCode
 
-		loRegExp = SF_RegExp()
+		loRegExp = GF_GetRegExp()
 		If m.lnFilterCount = 1 Then
 			lcPattern = "|" + loRegExp.Escape(m.lcValue)
 
@@ -4591,6 +4590,97 @@ x
 
 
 *----------------------------------------------------------------------------------
+	Procedure SearchInOpenProjects(tcProject, ttTime, tcUni)
+	
+		Local lcFile As String
+		Local lcProjectAlias As String
+		Local lcProjectPath As String
+		Local lnReturn As Number
+		Local lnSelect As Number
+		Local lnX As Number
+		Local laProjectFiles[1], lcProject, lnI
+	
+		lnSelect	  = Select()
+		This.tRunTime = Evl(m.ttTime, Datetime())
+		This.cUni	  = Evl(m.tcUni, '_' + Sys(2007, Ttoc(This.tRunTime), 0, 1))
+	
+		Create Cursor ProjectFiles (FileName C(200), Type C(1))
+	
+		For lnI = 1 To _vfp.Projects.Count
+			lcProject = _vfp.Projects[m.lnI].Name
+	
+			lcProjectPath  = Addbs(Justpath(Alltrim(m.lcProject)))
+			lcProjectAlias = 'GF_ProjectSearch'
+	
+			This.oSearchOptions.cProject = m.lcProject
+	
+			Use (m.lcProject) Again Shared Alias (m.lcProjectAlias) In 0
+	
+			Insert Into ProjectFiles													;
+				Select  Name,															;
+						Type															;
+					From (m.lcProjectAlias)												;
+					Where Type $ 'EHKMPRVBdTxD' And										;
+						Not Deleted()													;
+						And Not (Upper(Justext(Name)) $ This.cGraphicsExtensions)		;
+					Order By Type
+	
+			Use In Alias (m.lcProjectAlias)
+	
+		Endfor
+	
+		Select Distinct * From ProjectFiles Order By Type Into Array laProjectFiles
+	
+		If Type('laProjectFiles') = 'L'
+			This.SearchFinished(m.lnSelect)
+			Return 1
+		Endif
+	
+		This.PrepareForSearch()
+		This.StartTimer()
+		This.StartProgressBar(Alen(m.laProjectFiles) / 2.0)
+	
+		*** Uncomment this code to track the execution time for the result
+		*!*			LOCAL nSeconds
+		*!*			nSeconds = SECONDS()
+	
+		For lnX = 1 To Alen(m.laProjectFiles) Step 2
+	
+			lcFile = m.laProjectFiles(m.lnX)
+			lcFile = Fullpath(m.lcFile, m.lcProjectPath)
+			lcFile = Strtran(m.lcFile, Chr(0), '') && Strip out junk char from the end
+	
+			If This.oSearchOptions.lLimitToProjectFolder
+				If Not (Upper(m.lcProjectPath) $ Upper(Addbs(Justpath(m.lcFile))))
+					Loop
+				Endif
+			Endif
+	
+			lnReturn = This.SearchInFile(m.lcFile)
+	
+			This.UpdateProgressBar(This.nFilesProcessed)
+	
+			If (m.lnReturn < 0) Or This.lEscPress Or This.nMatchLines >= This.oSearchOptions.nMaxResults
+				Exit
+			Endif
+	
+		Endfor
+	
+		*** Uncomment this code to show used execution time for the result
+		*!*			MESSAGEBOX(ALLTRIM(STR((SECONDS()-nSeconds)*1000)) + " ms")
+	
+		This.SearchFinished(m.lnSelect)
+	
+		If m.lnReturn >= 0
+			Return 1
+		Else
+			Return m.lnReturn
+		Endif
+	
+	Endproc
+		
+
+*----------------------------------------------------------------------------------
 	Procedure SearchInPath(tcPath, ttTime, tcUni)
 
 		Local;
@@ -5287,7 +5377,7 @@ ii
 
 		If !Empty(This.oSearchOptions.cFileTemplate) Then
 			If Isnull(This.oSearchOptions.oRegExpFileTemplate) Then
-				loRegExp = SF_RegExp()
+				loRegExp = GF_GetRegExp()
 				loRegExp.IgnoreCase       = .T.
 				loRegExp.MultiLine        = .T.
 				loRegExp.ReturnFoxObjects = .T.
