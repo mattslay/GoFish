@@ -425,7 +425,6 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		ogrid = .NULL.
 		otree = .NULL.
 		owebcontrol = .NULL.
-		Picture = ..\..\..\..\programs\9.0\commonapps\
 		ShowTips = .T.
 		TabStop = .T.
 		Top = 0
@@ -711,7 +710,6 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Height = 24, ;
 		Left = 118, ;
 		Name = "comboViewPosition", ;
-		Picture = ..\..\..\..\programs\9.0\commonapps\, ;
 		Style = 2, ;
 		TabIndex = 24, ;
 		TabStop = .F., ;
@@ -853,7 +851,6 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Left = 47, ;
 		Name = "comboSearchExpressionHistory", ;
 		nexpressionstostore = 50, ;
-		Picture = ..\..\..\..\programs\9.0\commonapps\, ;
 		TabIndex = 9, ;
 		TabStop = .F., ;
 		Top = 3, ;
@@ -867,7 +864,6 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Height = 26, ;
 		Left = 446, ;
 		Name = "comboSearchExpressionHistoryDropDownArrow", ;
-		Picture = ..\..\..\..\programs\9.0\commonapps\, ;
 		TabIndex = 3, ;
 		TabStop = .F., ;
 		Top = 14, ;
@@ -882,7 +878,6 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Left = 69, ;
 		Name = "comboSearchScopeHistory", ;
 		nexpressionstostore = 40, ;
-		Picture = ..\..\..\..\programs\9.0\commonapps\, ;
 		SelectOnEntry = .T., ;
 		TabIndex = 5, ;
 		Top = 31, ;
@@ -983,7 +978,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Name = "oTreeView", ;
 		Top = 0, ;
 		Width = 186
-		*< END OBJECT: BaseClass="olecontrol" OLEObject="c:\windows\syswow64\mscomctl.ocx" Value="0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAEAAAAgAAAAEAAAD+////AAAAAAAAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9/////v////7///8EAAAA/v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////1IAbwBvAHQAIABFAG4AdAByAHkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAUA//////////8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACFnE8NadoBAwAAAEACAAAAAAAAAwBPAGwAZQBPAGIAagBlAGMAdABEAGEAdABhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAgEDAAAAAgAAAP////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAagAAAAAAAAADAEEAYwBjAGUAcwBzAE8AYgBqAFMAaQB0AGUARABhAHQAYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgACAP///////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABcAAAAAAAAAAMAQwBoAGEAbgBnAGUAZABQAHIAbwBwAHMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAIA////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAACABAAAAAAAABAAAAAIAAAD+////BQAAAP7///8GAAAABwAAAAgAAAD+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+2kEHHiYXREbFqAMDwKDYoIUM0EggAAAA5EwAABTUAALE8wWoBAAYAIgAAABkAAAARAgAACgAAAAEAAAAB782rXAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACQAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5MzY4MjY1RS04NUZFLTExZDEtOEJFMy0wMDAwRjg3NTREQTEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACADgAAAEhpZGVTZWxlY3Rpb24ABQAAAEwAAAAADAAAAEluZGVudGF0aW9uABEAAABODQAAAAcAAAAAAAAAAAAFAHDVaQkGAAAAAAAAAAUAAIBw5xkAAQAAAFwAH97svQEABQC45xkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANEAKAAAATGluZVN0eWxlAAkAAABJCgAAAAEAAAANAAAATW91c2VQb2ludGVyAAkAAABJCgAAAAAAAAAOAAAAUGF0aFNlcGFyYXRvcgAKAAAASAAAAAABAAAAXAYAAABTdHlsZQAJAAAASQoAAAAGAAAADAAAAE9MRURyYWdNb2RlAAkAAABJCgAAAAAAAAAMAAAAT0xFRHJvcE1vZGUACQAAAEkKAAAAAAAAAA4AAABGdWxsUm93U2VsZWN0AAUAAABMAQAAAAoAAABTaW5nbGVTZWwABQAAAEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+		*< END OBJECT: BaseClass="olecontrol" OLEObject="c:\windows\syswow64\mscomctl.ocx" Value="0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAEAAAAgAAAAEAAAD+////AAAAAAAAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9/////v////7///8EAAAA/v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////1IAbwBvAHQAIABFAG4AdAByAHkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAUA//////////8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGDPBGEoa9oBAwAAAEACAAAAAAAAAwBPAGwAZQBPAGIAagBlAGMAdABEAGEAdABhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAgEDAAAAAgAAAP////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAagAAAAAAAAADAEEAYwBjAGUAcwBzAE8AYgBqAFMAaQB0AGUARABhAHQAYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgACAP///////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABcAAAAAAAAAAMAQwBoAGEAbgBnAGUAZABQAHIAbwBwAHMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAIA////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAACABAAAAAAAABAAAAAIAAAD+////BQAAAP7///8GAAAABwAAAAgAAAD+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+2kEHHiYXREbFqAMDwKDYoIUM0EggAAAA5EwAABTUAALE8wWoBAAYAIgAAABkAAAARAgAACgAAAAEAAAAB782rXAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACQAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5MzY4MjY1RS04NUZFLTExZDEtOEJFMy0wMDAwRjg3NTREQTEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACADgAAAEhpZGVTZWxlY3Rpb24ABQAAAEwAAAAADAAAAEluZGVudGF0aW9uABEAAABODQAAAAcAAAAAAAAAAAAFAGArQAoGAAAAAAAAAAUAAIBw5xkAAQAAAFwAH97svQEABQC45xkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANEAKAAAATGluZVN0eWxlAAkAAABJCgAAAAEAAAANAAAATW91c2VQb2ludGVyAAkAAABJCgAAAAAAAAAOAAAAUGF0aFNlcGFyYXRvcgAKAAAASAAAAAABAAAAXAYAAABTdHlsZQAJAAAASQoAAAAGAAAADAAAAE9MRURyYWdNb2RlAAkAAABJCgAAAAAAAAAMAAAAT0xFRHJvcE1vZGUACQAAAEkKAAAAAAAAAA4AAABGdWxsUm93U2VsZWN0AAUAAABMAQAAAAoAAABTaW5nbGVTZWwABQAAAEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
 
 	ADD OBJECT 'containerRight' AS container WITH ;
 		Anchor = 15, ;
@@ -1691,7 +1686,6 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		FontSize = 8, ;
 		Left = 108, ;
 		Name = "comboViewPosition", ;
-		Picture = ..\..\..\..\programs\9.0\commonapps\, ;
 		Style = 2, ;
 		TabIndex = 24, ;
 		TabStop = .F., ;
@@ -1963,81 +1957,90 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		*< END OBJECT: BaseClass="timer" />
 	
 	PROCEDURE Activate
-		Local lcApp, lcProc, lcScope, lcProcedures
+		Local lcApp, lcProc, lcProcedures, lcScope, lnPrevSearchScope, lnSearchScope
 		
 		*!* ******************** Removed 05/12/2016 *****************
 		*!* *-- This code was added 2012-08-30 to allow GF to work properly with 'IntellisenseX by Dot' from Thor
 		*!* This.cOnKeyLabelDot = On("Key", ".")
 		*!* On Key Label .
-		Thisform.lAutoYield = _VFP.AutoYield
-		_VFP.AutoYield = .T.
+		Thisform.lAutoYield	= _vfp.AutoYield
+		_vfp.AutoYield		= .T.
 		
-		lcApp = ""
+		lcApp = ''
 		
 		Try
 			lcApp = _Screen._GoFish.cAppPath + _Screen._GoFish.cAppName
 		Catch
-			MessageBox("Error: Cannot find _Screen._GoFish object.", 0, "GoFish error:")
+			Messagebox('Error: Cannot find _Screen._GoFish object.', 0, 'GoFish error:')
 		Endtry
 		
 		*-- Need to restore these Procedure files in case the user clears them out outside of this form.
-		If !Empty(lcApp)
-			lcProcedures = Upper(Set("Procedure"))
-			lcProc = "GoFishSearchEngine"
-			If !(Upper(lcProc) $ lcProcedures)
+		If Not Empty(m.lcApp)
+			lcProcedures = Upper(Set('Procedure'))
+			lcProc		 = 'GoFishSearchEngine'
+			If Not (Upper(m.lcProc) $ m.lcProcedures)
 				Try
 					Set Procedure To &lcProc Additive
 				Catch
-					MessageBox("Cannot restore procedure file " + lcProc , 0, "GoFish error:")
-				EndTry
+					Messagebox('Cannot restore procedure file ' + m.lcProc, 0, 'GoFish error:')
+				Endtry
 			Endif
-			
-			lcProc = "GF_PEME_BaseTools"
-			If !(Upper(lcProc) $ lcProcedures)
+		
+			lcProc = 'GF_PEME_BaseTools'
+			If Not (Upper(m.lcProc) $ m.lcProcedures)
 				Try
 					Set Procedure To &lcProc Additive
 				Catch
-					MessageBox("Cannot restore procedure file " + lcProc, 0, "GoFish error:")
-				EndTry
+					Messagebox('Cannot restore procedure file ' + m.lcProc, 0, 'GoFish error:')
+				Endtry
 			Endif
 		Endif
 		
-		ThisForm.UpdateSearchScopeVariables()
+		Thisform.UpdateSearchScopeVariables()
 		
 		lcScope = Thisform.GetCurrentScope()
 		
 		With Thisform.comboSearchScopeHistory
+			lnPrevSearchScope = Thisform.oSearchOptions.nSearchScope
+		
 			.LoadRows()
-			.SaveSearchScope(lcScope)
-			.Value = Lower(lcScope)
+			.SaveSearchScope(m.lcScope)
+			.Value = Lower(m.lcScope)
+		
+			*** JRN 2024-02-28 : Preserving "Active Project", "All Open Projects", "Current Dir"
+			lnSearchScope = Thisform.oSearchOptions.nSearchScope
+			If (Inlist(m.lnPrevSearchScope, 1, 6) And m.lnSearchScope = 2) Or m.lnPrevSearchScope = 3
+				Thisform.oSearchOptions.nSearchScope = m.lnPrevSearchScope
+			Endif
+		
 		Endwith
 		
-		DODEFAULT()
+		DoDefault()
 		
 		Set Safety Off
 		
-		If Thisform.lCR_Allowed And Thisform.lCR_SearchComboPerScope Then
+		If Thisform.lCR_AllowEd And Thisform.lCR_SearchComboPerScope Then
 			Thisform.comboSearchExpressionHistory.LoadRows
 		Endif &&Thisform.lCR_Allowed And Thisform.lCR_StorePerScope
 		Thisform.comboSearchExpressionHistory.Requery()
 		
 		
 		*--- Update UDF info on Advanced Replace stuff ------------------
-		If !Empty(Thisform.cReplaceUDFFilename) and File(Thisform.cReplaceUDFFilename)
-			Thisform.oSearchEngine.cReplaceUDFCode = FileToStr(Thisform.cReplaceUDFFilename)
+		If Not Empty(Thisform.cReplaceUDFFilename) And File(Thisform.cReplaceUDFFilename)
+			Thisform.oSearchEngine.cReplaceUDFCode = Filetostr(Thisform.cReplaceUDFFilename)
 		Else
-			Thisform.cReplaceUDFFilename = ""
-			Thisform.oSearchEngine.cReplaceUDFCode = ""
+			Thisform.cReplaceUDFFilename		   = ''
+			Thisform.oSearchEngine.cReplaceUDFCode = ''
 		Endif
 		
 		If Thisform.nReplaceMode = 4 && Update the Replace lines, in case the UDF has been modified.
-			Thisform.DoReplace(.t.)
+			Thisform.doreplace(.T.)
 		Endif
 		
 		Thisform.Refresh()
 		
-		 
-		  
+		
+		
 	ENDPROC
 
 	PROCEDURE addclassestotreeview
@@ -2541,11 +2544,11 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 			llDeepSearch As Boolean,;
 			lnSelect  As Number
 		
-		If m.tlIgnoreScope OR This.lCR_HistoryPerScope Then
+		If m.tlIgnoreScope OR ! This.lCR_HistoryPerScope Then
 			lcScope = ""
-		Else  &&m.tlIgnoreScope OR This.lCR_HistoryPerScope
+		Else  &&m.tlIgnoreScope OR !This.lCR_HistoryPerScope
 			lcScope = Lower(Thisform.GetCurrentScope())
-		Endif &&m.tlIgnoreScope OR This.lCR_HistoryPerScope
+		Endif &&m.tlIgnoreScope OR ! This.lCR_HistoryPerScope
 		
 		lnSelect = Select()
 		This.SaveDBC_Open()
@@ -2842,9 +2845,12 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 			Case Used("curFiles")
 		*special range per Janitor or scope
 		*will un if replace reocrds are deleted (not hidden)
-				Select curFiles
+				Select  Distinct Padr(Left(cUni_File, At('_', cUni_File, 2)), 15) as cUni_File	;
+					From curfiles															;
+					Into Cursor crsr_Unis
+						
 				Scan
-					lcFile = Addbs(Thisform.cCR_StoreLocal + Thisform.cSavedSearchResultsFolder) + Trim(cUni_File) +"_*.*"
+					lcFile = Addbs(Thisform.cCR_StoreLocal + Thisform.cSavedSearchResultsFolder) + Trim(cUni_File) +"*.*"
 					Delete File (m.lcFile)
 				Endscan &&All
 		
@@ -3097,7 +3103,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		*SF 20221016 added colour options
 		*	Thisform.PopulateTreeview(, lcMessage , 32768)
 		
-				Thisform.PopulateTreeview(, m.lcMessage , m.lcMessage , Thisform.nTreeSearchColour)
+			Thisform.PopulateTreeview(, m.lcMessage , m.lcMessage , Thisform.nTreeSearchColour)
 		*/ SF 20221016 added colour options
 			Endif &&m.llUpdate
 		
@@ -3106,12 +3112,22 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 			loSearchEngine.oProgressBar = Thisform.ProgressBar
 			loSearchEngine.PrepareForSearch() && Blank out settings from last search so I can refresh the UI with blank value
 		
-			If ".PJX" $ Upper(lcScope)
-				lnReturn = loSearchEngine.SearchInProject(lcScope, m.ttTime, m.tcUni)
-			Else
-		*loSearchOptions.lIncludeSubDirectories = Thisform.chkSubdirectories.Value
-				lnReturn = loSearchEngine.SearchInPath(lcScope, m.ttTime, m.tcUni)
-			EndIf
+			Do Case
+				Case Thisform.oSearchOptions.nSearchScope = 6 and _VFP.Projects.Count >= 1
+					lnReturn = loSearchEngine.SearchInOpenProjects(lcScope, m.ttTime, m.tcUni)
+					
+				Case Thisform.oSearchOptions.nSearchScope = 1 and _VFP.Projects.Count >=1
+					lnReturn = loSearchEngine.SearchInProject(_vfp.ActiveProject.Name , m.ttTime, m.tcUni)
+					
+				Case ".PJX" $ Upper(lcScope)
+					lnReturn = loSearchEngine.SearchInProject(lcScope, m.ttTime, m.tcUni)
+					
+				Case ".PJX" $ Upper(lcScope)
+					lnReturn = loSearchEngine.SearchInProject(lcScope, m.ttTime, m.tcUni)
+					
+				Otherwise 
+					lnReturn = loSearchEngine.SearchInPath(lcScope, m.ttTime, m.tcUni)
+			Endcase
 			
 			If lnReturn <= 0 And Thisform.oSearchEngine.oSearchErrors.Count > 0
 				Messagebox(Thisform.oSearchEngine.oSearchErrors[Thisform.oSearchEngine.oSearchErrors.count], 16, "GoFish - Search error:")
@@ -4111,37 +4127,46 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 	PROCEDURE getcurrentscope		&& Will return the Active Project, Browsed Project, Current Dir, or Browsed Dir depending on current setting of nSearchScope (Values: 1 through 4)
 		Local lcScope, lnScope
 		
-		*0=Not set, 1=Active Project, 2=Browse Project, 3=Current Dir, 4=Browse Directory, 5=A Selection from the Scope combo
+		*   0 = Not set
+		*	1 = Active Project
+		*	2 = Browse Project
+		*	3 = Current Dir
+		*	4 = Browse Directory
+		*	5 = A Selection from the Scope combo
+		*	6 = All open projects
 		
-		lnScope = Thisform.oSearchEngine.oSearchOptions.nSearchScope
+		lnScope = Thisform.oSearchOptions.nSearchScope
 		
 		Do Case
 		
-			Case lnScope = 1 && Active Project
+			Case m.lnScope = 1 && Active Project
 				lcScope = Thisform.cActiveProject
 		
-			Case lnScope = 2 && Browsed Project
-				lcScope = This.oSearchEngine.oSearchOptions.cProject	
+			Case m.lnScope = 6 && All Open Projects
+				lcScope = Thisform.cActiveProject
 		
-			Case lnScope = 3 && Current Directory
-				lcScope = Thisform.cCurrentDir 	
-			
-			Case lnScope = 4  && Browsed Directory
-				lcScope = This.oSearchEngine.oSearchOptions.cPath
+			Case m.lnScope = 2 && Browsed Project
+				lcScope = This.oSearchOptions.cProject
 		
-			Case lnScope = 0 or lnScope = 5
+			Case m.lnScope = 3 && Current Directory
+				lcScope = Thisform.cCurrentDir
+		
+			Case m.lnScope = 4  && Browsed Directory
+				lcScope = This.oSearchOptions.cPath
+		
+			Case m.lnScope = 0 Or m.lnScope = 5
 				lcScope = Alltrim(Thisform.comboSearchScopeHistory.Text)
-				
-				If Empty(lcScope)
+		
+				If Empty(m.lcScope)
 					lcScope = Thisform.cCurrentDir
 				Endif
-				
-		EndCase
 		
-		lcScope = Alltrim(lcScope)
-		lcScope = Rtrim(lcScope, "\")
+		Endcase
 		
-		Return lcScope
+		lcScope	= Alltrim(m.lcScope)
+		lcScope	= Rtrim(m.lcScope, '\')
+		
+		Return m.lcScope
 	ENDPROC
 
 	PROCEDURE getcustomcss
@@ -4939,6 +4964,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		*This.cUISettingsFile = m.lcFile
 		
 		Thisform.cfilteroptionsxmlfile = Thisform.cCR_StoreLocal + Thisform.cfilteroptionsxmlfile
+		
 		
 		*/ SF 20221017
 		
@@ -7354,26 +7380,31 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 	ENDPROC
 
 	PROCEDURE runjanitor
-		Wait "GF Janitor" Window At 20, 30 Nowait
+		Local ldCutOff As Date
+		Local lcDeleted
 		
-		Local;
-			ldCutOff As Date
+		Wait 'GF Janitor' Window At 20, 30 Nowait
+		
+		lcDeleted = Set('Deleted')
+		Set Deleted Off
 		
 		*replace history
 		ldCutOff = Date() - Thisform.nJanitorReplaceHistoryDays
 		
 		Thisform.SaveDBC_Open()
 		
-		This.DeleteSearchResults(.Null., m.ldCutOff , .F., .T., .F., .F.)
+		This.DeleteSearchResults(.Null., m.ldCutOff, .F., .T., .F., .F.)
 		
 		*search history
 		ldCutOff = Date() - Thisform.nJanitorSearchHistoryDays
 		
-		This.DeleteSearchResults(.Null., m.ldCutOff , .F., .F., .F., .F.)
+		This.DeleteSearchResults(.Null., m.ldCutOff, .F., .F., .F., .F.)
 		
 		Thisform.SaveDBC_Close()
 		
 		This.Check2GBLimit()
+		
+		Set Deleted &lcDeleted
 		
 		Return
 		
@@ -8706,12 +8737,12 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 
 	PROCEDURE showhtmlcodeview
 		Local lcCode, lcCss, lcCssFile, lcCursor, lcExt, lcHTML, lcHtmlFile, lcJavaScript, lcJavaScriptFile
-		Local lcMatchLine, lcReplaceLine, lcStatement, lnMatchStart, lnStatementStart, loSearchEngine
-		Local loWebControl
+		Local lcMatchLine, lcReplaceLine, lcSearch, lcStatement, lnMatchStart, lnStatementStart
+		Local loSearchEngine, loWebControl
 		
 		lcCursor	   = Thisform.cSearchResultsAlias
 		loSearchEngine = Thisform.oSearchEngine
-		loWebControl   = Thisform.Containerright.Container2.containerWebControl
+		loWebControl   = Thisform.Containerright.Container2.ContainerWebControl
 		
 		*-- These file types cannot be rendered ------------------
 		lcExt = Alltrim(Upper(&lcCursor..FileType))
@@ -8725,10 +8756,11 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		lnMatchStart  = &lcCursor..MatchStart - &lcCursor..ProcStart
 		lcMatchLine	  = &lcCursor..MatchLine
 		lcReplaceLine = &lcCursor..ReplaceLine
+		lcSearch	  = &lcCursor..Search
 		
 		*** JRN 2024-02-05 : Colors for 'Code View':  Match user's colors for normal code windows (Experimental)
 		lcCss = This.GetCustomCss()
-		If Empty(m.lcCss) or Thisform.lIDEColorsInCodeView = .F.
+		If Empty(m.lcCss) Or Thisform.lIDEColorsInCodeView = .F.
 			lcCssFile	 = Home(7) + 'GoFish_\GoFish_.css'
 			If Not File(m.lcCssFile)
 				* The default file (path does not matter when part of the APP)
@@ -8741,18 +8773,18 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		lcJavaScript	 = Iif(File(m.lcJavaScriptFile), Filetostr(m.lcJavaScriptFile), '')
 		
 		Do Case
-			*** JRN 2024-02-17 : If too large, no special coloring for HTML at all
+				*** JRN 2024-02-17 : If too large, no special coloring for HTML at all
 			Case Len(m.lcCode) > Thisform.nMaxSizeToRenderHtml
 				lcHTML = '<pre>' + m.lcCode + '</pre>'
-			
-			*** JRN 2024-02-17 : In replace mode, show old style (match line)
-			Case Thisform.lReplaceViewMode or Thisform.lCodeViewSingleLine
+		
+				*** JRN 2024-02-17 : In replace mode, show old style (match line)
+			Case Thisform.lReplaceViewMode Or Thisform.lcodeviewsingleline
 				lcHTML = m.loSearchEngine.GenerateHTMLCode(m.lcCode, m.lcMatchLine, m.lnMatchStart, m.lcCss, m.lcJavaScript, m.lcReplaceLine, &lcCursor..Replaced, Thisform.nTabsToSpaces, ;
-					  thisform.oSearchEngine.oSearchOptions.cSearchExpression,							;
+					  Thisform.oSearchEngine.oSearchOptions.cSearchExpression,							;
 					  Alltrim(Iif(This.lApplyFilter, This.oFilter.Statement_Filter, '')),				;
 					  Alltrim(Iif(This.lApplyFilter, This.oFilter.ProcCode_Filter, '')))
-					  
-			*** JRN 2024-02-17 : All other modes, highlight all matches in current statement
+		
+				*** JRN 2024-02-17 : All other modes, highlight all matches in current statement
 			Otherwise
 				lnStatementStart = &lcCursor..StatementStart - 1
 				lcStatement		 = &lcCursor..Statement
@@ -10254,7 +10286,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 			This.AddItem(m.lcValue)
 		Endif
 		
-		This.Value = m.lcValue
+		This.Value = Alltrim(This.Value)
 		This.Valid()
 		This.InteractiveChange()
 		

@@ -251,96 +251,118 @@ Define Class gf_peme_basetools As Custom
 
 	*----------------------------------------------------------------------------------
 	Procedure EditSourceX(tcFileName, tcClass, tnStartRange, tnEndRange, tcMethod, tnRecno)
-
-		Local lcClass, lcCursor, lcExt, lcFileName, lcMethod, lnEndRange, lnStartRange, loException, loTools, lnSuccess
-
-		lcExt = Upper(Justext(tcFileName))
-
+	
+		Local lcClass, lcExt, lcFileName, lcMethod, llEdited, lnDataSession, lnEndRange, lnStartRange
+		Local lnSuccess, loException, loPE, loTools
+	
+		lcExt = Upper(Justext(m.tcFileName))
+	
 		*** From JRN 11/21/2011 : Use EditSourceX from IDE Tools, if available,
 		*** which provides for source control and maintains MRU lists
-		If Type('_Screen.cThorDispatcher') = 'C' and (lcExt <> 'DBF')
-			loTools = Execscript(_Screen.cThorDispatcher, "Class= tools from pemeditor")
-			If Not IsNull(loTools)
-				loTools.EditSourceX(tcFileName, tcClass, tcMethod, tnStartRange, tnEndRange)
+		If Type('_Screen.cThorDispatcher') = 'C' And (m.lcExt # 'DBF')
+			loTools = Execscript(_Screen.cThorDispatcher, 'Class= tools from pemeditor')
+			If Not Isnull(m.loTools)
+				m.loTools.EditSourceX(m.tcFileName, m.tcClass, m.tcMethod, m.tnStartRange, m.tnEndRange)
 				Return
 			Endif
-		EndIf
-
+		Endif
+	
 		*-- If Thor Tool above was not available, then we will handle it locally...
 		*-- Note: This means we will not get CheckOutSCC support, since that requires Thor/Peme from above.
-		lcFileName 		= This.DiskFileName(Trim(tcFileName))
-		lcClass	   		= Trim(Evl(tcClass, ''))
-		lnStartRange	= Evl(tnStartRange, 1)
-		lnEndRange		= Evl(tnEndRange, 1)
-		lcMethod 		= Evl(tcMethod, '')
-
-		This.AddMRUFile(lcFileName, lcClass)
-
+		lcFileName	 = This.DiskFileName(Trim(m.tcFileName))
+		lcClass		 = Trim(Evl(m.tcClass, ''))
+		lnStartRange = Evl(m.tnStartRange, 1)
+		lnEndRange	 = Evl(m.tnEndRange, 1)
+		lcMethod	 = Evl(m.tcMethod, '')
+	
+		This.AddMRUFile(m.lcFileName, m.lcClass)
+	
 		Try
 			Do Case
-				Case lcExt = 'PJX'
-					Modify Project(lcFileName) Nowait
-
-				Case lcExt = 'VCX' And Empty(lcClass)
-					Do(_Browser) With (lcFileName)
-
-				Case lcExt = 'DBC'
-					Modify Database (lcFileName)
-
-				Case lcExt $ ' FRX LBX MNX '
-					Local lnDataSession
+				Case m.lcExt = 'PJX'
+					Modify Project(m.lcFileName) Nowait
+	
+				Case m.lcExt = 'VCX' And Empty(m.lcClass)
+					Do(_Browser) With (m.lcFileName)
+	
+				Case m.lcExt = 'DBC'
+					Modify Database (m.lcFileName)
+	
+				Case m.lcExt $ ' FRX LBX MNX '
 					lnDataSession = Set('Datasession')
 					Set DataSession To 1
-					lnSuccess = EditSource(lcFileName)
-					IF lnSuccess > 0
+	
+					llEdited  = .F.
+					lnSuccess = 0 && oddly, zero on success, else error code
+					*** JRN 2024-02-29 : Per Doug, use Project Explorer to open file if it's around
+					If Type('_screen.oProjectExplorers') = 'O' And _Screen.oProjectExplorers.Count > 0
+						loPE	 = _Screen.oProjectExplorers[1]
+						llEdited = m.loPE.EditFile(m.lcFileName)
+					Endif
+					If Not m.llEdited
+						lnSuccess = Editsource(m.lcFileName)
+					EndIf
+					
+					If m.lnSuccess > 0
 						*** Error handling for wrong object reference call or already/still used files.
-						MESSAGEBOX("There was an error opening the file:" + CHR(13) + ;
-									lcFileName + CHR(13) + CHR(13) + ;
-									"Error-Code: " + ALLTRIM(STR(lnSuccess)) + CHR(13) + ;
-									ICASE(INLIST(lnSuccess,132,705), "File in use. Cannot be opened.", ;
-											lnSuccess=200, "File not opened due to invalid object reference. Verify the presence of cMethodName in the object referenced by the cClassName parameter.", ;
-											lnSuccess=901, "File opened but invalid object reference in cMethodName. Check the reference in the cMethodName parameter. Use a reference such as MyForm.MyList.CLICK.", ;
-											"<Unknown Error Code>"))
-					ENDIF 
+						Messagebox('There was an error opening the file:' + Chr(13) +				;
+							  m.lcFileName + Chr(13) + Chr(13) +									;
+							  'Error-Code: ' + Alltrim(Str(m.lnSuccess)) + Chr(13) +				;
+							  Icase(Inlist(m.lnSuccess, 132, 705), 'File in use. Cannot be opened.', ;
+								m.lnSuccess = 200, 'File not opened due to invalid object reference. Verify the presence of cMethodName in the object referenced by the cClassName parameter.', ;
+								m.lnSuccess = 901, 'File opened but invalid object reference in cMethodName. Check the reference in the cMethodName parameter. Use a reference such as MyForm.MyList.CLICK.', ;
+								'<Unknown Error Code>'))
+					Endif
 					Set DataSession To &lnDataSession
+	
+				Case m.lcExt $ ' VCX SCX '
 
-				Case lcExt $ ' VCX SCX '
-					lnSuccess = Editsource(lcFileName, lnStartRange, lcClass, lcMethod)
-					IF lnSuccess > 0
+					llEdited  = .F.
+					lnSuccess = 0 && oddly, zero on success, else error code
+					*** JRN 2024-02-29 : Per Doug, use Project Explorer to open file if it's around
+					If Type('_screen.oProjectExplorers') = 'O' And _Screen.oProjectExplorers.Count > 0
+						loPE	 = _Screen.oProjectExplorers[1]
+						llEdited = m.loPE.EditFile(m.lcFileName, m.lnStartRange, m.lcClass, m.lcMethod)
+					Endif
+					If Not m.llEdited
+						lnSuccess = Editsource(m.lcFileName, m.lnStartRange, m.lcClass, m.lcMethod)
+					Endif
+
+					If m.lnSuccess > 0
 						*** Error handling for wrong object reference call or already/still used files.
-						MESSAGEBOX("There was an error opening the file:" + CHR(13) + ;
-									lcFileName + CHR(13) + CHR(13) + ;
-									"Error-Code: " + ALLTRIM(STR(lnSuccess)) + CHR(13) + ;
-									ICASE(INLIST(lnSuccess,132,705), "File in use. Cannot be opened.", ;
-											lnSuccess=200, "File not opened due to invalid object reference. Verify the presence of cMethodName in the object referenced by the cClassName parameter.", ;
-											lnSuccess=925, "File opened but invalid object reference in cMethodName. Check the reference in the cMethodName parameter. Use a reference such as MyForm.MyList.CLICK.", ;
-											"<Unknown Error Code>") + CHR(13) + CHR(13) + ;
-									"lnStartRange: " + ALLTRIM(STR(lnStartRange)) + CHR(13) + ;
-									"lcClass : " + lcClass + CHR(13) + ;
-									"lcMethod: " + lcMethod)
-					ENDIF 
-
-				Case lcExt $ 'PRG SPR '
-					Modify Command(lcFileName) Range lnStartRange, lnEndRange Nowait
-
-				Case lcExt $ ' MPR QPR TXT H INI '
-					Modify File(lcFileName) Range lnStartRange, lnEndRange Nowait
-
-				Case lcExt = 'DBF'
-					This.BrowseTable(lcFileName, tnRecno)
-
+						Messagebox('There was an error opening the file:' + Chr(13) +				;
+							  m.lcFileName + Chr(13) + Chr(13) +									;
+							  'Error-Code: ' + Alltrim(Str(m.lnSuccess)) + Chr(13) +				;
+							  Icase(Inlist(m.lnSuccess, 132, 705), 'File in use. Cannot be opened.', ;
+								m.lnSuccess = 200, 'File not opened due to invalid object reference. Verify the presence of cMethodName in the object referenced by the cClassName parameter.', ;
+								m.lnSuccess = 925, 'File opened but invalid object reference in cMethodName. Check the reference in the cMethodName parameter. Use a reference such as MyForm.MyList.CLICK.', ;
+								'<Unknown Error Code>') + Chr(13) + Chr(13) +						;
+							  'lnStartRange: ' + Alltrim(Str(m.lnStartRange)) + Chr(13) +			;
+							  'lcClass : ' + m.lcClass + Chr(13) +									;
+							  'lcMethod: ' + m.lcMethod)
+					Endif
+	
+				Case m.lcExt $ 'PRG SPR '
+					Modify Command(m.lcFileName) Range m.lnStartRange, m.lnEndRange Nowait
+	
+				Case m.lcExt $ ' MPR QPR TXT H INI '
+					Modify File(m.lcFileName) Range m.lnStartRange, m.lnEndRange Nowait
+	
+				Case m.lcExt = 'DBF'
+					This.BrowseTable(m.lcFileName, m.tnRecno)
+	
 				Otherwise
-					This.OpenURL(lcFileName) && Throw it off to the OS to handle opening the file.
-
+					This.OpenURL(m.lcFileName) && Throw it off to the OS to handle opening the file.
+	
 			Endcase
-
-		Catch To loException
-
-			This.ShowErrorMsg(loException)
-
+	
+		Catch To m.loException
+	
+			This.ShowErrorMsg(m.loException)
+	
 		Endtry
-	EndProc
-
+	Endproc
+	
 
 	*----------------------------------------------------------------------------------
 	Procedure GetControlCount(loObject)

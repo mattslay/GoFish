@@ -16,6 +16,7 @@ DEFINE CLASS gf_combosearchscope AS combobox
 		*m: savesearchscope
 		*m: updateimageicon
 		*p: ctable
+		*p: lhasfocus
 		*p: nexpressionstostore
 		*p: nmaxmru
 		*p: _memberdata		&& XML Metadata for customizable properties
@@ -25,6 +26,7 @@ DEFINE CLASS gf_combosearchscope AS combobox
 		Anchor = 10
 		ctable = 
 		Height = 24
+		lhasfocus = .F.
 		Name = "gf_combosearchscope"
 		nexpressionstostore = 15
 		nmaxmru = 7
@@ -39,6 +41,8 @@ DEFINE CLASS gf_combosearchscope AS combobox
 			<memberdata name="addrow" display="AddRow"/>
 			<memberdata name="updateimageicon" display="UpdateImageIcon"/>
 			<memberdata name="nmaxmru" display="nMaxMRU"/>
+			<memberdata name="text" display="Text"/>
+			<memberdata name="lhasfocus" display="lHasFocus"/>
 		</VFPData>
 	*</PropValue>
 	
@@ -71,6 +75,8 @@ DEFINE CLASS gf_combosearchscope AS combobox
 
 	PROCEDURE GotFocus
 		This.Tag = This.value
+		This.lHasFocus = .T.
+		
 	ENDPROC
 
 	PROCEDURE Init
@@ -134,7 +140,8 @@ DEFINE CLASS gf_combosearchscope AS combobox
 		
 		This.AddRow('\ -- Projects -------------------------')
 		If Type('_vfp.ActiveProject') = 'O'
-			This.AddRow('<< Active Project >>')
+			This.AddRow(SCOPEACTIVEPROJECT)
+			This.AddRow(SCOPEALLOPENPROJECTS)
 		Endif
 		
 		*-- Add Projects --------------------------
@@ -166,7 +173,7 @@ DEFINE CLASS gf_combosearchscope AS combobox
 		
 		This.AddRow('')
 		This.AddRow('\ -- Folders ----------------------------')
-		This.AddRow('<< Current Dir >>')
+		This.AddRow(SCOPECURRENTDIR)
 		
 		*-- Add Folders
 		lnCounter = 0
@@ -203,6 +210,11 @@ DEFINE CLASS gf_combosearchscope AS combobox
 		This.Refresh()
 		
 		Select (m.lnSelect)
+	ENDPROC
+
+	PROCEDURE LostFocus
+		This.lHasFocus = .F.
+		
 	ENDPROC
 
 	PROCEDURE opentable
@@ -258,6 +270,7 @@ DEFINE CLASS gf_combosearchscope AS combobox
 
 	PROCEDURE Refresh
 		This.UpdateImageIcon()
+		
 	ENDPROC
 
 	PROCEDURE savesearchscope
@@ -376,8 +389,13 @@ DEFINE CLASS gf_combosearchscope AS combobox
 				Thisform.Refresh()
 				Return
 		
-			Case lcValue == Lower('<< Active Project >>')
+			Case lcValue == Lower(SCOPEACTIVEPROJECT)
 				Thisform.oSearchOptions.nSearchScope = 1
+				lcValue = Lower(Thisform.oSearchEngine.GetActiveProject())
+				Thisform.oSearchOptions.cProject = lcValue
+		
+			Case lcValue == Lower(SCOPEALLOPENPROJECTS)
+				Thisform.oSearchOptions.nSearchScope = 6
 				lcValue = Lower(Thisform.oSearchEngine.GetActiveProject())
 				Thisform.oSearchOptions.cProject = lcValue
 		
@@ -386,11 +404,13 @@ DEFINE CLASS gf_combosearchscope AS combobox
 					MessageBox('Scope file not found:' + 0h0D0A + '"' + lcValue + '"', 16, 'Error')
 					This.Value = lcValue
 					Return
-				Endif
-				Thisform.oSearchOptions.nSearchScope = 2
+				EndIf
+				If this.lHasFocus or not InList(Thisform.oSearchOptions.nSearchScope, 1, 6)
+					Thisform.oSearchOptions.nSearchScope = 2
+				EndIf 
 				Thisform.oSearchOptions.cProject = lcValue
 		
-			Case lcValue == Lower('<< Current Dir >>')
+			Case lcValue == Lower(SCOPECURRENTDIR)
 				Thisform.oSearchOptions.nSearchScope = 3
 				lcValue = Alltrim(Lower(Thisform.oSearchEngine.GetCurrentDirectory()), '\')
 				Thisform.oSearchOptions.cPath = lcValue
@@ -401,7 +421,9 @@ DEFINE CLASS gf_combosearchscope AS combobox
 					This.Value = lcValue
 					Return
 				Endif
-				Thisform.oSearchOptions.nSearchScope = 4
+				If this.lHasFocus or not InList(Thisform.oSearchOptions.nSearchScope, 3)
+					Thisform.oSearchOptions.nSearchScope = 4
+				EndIf 
 				Thisform.oSearchOptions.cPath = lcValue
 		
 		Endcase

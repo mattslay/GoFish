@@ -68,7 +68,7 @@ Text to lcNote NoShow
 
 EndText
 
-AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish - 7.0.04 Beta - February 26, 2024 - 20240226')
+AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish - 7.0.05 Beta - February 29, 2024 - 20240229')
 AddProperty(toUpdateInfo, 'SourceFileUrl', 'https://raw.githubusercontent.com/VFPX/GoFish/master/Source/SourceBeta.zip')
 AddProperty(toUpdateInfo, 'LinkPrompt', 'GoFish Home Page')
 AddProperty(toUpdateInfo, 'Link', 'https://github.com/VFPX/GoFish')

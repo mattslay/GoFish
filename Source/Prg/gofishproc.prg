@@ -1754,4 +1754,26 @@ Procedure GF_RelativePath
 		Return m.tcFileName
 	Endif && toOptions.lRelativePath
 
-Endproc
+EndProc
+
+
+*----------------------------------------------------------------------------------
+	Procedure GF_GetRegExp
+	
+		Local loRegEx As 'VBScript.RegExp'
+		Local loException
+	
+		Try
+			loRegEx = Createobject ('VBScript.RegExp')
+		Catch To m.loException
+	
+		Endtry
+	
+		If Vartype(m.loRegEx) # 'O'
+			loRegEx = SF_RegExp()
+		Endif
+	
+		Return m.loRegEx
+	
+	Endproc
+			

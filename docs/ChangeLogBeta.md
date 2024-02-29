@@ -23,7 +23,7 @@
     * however, the search and history files are not imported into version 7.
 
 #### New UI elements
-* New checkbox filter "Comments Only" has been added. (#150)
+* New checkbox filter "Comments Only". (#150)
 * Two new links at bottom left:
     * Issues page in GitHub for GoFish
     * Change Log page in GitHub for Gofish
@@ -32,9 +32,14 @@
     * Projects and folders in the scope dropdown may be alphabetized
     * Column 'File Name with Path' may show a relative path
     * Code view pane highlights only the match line (not the entire statement)
+* New choice 'All Open Projects' in the scope dropdown, a permanent setting. With only one project open, this is the same as "Active Project"
+
+#### Project Explorer Integration
+* If Project Explorer is open, uses it to open files for editing so that Project Explorer can handle things like calling FoxBin2PRG after closing an edited file.   (#154)
+* New choice 'All Open Projects' added to the scope dropdown. It is a permanent setting, applicable when using Project Explorer, which opens and hides all projects in a solution  (#156)
 
 #### Restored Features
-* Restore the previous setting (GF v5 and earlier) such that selecting 'Active Project' from the scope dropdown is a permanent setting, so that if GF is next opened with a different active project, that project becomes the scope. #137
+* Restored the previous setting (GF v5 and earlier) such that selecting 'Active Project' from the scope dropdown is a permanent setting, so that if GF is next opened with a different active project, that project becomes the scope. #137
 * Restored feature from  (GF v5 and earlier) that kept the controls at top right from moving all the way to far right (visible only when form is sufficiently wide.) - (#105, #155)
 
 #### Bug fixes
@@ -45,6 +50,7 @@
 * Bug reported when changing Desktop checkbox (#162)
 * Settings on Options/Colours page were not taking effect (#163)
 * Restoring latest search (from "History button context menu) was not selecting the *latest* search.
+* Janitor not working properly, was improperly related to scope; setting is actually a global setting independent of scope.
 
 
 ----

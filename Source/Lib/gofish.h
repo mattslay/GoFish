@@ -60,6 +60,12 @@
 
 #DEFINE MEMOFIELDMINSIZE	4096 && Minimum size to be saved in separate folder as a text file
 
+#DEFINE	SCOPEACTIVEPROJECT 		'<< Active Project >>'
+#DEFINE	SCOPEALLOPENPROJECTS 	'<< All Open Projects >>'
+#DEFINE	SCOPECURRENTDIR 		'<< Current Dir >>'
+#DEFINE	SCOPESELECTFOLDER 		'<< Select Folder >>'
+#DEFINE	SCOPECSELECTDIR 		'<< Select Directory >>'
+
 *-----------------------------------------------------------------------------------
 * This section is related to Replace operations:
 
