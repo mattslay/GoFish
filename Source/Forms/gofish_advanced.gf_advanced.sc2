@@ -42,8 +42,9 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 	*< OBJECTDATA: ObjPath="Label2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="chkcomment" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="chkMatchWholeWord" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="chkMatchCase" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Check3" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Check2" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="chkMatchCase" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="chkTimeStamp" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Label11" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Label12" UniqueID="" Timestamp="" />
@@ -63,9 +64,7 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 	*< OBJECTDATA: ObjPath="pageframeScope.Page4.CmdDir" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pageframeScope.Page4.Command1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pageframeScope.Page4.editPath" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pageframeScope.Page5.comboSearchScropeHistory" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pageframeScope.Page5.Label1" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pageframeScope.Page5.imgScopeIcon" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pageframeScope.Page5.Grid1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Label4" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="editFileTemplate" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Label5" UniqueID="" Timestamp="" />
@@ -80,7 +79,6 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 	*< OBJECTDATA: ObjPath="comboSearchExpressionHistoryDropDownArrow" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Command1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdHelp" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="Check3" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Optiongroup1" UniqueID="" Timestamp="" />
 
 	*<DefinedPropArrayMethod>
@@ -1007,7 +1005,7 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 		Page3.Name = "Page3", ;
 		Page4.Caption = "Browse Dir", ;
 		Page4.Name = "Page4", ;
-		Page5.Caption = "Recent", ;
+		Page5.Caption = "All Open Projects", ;
 		Page5.Name = "Page5"
 		*< END OBJECT: BaseClass="pageframe" />
 
@@ -1233,42 +1231,20 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 		Width = 74
 		*< END OBJECT: BaseClass="label" />
 
-	ADD OBJECT 'pageframeScope.Page5.comboSearchScropeHistory' AS gf_combosearchscope WITH ;
-		BoundTo = .T., ;
-		ControlSource = "Thisform.oSearchOptions.cRecentScope", ;
-		DisplayCount = 40, ;
-		Height = 24, ;
-		Left = 33, ;
-		Name = "comboSearchScropeHistory", ;
-		Top = 24, ;
-		Visible = .T., ;
-		Width = 394
-		*< END OBJECT: ClassLib="..\lib\gofishui.vcx" BaseClass="combobox" />
-
-	ADD OBJECT 'pageframeScope.Page5.imgScopeIcon' AS image WITH ;
-		Height = 16, ;
-		Left = 11, ;
-		Name = "imgScopeIcon", ;
-		Top = 27, ;
-		Width = 16
-		*< END OBJECT: BaseClass="image" />
-
-	ADD OBJECT 'pageframeScope.Page5.Label1' AS label WITH ;
-		Alignment = 0, ;
-		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "Recently used", ;
-		FontBold = .F., ;
-		FontName = "Tahoma", ;
-		FontSize = 9, ;
-		ForeColor = 0,0,0, ;
-		Height = 16, ;
-		Left = 8, ;
-		Name = "Label1", ;
-		TabIndex = 27, ;
-		Top = 4, ;
-		Width = 79
-		*< END OBJECT: BaseClass="label" />
+	ADD OBJECT 'pageframeScope.Page5.Grid1' AS grid WITH ;
+		DeleteMark = .F., ;
+		Enabled = .F., ;
+		FontSize = 8, ;
+		HeaderHeight = 17, ;
+		Height = 67, ;
+		Left = 14, ;
+		Name = "Grid1", ;
+		RecordMark = .F., ;
+		RowHeight = 15, ;
+		ScrollBars = 2, ;
+		Top = 2, ;
+		Width = 434
+		*< END OBJECT: BaseClass="grid" />
 
 	ADD OBJECT 'Shape1' AS shape WITH ;
 		Anchor = 10, ;
@@ -1878,11 +1854,21 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 		
 		Thisform.SetScope(5)
 		
-		With This.comboSearchScropeHistory
-			.SetFocus()
-			.SelStart = 0
-			.SelLength = 1000
-		Endwith
+		
+	ENDPROC
+
+	PROCEDURE pageframeScope.Page5.Grid1.Init
+		Local lnI
+		
+		Create Cursor OpenProjects (Project C(240))
+		For lnI = 1 To _vfp.Projects.Count
+			Insert Into OpenProjects Values (_vfp.Projects(m.lnI).Name)
+		Endfor
+		
+		Index On Upper(Project) Tag Order
+		
+		This.RecordSource = 'OpenProjects'
+		This.HeaderHeight = 0
 		
 		
 	ENDPROC

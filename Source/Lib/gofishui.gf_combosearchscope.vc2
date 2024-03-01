@@ -139,10 +139,11 @@ DEFINE CLASS gf_combosearchscope AS combobox
 		This.RowSource = '' && Clear out rows
 		
 		This.AddRow('\ -- Projects -------------------------')
-		If Type('_vfp.ActiveProject') = 'O'
-			This.AddRow(SCOPEACTIVEPROJECT)
-			This.AddRow(SCOPEALLOPENPROJECTS)
-		Endif
+		*!* ******** JRN Removed 2024-03-01 ********
+		*!* If Type('_vfp.ActiveProject') = 'O'
+		*!* 	This.AddRow(SCOPEACTIVEPROJECT)
+		*!* 	This.AddRow(SCOPEALLOPENPROJECTS)
+		*!* Endif
 		
 		*-- Add Projects --------------------------
 		lnCounter = 0
@@ -173,7 +174,8 @@ DEFINE CLASS gf_combosearchscope AS combobox
 		
 		This.AddRow('')
 		This.AddRow('\ -- Folders ----------------------------')
-		This.AddRow(SCOPECURRENTDIR)
+		*!* ******** JRN Removed 2024-03-01 ********
+		*!* This.AddRow(SCOPECURRENTDIR)
 		
 		*-- Add Folders
 		lnCounter = 0
@@ -395,9 +397,14 @@ DEFINE CLASS gf_combosearchscope AS combobox
 				Thisform.oSearchOptions.cProject = lcValue
 		
 			Case lcValue == Lower(SCOPEALLOPENPROJECTS)
-				Thisform.oSearchOptions.nSearchScope = 6
+				Thisform.oSearchOptions.nSearchScope = 5
 				lcValue = Lower(Thisform.oSearchEngine.GetActiveProject())
 				Thisform.oSearchOptions.cProject = lcValue
+		
+			Case lcValue == Lower(SCOPECURRENTDIR)
+				Thisform.oSearchOptions.nSearchScope = 3
+				lcValue = Alltrim(Lower(Thisform.oSearchEngine.GetCurrentDirectory()), '\')
+				Thisform.oSearchOptions.cPath = lcValue
 		
 			Case '.PJX' $ Upper(lcValue)
 				If !File(lcValue)
@@ -405,15 +412,10 @@ DEFINE CLASS gf_combosearchscope AS combobox
 					This.Value = lcValue
 					Return
 				EndIf
-				If this.lHasFocus or not InList(Thisform.oSearchOptions.nSearchScope, 1, 6)
+				If this.lHasFocus or not InList(Thisform.oSearchOptions.nSearchScope, 1, 5)
 					Thisform.oSearchOptions.nSearchScope = 2
 				EndIf 
 				Thisform.oSearchOptions.cProject = lcValue
-		
-			Case lcValue == Lower(SCOPECURRENTDIR)
-				Thisform.oSearchOptions.nSearchScope = 3
-				lcValue = Alltrim(Lower(Thisform.oSearchEngine.GetCurrentDirectory()), '\')
-				Thisform.oSearchOptions.cPath = lcValue
 		
 			Otherwise
 				If !Directory(lcValue, 1)
