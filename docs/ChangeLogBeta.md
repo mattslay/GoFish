@@ -23,6 +23,12 @@
     * however, the search and history files are not imported into version 7.
 
 #### New UI elements
+* New combobox for Scope Mode (top left of main screen)
+   1. Active Project
+   2. Browse Project
+   3. Current Directory
+   4. Browse Project
+   5. All Open Projects (With only one project open, this is the same as "Active Project")
 * New checkbox filter "Comments Only". (#150)
 * Two new links at bottom left:
     * Issues page in GitHub for GoFish
@@ -32,11 +38,10 @@
     * Projects and folders in the scope dropdown may be alphabetized
     * Column 'File Name with Path' may show a relative path
     * Code view pane highlights only the match line (not the entire statement)
-* New choice 'All Open Projects' in the scope dropdown, a permanent setting. With only one project open, this is the same as "Active Project"
 
 #### Project Explorer Integration
 * If Project Explorer is open, uses it to open files for editing so that Project Explorer can handle things like calling FoxBin2PRG after closing an edited file.   (#154)
-* New choice 'All Open Projects' added to the scope dropdown. It is a permanent setting, applicable when using Project Explorer, which opens and hides all projects in a solution  (#156)
+* 'All Open Projects' added to the new Scope Mode combobox. Useful when using Project Explorer, which opens and hides all projects in a solution.  (#156)
 
 #### Restored Features
 * Restored the previous setting (GF v5 and earlier) such that selecting 'Active Project' from the scope dropdown is a permanent setting, so that if GF is next opened with a different active project, that project becomes the scope. #137

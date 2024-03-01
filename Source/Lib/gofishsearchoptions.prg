@@ -123,8 +123,8 @@ Define Class GoFishSearchOptions As Custom
 	* See GoFish.h constants file for values.
 	nSearchMode                            = 1
 
-	* 1 = Active Project, 2=Browse Project, 3 = Current Dir, 4= Browse Directory.
-	nSearchScope                           = 1
+	* 1 = Active Project, 2=Browse Project, 3 = Current Dir, 4= Browse Directory, 5 = All Open Projects
+	nSearchScope                           = 3
 *!* - rk - 2023-10-22 - added property to stop problem in 
 *!* - gofishSearchEngine.prg|SetIncludePattern 
 	oRegExpFileTemplate              = .Null.
