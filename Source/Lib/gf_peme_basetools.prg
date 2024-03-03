@@ -318,7 +318,7 @@ Define Class gf_peme_basetools As Custom
 				Case m.lcExt $ ' VCX SCX '
 
 					llEdited  = .F.
-					lnSuccess = 0 && oddly, zero on success, else error code
+					lnSuccess = 0 && oddly, zero on success, else error code					
 					*** JRN 2024-02-29 : Per Doug, use Project Explorer to open file if it's around
 					If Type('_screen.oProjectExplorers') = 'O' And _Screen.oProjectExplorers.Count > 0
 						loPE	 = _Screen.oProjectExplorers[1]

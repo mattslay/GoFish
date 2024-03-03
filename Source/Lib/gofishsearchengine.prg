@@ -1311,7 +1311,7 @@ statementstart
 		lnRecNo      = &tcCursor..Recno
 		lnProcStart  = &tcCursor..ProcStart
 		lnMatchStart = &tcCursor..MatchStart
-
+		
 *!*	Changed by: nmpetkov 27.3.2023
 *!*	<pdm>
 *!*	<change date="{^2023-03-27,15:45:00}">Changed by: nmpetkov<br />
@@ -5143,12 +5143,14 @@ ii
 							._Name     = Proper(m.lcField)
 
 						*** JRN 2024-02-05 : For some MNX matches, show more info from the same record
-						Case m.lcExt = 'MNX' and InList(Upper(m.lcField), 'PROMPT', 'COMMAND', 'PROCEDURE', 'SKIPFOR')
+						Case m.lcExt = 'MNX' && and InList(Upper(m.lcField), 'PROMPT', 'COMMAND', 'PROCEDURE', 'SKIPFOR')
 							lcCode = ;
 								Iif(Empty(Prompt), 	  '' , 'Prompt    = "' + This.GetFullMenuPrompt() + '"' + CRLF) + ;
 								Iif(Empty(Command),   '' , 'Command   = ' + Command + CRLF) + ;
 								Iif(Empty(Procedure), '' , 'Procedure = ' + Iif(CR $ Trim(Procedure, 1, CR, LF, Tab,' '), CRLF, '') + Procedure + CRLF) + ;
-								Iif(Empty(SkipFor),   '' , 'SkipFor   = ' + SkipFor + CRLF) 
+								Iif(Empty(SkipFor),   '' , 'SkipFor   = ' + SkipFor + CRLF) + ;
+								Iif(Empty(Message),   '' , 'Message   = ' + Message + CRLF) + ;
+								Iif(Empty(Comment),   '' , 'Comment   = ' + Comment + CRLF) 
 
 						Case m.lcExt = 'DBC'
 							._Name  = Alltrim(ObjectName)
