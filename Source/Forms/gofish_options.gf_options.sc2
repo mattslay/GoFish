@@ -96,6 +96,9 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 	*< OBJECTDATA: ObjPath="pfSettings.Page2.Label1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.Page2.Spinner2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.Page2.Label3" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageColours.Container17" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageColours.Container16" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageColours.Container15" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.pageColours.Label1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.pageColours.Command1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.pageColours.Container1" UniqueID="" Timestamp="" />
@@ -152,6 +155,9 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 	*< OBJECTDATA: ObjPath="pfSettings.pageColours.Command14" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.pageColours.Container14" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.pageColours.Container14.lblExample1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageColours.Label15" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageColours.Label16" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageColours.Label17" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check3" UniqueID="" Timestamp="" />
@@ -160,6 +166,27 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check6" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check7" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check8" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Container1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Container1.Check1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Container1.Check2" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Container1.Check3" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Container1.Check4" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Container1.Check5" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Container1.Check6" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Container1.Check7" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Container1.Check8" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check9" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check10" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check11" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check12" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check13" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check14" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check15" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check16" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.Page3.Check10" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.Page3.Check11" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.Page3.Check5" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.Page3.Check12" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdOK" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdCancel" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Gf_versionlabel1" UniqueID="" Timestamp="" />
@@ -337,7 +364,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Height = 555, ;
 		Left = 10, ;
 		Name = "pfSettings", ;
-		PageCount = 10, ;
+		PageCount = 11, ;
 		TabIndex = 1, ;
 		TabStretch = 0, ;
 		TabStyle = 1, ;
@@ -367,13 +394,16 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Page8.Caption = "Janitor", ;
 		Page8.Name = "Page2", ;
 		Page8.PageOrder = 8, ;
-		Page9.Caption = "Colours", ;
+		Page9.Caption = "Colors", ;
 		Page9.Name = "pageColours", ;
 		Page9.PageOrder = 9, ;
 		Page10.Caption = "Code References", ;
 		Page10.Enabled = .F., ;
 		Page10.Name = "pageReferences", ;
-		Page10.PageOrder = 10
+		Page10.PageOrder = 10, ;
+		Page11.Caption = "New in Version 7", ;
+		Page11.Name = "Page3", ;
+		Page11.PageOrder = 11
 		*< END OBJECT: BaseClass="pageframe" />
 
 	ADD OBJECT 'pfSettings.Page1.Image1' AS image WITH ;
@@ -513,6 +543,62 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Top = 92, ;
 		Width = 69
 		*< END OBJECT: BaseClass="spinner" />
+
+	ADD OBJECT 'pfSettings.Page3.Check10' AS checkbox WITH ;
+		Alignment = 0, ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = 'Show relative path in column "File Name with Path" (v7)', ;
+		ControlSource = "Thisform.oForm.lShowRelativePath", ;
+		Height = 17, ;
+		Left = 103, ;
+		Name = "Check10", ;
+		TabIndex = 14, ;
+		Top = 69, ;
+		Width = 319
+		*< END OBJECT: BaseClass="checkbox" />
+
+	ADD OBJECT 'pfSettings.Page3.Check11' AS checkbox WITH ;
+		Alignment = 0, ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Sort projects & folders in Scope dropdown (v7)", ;
+		ControlSource = "Thisform.oForm.lSortScopeDropdown", ;
+		Height = 17, ;
+		Left = 103, ;
+		Name = "Check11", ;
+		TabIndex = 14, ;
+		Top = 46, ;
+		Width = 271
+		*< END OBJECT: BaseClass="checkbox" />
+
+	ADD OBJECT 'pfSettings.Page3.Check12' AS checkbox WITH ;
+		Alignment = 0, ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Use IDE colors in Code View pane (v7)", ;
+		ControlSource = "Thisform.oForm.lIDEColorsInCodeView", ;
+		Height = 17, ;
+		Left = 103, ;
+		Name = "Check12", ;
+		TabIndex = 14, ;
+		Top = 23, ;
+		Width = 230
+		*< END OBJECT: BaseClass="checkbox" />
+
+	ADD OBJECT 'pfSettings.Page3.Check5' AS checkbox WITH ;
+		Alignment = 0, ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Code View pane highlights single line (v7)", ;
+		ControlSource = "Thisform.oForm.lCodeViewSingleLine", ;
+		Height = 17, ;
+		Left = 103, ;
+		Name = "Check5", ;
+		TabIndex = 14, ;
+		Top = 92, ;
+		Width = 248
+		*< END OBJECT: BaseClass="checkbox" />
 
 	ADD OBJECT 'pfSettings.pageAdvanced.Check1' AS checkbox WITH ;
 		Alignment = 0, ;
@@ -868,13 +954,13 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Caption = ". . .", ;
 		FontBold = .T., ;
 		Height = 25, ;
-		Left = 290, ;
+		Left = 350, ;
 		Name = "Command1", ;
 		Picture = ..\..\2015-10-25 beta jrn\images\browsefolder.bmp, ;
 		SpecialEffect = 0, ;
 		TabIndex = 2, ;
 		ToolTipText = "Pick colour", ;
-		Top = 30, ;
+		Top = 13, ;
 		Width = 25
 		*< END OBJECT: BaseClass="commandbutton" />
 
@@ -882,13 +968,13 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Caption = ". . .", ;
 		FontBold = .T., ;
 		Height = 25, ;
-		Left = 290, ;
+		Left = 350, ;
 		Name = "Command10", ;
 		Picture = ..\..\2015-10-25 beta jrn\images\browsefolder.bmp, ;
 		SpecialEffect = 0, ;
 		TabIndex = 29, ;
 		ToolTipText = "Pick colour", ;
-		Top = 330, ;
+		Top = 365, ;
 		Width = 25
 		*< END OBJECT: BaseClass="commandbutton" />
 
@@ -896,13 +982,13 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Caption = ". . .", ;
 		FontBold = .T., ;
 		Height = 25, ;
-		Left = 290, ;
+		Left = 350, ;
 		Name = "Command11", ;
 		Picture = ..\..\2015-10-25 beta jrn\images\browsefolder.bmp, ;
 		SpecialEffect = 0, ;
 		TabIndex = 32, ;
 		ToolTipText = "Pick colour", ;
-		Top = 360, ;
+		Top = 395, ;
 		Width = 25
 		*< END OBJECT: BaseClass="commandbutton" />
 
@@ -910,13 +996,13 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Caption = ". . .", ;
 		FontBold = .T., ;
 		Height = 25, ;
-		Left = 290, ;
+		Left = 350, ;
 		Name = "Command12", ;
 		Picture = ..\..\2015-10-25 beta jrn\images\browsefolder.bmp, ;
 		SpecialEffect = 0, ;
 		TabIndex = 35, ;
 		ToolTipText = "Pick colour", ;
-		Top = 390, ;
+		Top = 425, ;
 		Width = 25
 		*< END OBJECT: BaseClass="commandbutton" />
 
@@ -924,13 +1010,13 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Caption = ". . .", ;
 		FontBold = .T., ;
 		Height = 25, ;
-		Left = 290, ;
+		Left = 350, ;
 		Name = "Command13", ;
 		Picture = ..\..\2015-10-25 beta jrn\images\browsefolder.bmp, ;
 		SpecialEffect = 0, ;
 		TabIndex = 38, ;
 		ToolTipText = "Pick colour", ;
-		Top = 420, ;
+		Top = 455, ;
 		Width = 25
 		*< END OBJECT: BaseClass="commandbutton" />
 
@@ -938,13 +1024,13 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Caption = ". . .", ;
 		FontBold = .T., ;
 		Height = 25, ;
-		Left = 290, ;
+		Left = 350, ;
 		Name = "Command14", ;
 		Picture = ..\..\2015-10-25 beta jrn\images\browsefolder.bmp, ;
 		SpecialEffect = 0, ;
 		TabIndex = 23, ;
 		ToolTipText = "Pick colour", ;
-		Top = 240, ;
+		Top = 260, ;
 		Width = 25
 		*< END OBJECT: BaseClass="commandbutton" />
 
@@ -952,13 +1038,13 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Caption = ". . .", ;
 		FontBold = .T., ;
 		Height = 25, ;
-		Left = 290, ;
+		Left = 350, ;
 		Name = "Command2", ;
 		Picture = ..\..\2015-10-25 beta jrn\images\browsefolder.bmp, ;
 		SpecialEffect = 0, ;
 		TabIndex = 5, ;
 		ToolTipText = "Pick colour", ;
-		Top = 60, ;
+		Top = 53, ;
 		Width = 25
 		*< END OBJECT: BaseClass="commandbutton" />
 
@@ -966,13 +1052,13 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Caption = ". . .", ;
 		FontBold = .T., ;
 		Height = 25, ;
-		Left = 290, ;
+		Left = 350, ;
 		Name = "Command3", ;
 		Picture = ..\..\2015-10-25 beta jrn\images\browsefolder.bmp, ;
 		SpecialEffect = 0, ;
 		TabIndex = 8, ;
 		ToolTipText = "Pick colour", ;
-		Top = 90, ;
+		Top = 83, ;
 		Width = 25
 		*< END OBJECT: BaseClass="commandbutton" />
 
@@ -980,13 +1066,13 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Caption = ". . .", ;
 		FontBold = .T., ;
 		Height = 25, ;
-		Left = 290, ;
+		Left = 350, ;
 		Name = "Command4", ;
 		Picture = ..\..\2015-10-25 beta jrn\images\browsefolder.bmp, ;
 		SpecialEffect = 0, ;
 		TabIndex = 11, ;
 		ToolTipText = "Pick colour", ;
-		Top = 120, ;
+		Top = 113, ;
 		Width = 25
 		*< END OBJECT: BaseClass="commandbutton" />
 
@@ -994,13 +1080,13 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Caption = ". . .", ;
 		FontBold = .T., ;
 		Height = 25, ;
-		Left = 290, ;
+		Left = 350, ;
 		Name = "Command5", ;
 		Picture = ..\..\2015-10-25 beta jrn\images\browsefolder.bmp, ;
 		SpecialEffect = 0, ;
 		TabIndex = 14, ;
 		ToolTipText = "Pick colour", ;
-		Top = 150, ;
+		Top = 143, ;
 		Width = 25
 		*< END OBJECT: BaseClass="commandbutton" />
 
@@ -1008,13 +1094,13 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Caption = ". . .", ;
 		FontBold = .T., ;
 		Height = 25, ;
-		Left = 290, ;
+		Left = 350, ;
 		Name = "Command6", ;
 		Picture = ..\..\2015-10-25 beta jrn\images\browsefolder.bmp, ;
 		SpecialEffect = 0, ;
 		TabIndex = 17, ;
 		ToolTipText = "Pick colour", ;
-		Top = 180, ;
+		Top = 200, ;
 		Width = 25
 		*< END OBJECT: BaseClass="commandbutton" />
 
@@ -1022,13 +1108,13 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Caption = ". . .", ;
 		FontBold = .T., ;
 		Height = 25, ;
-		Left = 290, ;
+		Left = 350, ;
 		Name = "Command7", ;
 		Picture = ..\..\2015-10-25 beta jrn\images\browsefolder.bmp, ;
 		SpecialEffect = 0, ;
 		TabIndex = 20, ;
 		ToolTipText = "Pick colour", ;
-		Top = 210, ;
+		Top = 230, ;
 		Width = 25
 		*< END OBJECT: BaseClass="commandbutton" />
 
@@ -1036,13 +1122,13 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Caption = ". . .", ;
 		FontBold = .T., ;
 		Height = 25, ;
-		Left = 290, ;
+		Left = 350, ;
 		Name = "Command8", ;
 		Picture = ..\..\2015-10-25 beta jrn\images\browsefolder.bmp, ;
 		SpecialEffect = 0, ;
 		TabIndex = 23, ;
 		ToolTipText = "Pick colour", ;
-		Top = 270, ;
+		Top = 290, ;
 		Width = 25
 		*< END OBJECT: BaseClass="commandbutton" />
 
@@ -1050,24 +1136,24 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Caption = ". . .", ;
 		FontBold = .T., ;
 		Height = 25, ;
-		Left = 290, ;
+		Left = 350, ;
 		Name = "Command9", ;
 		Picture = ..\..\2015-10-25 beta jrn\images\browsefolder.bmp, ;
 		SpecialEffect = 0, ;
 		TabIndex = 26, ;
 		ToolTipText = "Pick colour", ;
-		Top = 300, ;
+		Top = 320, ;
 		Width = 25
 		*< END OBJECT: BaseClass="commandbutton" />
 
 	ADD OBJECT 'pfSettings.pageColours.Container1' AS container WITH ;
 		BorderWidth = 2, ;
 		Height = 27, ;
-		Left = 346, ;
+		Left = 406, ;
 		Name = "Container1", ;
 		Picture = ..\images\, ;
 		TabIndex = 3, ;
-		Top = 30, ;
+		Top = 9, ;
 		Width = 129
 		*< END OBJECT: BaseClass="container" />
 
@@ -1088,11 +1174,11 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		BackStyle = 1, ;
 		BorderWidth = 2, ;
 		Height = 27, ;
-		Left = 346, ;
+		Left = 406, ;
 		Name = "Container10", ;
 		Picture = ..\images\, ;
 		TabIndex = 30, ;
-		Top = 330, ;
+		Top = 365, ;
 		Width = 129
 		*< END OBJECT: BaseClass="container" />
 
@@ -1113,11 +1199,11 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		BackStyle = 1, ;
 		BorderWidth = 2, ;
 		Height = 27, ;
-		Left = 346, ;
+		Left = 406, ;
 		Name = "Container11", ;
 		Picture = ..\images\, ;
 		TabIndex = 33, ;
-		Top = 360, ;
+		Top = 395, ;
 		Width = 129
 		*< END OBJECT: BaseClass="container" />
 
@@ -1137,11 +1223,11 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		BackStyle = 1, ;
 		BorderWidth = 2, ;
 		Height = 27, ;
-		Left = 346, ;
+		Left = 406, ;
 		Name = "Container12", ;
 		Picture = ..\images\, ;
 		TabIndex = 36, ;
-		Top = 390, ;
+		Top = 425, ;
 		Width = 129
 		*< END OBJECT: BaseClass="container" />
 
@@ -1161,11 +1247,11 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		BackStyle = 1, ;
 		BorderWidth = 2, ;
 		Height = 27, ;
-		Left = 346, ;
+		Left = 406, ;
 		Name = "Container13", ;
 		Picture = ..\images\, ;
 		TabIndex = 39, ;
-		Top = 420, ;
+		Top = 455, ;
 		Width = 129
 		*< END OBJECT: BaseClass="container" />
 
@@ -1185,11 +1271,11 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		BackStyle = 1, ;
 		BorderWidth = 2, ;
 		Height = 27, ;
-		Left = 346, ;
+		Left = 406, ;
 		Name = "Container14", ;
 		Picture = ..\images\, ;
 		TabIndex = 24, ;
-		Top = 240, ;
+		Top = 260, ;
 		Width = 129
 		*< END OBJECT: BaseClass="container" />
 
@@ -1205,15 +1291,42 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Width = 120
 		*< END OBJECT: BaseClass="label" />
 
+	ADD OBJECT 'pfSettings.pageColours.Container15' AS container WITH ;
+		BackStyle = 0, ;
+		Height = 128, ;
+		Left = 43, ;
+		Name = "Container15", ;
+		Top = 48, ;
+		Width = 530
+		*< END OBJECT: BaseClass="container" />
+
+	ADD OBJECT 'pfSettings.pageColours.Container16' AS container WITH ;
+		BackStyle = 0, ;
+		Height = 161, ;
+		Left = 43, ;
+		Name = "Container16", ;
+		Top = 191, ;
+		Width = 530
+		*< END OBJECT: BaseClass="container" />
+
+	ADD OBJECT 'pfSettings.pageColours.Container17' AS container WITH ;
+		BackStyle = 0, ;
+		Height = 131, ;
+		Left = 43, ;
+		Name = "Container17", ;
+		Top = 359, ;
+		Width = 530
+		*< END OBJECT: BaseClass="container" />
+
 	ADD OBJECT 'pfSettings.pageColours.Container2' AS container WITH ;
 		BackColor = 255,255,255, ;
 		BorderWidth = 2, ;
 		Height = 27, ;
-		Left = 346, ;
+		Left = 406, ;
 		Name = "Container2", ;
 		Picture = ..\images\, ;
 		TabIndex = 6, ;
-		Top = 60, ;
+		Top = 53, ;
 		Width = 129
 		*< END OBJECT: BaseClass="container" />
 
@@ -1234,11 +1347,11 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		BackStyle = 1, ;
 		BorderWidth = 2, ;
 		Height = 27, ;
-		Left = 346, ;
+		Left = 406, ;
 		Name = "Container3", ;
 		Picture = ..\images\, ;
 		TabIndex = 9, ;
-		Top = 90, ;
+		Top = 83, ;
 		Width = 129
 		*< END OBJECT: BaseClass="container" />
 
@@ -1259,11 +1372,11 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		BackStyle = 1, ;
 		BorderWidth = 2, ;
 		Height = 27, ;
-		Left = 346, ;
+		Left = 406, ;
 		Name = "Container4", ;
 		Picture = ..\images\, ;
 		TabIndex = 12, ;
-		Top = 120, ;
+		Top = 113, ;
 		Width = 129
 		*< END OBJECT: BaseClass="container" />
 
@@ -1284,11 +1397,11 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		BackStyle = 1, ;
 		BorderWidth = 2, ;
 		Height = 27, ;
-		Left = 346, ;
+		Left = 406, ;
 		Name = "Container5", ;
 		Picture = ..\images\, ;
 		TabIndex = 15, ;
-		Top = 150, ;
+		Top = 143, ;
 		Width = 129
 		*< END OBJECT: BaseClass="container" />
 
@@ -1308,11 +1421,11 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		BackStyle = 1, ;
 		BorderWidth = 2, ;
 		Height = 27, ;
-		Left = 346, ;
+		Left = 406, ;
 		Name = "Container6", ;
 		Picture = ..\images\, ;
 		TabIndex = 18, ;
-		Top = 180, ;
+		Top = 200, ;
 		Width = 129
 		*< END OBJECT: BaseClass="container" />
 
@@ -1332,11 +1445,11 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		BackStyle = 1, ;
 		BorderWidth = 2, ;
 		Height = 27, ;
-		Left = 346, ;
+		Left = 406, ;
 		Name = "Container7", ;
 		Picture = ..\images\, ;
 		TabIndex = 21, ;
-		Top = 210, ;
+		Top = 230, ;
 		Width = 129
 		*< END OBJECT: BaseClass="container" />
 
@@ -1356,11 +1469,11 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		BackStyle = 1, ;
 		BorderWidth = 2, ;
 		Height = 27, ;
-		Left = 346, ;
+		Left = 406, ;
 		Name = "Container8", ;
 		Picture = ..\images\, ;
 		TabIndex = 24, ;
-		Top = 270, ;
+		Top = 290, ;
 		Width = 129
 		*< END OBJECT: BaseClass="container" />
 
@@ -1380,11 +1493,11 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		BackStyle = 1, ;
 		BorderWidth = 2, ;
 		Height = 27, ;
-		Left = 346, ;
+		Left = 406, ;
 		Name = "Container9", ;
 		Picture = ..\images\, ;
 		TabIndex = 27, ;
-		Top = 300, ;
+		Top = 320, ;
 		Width = 129
 		*< END OBJECT: BaseClass="container" />
 
@@ -1402,156 +1515,217 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 
 	ADD OBJECT 'pfSettings.pageColours.Label1' AS label WITH ;
 		BackStyle = 0, ;
-		Caption = "Frame colour (Non default value)", ;
-		Height = 17, ;
-		Left = 21, ;
+		Caption = "Frame color (used to indicate non-default values for checkboxes above the grid)", ;
+		Height = 29, ;
+		Left = 51, ;
 		Name = "Label1", ;
 		TabIndex = 1, ;
-		Top = 30, ;
-		Width = 260
+		Top = 9, ;
+		Width = 260, ;
+		WordWrap = .T.
 		*< END OBJECT: BaseClass="label" />
 
 	ADD OBJECT 'pfSettings.pageColours.Label10' AS label WITH ;
+		Alignment = 1, ;
 		BackStyle = 0, ;
-		Caption = 'Tree fore colour "Search"', ;
+		Caption = "Tree ForeColor during search", ;
 		Height = 17, ;
-		Left = 21, ;
+		Left = 97, ;
 		Name = "Label10", ;
 		TabIndex = 28, ;
-		Top = 333, ;
-		Width = 260
+		Top = 370, ;
+		Width = 244
 		*< END OBJECT: BaseClass="label" />
 
 	ADD OBJECT 'pfSettings.pageColours.Label11' AS label WITH ;
+		Alignment = 1, ;
 		BackStyle = 0, ;
-		Caption = 'Tree fore colour "Update"', ;
+		Caption = 'Tree ForeColor "Not Found"', ;
 		Height = 17, ;
-		Left = 21, ;
+		Left = 81, ;
 		Name = "Label11", ;
 		TabIndex = 31, ;
-		Top = 360, ;
+		Top = 400, ;
 		Width = 260
 		*< END OBJECT: BaseClass="label" />
 
 	ADD OBJECT 'pfSettings.pageColours.Label12' AS label WITH ;
+		Alignment = 1, ;
 		BackStyle = 0, ;
-		Caption = 'CSS back colour "tr even"', ;
+		Caption = "View in Browser: Even rows", ;
 		Height = 17, ;
-		Left = 21, ;
+		Left = 81, ;
 		Name = "Label12", ;
 		TabIndex = 34, ;
-		Top = 390, ;
+		Top = 430, ;
 		Width = 260
 		*< END OBJECT: BaseClass="label" />
 
 	ADD OBJECT 'pfSettings.pageColours.Label13' AS label WITH ;
+		Alignment = 1, ;
 		BackStyle = 0, ;
-		Caption = 'CSS back colour "tr odd"', ;
+		Caption = "View in Browser: Odd rows", ;
 		Height = 17, ;
-		Left = 21, ;
+		Left = 81, ;
 		Name = "Label13", ;
 		TabIndex = 37, ;
-		Top = 420, ;
+		Top = 460, ;
 		Width = 260
 		*< END OBJECT: BaseClass="label" />
 
 	ADD OBJECT 'pfSettings.pageColours.Label14' AS label WITH ;
+		Alignment = 1, ;
+		AutoSize = .T., ;
 		BackStyle = 0, ;
-		Caption = 'Grid back colour; Replace risk "1 = Pretty Safe"', ;
+		Caption = 'Risk "1 = Pretty Safe"', ;
 		Height = 17, ;
-		Left = 21, ;
+		Left = 225, ;
 		Name = "Label14", ;
 		TabIndex = 22, ;
-		Top = 240, ;
-		Width = 260
+		Top = 265, ;
+		Width = 116
+		*< END OBJECT: BaseClass="label" />
+
+	ADD OBJECT 'pfSettings.pageColours.Label15' AS label WITH ;
+		BackStyle = 0, ;
+		Caption = "Grid ForeColor:", ;
+		FontBold = .T., ;
+		Height = 17, ;
+		Left = 90, ;
+		Name = "Label15", ;
+		TabIndex = 4, ;
+		Top = 58, ;
+		Width = 95
+		*< END OBJECT: BaseClass="label" />
+
+	ADD OBJECT 'pfSettings.pageColours.Label16' AS label WITH ;
+		AutoSize = .F., ;
+		BackStyle = 0, ;
+		Caption = "Grid BackColor (Replace Mode):", ;
+		FontBold = .T., ;
+		Height = 34, ;
+		Left = 86, ;
+		Name = "Label16", ;
+		TabIndex = 4, ;
+		Top = 203, ;
+		Width = 99, ;
+		WordWrap = .T.
+		*< END OBJECT: BaseClass="label" />
+
+	ADD OBJECT 'pfSettings.pageColours.Label17' AS label WITH ;
+		BackStyle = 0, ;
+		Caption = "Miscellaneous", ;
+		FontBold = .T., ;
+		Height = 17, ;
+		Left = 63, ;
+		Name = "Label17", ;
+		TabIndex = 4, ;
+		Top = 367, ;
+		Width = 88
 		*< END OBJECT: BaseClass="label" />
 
 	ADD OBJECT 'pfSettings.pageColours.Label2' AS label WITH ;
+		Alignment = 1, ;
+		AutoSize = .T., ;
 		BackStyle = 0, ;
-		Caption = 'Grid fore colour "SCX"', ;
+		Caption = '"SCX"', ;
 		Height = 17, ;
-		Left = 21, ;
+		Left = 301, ;
 		Name = "Label2", ;
 		TabIndex = 4, ;
-		Top = 60, ;
-		Width = 260
+		Top = 58, ;
+		Width = 34
 		*< END OBJECT: BaseClass="label" />
 
 	ADD OBJECT 'pfSettings.pageColours.Label3' AS label WITH ;
+		Alignment = 1, ;
+		AutoSize = .T., ;
 		BackStyle = 0, ;
-		Caption = 'Grid fore colour "VCX"', ;
+		Caption = '"VCX"', ;
 		Height = 17, ;
-		Left = 21, ;
+		Left = 302, ;
 		Name = "Label3", ;
 		TabIndex = 7, ;
-		Top = 90, ;
-		Width = 260
+		Top = 88, ;
+		Width = 33
 		*< END OBJECT: BaseClass="label" />
 
 	ADD OBJECT 'pfSettings.pageColours.Label4' AS label WITH ;
+		Alignment = 1, ;
+		AutoSize = .T., ;
 		BackStyle = 0, ;
-		Caption = 'Grid fore colour "PRG"', ;
+		Caption = '"PRG"', ;
 		Height = 17, ;
-		Left = 21, ;
+		Left = 299, ;
 		Name = "Label4", ;
 		TabIndex = 10, ;
-		Top = 120, ;
-		Width = 260
+		Top = 118, ;
+		Width = 36
 		*< END OBJECT: BaseClass="label" />
 
 	ADD OBJECT 'pfSettings.pageColours.Label5' AS label WITH ;
+		Alignment = 1, ;
+		AutoSize = .T., ;
 		BackStyle = 0, ;
-		Caption = 'Grid fore colour "other"', ;
+		Caption = "All others", ;
 		Height = 17, ;
-		Left = 21, ;
+		Left = 282, ;
 		Name = "Label5", ;
 		TabIndex = 13, ;
-		Top = 150, ;
-		Width = 260
+		Top = 148, ;
+		Width = 53
 		*< END OBJECT: BaseClass="label" />
 
 	ADD OBJECT 'pfSettings.pageColours.Label6' AS label WITH ;
+		Alignment = 1, ;
+		AutoSize = .T., ;
 		BackStyle = 0, ;
-		Caption = 'Grid back colour "Replaced"', ;
+		Caption = '"Replaced"', ;
 		Height = 17, ;
-		Left = 21, ;
+		Left = 278, ;
 		Name = "Label6", ;
 		TabIndex = 16, ;
-		Top = 181, ;
-		Width = 260
+		Top = 205, ;
+		Width = 63
 		*< END OBJECT: BaseClass="label" />
 
 	ADD OBJECT 'pfSettings.pageColours.Label7' AS label WITH ;
+		Alignment = 1, ;
+		AutoSize = .T., ;
 		BackStyle = 0, ;
-		Caption = 'Grid back colour; Replace risk "Exeeds Limit"', ;
+		Caption = 'Risk "Exceeds Limit"', ;
 		Height = 17, ;
-		Left = 21, ;
+		Left = 226, ;
 		Name = "Label7", ;
 		TabIndex = 19, ;
-		Top = 210, ;
-		Width = 260
+		Top = 235, ;
+		Width = 115
 		*< END OBJECT: BaseClass="label" />
 
 	ADD OBJECT 'pfSettings.pageColours.Label8' AS label WITH ;
+		Alignment = 1, ;
+		AutoSize = .T., ;
 		BackStyle = 0, ;
-		Caption = 'Grid back colour; Replace risk "2 = Kinda Safe"', ;
+		Caption = 'Risk "2 = Kinda Safe"', ;
 		Height = 17, ;
-		Left = 21, ;
+		Left = 223, ;
 		Name = "Label8", ;
 		TabIndex = 22, ;
-		Top = 270, ;
-		Width = 260
+		Top = 295, ;
+		Width = 118
 		*< END OBJECT: BaseClass="label" />
 
 	ADD OBJECT 'pfSettings.pageColours.Label9' AS label WITH ;
+		Alignment = 1, ;
+		AutoSize = .T., ;
 		BackStyle = 0, ;
-		Caption = 'Grid back colour; Replace risk "3 = Dangerous"', ;
+		Caption = 'Risk "3 = Dangerous"', ;
 		Height = 17, ;
-		Left = 21, ;
+		Left = 221, ;
 		Name = "Label9", ;
 		TabIndex = 25, ;
-		Top = 300, ;
-		Width = 260
+		Top = 325, ;
+		Width = 120
 		*< END OBJECT: BaseClass="label" />
 
 	ADD OBJECT 'pfSettings.pageColumns.cmdClearAll' AS commandbutton WITH ;
@@ -2049,6 +2223,104 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Width = 372
 		*< END OBJECT: BaseClass="checkbox" />
 
+	ADD OBJECT 'pfSettings.pageReferences.Check10' AS checkbox WITH ;
+		Alignment = 0, ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Show search history (button) per scope.", ;
+		ControlSource = "Thisform.lCR_HistoryPerScope", ;
+		Height = 17, ;
+		Left = 29, ;
+		Name = "Check10", ;
+		TabIndex = 2, ;
+		Top = 58, ;
+		Width = 235
+		*< END OBJECT: BaseClass="checkbox" />
+
+	ADD OBJECT 'pfSettings.pageReferences.Check11' AS checkbox WITH ;
+		Alignment = 0, ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Show history in search combo per scope.", ;
+		ControlSource = "Thisform.lCR_SearchComboPerScope", ;
+		Height = 17, ;
+		Left = 29, ;
+		Name = "Check11", ;
+		TabIndex = 3, ;
+		Top = 78, ;
+		Width = 244
+		*< END OBJECT: BaseClass="checkbox" />
+
+	ADD OBJECT 'pfSettings.pageReferences.Check12' AS checkbox WITH ;
+		Alignment = 0, ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Show history in tree (Follows Seaerch History button switch)", ;
+		ControlSource = "Thisform.lCR_HistoryTree", ;
+		Height = 17, ;
+		Left = 29, ;
+		Name = "Check12", ;
+		TabIndex = 4, ;
+		Top = 103, ;
+		Width = 344
+		*< END OBJECT: BaseClass="checkbox" />
+
+	ADD OBJECT 'pfSettings.pageReferences.Check13' AS checkbox WITH ;
+		Alignment = 0, ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Simple tree, no subnodes for classes, just plain filenames", ;
+		ControlSource = "Thisform.lCR_SimpleTree", ;
+		Height = 17, ;
+		Left = 29, ;
+		Name = "Check13", ;
+		TabIndex = 7, ;
+		Top = 168, ;
+		Width = 338
+		*< END OBJECT: BaseClass="checkbox" />
+
+	ADD OBJECT 'pfSettings.pageReferences.Check14' AS checkbox WITH ;
+		Alignment = 0, ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Sort tree by extension first", ;
+		ControlSource = "Thisform.lCR_SortTreeByExt", ;
+		Height = 17, ;
+		Left = 45, ;
+		Name = "Check14", ;
+		TabIndex = 8, ;
+		Top = 188, ;
+		Width = 158
+		*< END OBJECT: BaseClass="checkbox" />
+
+	ADD OBJECT 'pfSettings.pageReferences.Check15' AS checkbox WITH ;
+		Alignment = 0, ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Fill all searches with data on startup. (sloow)", ;
+		ControlSource = "Thisform.lCR_HistoryTreeAuto", ;
+		Height = 17, ;
+		Left = 45, ;
+		Name = "Check15", ;
+		TabIndex = 5, ;
+		Top = 123, ;
+		Width = 262
+		*< END OBJECT: BaseClass="checkbox" />
+
+	ADD OBJECT 'pfSettings.pageReferences.Check16' AS checkbox WITH ;
+		Alignment = 0, ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Sort alphanumerical", ;
+		ControlSource = "Thisform.lCR_SortTreeAlpha", ;
+		Height = 17, ;
+		Left = 45, ;
+		Name = "Check16", ;
+		TabIndex = 6, ;
+		Top = 143, ;
+		Width = 129
+		*< END OBJECT: BaseClass="checkbox" />
+
 	ADD OBJECT 'pfSettings.pageReferences.Check2' AS checkbox WITH ;
 		Alignment = 0, ;
 		AutoSize = .T., ;
@@ -2144,6 +2416,141 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Name = "Check8", ;
 		TabIndex = 6, ;
 		Top = 135, ;
+		Width = 129
+		*< END OBJECT: BaseClass="checkbox" />
+
+	ADD OBJECT 'pfSettings.pageReferences.Check9' AS checkbox WITH ;
+		Alignment = 0, ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Open GoFish like Code References: Active project / Recent folder", ;
+		ControlSource = "Thisform.lCR_OpenMode", ;
+		Height = 17, ;
+		Left = 29, ;
+		Name = "Check9", ;
+		TabIndex = 1, ;
+		Top = 38, ;
+		Width = 372
+		*< END OBJECT: BaseClass="checkbox" />
+
+	ADD OBJECT 'pfSettings.pageReferences.Container1' AS container WITH ;
+		BackStyle = 0, ;
+		Height = 281, ;
+		Left = 67, ;
+		Name = "Container1", ;
+		Top = 203, ;
+		Width = 470
+		*< END OBJECT: BaseClass="container" />
+
+	ADD OBJECT 'pfSettings.pageReferences.Container1.Check1' AS checkbox WITH ;
+		Alignment = 0, ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Open GoFish like Code References: Active project / Recent folder", ;
+		ControlSource = "Thisform.lCR_OpenMode", ;
+		Height = 17, ;
+		Left = 29, ;
+		Name = "Check1", ;
+		TabIndex = 1, ;
+		Top = 38, ;
+		Width = 372
+		*< END OBJECT: BaseClass="checkbox" />
+
+	ADD OBJECT 'pfSettings.pageReferences.Container1.Check2' AS checkbox WITH ;
+		Alignment = 0, ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Show search history (button) per scope.", ;
+		ControlSource = "Thisform.lCR_HistoryPerScope", ;
+		Height = 17, ;
+		Left = 29, ;
+		Name = "Check2", ;
+		TabIndex = 2, ;
+		Top = 61, ;
+		Width = 235
+		*< END OBJECT: BaseClass="checkbox" />
+
+	ADD OBJECT 'pfSettings.pageReferences.Container1.Check3' AS checkbox WITH ;
+		Alignment = 0, ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Show history in search combo per scope.", ;
+		ControlSource = "Thisform.lCR_SearchComboPerScope", ;
+		Height = 17, ;
+		Left = 29, ;
+		Name = "Check3", ;
+		TabIndex = 3, ;
+		Top = 84, ;
+		Width = 244
+		*< END OBJECT: BaseClass="checkbox" />
+
+	ADD OBJECT 'pfSettings.pageReferences.Container1.Check4' AS checkbox WITH ;
+		Alignment = 0, ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Show history in tree (Follows Search History button switch)", ;
+		ControlSource = "Thisform.lCR_HistoryTree", ;
+		Height = 17, ;
+		Left = 29, ;
+		Name = "Check4", ;
+		TabIndex = 4, ;
+		Top = 107, ;
+		Width = 337
+		*< END OBJECT: BaseClass="checkbox" />
+
+	ADD OBJECT 'pfSettings.pageReferences.Container1.Check5' AS checkbox WITH ;
+		Alignment = 0, ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Simple tree, no subnodes for classes, just plain filenames", ;
+		ControlSource = "Thisform.lCR_SimpleTree", ;
+		Height = 17, ;
+		Left = 29, ;
+		Name = "Check5", ;
+		TabIndex = 7, ;
+		Top = 176, ;
+		Width = 338
+		*< END OBJECT: BaseClass="checkbox" />
+
+	ADD OBJECT 'pfSettings.pageReferences.Container1.Check6' AS checkbox WITH ;
+		Alignment = 0, ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Sort tree by extension first", ;
+		ControlSource = "Thisform.lCR_SortTreeByExt", ;
+		Height = 17, ;
+		Left = 45, ;
+		Name = "Check6", ;
+		TabIndex = 8, ;
+		Top = 199, ;
+		Width = 158
+		*< END OBJECT: BaseClass="checkbox" />
+
+	ADD OBJECT 'pfSettings.pageReferences.Container1.Check7' AS checkbox WITH ;
+		Alignment = 0, ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Fill all searches with data on startup. (sloow)", ;
+		ControlSource = "Thisform.lCR_HistoryTreeAuto", ;
+		Height = 17, ;
+		Left = 45, ;
+		Name = "Check7", ;
+		TabIndex = 5, ;
+		Top = 130, ;
+		Width = 262
+		*< END OBJECT: BaseClass="checkbox" />
+
+	ADD OBJECT 'pfSettings.pageReferences.Container1.Check8' AS checkbox WITH ;
+		Alignment = 0, ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Sort alphanumerical", ;
+		ControlSource = "Thisform.lCR_SortTreeAlpha", ;
+		Height = 17, ;
+		Left = 45, ;
+		Name = "Check8", ;
+		TabIndex = 6, ;
+		Top = 153, ;
 		Width = 129
 		*< END OBJECT: BaseClass="checkbox" />
 
@@ -3401,6 +3808,20 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 			
 	ENDPROC
 
+	PROCEDURE pfSettings.pageReferences.Check12.InteractiveChange
+		This.SetFocus
+		
+		This.Parent.Check7.Enabled = This.Value
+		This.Parent.Check8.Enabled = This.Value
+	ENDPROC
+
+	PROCEDURE pfSettings.pageReferences.Check13.InteractiveChange
+		This.SetFocus
+		
+		This.Parent.Check6.Enabled = This.Value
+		
+	ENDPROC
+
 	PROCEDURE pfSettings.pageReferences.Check4.InteractiveChange
 		This.SetFocus
 		
@@ -3409,6 +3830,20 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 	ENDPROC
 
 	PROCEDURE pfSettings.pageReferences.Check5.InteractiveChange
+		This.SetFocus
+		
+		This.Parent.Check6.Enabled = This.Value
+		
+	ENDPROC
+
+	PROCEDURE pfSettings.pageReferences.Container1.Check4.InteractiveChange
+		This.SetFocus
+		
+		This.Parent.Check7.Enabled = This.Value
+		This.Parent.Check8.Enabled = This.Value
+	ENDPROC
+
+	PROCEDURE pfSettings.pageReferences.Container1.Check5.InteractiveChange
 		This.SetFocus
 		
 		This.Parent.Check6.Enabled = This.Value

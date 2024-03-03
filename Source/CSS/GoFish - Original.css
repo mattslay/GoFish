@@ -1,9 +1,10 @@
 <style type="text/css">
 
 		.matchline {
-			border-width: 2px;
+			border-width: 1px;
 			border-style: solid;
-			border-color: red;
+			border-color: gray;
+			background-color: FFFF80;
 			margin-top: -17px;
 			margin-bottom: -32px;
 			padding-top: 0px;

@@ -780,7 +780,7 @@ Search and replace history from Version 5 have not been imported.
 
 However, they are still available in GoFish 5 and GoFish Classic.
 	Endtext
-	MessageBox(lcmsg, 64, 'Table structure changes', 10000)
+	MessageBox(lcmsg, 64, 'Table structure changes')
 
 	lcDbc = m.tcRoot + m.toResultForm.cSaveDBC
 	If File(m.lcDbc) Then
