@@ -1554,6 +1554,7 @@ statementstart
 				* select at the end
 				If m.lnSelEnd > m.lnSelStart
 					_EdSelect(m.lnWHandle, m.lnSelStart, m.lnSelEnd)
+					_EdStoPos(m.lnWHandle, m.lnSelStart, .T.)
 				Endif
 			Endif
 		Endif
@@ -5904,4 +5905,5 @@ Function _EdGetEnv
 Function _EdGetStr
 Function _EdSelect
 Function _EDGETPOS
+Function _EdStoPos
 *!*	/Changed by: nmpetkov 27.3.2023

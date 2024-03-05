@@ -113,6 +113,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		*m: cleargfsefilter
 		*m: clearsearchresultscursor
 		*m: cleartreeview
+		*m: clicktreeviewnode
 		*m: combinefilters
 		*m: confirmreplace
 		*m: deletesearchresults		&& Delete single or all results from history
@@ -996,7 +997,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Name = "oTreeView", ;
 		Top = 0, ;
 		Width = 186
-		*< END OBJECT: BaseClass="olecontrol" OLEObject="c:\windows\syswow64\mscomctl.ocx" Value="0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAEAAAAgAAAAEAAAD+////AAAAAAAAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9/////v////7///8EAAAA/v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////1IAbwBvAHQAIABFAG4AdAByAHkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAUA//////////8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJAV9CuVbtoBAwAAAEACAAAAAAAAAwBPAGwAZQBPAGIAagBlAGMAdABEAGEAdABhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAgEDAAAAAgAAAP////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAagAAAAAAAAADAEEAYwBjAGUAcwBzAE8AYgBqAFMAaQB0AGUARABhAHQAYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgACAP///////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABcAAAAAAAAAAMAQwBoAGEAbgBnAGUAZABQAHIAbwBwAHMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAIA////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAACABAAAAAAAABAAAAAIAAAD+////BQAAAP7///8GAAAABwAAAAgAAAD+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+2kEHHiYXREbFqAMDwKDYoIUM0EggAAAA5EwAABTUAALE8wWoBAAYAIgAAABkAAAARAgAACgAAAAEAAAAB782rXAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACQAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5MzY4MjY1RS04NUZFLTExZDEtOEJFMy0wMDAwRjg3NTREQTEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACADgAAAEhpZGVTZWxlY3Rpb24ABQAAAEwAAAAADAAAAEluZGVudGF0aW9uABEAAABODQAAAAcAAAAAAAAAAAAFAADp+QIGAAAAAAAAAAUAAIBw5xkAAQAAAFwAH97svQEABQC45xkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANEAKAAAATGluZVN0eWxlAAkAAABJCgAAAAEAAAANAAAATW91c2VQb2ludGVyAAkAAABJCgAAAAAAAAAOAAAAUGF0aFNlcGFyYXRvcgAKAAAASAAAAAABAAAAXAYAAABTdHlsZQAJAAAASQoAAAAGAAAADAAAAE9MRURyYWdNb2RlAAkAAABJCgAAAAAAAAAMAAAAT0xFRHJvcE1vZGUACQAAAEkKAAAAAAAAAA4AAABGdWxsUm93U2VsZWN0AAUAAABMAQAAAAoAAABTaW5nbGVTZWwABQAAAEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+		*< END OBJECT: BaseClass="olecontrol" OLEObject="c:\windows\syswow64\mscomctl.ocx" Value="0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAEAAAAgAAAAEAAAD+////AAAAAAAAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9/////v////7///8EAAAA/v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////1IAbwBvAHQAIABFAG4AdAByAHkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAUA//////////8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALCnUp1Eb9oBAwAAAEACAAAAAAAAAwBPAGwAZQBPAGIAagBlAGMAdABEAGEAdABhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAgEDAAAAAgAAAP////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAagAAAAAAAAADAEEAYwBjAGUAcwBzAE8AYgBqAFMAaQB0AGUARABhAHQAYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgACAP///////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABcAAAAAAAAAAMAQwBoAGEAbgBnAGUAZABQAHIAbwBwAHMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAIA////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAACABAAAAAAAABAAAAAIAAAD+////BQAAAP7///8GAAAABwAAAAgAAAD+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+2kEHHiYXREbFqAMDwKDYoIUM0EggAAAA5EwAABTUAALE8wWoBAAYAIgAAABkAAAARAgAACgAAAAEAAAAB782rXAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACQAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5MzY4MjY1RS04NUZFLTExZDEtOEJFMy0wMDAwRjg3NTREQTEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACADgAAAEhpZGVTZWxlY3Rpb24ABQAAAEwAAAAADAAAAEluZGVudGF0aW9uABEAAABODQAAAAcAAAAAAAAAAAAFAMBG6wIGAAAAAAAAAAUAAIBw5xkAAQAAAFwAH97svQEABQC45xkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANEAKAAAATGluZVN0eWxlAAkAAABJCgAAAAEAAAANAAAATW91c2VQb2ludGVyAAkAAABJCgAAAAAAAAAOAAAAUGF0aFNlcGFyYXRvcgAKAAAASAAAAAABAAAAXAYAAABTdHlsZQAJAAAASQoAAAAGAAAADAAAAE9MRURyYWdNb2RlAAkAAABJCgAAAAAAAAAMAAAAT0xFRHJvcE1vZGUACQAAAEkKAAAAAAAAAA4AAABGdWxsUm93U2VsZWN0AAUAAABMAQAAAAoAAABTaW5nbGVTZWwABQAAAEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
 
 	ADD OBJECT 'containerRight' AS container WITH ;
 		Anchor = 15, ;
@@ -2537,6 +2538,77 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Thisform.oTree.Nodes.Clear()
 		Thisform.LockWindow(.f.)
 		*Thisform.oTree.visible = .t.
+		
+	ENDPROC
+
+	PROCEDURE clicktreeviewnode
+		Lparameters loNode
+		
+		Local lcAlias, lcFileType, lcFilter, lcNewFilter, lcNormalFilter, lnID, lnSelect, loTree
+		loTree = This.oTree
+		
+		lnSelect = Select()
+		lcAlias	 = Thisform.cSearchResultsAlias
+		lcFilter = ''
+		
+		*-- Build Filter clause for selected loNode----------------------------
+		Do Case
+			Case m.loNode.Index = 1 && Master top loNode
+				lcFilter = ''
+		
+			Case m.loNode.Parent.Index = 1 && One of the Main Root Nodes
+				lcFileType = Upper(Getwordnum(m.loNode.Key, 2, '_'))
+				Do Case
+					Case m.lcFileType $ ' SCX VCX PRG FRX DBF PJX'
+						lcFilter = 'Upper(Filetype) = [' + m.lcFileType + ']'
+					Case Upper(m.lcFileType) = 'CLASSES'
+						lcFilter = 'not Empty(class) and (Upper(Filetype) $ [ VCX PRG ])'
+					Otherwise
+						lcFilter = '!(Upper(Filetype) $ [ SCX VCX PRG FRX DBF PJX ])'
+				Endcase
+		
+			Otherwise
+				lnID = Val(Getwordnum(m.loNode.Key, 2, '_'))
+		
+				If Thisform.NavigateToMasterRecord(m.lnID)
+					lcFilter = 'filepath = [' + Alltrim(FilePath) + ']'
+				Endif
+		Endcase
+		
+		If 'CLASS_' $ Upper(m.loNode.Key)
+			lcFilter = Iif(Empty(m.lcFilter), '', m.lcFilter + ' and ') + 'class = [' + Alltrim(Class) + ']'
+		Endif
+		
+		Thisform.cTreeViewFilter = lcFilter
+		
+		*--- Merge Main form filter and TreeView filter
+		lcNormalFilter = This.ApplyFilter()
+		Do Case
+			Case Empty(m.lcFilter)
+				lcNewFilter = m.lcNormalFilter
+			Case Empty(m.lcNormalFilter)
+				lcNewFilter = m.lcFilter
+			Otherwise
+				lcNewFilter = m.lcNormalFilter + ' and ' + m.lcFilter
+		Endcase
+		
+		Set Filter To &lcNewFilter In (Thisform.cSearchResultsAlias)
+		
+		Goto Top In (Thisform.cSearchResultsAlias)
+		
+		loTree				= This.oTree
+		loTree.SelectedItem	= m.loNode
+		
+		Select(m.lcAlias)
+		Set Filter To &lcNewFilter
+		Goto Top
+		
+		Thisform.oGrid.SetFocus
+		m.loTree.SetFocus()
+		*Thisform.Refresh()
+		
+		Select(m.lcAlias)
+		
 		
 	ENDPROC
 
@@ -4247,39 +4319,62 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Append From Array m.laFoxOptions
 		
 		lcCssText = Filetostr(m.lcCssFile)
-		Do While .T.
+		Do While Not Empty(Strextract(m.lcCssText, '<<', '>>', 1, 0))
 			lcSetting = Strextract(m.lcCssText, '<<', '>>', 1, 0)
-			If Empty(m.lcSetting)
-				Use In Fox_Settings
-				Thisform.cCustomCss = m.lcCssText
-				Return m.lcCssText
-			Else
-				Select  Trim(Value)									;
-					From Fox_Settings								;
-					Where Upper(Setting) = Upper(m.lcSetting)		;
-					Into Array laValue
-				If _Tally = 0
-					laValue = 'RGB(0, 0, 0, 255, 255, 255)'
-				Endif
-				lcRGB = Strextract(m.laValue, 'RGB(', ')', 1, 1)
-				lnPos = At(',', m.lcRGB, 3)
+			Select  Trim(Value)												;
+				From Fox_Settings											;
+				Where Upper(Setting) = Upper(m.lcSetting + 'Color')			;
+				Into Array laValue
+			If _Tally = 0
+				laValue = 'RGB(0, 0, 0, 255, 255, 255)'
+			Endif
+			lcRGB = Strextract(m.laValue, 'RGB(', ')', 1, 1)
+			lnPos = At(',', m.lcRGB, 3)
 		
-				lcReplacement = ''
-				lcForeColor	= Left(m.lcRGB, m.lnPos - 1)
-				If Rgb(&lcForeColor) # Rgb(0, 0, 0)
-					lcReplacement = Textmerge('color: rgb(<<m.lcForeColor>>);')
-				Endif
+			lcReplacement = ''
 		
-				lcBackColor	= Substr(m.lcRGB, m.lnPos + 1)
-				If Rgb(&lcBackColor) # Rgb(255, 255, 255)
+			*** JRN 2024-03-05 : ForeColor
+			lcForeColor	  = Left(m.lcRGB, m.lnPos - 1)
+			If Rgb(&lcForeColor) # Rgb(0, 0, 0)
+				lcReplacement = Textmerge('color: rgb(<<m.lcForeColor>>);')
+			Endif
+		
+			*** JRN 2024-03-05 : BackColor
+			lcBackColor	= Substr(m.lcRGB, m.lnPos + 1)
+			Do Case
+					*** JRN 2024-03-05 : Will not even attempt with background = black
+				Case Rgb(&lcBackColor) = Rgb(0, 0, 0)
+					lcCssText = ''
+					Exit
+				Case Rgb(&lcBackColor) # Rgb(255, 255, 255)
 					lcReplacement = m.lcReplacement + Textmerge('background-color: rgb(<<m.lcBackColor>>);')
-				Endif
+			Endcase
 		
-				lcCssText = Strtran(m.lcCssText, '<<' + m.lcSetting + '>>', m.lcReplacement)
+			*** JRN 2024-03-05 : Font Style
+			Select  Trim(Value)												;
+				From Fox_Settings											;
+				Where Upper(Setting) = Upper(m.lcSetting + 'Style')			;
+				Into Array laValue
+			Do Case
+				Case _Tally = 0
 		
-			Endif && Empty(lcSettings)
+				Case m.laValue = '1'
+					lcReplacement = m.lcReplacement + ' font-weight: bold;'
+				Case m.laValue = '2'
+					lcReplacement = m.lcReplacement + ' font-weight: italic;'
+				Case m.laValue = '3'
+					lcReplacement = m.lcReplacement + ' font-weight: bold;  font-weight: italic;'
+		
+			Endcase
+		
+			* ================================================================================ 
+			lcCssText = Strtran(m.lcCssText, '<<' + m.lcSetting + '>>', m.lcReplacement)
+		
 		Enddo && While .T.
 		
+		Use In Fox_Settings
+		Thisform.cCustomCss = m.lcCssText
+		Return m.lcCssText
 		
 	ENDPROC
 
@@ -5016,7 +5111,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		
 		*/ SF 20221017
 		
-		This.Top = -2000 && See comments in LoadFormSettings() for explanation of this...
+		This.Top = -32000 && See comments in LoadFormSettings() for explanation of this...
 		
 		This.cInitialDefaultDir = Addbs(Sys(5) + Sys(2003))
 		This.oSearchEngine      = Createobject("GoFishSearchEngine",,Thisform.cCR_StoreLocal)
@@ -5099,6 +5194,9 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 			loMyDefault           As "My" Of "My.vcx",;
 			loSettings            As Object,;
 			loSettingsDefault     As Object
+		
+		*** JRN 2024-03-05 : this because it might not be changed later ... see last line of code
+		lnTop = Null
 		
 		*SF 20221017
 		*new settings
@@ -5503,7 +5601,9 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 			Endif &&THIS.lCR_RefreshTree AND USED(Thisform.cSearchResultsAlias) And !Eof(Thisform.cSearchResultsAlias)
 		Endif &&m.tcForceRebuild
 		
-		This.Top = m.lnTop 
+		If Not Isnull(m.lnTop)
+			This.Top = m.lnTop
+		Endif
 		
 	ENDPROC
 
@@ -10689,6 +10789,11 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 
 	PROCEDURE containerLeft.oTreeView.NodeClick
 		Lparameters toNode
+		
+		If not Thisform.lCR_Allow 
+			Thisform.ClickTreeviewNode(m.toNode)
+			Return
+		EndIf 
 		
 		If This.glRightClick Then
 			This.glRightClick = .F.
