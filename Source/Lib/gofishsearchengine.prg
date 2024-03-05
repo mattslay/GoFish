@@ -677,28 +677,37 @@ Define Class GoFishSearchEngine As Custom
 			Return 0
 		Endif
 
-*get the toplevel folder, if we are in a repo
-		If !m.tlWithRepo Then
-			lcCommand = 'git rev-parse --git-dir>git_x.tmp'
-			Run &lcCommand
+		* ================================================================================
 
-			If File('git_x.tmp') Then
-*the result is either the git base folder or empty for no git repo
-				tcRepo = Upper(Fullpath(Chrtran(Filetostr('git_x.tmp'), '/' + Chr(13) + Chr(10), '\')))
-				Delete File git_x.tmp
-				tlWithRepo = .T.
-			Else &&file('git_x.tmp')
-* no file, no git
-				tcRepo = ''
-			Endif &&file('git_x.tmp')
+		*!*  Apparently this bothers to skip the .git folder, if any, but causes
+		*!*    screen flashing because of the call to Run
 
-		Endif &&!m.tlWithRepo
+			*!* ******** JRN Removed 2024-03-03 ********
+			*!* *get the toplevel folder, if we are in a repo
+			*!* 		If !m.tlWithRepo Then
+			*!* 			lcCommand = 'git rev-parse --git-dir>git_x.tmp'
+			*!* 			Run &lcCommand
 
-*SF 20221216 special folders to skip
-		If Upper(Fullpath(m.tcDir)) == m.tcRepo
-*git toplevel folder. We do not look this up
-			Return 0
-		Endif
+			*!* 			If File('git_x.tmp') Then
+			*!* *the result is either the git base folder or empty for no git repo
+			*!* 				tcRepo = Upper(Fullpath(Chrtran(Filetostr('git_x.tmp'), '/' + Chr(13) + Chr(10), '\')))
+			*!* 				Delete File git_x.tmp
+			*!* 				tlWithRepo = .T.
+			*!* 			Else &&file('git_x.tmp')
+			*!* * no file, no git
+			*!* 				tcRepo = ''
+			*!* 			Endif &&file('git_x.tmp')
+
+			*!* 		Endif &&!m.tlWithRepo
+
+			*!* *SF 20221216 special folders to skip
+			*!* 		If Upper(Fullpath(m.tcDir)) == m.tcRepo
+			*!* *git toplevel folder. We do not look this up
+			*!* 			Return 0
+			*!* 		EndIf
+		
+		* ================================================================================
+		
 		If Directory(Fullpath(Addbs(m.tcDir) + "GF_Saved_Search_Results" ))
 *			;
 Or "GF_SAVED_SEARCH_RESULTS" $ Upper(m.tcDir) THEN
@@ -1283,24 +1292,30 @@ statementstart
 
 *----------------------------------------------------------------------------------
 	Procedure EditFromCurrentRow(tcCursor, tlSelectObjectOnly, tlMoveToTopleft)
-
-		Local;
-			lcClass     As String,;
-			lcCodeBLock As String,;
-			lcExt       As String,;
-			lcFileToEdit As String,;
-			lcMatchType As String,;
-			lcMethod    As String,;
-			lcMethodString As String,;
-			lcName      As String,;
-			lcProperty  As String,;
-			lnMatchStart As Number,;
-			lnProcStart As Number,;
-			lnRecNo     As Number,;
-			lnStart     As Number,;
-			lnWords     As Number,;
-			loPBT       As 'GF_PEME_BaseTools',;
-			loTools     As Object
+	
+		Local lcClass As String
+		Local lcCodeBlock As String
+		Local lcExt As String
+		Local lcFileToEdit As String
+		Local lcMatchType As String
+		Local lcMethod As String
+		Local lcMethodString As String
+		Local lcName As String
+		Local lcProperty As String
+		Local lnMatchStart As Number
+		Local lnProcStart As Number
+		Local lnRecNo As Number
+		Local lnStart As Number
+		Local lnWords As Number
+		Local loPBT As 'GF_PEME_BaseTools'
+		Local loTools As Object
+		Local lcKeystrokes, lnProcedureLineOffset, lnSelect, loResults
+	
+		lnSelect = Select()
+	
+		Select (m.tcCursor)
+		Scatter Name m.loResults Memo
+		Select (m.lnSelect)
 
 		lcExt        = Alltrim(Upper(&tcCursor..FileType))
 		lcFileToEdit = Upper(Alltrim(&tcCursor..FilePath))
@@ -1310,33 +1325,33 @@ statementstart
 		lcMatchType  = Alltrim(&tcCursor..MatchType)
 		lnRecNo      = &tcCursor..Recno
 		lnProcStart  = &tcCursor..ProcStart
-		lnMatchStart = &tcCursor..MatchStart
+		lnMatchStart = &tcCursor..MatchStart	
 		
-*!*	Changed by: nmpetkov 27.3.2023
-*!*	<pdm>
-*!*	<change date="{^2023-03-27,15:45:00}">Changed by: nmpetkov<br />
-*!*	Changes to  Highlight searched text in opened window #75
-*!*	</change>
-*!*	</pdm>
-*If lcExt # 'PRG' And (Empty(m.lcMethod) Or 0 # Atc('<Property', m.lcMatchType))
-* here any file that is a text file should be accepted to position the cursor when it is opened
-		If !Inlist(m.lcExt, 'PRG', 'SPR', 'MPR', 'QPR', 'H', 'INI', 'TXT', 'XML', 'HTM');
+		*!*	Changed by: nmpetkov 27.3.2023
+		*!*	<pdm>
+		*!*	<change date="{^2023-03-27,15:45:00}">Changed by: nmpetkov<br />
+		*!*	Changes to  Highlight searched text in opened window #75
+		*!*	</change>
+		*!*	</pdm>
+		*If lcExt # 'PRG' And (Empty(m.lcMethod) Or 0 # Atc('<Property', m.lcMatchType))
+		* here any file that is a text file should be accepted to position the cursor when it is opened
+		If Not Inlist(m.lcExt, 'PRG', 'SPR', 'MPR', 'QPR', 'H', 'INI', 'TXT', 'XML', 'HTM')			;
 				And (Empty(m.lcMethod) Or 0 # Atc('<Property', m.lcMatchType))
-*!*	/Changed by: nmpetkov 27.3.2023
+			*!*	/Changed by: nmpetkov 27.3.2023
 			lcMethodString = ''
-			lnStart        = 1
+			lnStart		   = 1
 		Else
 			lcMethodString = Alltrim(m.lcName + '.' + m.lcMethod, 1, '.')
-
+	
 			If m.lcExt $ ' SCX VCX '
-*-- Calculate Line No from procstart and matchstart postitions...
-				lcCodeBLock = Substr(&tcCursor..Code, m.lnProcStart + 1, m.lnMatchStart - m.lnProcStart)
-				lnStart     = Getwordcount(m.lcCodeBLock, Chr(13)) - 1 && The LINE NUMBER that match in on within the method
-				lnStart     = Iif(m.lnStart > 0, m.lnStart, 1)
+				*-- Calculate Line No from procstart and matchstart postitions...
+				lcCodeBlock	= Substr(&tcCursor..Code, m.lnProcStart + 1, m.lnMatchStart - m.lnProcStart)
+				lnStart		= Getwordcount(m.lcCodeBlock, Chr(13)) - 1 && The LINE NUMBER that match in on within the method
+				lnStart		= Iif(m.lnStart > 0, m.lnStart, 1)
 				Do Case
 					Case m.lcExt = 'SCX'
 						lcClass = ''
-
+	
 					Case m.lcExt = 'VCX'
 						If m.lcName = m.lcClass
 							lcMethodString 	= m.lcMethod
@@ -1345,89 +1360,96 @@ statementstart
 			Else
 				lnStart = (&tcCursor..MatchStart) + 1 && The CHARACTER position of the line where the match is on
 			Endif
-
+	
 		Endif
-
+	
 		loPBT = Createobject('GF_PEME_BaseTools')
-
-*** JRN 2021-03-21 : If match is to a name of a file in a Project, open that file
+	
+		*** JRN 2021-03-21 : If match is to a name of a file in a Project, open that file
 		If &tcCursor..FileType = 'PJX' And &tcCursor..MatchType = MatchType_Name
 			lcFileToEdit = Fullpath(Upper(Addbs(Justpath(Trim(&tcCursor..FilePath))) + Trim(&tcCursor..TrimmedMatchLine)))
-			loPBT.EditSourceX(m.lcFileToEdit)
+			m.loPBT.EditSourceX(m.lcFileToEdit)
 			Return
 		Else
 			lcFileToEdit = Upper(Alltrim(&tcCursor..FilePath))
 		Endif
-* --------------------------------------------------------------------------------
-
-*-- 2011-12-28 (As requested by JRN) -------------
-*-- The following code will automatically select the actual Object on the form or class, or select the Property name.
-*-- This will also select it in the PEM Editor main form.
+		* --------------------------------------------------------------------------------
+	
+		*-- 2011-12-28 (As requested by JRN) -------------
+		*-- The following code will automatically select the actual Object on the form or class, or select the Property name.
+		*-- This will also select it in the PEM Editor main form.
 		If Type('_Screen.cThorDispatcher') = 'C'
-
+	
 			loTools = Execscript(_Screen.cThorDispatcher, 'Class= tools from pemeditor')
-
+	
 			If Vartype(m.loTools) = 'O'
-
+	
 				If m.lcExt = 'SCX' And &tcCursor..BaseClass = 'form' && Must trim off form name from front of object name
 					lcName = ''
 				Endif
-
+	
 				Do Case
 					Case m.lcMatchType = MatchType_Name
-						loPBT.EditSourceX(m.lcFileToEdit, m.lcClass)
-						loTools.SelectObject(m.lcName)
+						m.loPBT.EditSourceX(m.lcFileToEdit, m.lcClass)
+						m.loTools.SelectObject(m.lcName)
 						Return
-
+	
 					Case m.lcMatchType $ (MATCHTYPE_PROPERTY_NAME + MATCHTYPE_PROPERTY_VALUE + MATCHTYPE_PROPERTY_DEF )
-*-- Pull out the Property name from the MatchLine (it can be preceded by an object name)
+						*-- Pull out the Property name from the MatchLine (it can be preceded by an object name)
 						lcProperty = Getwordnum(&tcCursor..TrimmedMatchLine, 1)
-						lnWords    = Getwordcount(m.lcProperty, '.')
+						lnWords	   = Getwordcount(m.lcProperty, '.')
 						lcProperty = Getwordnum(m.lcProperty, m.lnWords, '. ')
 						lcProperty = This.FixPropertyName(m.lcProperty)
-
-						loPBT.EditSourceX(m.lcFileToEdit, m.lcClass)
-						loTools.SelectObject(m.lcName, m.lcProperty)
+	
+						m.loPBT.EditSourceX(m.lcFileToEdit, m.lcClass)
+						m.loTools.SelectObject(m.lcName, m.lcProperty)
 						Return
 				Endcase
 			Endif
-
+	
 		Endif
-
+	
 		If m.lcExt = 'MNX'
 			*** JRN 2024-02-05 : special handling for MNXs - if possible, using the keyboard buffer
 			* to navigate to the actual record and procedure
-			lcKeyStrokes = This.GetMenuKeystrokes(m.lcFileToEdit, m.lnRecNo, m.lcMatchType)
+			lcKeystrokes = This.GetMenuKeystrokes(m.lcFileToEdit, m.lnRecNo, m.lcMatchType)
 			m.loPBT.EditSourceX(m.lcFileToEdit, m.lcClass, m.lnStart, m.lnStart, m.lcMethodString, m.lnRecNo)
-			If not Empty(m.lcKeyStrokes)
-				Keyboard(m.lcKeyStrokes)
+			If Not Empty(m.lcKeystrokes)
+				Keyboard(m.lcKeystrokes)
 			Endif
 		Else
 			m.loPBT.EditSourceX(m.lcFileToEdit, m.lcClass, m.lnStart, m.lnStart, m.lcMethodString, m.lnRecNo)
-		EndIf
-
-
-*!*	Changed by: nmpetkov 27.3.2023
-*!*	<pdm>
-*!*	<change date="{^2023-03-27,15:45:00}">Changed by: nmpetkov<br />
-*!*	Changes to  Highlight searched text in opened window #75
-*!*	</change>
-*!*	</pdm>
-		lcMatchType = Alltrim(&tcCursor..MatchType)
-*	Try to select searched text if found in normal windows only - exclude internal for VFP places
-		If !Inlist(m.lcMatchType, MATCHTYPE_FILENAME, MATCHTYPE_CLASS_DEF, MATCHTYPE_CLASS_DESC, MATCHTYPE_METHOD_DEF, MATCHTYPE_PROPERTY_DEF, ;
-				MATCHTYPE_CONTAINING_CLASS, MATCHTYPE_PARENTCLASS, MATCHTYPE_BASECLASS, MATCHTYPE_METHOD_DESC, MATCHTYPE_PROPERTY, ;
-				MATCHTYPE_PROPERTY_DESC, MATCHTYPE_PROPERTY_NAME, MATCHTYPE_PROPERTY_VALUE)
-			This.SelectSearchedText(&tcCursor..MatchStart,&tcCursor..MatchLen, Trim(&tcCursor..Search))
 		Endif
-*!*	/Changed by: nmpetkov 27.3.2023
-
+	
+	
+		*!*	Changed by: nmpetkov 27.3.2023
+		*!*	<pdm>
+		*!*	<change date="{^2023-03-27,15:45:00}">Changed by: nmpetkov<br />
+		*!*	Changes to  Highlight searched text in opened window #75
+		*!*	</change>
+		*!*	</pdm>
+		lcMatchType = Alltrim(&tcCursor..MatchType)
+		*	Try to select searched text if found in normal windows only - exclude internal for VFP places
+		Do Case
+			Case Inlist(m.lcMatchType, MatchType_Filename, MATCHTYPE_CLASS_DEF, MATCHTYPE_CLASS_DESC, MATCHTYPE_METHOD_DEF, MATCHTYPE_PROPERTY_DEF, ;
+					  MATCHTYPE_CONTAINING_CLASS, MatchType_ParentClass, MatchType_BaseClass, MATCHTYPE_METHOD_DESC, MATCHTYPE_PROPERTY, ;
+					  MATCHTYPE_PROPERTY_DESC, MATCHTYPE_PROPERTY_NAME, MATCHTYPE_PROPERTY_VALUE)
+			Case Inlist(m.lcExt, 'SCX', 'VCX')
+				lcProcCode = Alltrim(loResults.ProcCode, 1, LF) 
+				lnProcedureLineOffset = Atc(LF, m.lcProcCode)
+				lnStart = &tcCursor..MatchStart - &tcCursor..ProcStart - m.lnProcedureLineOffset
+				This.SelectSearchedText(m.lnStart, &tcCursor..MatchLen, Trim(&tcCursor..Search), &tcCursor..MatchLine)
+			Otherwise
+				This.SelectSearchedText(&tcCursor..MatchStart, &tcCursor..MatchLen, Trim(&tcCursor..Search), &tcCursor..MatchLine)
+		Endcase
+		*!*	/Changed by: nmpetkov 27.3.2023
+	
 		If m.tlMoveToTopleft And (m.lcExt = 'PRG' Or Not Empty(m.lcMethodString))
 			This.ThorMoveWindow()
 		Endif
-
+	
 	Endproc
-
+	
 *!*	Changed by: nmpetkov 27.3.2023
 *!*	<pdm>
 *!*	<change date="{^2023-03-27,15:45:00}">Changed by: nmpetkov<br />
@@ -1442,90 +1464,105 @@ statementstart
 *
 *nmpetkov 27.3.2023
 *----------------------------------------------------------------------------------
-	Procedure SelectSearchedText(tnRangeStart, tnRangelen, tcSearch)
-		Local;
-			lLibrRelease As Boolean,;
-			lcFoxtoolsFll As String,;
-			lcLine     As String,;
-			llMatchCase As Boolean,;
-			lnPos      As Number,;
-			lnRangeEnd As Number,;
-			lnRangeStart As Number,;
-			lnRetCode  As Number,;
-			lnSelEnd   As Number,;
-			lnSelStart As Number,;
-			lnWhandle  As Number,;
-			loMatch    As Object,;
-			loMatches  As Object
-
-		Local Array;
-			aEdEnv(25)
-
-		If Atc("foxtools.fll", Set("LIBRARY")) = 0
-			lcFoxtoolsFll = Sys(2004) + "foxtools.fll"
+	Procedure SelectSearchedText(tnRangeStart, tnRangelen, tcSearch, tcMatchLine)
+		Local lLibrRelease As Boolean
+		Local lcFoxtoolsFll As String
+		Local lcLine As String
+		Local llMatchCase As Boolean
+		Local lnPos As Number
+		Local lnRangeEnd As Number
+		Local lnRangeStart As Number
+		Local lnRetCode As Number
+		Local lnSelEnd As Number
+		Local lnSelStart As Number
+		Local lnWHandle As Number
+		Local loMatch As Object
+		Local loMatches As Object
+		Local lcSearch, lcText
+		Local aEdEnv[25]
+	
+		If Atc('foxtools.fll', Set('LIBRARY')) = 0
+			lcFoxtoolsFll = Sys(2004) + 'foxtools.fll'
 			If File(m.lcFoxtoolsFll)
 				lLibrRelease = .T.
 				Set Library To (m.lcFoxtoolsFll) Additive
 			Endif
 		Endif
-
-		If Atc("foxtools.fll", Set("LIBRARY")) > 0
-			lnWhandle = _WOnTop()
-			lnRetCode = _EdGetEnv(m.lnWhandle, @aEdEnv) && aEdEnv: 1 - filename, 2 - size, 12 - readonly?, 17 - selected start, 18 selected  end
-			If m.lnRetCode = 1 And aEdEnv[2] > 0 && content size is > 0
-* determine the range in which to be searched
-				If aEdEnv[17] > 0 Or Empty(m.tnRangeStart) Or m.tnRangeStart >= aEdEnv[2]
-* defaults to current cursor position, if is set, otherwise the given as parameter
-*tnRangeStart = _EdGetPos(m.lnWhandle) && this value is allready available in aEdEnv
-					tnRangeStart = aEdEnv[17]
-				Endif
-				lnRangeStart = m.tnRangeStart
-				If Empty(m.tnRangelen)
-					tnRangelen = aEdEnv[2] - m.lnRangeStart + 1
-				Endif
-				lnRangeEnd = m.lnRangeStart + m.tnRangelen && determine where the search to be searched :-)
-				If m.lnRangeEnd > aEdEnv[2] && check we are not beyond the end, will throw error
-					lnRangeEnd = aEdEnv[2]
-				Endif
-				lcLine = _EdGetStr(m.lnWhandle, m.lnRangeStart, m.lnRangeEnd)
-* determine real string to search in case pattern or Regex
-				llMatchCase = This.oSearchOptions.lMatchCase
-				If This.oSearchOptions.nSearchMode > 1
-					This.PrepareRegExForSearch()
-					This.PrepareRegExForReplace()
-					loMatches = This.oRegExForSearch.Execute(m.lcLine)
-					If m.loMatches.Count > 0
-						loMatch     = loMatches.Item(0)
-						tcSearch    = m.loMatch.Value
-						llMatchCase = .T.
+	
+		If Atc('foxtools.fll', Set('LIBRARY')) > 0
+			lnWHandle = _WOnTop()
+			lnRetCode = _EDGetenv(m.lnWHandle, @m.aEdEnv)
+			* aEdEnv: 
+			*	1 - filename
+			*	2 - size
+			*  12 - readonly?
+			*  17 - selected start
+			*  18 - selected end
+			If m.lnRetCode = 1 And m.aEdEnv[2] > 0 && content size is > 0
+	
+				lcText = _EdGetStr(m.lnWHandle, m.tnRangeStart, m.tnRangeStart + m.tnRangelen)
+	
+				If Atc(m.tcMatchLine, m.lcText) > 0 And This.oSearchOptions.nSearchMode # 3
+					If This.oSearchOptions.nSearchMode = 2 And '*' $ m.tcSearch
+						lcSearch = Left(m.tcSearch, At('*', m.tcSearch) - 1)
+					Else
+						lcSearch = m.tcSearch
 					Endif
-				Endif
-* search what to be selected in the range
-				If m.llMatchCase
-					lnPos = At(m.tcSearch, m.lcLine)
+					lnSelStart = m.tnRangeStart + Atc(m.lcSearch, m.lcText) - 1
+					lnSelEnd   = m.lnSelStart + Len(m.lcSearch)
 				Else
-					lnPos = Atc(m.tcSearch, m.lcLine)
+	
+					* ================================================================================ 
+					lnRangeStart = m.tnRangeStart
+					If Empty(m.tnRangelen)
+						tnRangelen = m.aEdEnv[2] - m.lnRangeStart + 1
+					Endif
+					lnRangeEnd = m.lnRangeStart + m.tnRangelen && determine where the search to be searched :-)
+					If m.lnRangeEnd > m.aEdEnv[2] && check we are not beyond the end, will throw error
+						lnRangeEnd = m.aEdEnv[2]
+					Endif
+					lcLine = _EdGetStr(m.lnWHandle, m.lnRangeStart, m.lnRangeEnd)
+					* determine real string to search in case pattern or Regex
+					llMatchCase = This.oSearchOptions.lMatchCase
+					If This.oSearchOptions.nSearchMode > 1
+						This.PrepareRegExForSearch()
+						This.PrepareRegExForReplace()
+						loMatches = This.oRegExForSearch.Execute(m.lcLine)
+						If m.loMatches.Count > 0
+							loMatch		= m.loMatches.Item(0)
+							tcSearch	= m.loMatch.Value
+							llMatchCase	= .T.
+						Endif
+					Endif
+					* search what to be selected in the range
+					If m.llMatchCase
+						lnPos = At(m.tcSearch, m.lcLine)
+					Else
+						lnPos = Atc(m.tcSearch, m.lcLine)
+					Endif
+					If m.lnPos > 0
+						lnSelStart = m.lnRangeStart + m.lnPos - 1
+						lnSelEnd   = m.lnSelStart + Len(m.tcSearch)
+					Else
+						* In case the search fails (match word or regular expressions), select whole the line
+						lnSelStart = m.tnRangeStart
+						lnSelEnd   = m.tnRangeStart + m.tnRangelen
+					Endif
+					* ================================================================================ 
 				Endif
-				If m.lnPos > 0
-					lnSelStart = m.lnRangeStart + m.lnPos - 1
-					lnSelEnd   = m.lnSelStart + Len(m.tcSearch)
-				Else
-* In case the search fails (match word or regular expressions), select whole the line
-					lnSelStart = m.tnRangeStart
-					lnSelEnd   = m.tnRangeStart + m.tnRangelen
-				Endif
-* select at the end
+	
+				* select at the end
 				If m.lnSelEnd > m.lnSelStart
-					_EdSelect(m.lnWhandle, m.lnSelStart, m.lnSelEnd)
+					_EdSelect(m.lnWHandle, m.lnSelStart, m.lnSelEnd)
 				Endif
 			Endif
 		Endif
-
-		If m.lLibrRelease And Atc(m.lcFoxtoolsFll, Set("LIBRARY")) > 0
+	
+		If m.lLibrRelease And Atc(m.lcFoxtoolsFll, Set('LIBRARY')) > 0
 			Release Library (m.lcFoxtoolsFll)
 		Endif
 	Endproc
-*!*	/Changed by: nmpetkov 27.3.2023
+		*!*	/Changed by: nmpetkov 27.3.2023
 
 *----------------------------------------------------------------------------------
 	Procedure EditMenuFromCurrentRow(tcCursor)
