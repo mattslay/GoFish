@@ -113,8 +113,18 @@ DEFINE CLASS registry AS custom
 	lhaderror = .f.
 	
 	PROCEDURE Init
-		THIS.cVFPOptPath = VFP_OPTIONS_KEY1 + _VFP.VERSION + VFP_OPTIONS_KEY2
-		DO CASE
+     PROCEDURE Init
+
+*** DH 2024-03-05:    VFP Advanced Registry keys are stored in HKEY_CURRENT_USER\Software\Microsoft\VisualFoxPro\10
+***                        but _VFP.Version returns "10.0". So, strip off the decimal in that case.
+*          THIS.cVFPOptPath = VFP_OPTIONS_KEY1 + _VFP.VERSION + VFP_OPTIONS_KEY2
+           lcVersion = _VFP.VERSION
+           if left(m.lcVersion, 2) = '10' and at('.', m.lcVersion) > 0
+                lcVersion = left(m.lcVersion, at('.', m.lcVersion) - 1)
+           endif left(m.lcVersion, 2) = '10'
+           THIS.cVFPOptPath = VFP_OPTIONS_KEY1 + m.lcVersion + VFP_OPTIONS_KEY2
+*** DH 2024-03-05:    end of change		
+      DO CASE
 		CASE _DOS OR _UNIX OR _MAC
 			RETURN .F.
 		CASE ATC("Windows 3",OS(1)) # 0

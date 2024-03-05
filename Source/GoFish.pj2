@@ -184,7 +184,6 @@ WITH loProject.FILES
 	*</FileComments>
 
 	*<ExcludedFiles>
-	.ITEM("..\readme.md").Exclude = .T.
 	.ITEM("buildgofish.h").Exclude = .T.
 	.ITEM("buildgofish.prg").Exclude = .T.
 	.ITEM("gofishgeneratescc.prg").Exclude = .T.

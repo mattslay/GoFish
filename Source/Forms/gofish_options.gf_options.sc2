@@ -3745,6 +3745,14 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Thisform.nDockable = This.Value
 	ENDPROC
 
+	PROCEDURE pfSettings.pagePreferences.Check12.Refresh
+		If Empty(Thisform.oForm.GetCustomcss())
+			This.Value	 = .F.
+			This.Enabled = .F.
+		Endif
+		
+	ENDPROC
+
 	PROCEDURE pfSettings.pagePreferences.chkDesktop.InteractiveChange
 		Local lcSettingsFile, loMy, loSettings
 		

@@ -60,27 +60,27 @@
 		}
 		
 		.vfpcode{
-			<<EditorOperatorColor>>;
+			<<EditorOperator>>;
 		}
 		
 		.vfpreserved{
-			<<EditorKeywordColor>>;
+			<<EditorKeyword>>;
 		}
 		
 		.vfpcomment{
-			<<EditorCommentColor>>;
+			<<EditorComment>>;
 		}
 		
 		.vfpliteral{
-			<<EditorConstantColor>>;
+			<<EditorConstant>>;
 		}
 		
 		.vfpvariable{
-			<<EditorVariableColor>>;
+			<<EditorVariable>>;
 		}
 		
 		.vfpstring{
-			<<EditorStringColor>>;
+			<<EditorString>>;
 		}
 			
 </style>
