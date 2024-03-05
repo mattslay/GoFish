@@ -102,6 +102,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 	#INCLUDE "gofish.h"
 	*<DefinedPropArrayMethod>
 		*m: addclassestotreeview
+		*m: addclassestotreeviewsimple
 		*m: adjustformforreplacepanel
 		*m: applyfilter
 		*m: buildsearchhistorycursor
@@ -155,6 +156,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		*m: populatenode		&& Populate / Expand a single Node.
 		*m: populatetreefromhistory		&& Populate Tree with all previeous searches (per scope filter)
 		*m: populatetreeview		&& Fill the Treeview.
+		*m: populatetreeviewsimple
 		*m: refreshresults		&& Refresh (re-search) a result
 		*m: replace
 		*m: replaceline
@@ -994,7 +996,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Name = "oTreeView", ;
 		Top = 0, ;
 		Width = 186
-		*< END OBJECT: BaseClass="olecontrol" OLEObject="c:\windows\syswow64\mscomctl.ocx" Value="0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAEAAAAgAAAAEAAAD+////AAAAAAAAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9/////v////7///8EAAAA/v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////1IAbwBvAHQAIABFAG4AdAByAHkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAUA//////////8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHAyAkAJbdoBAwAAAEACAAAAAAAAAwBPAGwAZQBPAGIAagBlAGMAdABEAGEAdABhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAgEDAAAAAgAAAP////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAagAAAAAAAAADAEEAYwBjAGUAcwBzAE8AYgBqAFMAaQB0AGUARABhAHQAYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgACAP///////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABcAAAAAAAAAAMAQwBoAGEAbgBnAGUAZABQAHIAbwBwAHMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAIA////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAACABAAAAAAAABAAAAAIAAAD+////BQAAAP7///8GAAAABwAAAAgAAAD+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+2kEHHiYXREbFqAMDwKDYoIUM0EggAAAA5EwAABTUAALE8wWoBAAYAIgAAABkAAAARAgAACgAAAAEAAAAB782rXAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACQAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5MzY4MjY1RS04NUZFLTExZDEtOEJFMy0wMDAwRjg3NTREQTEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACADgAAAEhpZGVTZWxlY3Rpb24ABQAAAEwAAAAADAAAAEluZGVudGF0aW9uABEAAABODQAAAAcAAAAAAAAAAAAFALAB5gIGAAAAAAAAAAUAAIBw5xkAAQAAAFwAH97svQEABQC45xkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANEAKAAAATGluZVN0eWxlAAkAAABJCgAAAAEAAAANAAAATW91c2VQb2ludGVyAAkAAABJCgAAAAAAAAAOAAAAUGF0aFNlcGFyYXRvcgAKAAAASAAAAAABAAAAXAYAAABTdHlsZQAJAAAASQoAAAAGAAAADAAAAE9MRURyYWdNb2RlAAkAAABJCgAAAAAAAAAMAAAAT0xFRHJvcE1vZGUACQAAAEkKAAAAAAAAAA4AAABGdWxsUm93U2VsZWN0AAUAAABMAQAAAAoAAABTaW5nbGVTZWwABQAAAEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+		*< END OBJECT: BaseClass="olecontrol" OLEObject="c:\windows\syswow64\mscomctl.ocx" Value="0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAEAAAAgAAAAEAAAD+////AAAAAAAAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9/////v////7///8EAAAA/v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////1IAbwBvAHQAIABFAG4AdAByAHkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAUA//////////8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJAV9CuVbtoBAwAAAEACAAAAAAAAAwBPAGwAZQBPAGIAagBlAGMAdABEAGEAdABhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAgEDAAAAAgAAAP////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAagAAAAAAAAADAEEAYwBjAGUAcwBzAE8AYgBqAFMAaQB0AGUARABhAHQAYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgACAP///////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABcAAAAAAAAAAMAQwBoAGEAbgBnAGUAZABQAHIAbwBwAHMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAIA////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAACABAAAAAAAABAAAAAIAAAD+////BQAAAP7///8GAAAABwAAAAgAAAD+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+2kEHHiYXREbFqAMDwKDYoIUM0EggAAAA5EwAABTUAALE8wWoBAAYAIgAAABkAAAARAgAACgAAAAEAAAAB782rXAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACQAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5MzY4MjY1RS04NUZFLTExZDEtOEJFMy0wMDAwRjg3NTREQTEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACADgAAAEhpZGVTZWxlY3Rpb24ABQAAAEwAAAAADAAAAEluZGVudGF0aW9uABEAAABODQAAAAcAAAAAAAAAAAAFAADp+QIGAAAAAAAAAAUAAIBw5xkAAQAAAFwAH97svQEABQC45xkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANEAKAAAATGluZVN0eWxlAAkAAABJCgAAAAEAAAANAAAATW91c2VQb2ludGVyAAkAAABJCgAAAAAAAAAOAAAAUGF0aFNlcGFyYXRvcgAKAAAASAAAAAABAAAAXAYAAABTdHlsZQAJAAAASQoAAAAGAAAADAAAAE9MRURyYWdNb2RlAAkAAABJCgAAAAAAAAAMAAAAT0xFRHJvcE1vZGUACQAAAEkKAAAAAAAAAA4AAABGdWxsUm93U2VsZWN0AAUAAABMAQAAAAoAAABTaW5nbGVTZWwABQAAAEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
 
 	ADD OBJECT 'containerRight' AS container WITH ;
 		Anchor = 15, ;
@@ -2159,6 +2161,42 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		
 	ENDPROC
 
+	PROCEDURE addclassestotreeviewsimple
+		Lparameters toVcxNode, tcClassLib
+		
+		Local lcAlias, lcClass, lcClassLibFilter, lcFileName, lcFilter, lcWhere, lnSelect, loClassLibsNode
+		Local loException
+		
+		lnSelect = Select()
+		lcAlias	 = Thisform.cSearchResultsAlias
+		
+		lcClassLibFilter = 'filepath = [' + Alltrim(m.tcClassLib) + ']'
+		
+		lcFilter = Alltrim(Filter(m.lcAlias))
+		lcWhere	 = 'Where ' + m.lcFilter + Iif(Not Empty(m.lcFilter), ' and ', '') + m.lcClassLibFilter
+		Select FileName, Class, Id From (m.lcAlias) &lcWhere Order By Class, ID Into Cursor 'Classes'
+		
+		Scan For Not Empty(Class)
+			lcFileName = Alltrim(FileName)
+			lcClass	   = Alltrim(Class)
+			Try
+				loClassLibsNode = Thisform.oTree.Nodes.Add(m.toVcxNode.Key, 4, 'Class_' + Alltrim(Str(Id)), m.lcClass, ,)
+			Catch To m.loException
+			Endtry
+			Locate For Alltrim(FileName) + Alltrim(Class) # m.lcFileName + m.lcClass Rest
+		
+			If Not Eof()
+				Skip - 1
+			Endif
+		
+		Endscan
+		
+		Select (m.lnSelect)
+		
+		
+		
+	ENDPROC
+
 	PROCEDURE adjustformforreplacepanel
 		Local;
 			loGrid      As Object,;
@@ -3165,6 +3203,8 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 	ENDPROC
 
 	PROCEDURE editfile
+		ThisForm.ShowCodeForCurrentRow()
+		
 		Thisform.oSearchEngine.EditFromCurrentRow(thisform.cSearchResultsAlias,,Thisform.lMoveNewCodeToTopLeft)
 	ENDPROC
 
@@ -5244,7 +5284,6 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 					*!* Thisform.Resize()
 					Thisform.Move(m.lnLeft, -20000, m.lnWidth, m.lnHeight)
 					Thisform.Resize()
-					This.Top = m.lnTop 
 					*!* ** } JRN -- 03/02/2024 05:54:53 PM - End
 		
 					Try
@@ -5463,6 +5502,8 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 				This.lCR_RefreshTree = .F.
 			Endif &&THIS.lCR_RefreshTree AND USED(Thisform.cSearchResultsAlias) And !Eof(Thisform.cSearchResultsAlias)
 		Endif &&m.tcForceRebuild
+		
+		This.Top = m.lnTop 
 		
 	ENDPROC
 
@@ -6859,6 +6900,15 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 			llSubNode    As Boolean,;
 			llClear      As Boolean
 		
+		* ================================================================================
+		*** JRN 2024-03-04 : If not doing special CR style, do it the old way
+		*** which filters
+		If not This.lCR_Allow 
+			This.PopulateTreeViewSimple(tcText, tnForeColor)
+			Return
+		EndIf 
+		* ================================================================================
+		
 		lnSelect0 = Select()
 		
 		*	Thisform.LockWindow(.t.)
@@ -7037,6 +7087,174 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		
 		Return m.loNode
 		
+	ENDPROC
+
+	PROCEDURE populatetreeviewsimple
+		Lparameters tcMessage, tnColor
+		
+		Local laOthers[1], lcAlias, lcClass, lcExt, lcFileName, lcFilePath, lcFilter, lcRoot, lcWhere
+		Local lcWhere2, lnColor, lnSelect, loClassLibsNode, loClassNode, loDbfNode, loFormsNode, loNode
+		Local loOtherNode, loPJXNode, loPrgNode, loReportsNode, loTreeView, loItemNode
+		
+		lnSelect = Select()
+		
+		*	Thisform.LockWindow(.t.)
+		
+		lcAlias				 = This.cSearchResultsAlias
+		loTreeView			 = Thisform.containerLeft.oTreeView
+		loTreeView.LabelEdit = 1
+		
+		lcRoot	= Evl(m.tcMessage, 'Results')
+		lnColor	= Evl(m.tnColor, 0)
+		
+		loTreeView.Visible = .F.
+		
+		With m.loTreeView.Nodes
+		
+			.Clear()
+		
+			*-- Add topmost 'Results' node  ----------------------------
+			loNode				 = .Add(, , 'Results', m.lcRoot, ,)
+			loNode.Expanded		 = .T.
+			loNode.Bold			 = (Reccount(m.lcAlias) > 0) Or Pcount() > 0
+			loTreeView.LineStyle = Iif(Eof(m.lcAlias), 0, 1)
+		
+			loNode.ForeColor = m.lnColor
+		
+			lcFilter = Filter(m.lcAlias)
+			lcWhere	 = Iif(Not Empty(m.lcFilter), 'Where ' + m.lcFilter, '')
+		
+			Select *  From (m.lcAlias) &lcWhere Order By FileName, FilePath Into Cursor 'Files'
+		
+			*-- Create main category nodes if present in the filtered results -
+			* ================================================================================
+			* new code for classes
+			Locate For Not Empty(Class)
+			If Found()
+				loClassNode	= .Add('Results', 4, 'Root_Classes', 'Classes', ,)
+				lnSelect	= Select()
+				lcWhere2	= Iif(Not Empty(m.lcWhere), m.lcWhere + ' and', 'Where') + [ InList(filetype, 'PRG', 'VCX') and Not Empty(Class)] 
+		
+				Select  Lower(Class)       As  Class,			;
+						FileName,								;
+						Lower(FilePath)    As  FilePath,		;
+						Min(Id)            As  Id				;
+					From Files									;
+						&lcWhere2								;
+					Group By Class, FileName, FilePath			;
+					Order By 1, 2, 3							; && 2021-03-21 Change submmited by JRN
+					Into Cursor crsr_Classes Readwrite
+		
+				Scan
+					lcClass	   = Class
+					lcFileName = FileName
+					Select * From crsr_Classes Where Class = m.lcClass And FileName # m.lcFileName Into Array laOthers
+					If _Tally # 0
+						loItemNode = .Add('Root_Classes', 4, 'Class_' + Alltrim(Str(Id)) + '_X', Trim(Class) + ' (' + Justfname(Trim(FileName)) + ')', ,)
+					Else
+						loItemNode = .Add('Root_Classes', 4, 'Class_' + Alltrim(Str(Id)) + '_X', Trim(Class), ,)
+					EndIf
+					
+					loTag = CreateObject('Empty')
+					AddProperty(loTag, 'Filename', Trim(FileName))
+					AddProperty(loTag, 'FilePath', Trim(FilePath))
+					AddProperty(loTag, 'Class', Trim(Class))
+					loItemNode.tag = loTag
+					
+				Endscan
+				loClassNode.Bold	 = .T.
+				loClassNode.Expanded = .T.
+				Select(m.lnSelect)
+			Endif
+			* ================================================================================
+		
+			Locate For Upper(FileType) = 'VCX'
+			If Found()
+				loClassLibsNode			 = .Add('Results', 4, 'Root_VCX', 'ClassLibs', ,)
+				loClassLibsNode.Expanded = .T.
+			Endif
+		
+			Locate For Upper(FileType) = 'SCX'
+			If Found()
+				loFormsNode			 = .Add('Results', 4, 'Root_SCX', 'Forms', ,)
+				loFormsNode.Expanded = .T.
+			Endif
+		
+			Locate For Upper(FileType) = 'PRG'
+			If Found()
+				loPrgNode		   = .Add('Results', 4, 'Root_PRG', 'Programs', ,)
+				loPrgNode.Expanded = .T.
+			Endif
+		
+			Locate For Upper(FileType) = 'FRX'
+			If Found()
+				loReportsNode		   = .Add('Results', 4, 'Root_FRX', 'Reports', ,)
+				loReportsNode.Expanded = .T.
+			Endif
+		
+			Locate For InList(Upper(FileType), 'MNX', 'MPR')
+			If Found()
+				loReportsNode		   = .Add('Results', 4, 'Root_MPX', 'Menus', ,)
+				loReportsNode.Expanded = .T.
+			Endif
+		
+			Locate For Upper(FileType) = 'DBF'
+			If Found()
+				loDbfNode		   = .Add('Results', 4, 'Root_DBF', 'Tables', ,)
+				loDbfNode.Expanded = .T.
+			Endif
+		
+			Locate For Upper(FileType) = 'PJX'
+			If Found()
+				loPJXNode		   = .Add('Results', 4, 'Root_PJX', 'Projects', ,)
+				loPJXNode.Expanded = .T.
+			Endif
+		
+			Locate For Not (Upper(FileType) $ ' SCX VCX PRG FRX DBF PJX MNX MPR ')
+			If Found()
+				loOtherNode			 = .Add('Results', 4, 'Root_OTHER', 'Other', ,)
+				loOtherNode.Expanded = .T.
+			Endif
+		
+			*-- Now populate each category node -------------------------------
+			Scan
+				lcFilePath = Alltrim(Upper(FilePath))
+				lcExt	   = Upper(Justext(FilePath))
+		
+				Do Case
+					Case '_' + m.lcExt + '_' $ '_SCX_VCX_PRG_FRX_DBF_PJX_'
+						lcRoot = 'Root_' + m.lcExt
+					Case '_' + m.lcExt + '_' $ '_MNX_MPR_'
+						lcRoot = 'Root_MPX'
+					Otherwise 
+						lcRoot = 'Root_OTHER'
+				Endcase
+		
+				loNode			   = .Add(m.lcRoot, 4, 'File_' + Alltrim(Str(Id)) + '_' + Alltrim(FilePath), Lower(Justfname(m.lcFilePath)), ,)
+				loNode.Parent.Bold = .T.
+				loNode.Expanded	   = .T.
+		
+				If m.lcExt = 'VCX'
+					loNode.Expanded = .F.
+					Thisform.AddClassesToTreeViewSimple(m.loNode, FilePath)
+				Endif
+		
+				Locate For Alltrim(Upper(FilePath)) # m.lcFilePath Rest && Jump To next FileName
+		
+				If Not Eof()
+					Skip - 1
+				Endif
+		
+			Endscan
+		
+		Endwith
+		
+		loTreeView.Visible = .T.
+		*	Thisform.LockWindow(.f.)
+		
+		m.loTreeView.Refresh()
+		
+		Select (m.lnSelect)
 	ENDPROC
 
 	PROCEDURE Refresh
