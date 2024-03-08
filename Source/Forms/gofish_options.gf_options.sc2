@@ -158,31 +158,15 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 	*< OBJECTDATA: ObjPath="pfSettings.pageColours.Label15" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.pageColours.Label16" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.pageColours.Label17" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check1" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check2" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check3" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check4" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check5" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check6" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check7" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check8" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Container1" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Container1.Check1" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Container1.Check2" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Container1.Check3" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Container1.Check4" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Container1.Check5" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Container1.Check6" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Container1.Check7" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Container1.Check8" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check9" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check10" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check11" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check12" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check13" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check14" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check15" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Check16" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Container" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Container.Check1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Container.Check2" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Container.Check3" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Container.Check4" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Container.Check5" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Container.Check6" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Container.Check7" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.pageReferences.Container.Check8" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.Page3.Check10" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.Page3.Check11" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.Page3.Check5" UniqueID="" Timestamp="" />
@@ -1515,7 +1499,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 
 	ADD OBJECT 'pfSettings.pageColours.Label1' AS label WITH ;
 		BackStyle = 0, ;
-		Caption = "Frame color (used to indicate non-default values for checkboxes above the grid)", ;
+		Caption = "Outline color for highllighted code and non-default checkboxes (above the grid)", ;
 		Height = 29, ;
 		Left = 51, ;
 		Name = "Label1", ;
@@ -2209,240 +2193,16 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Width = 59
 		*< END OBJECT: BaseClass="textbox" />
 
-	ADD OBJECT 'pfSettings.pageReferences.Check1' AS checkbox WITH ;
-		Alignment = 0, ;
-		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "Open GoFish like Code References: Active project / Recent folder", ;
-		ControlSource = "Thisform.lCR_OpenMode", ;
-		Height = 17, ;
-		Left = 21, ;
-		Name = "Check1", ;
-		TabIndex = 1, ;
-		Top = 30, ;
-		Width = 372
-		*< END OBJECT: BaseClass="checkbox" />
-
-	ADD OBJECT 'pfSettings.pageReferences.Check10' AS checkbox WITH ;
-		Alignment = 0, ;
-		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "Show search history (button) per scope.", ;
-		ControlSource = "Thisform.lCR_HistoryPerScope", ;
-		Height = 17, ;
-		Left = 29, ;
-		Name = "Check10", ;
-		TabIndex = 2, ;
-		Top = 58, ;
-		Width = 235
-		*< END OBJECT: BaseClass="checkbox" />
-
-	ADD OBJECT 'pfSettings.pageReferences.Check11' AS checkbox WITH ;
-		Alignment = 0, ;
-		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "Show history in search combo per scope.", ;
-		ControlSource = "Thisform.lCR_SearchComboPerScope", ;
-		Height = 17, ;
-		Left = 29, ;
-		Name = "Check11", ;
-		TabIndex = 3, ;
-		Top = 78, ;
-		Width = 244
-		*< END OBJECT: BaseClass="checkbox" />
-
-	ADD OBJECT 'pfSettings.pageReferences.Check12' AS checkbox WITH ;
-		Alignment = 0, ;
-		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "Show history in tree (Follows Seaerch History button switch)", ;
-		ControlSource = "Thisform.lCR_HistoryTree", ;
-		Height = 17, ;
-		Left = 29, ;
-		Name = "Check12", ;
-		TabIndex = 4, ;
-		Top = 103, ;
-		Width = 344
-		*< END OBJECT: BaseClass="checkbox" />
-
-	ADD OBJECT 'pfSettings.pageReferences.Check13' AS checkbox WITH ;
-		Alignment = 0, ;
-		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "Simple tree, no subnodes for classes, just plain filenames", ;
-		ControlSource = "Thisform.lCR_SimpleTree", ;
-		Height = 17, ;
-		Left = 29, ;
-		Name = "Check13", ;
-		TabIndex = 7, ;
-		Top = 168, ;
-		Width = 338
-		*< END OBJECT: BaseClass="checkbox" />
-
-	ADD OBJECT 'pfSettings.pageReferences.Check14' AS checkbox WITH ;
-		Alignment = 0, ;
-		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "Sort tree by extension first", ;
-		ControlSource = "Thisform.lCR_SortTreeByExt", ;
-		Height = 17, ;
-		Left = 45, ;
-		Name = "Check14", ;
-		TabIndex = 8, ;
-		Top = 188, ;
-		Width = 158
-		*< END OBJECT: BaseClass="checkbox" />
-
-	ADD OBJECT 'pfSettings.pageReferences.Check15' AS checkbox WITH ;
-		Alignment = 0, ;
-		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "Fill all searches with data on startup. (sloow)", ;
-		ControlSource = "Thisform.lCR_HistoryTreeAuto", ;
-		Height = 17, ;
-		Left = 45, ;
-		Name = "Check15", ;
-		TabIndex = 5, ;
-		Top = 123, ;
-		Width = 262
-		*< END OBJECT: BaseClass="checkbox" />
-
-	ADD OBJECT 'pfSettings.pageReferences.Check16' AS checkbox WITH ;
-		Alignment = 0, ;
-		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "Sort alphanumerical", ;
-		ControlSource = "Thisform.lCR_SortTreeAlpha", ;
-		Height = 17, ;
-		Left = 45, ;
-		Name = "Check16", ;
-		TabIndex = 6, ;
-		Top = 143, ;
-		Width = 129
-		*< END OBJECT: BaseClass="checkbox" />
-
-	ADD OBJECT 'pfSettings.pageReferences.Check2' AS checkbox WITH ;
-		Alignment = 0, ;
-		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "Show search history (button) per scope.", ;
-		ControlSource = "Thisform.lCR_HistoryPerScope", ;
-		Height = 17, ;
-		Left = 21, ;
-		Name = "Check2", ;
-		TabIndex = 2, ;
-		Top = 50, ;
-		Width = 235
-		*< END OBJECT: BaseClass="checkbox" />
-
-	ADD OBJECT 'pfSettings.pageReferences.Check3' AS checkbox WITH ;
-		Alignment = 0, ;
-		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "Show history in search combo per scope.", ;
-		ControlSource = "Thisform.lCR_SearchComboPerScope", ;
-		Height = 17, ;
-		Left = 21, ;
-		Name = "Check3", ;
-		TabIndex = 3, ;
-		Top = 70, ;
-		Width = 244
-		*< END OBJECT: BaseClass="checkbox" />
-
-	ADD OBJECT 'pfSettings.pageReferences.Check4' AS checkbox WITH ;
-		Alignment = 0, ;
-		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "Show history in tree (Follows Seaerch History button switch)", ;
-		ControlSource = "Thisform.lCR_HistoryTree", ;
-		Height = 17, ;
-		Left = 21, ;
-		Name = "Check4", ;
-		TabIndex = 4, ;
-		Top = 95, ;
-		Width = 344
-		*< END OBJECT: BaseClass="checkbox" />
-
-	ADD OBJECT 'pfSettings.pageReferences.Check5' AS checkbox WITH ;
-		Alignment = 0, ;
-		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "Simple tree, no subnodes for classes, just plain filenames", ;
-		ControlSource = "Thisform.lCR_SimpleTree", ;
-		Height = 17, ;
-		Left = 21, ;
-		Name = "Check5", ;
-		TabIndex = 7, ;
-		Top = 160, ;
-		Width = 338
-		*< END OBJECT: BaseClass="checkbox" />
-
-	ADD OBJECT 'pfSettings.pageReferences.Check6' AS checkbox WITH ;
-		Alignment = 0, ;
-		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "Sort tree by extension first", ;
-		ControlSource = "Thisform.lCR_SortTreeByExt", ;
-		Height = 17, ;
-		Left = 37, ;
-		Name = "Check6", ;
-		TabIndex = 8, ;
-		Top = 180, ;
-		Width = 158
-		*< END OBJECT: BaseClass="checkbox" />
-
-	ADD OBJECT 'pfSettings.pageReferences.Check7' AS checkbox WITH ;
-		Alignment = 0, ;
-		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "Fill all searches with data on startup. (sloow)", ;
-		ControlSource = "Thisform.lCR_HistoryTreeAuto", ;
-		Height = 17, ;
-		Left = 37, ;
-		Name = "Check7", ;
-		TabIndex = 5, ;
-		Top = 115, ;
-		Width = 262
-		*< END OBJECT: BaseClass="checkbox" />
-
-	ADD OBJECT 'pfSettings.pageReferences.Check8' AS checkbox WITH ;
-		Alignment = 0, ;
-		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "Sort alphanumerical", ;
-		ControlSource = "Thisform.lCR_SortTreeAlpha", ;
-		Height = 17, ;
-		Left = 37, ;
-		Name = "Check8", ;
-		TabIndex = 6, ;
-		Top = 135, ;
-		Width = 129
-		*< END OBJECT: BaseClass="checkbox" />
-
-	ADD OBJECT 'pfSettings.pageReferences.Check9' AS checkbox WITH ;
-		Alignment = 0, ;
-		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "Open GoFish like Code References: Active project / Recent folder", ;
-		ControlSource = "Thisform.lCR_OpenMode", ;
-		Height = 17, ;
-		Left = 29, ;
-		Name = "Check9", ;
-		TabIndex = 1, ;
-		Top = 38, ;
-		Width = 372
-		*< END OBJECT: BaseClass="checkbox" />
-
-	ADD OBJECT 'pfSettings.pageReferences.Container1' AS container WITH ;
+	ADD OBJECT 'pfSettings.pageReferences.Container' AS container WITH ;
 		BackStyle = 0, ;
 		Height = 281, ;
-		Left = 67, ;
-		Name = "Container1", ;
-		Top = 203, ;
+		Left = 51, ;
+		Name = "Container", ;
+		Top = 61, ;
 		Width = 470
 		*< END OBJECT: BaseClass="container" />
 
-	ADD OBJECT 'pfSettings.pageReferences.Container1.Check1' AS checkbox WITH ;
+	ADD OBJECT 'pfSettings.pageReferences.Container.Check1' AS checkbox WITH ;
 		Alignment = 0, ;
 		AutoSize = .T., ;
 		BackStyle = 0, ;
@@ -2456,7 +2216,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Width = 372
 		*< END OBJECT: BaseClass="checkbox" />
 
-	ADD OBJECT 'pfSettings.pageReferences.Container1.Check2' AS checkbox WITH ;
+	ADD OBJECT 'pfSettings.pageReferences.Container.Check2' AS checkbox WITH ;
 		Alignment = 0, ;
 		AutoSize = .T., ;
 		BackStyle = 0, ;
@@ -2470,7 +2230,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Width = 235
 		*< END OBJECT: BaseClass="checkbox" />
 
-	ADD OBJECT 'pfSettings.pageReferences.Container1.Check3' AS checkbox WITH ;
+	ADD OBJECT 'pfSettings.pageReferences.Container.Check3' AS checkbox WITH ;
 		Alignment = 0, ;
 		AutoSize = .T., ;
 		BackStyle = 0, ;
@@ -2484,7 +2244,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Width = 244
 		*< END OBJECT: BaseClass="checkbox" />
 
-	ADD OBJECT 'pfSettings.pageReferences.Container1.Check4' AS checkbox WITH ;
+	ADD OBJECT 'pfSettings.pageReferences.Container.Check4' AS checkbox WITH ;
 		Alignment = 0, ;
 		AutoSize = .T., ;
 		BackStyle = 0, ;
@@ -2498,7 +2258,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Width = 337
 		*< END OBJECT: BaseClass="checkbox" />
 
-	ADD OBJECT 'pfSettings.pageReferences.Container1.Check5' AS checkbox WITH ;
+	ADD OBJECT 'pfSettings.pageReferences.Container.Check5' AS checkbox WITH ;
 		Alignment = 0, ;
 		AutoSize = .T., ;
 		BackStyle = 0, ;
@@ -2512,7 +2272,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Width = 338
 		*< END OBJECT: BaseClass="checkbox" />
 
-	ADD OBJECT 'pfSettings.pageReferences.Container1.Check6' AS checkbox WITH ;
+	ADD OBJECT 'pfSettings.pageReferences.Container.Check6' AS checkbox WITH ;
 		Alignment = 0, ;
 		AutoSize = .T., ;
 		BackStyle = 0, ;
@@ -2526,7 +2286,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Width = 158
 		*< END OBJECT: BaseClass="checkbox" />
 
-	ADD OBJECT 'pfSettings.pageReferences.Container1.Check7' AS checkbox WITH ;
+	ADD OBJECT 'pfSettings.pageReferences.Container.Check7' AS checkbox WITH ;
 		Alignment = 0, ;
 		AutoSize = .T., ;
 		BackStyle = 0, ;
@@ -2540,7 +2300,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Width = 262
 		*< END OBJECT: BaseClass="checkbox" />
 
-	ADD OBJECT 'pfSettings.pageReferences.Container1.Check8' AS checkbox WITH ;
+	ADD OBJECT 'pfSettings.pageReferences.Container.Check8' AS checkbox WITH ;
 		Alignment = 0, ;
 		AutoSize = .T., ;
 		BackStyle = 0, ;
@@ -3015,9 +2775,9 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Thisform.cCR_StoreLocal_Set    = Thisform.cCR_StoreLocal_Option
 		
 		Thisform.pfSettings.pageReferences.Enabled        = Thisform.oForm.nFirstLoad=2
-		Thisform.pfSettings.pageReferences.Check6.Enabled = Thisform.lCR_SimpleTree
-		Thisform.pfSettings.pageReferences.Check7.Enabled = Thisform.lCR_HistoryTree
-		Thisform.pfSettings.pageReferences.Check8.Enabled = Thisform.lCR_HistoryTree
+		Thisform.pfSettings.pageReferences.Container.Check6.Enabled = Thisform.lCR_SimpleTree
+		Thisform.pfSettings.pageReferences.Container.Check7.Enabled = Thisform.lCR_HistoryTree
+		Thisform.pfSettings.pageReferences.Container.Check8.Enabled = Thisform.lCR_HistoryTree
 		
 		*/SF 20221017
 		
@@ -3235,6 +2995,14 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 
 	PROCEDURE pfSettings.Page2.Spinner2.Valid
 		Thisform.dLastJanitorRunDate = {}
+	ENDPROC
+
+	PROCEDURE pfSettings.Page3.Check12.Refresh
+		If Empty(Thisform.oForm.GetCustomcss())
+			This.Value	 = .F.
+			This.Enabled = .F.
+		Endif
+		
 	ENDPROC
 
 	PROCEDURE pfSettings.pageAdvanced.chk_CRLocal.InteractiveChange
@@ -3816,42 +3584,14 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 			
 	ENDPROC
 
-	PROCEDURE pfSettings.pageReferences.Check12.InteractiveChange
+	PROCEDURE pfSettings.pageReferences.Container.Check4.InteractiveChange
 		This.SetFocus
 		
 		This.Parent.Check7.Enabled = This.Value
 		This.Parent.Check8.Enabled = This.Value
 	ENDPROC
 
-	PROCEDURE pfSettings.pageReferences.Check13.InteractiveChange
-		This.SetFocus
-		
-		This.Parent.Check6.Enabled = This.Value
-		
-	ENDPROC
-
-	PROCEDURE pfSettings.pageReferences.Check4.InteractiveChange
-		This.SetFocus
-		
-		This.Parent.Check7.Enabled = This.Value
-		This.Parent.Check8.Enabled = This.Value
-	ENDPROC
-
-	PROCEDURE pfSettings.pageReferences.Check5.InteractiveChange
-		This.SetFocus
-		
-		This.Parent.Check6.Enabled = This.Value
-		
-	ENDPROC
-
-	PROCEDURE pfSettings.pageReferences.Container1.Check4.InteractiveChange
-		This.SetFocus
-		
-		This.Parent.Check7.Enabled = This.Value
-		This.Parent.Check8.Enabled = This.Value
-	ENDPROC
-
-	PROCEDURE pfSettings.pageReferences.Container1.Check5.InteractiveChange
+	PROCEDURE pfSettings.pageReferences.Container.Check5.InteractiveChange
 		This.SetFocus
 		
 		This.Parent.Check6.Enabled = This.Value

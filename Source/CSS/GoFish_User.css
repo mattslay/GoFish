@@ -3,7 +3,7 @@
 		.matchline {
 			border-width: 2px;
 			border-style: solid;
-			border-color: red;
+			border-color: <ContainerFrameColour>;
 			margin-top: -17px;
 			margin-bottom: -32px;
 			padding-top: 0px;

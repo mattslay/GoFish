@@ -1,5 +1,8 @@
 #Include GoFish.h
 
+#Define ccMatchWordStart	Chr[2] + chr[4]
+#Define ccMatchWordEnd 		Chr[3] + chr[4]
+
 Define Class GoFishSearchEngine As Custom
 
 	cCR_StoreLocal                   = Addbs(Home(7) + 'GoFish_')
@@ -2028,7 +2031,8 @@ Result
 
 *===================== Colorize the match line ====================================================
 *-- Mark the match WORD(s), so I can find them after the VFP code is colorized...
-			lcReplaceExpression = '[:GOFISHMATCHWORDSTART:] + lcMatch + [:GOFISHMATCHWORDEND:]'
+**** this odd next line is created as something to be executed
+			lcReplaceExpression = ['] + ccMatchWordStart + [' + lcMatch + '] + ccMatchWordEnd + ['] 
 
 			*** JRN 2024-02-17 : highlighting search words
 			Local lcColorizedCode, lcSearch, lnI
@@ -2061,8 +2065,8 @@ Result
 			lcColorizedCode = This.HtmlEncode(m.lcColorizedCode)
 
 *-- Next, add <span> tags around previously marked match Word(s)
-			lcColorizedCode = Strtran(m.lcColorizedCode, ':GOFISHMATCHWORDSTART:', m.lcMatchWordPrefix)
-			lcColorizedCode = Strtran(m.lcColorizedCode, ':GOFISHMATCHWORDEND:', m.lcMatchWordSuffix)
+			lcColorizedCode = Strtran(m.lcColorizedCode, ccMatchWordStart, m.lcMatchWordPrefix)
+			lcColorizedCode = Strtran(m.lcColorizedCode, ccMatchWordEnd,   m.lcMatchWordSuffix)
 
 *-- Finally, add <div> tags around the entire Matched Line -------------------
 			lcMatchLine = m.lcMatchLinePrefix + m.lcColorizedCode + m.lcMatchLineSuffix

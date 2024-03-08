@@ -168,6 +168,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		*m: restoresavedsearch
 		*m: restoresearchengineoptions
 		*m: restoresearchfromhistory
+		*m: restorestatusbarmessage
 		*m: restoretreeviewonstartup
 		*m: runjanitor
 		*m: savereplaceresults
@@ -204,6 +205,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		*m: treeview_nodedblclick		&& A Node of the Treeview is DblClicked.
 		*m: treeview_nodeexpand		&& A Node of the Treeview is expanded
 		*m: treeview_rightclick		&& A Node of the Treeview is RightClicked.
+		*m: treeview_rightclicksimple
 		*m: updateformaftereplace
 		*m: updateformaftersearch
 		*m: updatesearchenginecursor
@@ -240,6 +242,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		*p: csortorder
 		*p: csortordersecondary
 		*p: csortordertertiary
+		*p: cstatusbarmessage
 		*p: ctreeviewfilter
 		*p: c_hasfocus
 		*p: dlastjanitorrundate
@@ -352,6 +355,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		csortorder = 
 		csortordersecondary = 
 		csortordertertiary = 
+		cstatusbarmessage = 
 		ctreeviewfilter = 
 		cuisettingsfile = GF_Results_Form_Settings.xml
 		c_hasfocus = .F.
@@ -997,7 +1001,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Name = "oTreeView", ;
 		Top = 0, ;
 		Width = 186
-		*< END OBJECT: BaseClass="olecontrol" OLEObject="c:\windows\syswow64\mscomctl.ocx" Value="0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAEAAAAgAAAAEAAAD+////AAAAAAAAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9/////v////7///8EAAAA/v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////1IAbwBvAHQAIABFAG4AdAByAHkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAUA//////////8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALCnUp1Eb9oBAwAAAEACAAAAAAAAAwBPAGwAZQBPAGIAagBlAGMAdABEAGEAdABhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAgEDAAAAAgAAAP////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAagAAAAAAAAADAEEAYwBjAGUAcwBzAE8AYgBqAFMAaQB0AGUARABhAHQAYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgACAP///////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABcAAAAAAAAAAMAQwBoAGEAbgBnAGUAZABQAHIAbwBwAHMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAIA////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAACABAAAAAAAABAAAAAIAAAD+////BQAAAP7///8GAAAABwAAAAgAAAD+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+2kEHHiYXREbFqAMDwKDYoIUM0EggAAAA5EwAABTUAALE8wWoBAAYAIgAAABkAAAARAgAACgAAAAEAAAAB782rXAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACQAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5MzY4MjY1RS04NUZFLTExZDEtOEJFMy0wMDAwRjg3NTREQTEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACADgAAAEhpZGVTZWxlY3Rpb24ABQAAAEwAAAAADAAAAEluZGVudGF0aW9uABEAAABODQAAAAcAAAAAAAAAAAAFAMBG6wIGAAAAAAAAAAUAAIBw5xkAAQAAAFwAH97svQEABQC45xkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANEAKAAAATGluZVN0eWxlAAkAAABJCgAAAAEAAAANAAAATW91c2VQb2ludGVyAAkAAABJCgAAAAAAAAAOAAAAUGF0aFNlcGFyYXRvcgAKAAAASAAAAAABAAAAXAYAAABTdHlsZQAJAAAASQoAAAAGAAAADAAAAE9MRURyYWdNb2RlAAkAAABJCgAAAAAAAAAMAAAAT0xFRHJvcE1vZGUACQAAAEkKAAAAAAAAAA4AAABGdWxsUm93U2VsZWN0AAUAAABMAQAAAAoAAABTaW5nbGVTZWwABQAAAEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+		*< END OBJECT: BaseClass="olecontrol" OLEObject="c:\windows\syswow64\mscomctl.ocx" Value="0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAEAAAAgAAAAEAAAD+////AAAAAAAAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9/////v////7///8EAAAA/v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////1IAbwBvAHQAIABFAG4AdAByAHkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAUA//////////8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALAyM3p8cdoBAwAAAEACAAAAAAAAAwBPAGwAZQBPAGIAagBlAGMAdABEAGEAdABhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAgEDAAAAAgAAAP////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAagAAAAAAAAADAEEAYwBjAGUAcwBzAE8AYgBqAFMAaQB0AGUARABhAHQAYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgACAP///////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABcAAAAAAAAAAMAQwBoAGEAbgBnAGUAZABQAHIAbwBwAHMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAIA////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAACABAAAAAAAABAAAAAIAAAD+////BQAAAP7///8GAAAABwAAAAgAAAD+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+2kEHHiYXREbFqAMDwKDYoIUM0EggAAAA5EwAABTUAALE8wWoBAAYAIgAAABkAAAARAgAACgAAAAEAAAAB782rXAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACQAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5MzY4MjY1RS04NUZFLTExZDEtOEJFMy0wMDAwRjg3NTREQTEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACADgAAAEhpZGVTZWxlY3Rpb24ABQAAAEwAAAAADAAAAEluZGVudGF0aW9uABEAAABODQAAAAcAAAAAAAAAAAAFAIDlzQAGAAAAAAAAAAUAAIAU2BkAAQAAAFwAH97svQEABQBc2BkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANEAKAAAATGluZVN0eWxlAAkAAABJCgAAAAEAAAANAAAATW91c2VQb2ludGVyAAkAAABJCgAAAAAAAAAOAAAAUGF0aFNlcGFyYXRvcgAKAAAASAAAAAABAAAAXAYAAABTdHlsZQAJAAAASQoAAAAGAAAADAAAAE9MRURyYWdNb2RlAAkAAABJCgAAAAAAAAAMAAAAT0xFRHJvcE1vZGUACQAAAEkKAAAAAAAAAA4AAABGdWxsUm93U2VsZWN0AAUAAABMAQAAAAoAAABTaW5nbGVTZWwABQAAAEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
 
 	ADD OBJECT 'containerRight' AS container WITH ;
 		Anchor = 15, ;
@@ -2645,9 +2649,9 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 	ENDPROC
 
 	PROCEDURE Deactivate
-		Local lcDot
+		_vfp.AutoYield = Thisform.lAutoYield
 		
-		_VFP.AutoYield = Thisform.lAutoYield
+		Thisform.RestoreStatusBarMessage()
 		
 		*!* ******************** Removed 05/12/2016 *****************
 		*!* *-- This code was added 2012-08-30 to allow GF to work properly with 'IntellisenseX by Dot' from ThorLocal lcDot
@@ -3035,6 +3039,8 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 	PROCEDURE Destroy
 		Local lcFolder, lcSearchEngineOptionsFile
 		
+		ThisForm.RestoreStatusBarMessage()
+		
 		If thisform.dLastJanitorRunDate # Date()
 			Thisform.RunJanitor()
 			thisform.dLastJanitorRunDate = Date()
@@ -3137,41 +3143,41 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 	PROCEDURE dosearch
 		Lparameters tlDoNotSearch, ttTime, tcUni
 		
-		Local lcMessage, lcScope, lcSearchExpression, lcSetEscape
-		Local loSearchEngine As "GoFishSearchEngine"
-		Local loSearchOptions As "GoFishSearchOptions"
-		Local llUpdate
+		Local loSearchEngine As 'GoFishSearchEngine'
+		Local loSearchOptions As 'GoFishSearchOptions'
+		Local lcMessage, lcScope, lcSearchExpression, lcSetEscape, llRegExOverride, llUpdate, lnResponse
+		Local lnReturn
 		
 		llUpdate = Empty(m.tcUni)
 		
-		loSearchEngine = Thisform.oSearchEngine
-		loSearchOptions = Thisform.oSearchEngine.oSearchOptions
+		loSearchEngine	= Thisform.oSearchEngine
+		loSearchOptions	= Thisform.oSearchEngine.oSearchOptions
 		
 		Thisform.lApplyFilter = .F.
 		
 		This.lMaximizeCodeView = .F.
 		
-		This.lInit = .T.
-		Thisform.oSearchEngine.oSearchOptions.cReplaceExpression = ""
+		This.lInit												 = .T.
+		Thisform.oSearchEngine.oSearchOptions.creplaceexpression = ''
 		
-		If !tlDoNotSearch And !This.ValidateInputs()
+		If Not m.tlDoNotSearch And Not This.validateinputs()
 			Thisform.lSearching = .F.
 			Thisform.comboSearchScopeHistory.SetFocus()
 			Thisform.Refresh()
 			Return .F.
 		Endif
 		
-		If loSearchOptions.lMatchWholeWord And Thisform.lWarnWholeWord =.T.
-			lnResponse = Messagebox("Use Whole Word search?", 3, "Whole Word option...")
-			If lnResponse = 2
+		If m.loSearchOptions.lMatchWholeWord And Thisform.lWarnWholeWord =.T.
+			lnResponse = Messagebox('Use Whole Word search?', 3, 'Whole Word option...')
+			If m.lnResponse = 2
 				Return .F.
 			Endif
-			If lnResponse = 7 && NO
+			If m.lnResponse = 7 && NO
 				loSearchOptions.lMatchWholeWord = .F.
 			Endif
 		Endif
 		
-		lcSetEscape = Set("Escape")
+		lcSetEscape = Set('Escape')
 		Set Escape Off
 		
 		*!* ******************** Removed 11/10/2015 *****************
@@ -3179,16 +3185,16 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		*!* Clear Typeahead
 		*!* KEYBOARD "{spacebar}"
 		
-		Thisform.lSearching = .T.
-		Thisform.cCurrentId = ""
-		Thisform.cTreeViewFilter = ""
+		Thisform.lSearching		 = .T.
+		Thisform.cCurrentId		 = ''
+		Thisform.cTreeViewFilter = ''
 		
 		If Thisform.lReplaceViewMode
 			Thisform.lReplaceViewMode = .F.
 		Endif
 		
-		If !Thisform.lCR_HistoryTree Then
-			Thisform.ClearTreeview()
+		If Not Thisform.lCR_HistoryTree Then
+			Thisform.ClearTreeView()
 		Endif &&!Thisform.lCR_HistoryTree
 		
 		*-- This is required because I had problems getting the checkboxes to be usable after the cursor is zapped
@@ -3198,78 +3204,94 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		*loColumn = Thisform.oGrid.FindColumn("PROCESS")
 		*loColumn.DynamicCurrentControl = ""
 		
-		If !Thisform.lCR_HistoryTree Then
+		If Not Thisform.lCR_HistoryTree Then
 			Thisform.ClearSearchResultsCursor()
 		Endif &&!Thisform.lCR_HistoryTree
 		*Thisform.ClearSearchResultsCursor() && Go ahead and blank out the cursor so the grid will be empty during the search
 		
-		If !tlDoNotSearch
+		If Not m.tlDoNotSearch
 		
 			Thisform.Refresh()
 		
-		*-- Save Search Expression ---------------------------------------------------
+			*-- Save Search Expression ---------------------------------------------------
 			lcSearchExpression = Thisform.oSearchEngine.oSearchOptions.cSearchExpression
 		
-			Thisform.comboSearchExpressionHistory.SaveSearchExpression(lcSearchExpression)
+			Thisform.comboSearchExpressionHistory.SaveSearchExpression(m.lcSearchExpression)
 		
-		*-- Save Search Scope ---------------------------------------------------
+			*-- Save Search Scope ---------------------------------------------------
 			lcScope = Alltrim(Lower(Thisform.comboSearchScopeHistory.Text))
 		
-			lcMessage = "Searching..."
+			lcMessage = 'Searching...'
 		
 			If m.llUpdate
-		*SF 20221016 added colour options
-		*	Thisform.PopulateTreeview(, lcMessage , 32768)
+				*SF 20221016 added colour options
+				*	Thisform.PopulateTreeview(, lcMessage , 32768)
 		
-			Thisform.PopulateTreeview(, m.lcMessage , m.lcMessage , Thisform.nTreeSearchColour)
-		*/ SF 20221016 added colour options
+				Thisform.PopulateTreeview(, m.lcMessage, m.lcMessage, Thisform.nTreeSearchColour)
+				*/ SF 20221016 added colour options
 			Endif &&m.llUpdate
 		
-			Thisform.ShowHtml("<h3>&nbsp;&nbsp;&nbsp;" + lcMessage + "</h3>")
+			Thisform.ShowHTML('<h3>&nbsp;&nbsp;&nbsp;' + m.lcMessage + '</h3>')
 		
 			loSearchEngine.oProgressBar = Thisform.ProgressBar
-			loSearchEngine.PrepareForSearch() && Blank out settings from last search so I can refresh the UI with blank value
+			m.loSearchEngine.PrepareForSearch() && Blank out settings from last search so I can refresh the UI with blank value
+		
+			*** JRN 2024-03-07 : if Regexp search and no special chars, use plain search
+			If Thisform.oSearchOptions.nSearchMode = 3		;
+					And Len(m.lcSearchExpression) = Len(Chrtran(m.lcSearchExpression, '.*+^$[]\|', ''))
+				llRegExOverride						= .T.
+				Thisform.oSearchOptions.nSearchMode	= 1
+			Endif
 		
 			Do Case
-				Case Thisform.oSearchOptions.nSearchScope = 5 and _VFP.Projects.Count >= 1
-					lnReturn = loSearchEngine.SearchInOpenProjects(lcScope, m.ttTime, m.tcUni)
-					
-				Case Thisform.oSearchOptions.nSearchScope = 1 and _VFP.Projects.Count >= 1
-					lnReturn = loSearchEngine.SearchInProject(_vfp.ActiveProject.Name , m.ttTime, m.tcUni)
-					
+					* All open projects, if any
+				Case Thisform.oSearchOptions.nSearchScope = 5 And _vfp.Projects.Count >= 1
+					lnReturn = m.loSearchEngine.SearchInOpenProjects(m.lcScope, m.ttTime, m.tcUni)
+		
+					* Active project, if any
+				Case Thisform.oSearchOptions.nSearchScope = 1 And _vfp.Projects.Count >= 1
+					lnReturn = m.loSearchEngine.SearchInProject(_vfp.ActiveProject.Name, m.ttTime, m.tcUni)
+		
+					* Current directory
 				Case Thisform.oSearchOptions.nSearchScope = 3
-					lcScope = Alltrim(Lower(Thisform.oSearchEngine.GetCurrentDirectory()), '\')
-					lnReturn = loSearchEngine.SearchInProject(lcScope, m.ttTime, m.tcUni)
-					
-				Case ".PJX" $ Upper(lcScope)
-					lnReturn = loSearchEngine.SearchInProject(lcScope, m.ttTime, m.tcUni)
-					
-				Otherwise 
-					lnReturn = loSearchEngine.SearchInPath(lcScope, m.ttTime, m.tcUni)
+					lcScope	 = Alltrim(Lower(Thisform.oSearchEngine.GetCurrentDirectory()), '\')
+					lnReturn = m.loSearchEngine.SearchInProject(m.lcScope, m.ttTime, m.tcUni)
+		
+					* named project
+				Case '.PJX' $ Upper(m.lcScope)
+					lnReturn = m.loSearchEngine.SearchInProject(m.lcScope, m.ttTime, m.tcUni)
+		
+					* named folder 
+				Otherwise
+					lnReturn = m.loSearchEngine.SearchInPath(m.lcScope, m.ttTime, m.tcUni)
 			Endcase
-			
-			If lnReturn <= 0 And Thisform.oSearchEngine.oSearchErrors.Count > 0
-				Messagebox(Thisform.oSearchEngine.oSearchErrors[Thisform.oSearchEngine.oSearchErrors.count], 16, "GoFish - Search error:")
+		
+			If m.llRegExOverride = .T.
+				Thisform.oSearchOptions.nSearchMode = 3
+			Endif
+		
+			If m.lnReturn <= 0 And Thisform.oSearchEngine.oSearchErrors.Count > 0
+				Messagebox(Thisform.oSearchEngine.oSearchErrors[Thisform.oSearchEngine.oSearchErrors.count], 16, 'GoFish - Search error:')
 			Endif
 		
 			Set Escape &lcSetEscape
 		
-			Thisform.oSearchEngine.oSearchOptions.cReplaceExpression = lcSearchExpression
+			Thisform.oSearchEngine.oSearchOptions.creplaceexpression = m.lcSearchExpression
 		
-			Thisform.comboSearchScopeHistory.SaveSearchScope(lcScope)
+			Thisform.comboSearchScopeHistory.SaveSearchScope(m.lcScope)
 		Else
-			loSearchEngine.nMatchLines = Reccount(loSearchEngine.cSearchResultsAlias)
+			loSearchEngine.nMatchLines = Reccount(m.loSearchEngine.cSearchResultsAlias)
 		Endif
 		
-		If !m.tlDoNotSearch And Thisform.lSaveSearchResults
+		If Not m.tlDoNotSearch And Thisform.lSaveSearchResults
 			Select (Thisform.cSearchResultsAlias)
-			Thisform.SaveSearchResults(loSearchEngine.tRunTime, loSearchEngine.cUni, m.llUpdate)
+			Thisform.SaveSearchResults(m.loSearchEngine.tRunTime, m.loSearchEngine.cUni, m.llUpdate)
 		Endif
 		
 		Select (Thisform.cSearchResultsAlias)
 		Locate
 		
-		Thisform.UpdateFormAfterSearch(m.llUpdate)
+		Thisform.updateformaftersearch(m.llUpdate)
 		
 		
 	ENDPROC
@@ -3278,6 +3300,8 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		ThisForm.ShowCodeForCurrentRow()
 		
 		Thisform.oSearchEngine.EditFromCurrentRow(thisform.cSearchResultsAlias,,Thisform.lMoveNewCodeToTopLeft)
+		
+		
 	ENDPROC
 
 	PROCEDURE editmenufromcurrentrow
@@ -4291,8 +4315,8 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 	ENDPROC
 
 	PROCEDURE getcustomcss
-		Local laFoxOptions[1], laValue[1], lcBackColor, lcCssFile, lcCssText, lcForeColor, lcRGB
-		Local lcReplacement, lcSetting, lnErrNum, lnPos, loReg
+		Local laColorSettings[1], laFoxOptions[1], laValue[1], lcBackColor, lcCssFile, lcCssText
+		Local lcForeColor, lcRGB, lcReplacement, lcSetting, lnErrNum, lnPos, loReg
 		
 		*** JRN 2024-02-05 : 
 		* Get custom CSS used for setting colors in the 'Code View' window in an
@@ -4318,59 +4342,64 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Create Cursor Fox_Settings (Setting C(40), Value C(250))
 		Append From Array m.laFoxOptions
 		
-		lcCssText = Filetostr(m.lcCssFile)
-		Do While Not Empty(Strextract(m.lcCssText, '<<', '>>', 1, 0))
-			lcSetting = Strextract(m.lcCssText, '<<', '>>', 1, 0)
-			Select  Trim(Value)												;
-				From Fox_Settings											;
-				Where Upper(Setting) = Upper(m.lcSetting + 'Color')			;
-				Into Array laValue
-			If _Tally = 0
-				laValue = 'RGB(0, 0, 0, 255, 255, 255)'
-			Endif
-			lcRGB = Strextract(m.laValue, 'RGB(', ')', 1, 1)
-			lnPos = At(',', m.lcRGB, 3)
+		*** JRN 2024-03-06 : do nothing if we find NO settings
+		Select * From Fox_Settings Where Like(Upper('*editor*color*'), Upper(Setting)) Into Array laColorSettings
+		If _Tally > 0
 		
-			lcReplacement = ''
+			lcCssText = Filetostr(m.lcCssFile)
+			Do While Not Empty(Strextract(m.lcCssText, '<<', '>>', 1, 0))
+				lcSetting = Strextract(m.lcCssText, '<<', '>>', 1, 0)
+				Select  Trim(Value)												;
+					From Fox_Settings											;
+					Where Upper(Setting) = Upper(m.lcSetting + 'Color')			;
+					Into Array laValue
+				If _Tally = 0
+					laValue = 'RGB(0, 0, 0, 255, 255, 255)'
+				Endif
+				lcRGB = Strextract(m.laValue, 'RGB(', ')', 1, 1)
+				lnPos = At(',', m.lcRGB, 3)
 		
-			*** JRN 2024-03-05 : ForeColor
-			lcForeColor	  = Left(m.lcRGB, m.lnPos - 1)
-			If Rgb(&lcForeColor) # Rgb(0, 0, 0)
-				lcReplacement = Textmerge('color: rgb(<<m.lcForeColor>>);')
-			Endif
+				lcReplacement = ''
 		
-			*** JRN 2024-03-05 : BackColor
-			lcBackColor	= Substr(m.lcRGB, m.lnPos + 1)
-			Do Case
-					*** JRN 2024-03-05 : Will not even attempt with background = black
-				Case Rgb(&lcBackColor) = Rgb(0, 0, 0)
-					lcCssText = ''
-					Exit
-				Case Rgb(&lcBackColor) # Rgb(255, 255, 255)
-					lcReplacement = m.lcReplacement + Textmerge('background-color: rgb(<<m.lcBackColor>>);')
-			Endcase
+				*** JRN 2024-03-05 : ForeColor
+				lcForeColor	  = Left(m.lcRGB, m.lnPos - 1)
+				If Rgb(&lcForeColor) # Rgb(0, 0, 0)
+					lcReplacement = Textmerge('color: rgb(<<m.lcForeColor>>);')
+				Endif
 		
-			*** JRN 2024-03-05 : Font Style
-			Select  Trim(Value)												;
-				From Fox_Settings											;
-				Where Upper(Setting) = Upper(m.lcSetting + 'Style')			;
-				Into Array laValue
-			Do Case
-				Case _Tally = 0
+				*** JRN 2024-03-05 : BackColor
+				lcBackColor	= Substr(m.lcRGB, m.lnPos + 1)
+				Do Case
+						*** JRN 2024-03-05 : Will not even attempt with background = black
+					Case Rgb(&lcBackColor) = Rgb(0, 0, 0)
+						lcCssText = ''
+						Exit
+					Case Rgb(&lcBackColor) # Rgb(255, 255, 255)
+						lcReplacement = m.lcReplacement + Textmerge('background-color: rgb(<<m.lcBackColor>>);')
+				Endcase
 		
-				Case m.laValue = '1'
-					lcReplacement = m.lcReplacement + ' font-weight: bold;'
-				Case m.laValue = '2'
-					lcReplacement = m.lcReplacement + ' font-weight: italic;'
-				Case m.laValue = '3'
-					lcReplacement = m.lcReplacement + ' font-weight: bold;  font-weight: italic;'
+				*** JRN 2024-03-05 : Font Style
+				Select  Trim(Value)												;
+					From Fox_Settings											;
+					Where Upper(Setting) = Upper(m.lcSetting + 'Style')			;
+					Into Array laValue
+				Do Case
+					Case _Tally = 0
 		
-			Endcase
+					Case m.laValue = '1'
+						lcReplacement = m.lcReplacement + ' font-weight: bold;'
+					Case m.laValue = '2'
+						lcReplacement = m.lcReplacement + ' font-weight: italic;'
+					Case m.laValue = '3'
+						lcReplacement = m.lcReplacement + ' font-weight: bold;  font-weight: italic;'
 		
-			* ================================================================================ 
-			lcCssText = Strtran(m.lcCssText, '<<' + m.lcSetting + '>>', m.lcReplacement)
+				Endcase
 		
-		Enddo && While .T.
+				* ================================================================================ 
+				lcCssText = Strtran(m.lcCssText, '<<' + m.lcSetting + '>>', m.lcReplacement)
+		
+			Enddo && While .T.
+		Endif && _Tally > ''
 		
 		Use In Fox_Settings
 		Thisform.cCustomCss = m.lcCssText
@@ -4595,6 +4624,10 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		
 		Return m.lcOrderBy
 		
+	ENDPROC
+
+	PROCEDURE GotFocus
+		*
 	ENDPROC
 
 	PROCEDURE gridcolumnrightclick
@@ -5850,7 +5883,9 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 	ENDPROC
 
 	PROCEDURE LostFocus
-		*no default
+		* do nothing
+		
+		Thisform.RestoreStatusBarMessage()
 		
 	ENDPROC
 
@@ -7519,7 +7554,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		* Captures resizing properties for a few controls on the top of the form
 		* so that they do not skitter all the way to the far right when form is wide
 		
-		lnFormWidth = Min(Thisform.Width, 1400)
+		lnFormWidth = Min(Thisform.Width, 1500)
 		
 		For Each m.loControl In This.Controls FoxObject
 			Do Case
@@ -7689,6 +7724,11 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		If !Empty(m.lcUni)
 			Thisform.RestorePreviousSearch(m.lcUni)
 		Endif
+		
+	ENDPROC
+
+	PROCEDURE restorestatusbarmessage
+		Set Message To
 		
 	ENDPROC
 
@@ -8933,6 +8973,8 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		
 		Thisform.cCurrentId = m.lcID
 		
+		ThisForm.RestoreStatusBarMessage()
+		
 	ENDPROC
 
 	PROCEDURE showerrors
@@ -9100,6 +9142,8 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 			Endif
 			lcCss		 = Iif(File(m.lcCssFile), Filetostr(m.lcCssFile), '')
 		Endif
+		
+		lcCSS = Strtran(m.lcCss, '<ContainerFrameColour>', GF_ToRGB(Thisform.nContainerFrameColour))
 		
 		lcJavaScriptFile = _Screen._GoFish.cAppPath + 'HTML\GoFish.js'
 		lcJavaScript	 = Iif(File(m.lcJavaScriptFile), Filetostr(m.lcJavaScriptFile), '')
@@ -9685,6 +9729,34 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		
 	ENDPROC
 
+	PROCEDURE treeview_rightclicksimple
+		Lparameters toNode
+		
+		Local laFilePath[1], lnID
+		
+		Do Case
+			Case m.toNode.Index = 1 && Master top tonode
+				Return
+		
+			Case m.toNode.Parent.Index = 1 && One of the Main Root Nodes
+				Return
+		
+			Otherwise
+				lnID = Val(Getwordnum(m.toNode.Key, 2, '_'))
+				Select  FilePath											;
+					From (Thisform.oSearchEngine.cSearchResultsAlias)		;
+					Where Id = m.lnID										;
+					Into Array laFilePath
+				If _Tally > 0
+					_Cliptext = Trim(m.laFilePath)
+					Messagebox('File name (full path) copied to clipboard', 64, 'To clipboard')
+				Else
+					Messagebox('Error determining file name', 16)
+				Endif
+		Endcase
+		
+	ENDPROC
+
 	PROCEDURE updateformaftereplace
 		Lparameters tnRecordId
 		
@@ -10087,14 +10159,14 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 	PROCEDURE ButtonContainer.chkLimitToProjectFolder.Refresh
 		This.Enabled = !Thisform.lSearching &&and !Thisform.lReplaceViewMode
 		
-		This.Visible = (".PJX" $ Upper(Thisform.comboSearchScopeHistory.Text))
+		This.Visible = InList(Thisform.oSearchOptions.nSearchScope, 1, 2, 5) 
 		
 	ENDPROC
 
 	PROCEDURE ButtonContainer.chkSubdirectories.Refresh
 		This.Enabled = !Thisform.lSearching && and !Thisform.lReplaceViewMode
 		
-		This.Visible = !(".PJX" $ Upper(Thisform.comboSearchScopeHistory.text))
+		This.Visible = InList(Thisform.oSearchOptions.nSearchScope, 3, 4) 
 		
 	ENDPROC
 
@@ -10627,7 +10699,8 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		
 		Thisform.oSearchOptions.cRecentScope = Lower(m.lcNewScope)
 		
-		This.Parent.comboSearchScopeHistory.Refresh()
+		ThisForm.comboSearchScopeHistory.Refresh()
+		ThisForm.ButtonContainer.Refresh()
 		
 	ENDPROC
 
@@ -10790,22 +10863,27 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 	PROCEDURE containerLeft.oTreeView.NodeClick
 		Lparameters toNode
 		
-		If not Thisform.lCR_Allow 
-			Thisform.ClickTreeviewNode(m.toNode)
-			Return
-		EndIf 
+		If Thisform.lCR_Allow
 		
-		If This.glRightClick Then
-			This.glRightClick = .F.
+			If This.glRightClick Then
+				This.glRightClick = .F.
 		
-		*	THISFORM.cEvent = "RIGHTCLICKMENU"
-			Thisform.tmrEvent.Enabled = .T.
+				*	THISFORM.cEvent = "RIGHTCLICKMENU"
+				Thisform.tmrEvent.Enabled = .T.
 		
-		Else  &&This.glRightClick
-			Thisform.TreeView_NodeClick(m.toNode)
+			Else  &&This.glRightClick
+				Thisform.TreeView_NodeClick(m.toNode)
 		
-		Endif &&This.glRightClickEndif
+			Endif &&This.glRightClickEndif
 		
+		Else
+			If This.glRightClick Then
+				This.glRightClick = .F.
+				ThisForm.treeview_rightclickSimple(tonode)  
+			else
+				Thisform.ClickTreeviewNode(m.toNode)
+			EndIf 
+		Endif
 	ENDPROC
 
 	PROCEDURE containerLeft.oTreeView.Refresh

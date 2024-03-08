@@ -11,7 +11,6 @@ assignees: ''
 
 - VFP version: 
 - GoFish version: #.#.#
-- Last GoFish version w/o bug (if available):
 
 ## 📝 Provide detailed reproduction steps (if any)
 
@@ -27,6 +26,14 @@ _What is the expected result of the above steps?_
 
 _What is the actual result of the above steps?_
 
+## 📷 Debugging Info
+Please add screenshots of
+- Error Message
+- Windows from the debugger
+     - Trace window
+     - Locals window
+     - Call stack window
+
 ## 📷 Screenshots
 
-_Are there any useful screenshots? WinKey+Shift+S and then just paste them directly into the form_
+_Are there any other useful screenshots? WinKey+Shift+S and then just paste them directly into the form_

@@ -1776,4 +1776,21 @@ EndProc
 		Return m.loRegEx
 	
 	Endproc
-			
+
+
+*----------------------------------------------------------------------------------
+	Procedure GF_toRGB
+		Lparameters tnColor
+	
+		Local lcResult, lnColor
+	
+		lnColor	 = m.tnColor
+		lcResult = 'rgb(' + Transform(m.lnColor % 256) + ','
+		lnColor	 = Int(m.lnColor / 256)
+		lcResult = m.lcResult + Transform(m.lnColor % 256) + ','
+		lnColor	 = Int(m.lnColor / 256)
+		lcResult = m.lcResult + Transform(m.lnColor % 256) + ')'
+	
+		Return m.lcResult
+	
+	Endproc

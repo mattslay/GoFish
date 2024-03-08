@@ -1,12 +1,69 @@
-# Changes
-Change list of GoFish - An advanced code search tool for MS Visual Foxpro 9
+## Version 7.0.10 - Major version update - 2024-03-08
 
-## Purpose of this document
-This document list the changes of GoFish.   
-Replaces the lists in
-- [Readme.md](/readme.md)
-- ChangeLog_Ver_4.txt
-- ChangeLog_Ver_5.txt
+#### Major Enhancements 
+* Wildcard searching now finds matches across continuation lines. (#67) 
+* "Whole Word" searching now applies to each word in the search phrase in wildcard searching.
+
+#### Code View pane enhancements
+* The Code View pane emphasizes the entire statement (that is, including continuation lines) instead of just the line where the match occurred:
+    * The entire statement is enclosed in a red box.
+    * All matches in the statement are highlighted.
+* Colors in the Code View pane match the user's own colors in IDE code windows. (Experimental) - (#89)
+* The Code View pane for matches in MNX files has been enhanced to be more descriptive, showing the `Prompt`, `Command`, `Procedure`, and `SkipFor` fields for the match. (#87)
+
+#### Other enhancements
+* New feature for editing MNXs: Double-clicking on a match in an MNX (`Prompt`, `Command`, or `Procedure`) now opens the MNX to that exact row for editing. (Experimental)
+* The "Code Only" checkbox filter has been enhanced to find matches in some places previously ignored. It now also includes code matches found:
+    * In #Define statements
+    * In MNX files in `Command`, `Procedure`, or `SkipFor` fields
+    * In FRX files in `Field` records (`ObjType = 8`)
+* In the History form, sort on columns by clicking column headings. 
+* When upgrading from version 5 to version 7 (#151):
+    * the search and history files for version 5 are no longer removed, so version 5 and GF Classic will still work.
+    * however, the search and history files are not imported into version 7.
+* If regular expression search is chosen and the search expression doesn't contains special characters for regular expressions, use plain search instead (#152).
+
+#### New UI elements
+* New combobox for Scope Mode (top left of main screen)
+   1. Active Project
+   2. Browse Project
+   3. Current Directory
+   4. Browse Project
+   5. All Open Projects (With only one project open, this is the same as "Active Project")
+* New checkbox filter "Comments Only". (#150)
+* Two new links at bottom left:
+    * Issues page in GitHub for GoFish
+    * Change Log page in GitHub for Gofish
+* New options (See Options form >= Preferences)
+    * Use IDE colors in Code View pane
+    * Projects and folders in the scope dropdown may be alphabetized
+    * Column 'File Name with Path' may show a relative path
+    * Code view pane highlights only the match line (not the entire statement)
+* Right-clicking on node in TreeView copies the file name (full path) to the clipboard. (#114)
+
+#### Project Explorer Integration
+* If Project Explorer is open, uses it to open files for editing so that Project Explorer can handle things like calling FoxBin2PRG after closing an edited file.   (#154)
+* 'All Open Projects' added to the new Scope Mode combobox. Useful when using Project Explorer, which opens and hides all projects in a solution.  (#156)
+
+#### Restored Features
+* Restored the previous setting (GF v5 and earlier) such that selecting 'Active Project' from the scope dropdown is a permanent setting, so that if GF is next opened with a different active project, that project becomes the scope. #137
+* Restored feature from  (GF v5 and earlier) that kept the controls at top right from moving all the way to far right (visible only when form is sufficiently wide.) - (#105, #155)
+
+#### Bug fixes
+* In Filter Builder, misleading "Match Anywhere" checkbox has been removed.  (#9)
+* Line/column numbers in status bar now update properly when the code window is opened from GoFish or after GoFish closes (#77, #157)
+* When the match is to a file name of a text file (such as a PRG), the Code View pane shows the text correctly.  Previously the beginning text was lost. (#90)
+* With Version 6 options enabled, it had not been possible to type or paste anything into the Scope combobox. (#122, #123)
+* Crash on Replace (#148)
+* Bug reported when changing Desktop checkbox (#162)
+* Settings on Options/Colours page were not taking effect (#163)
+* Restoring latest search (from "History button context menu) was not always selecting the *latest* search.
+* Janitor not working properly, was improperly related to scope; setting is actually a global setting independent of scope.
+
+#### Under consideration for future
+* If Project Explorer is open, uses it to open files for editing so that Project Explorer can handle things like calling FoxBin2PRG after closing an edited file.   (#154)
+* Simplifying the "Advanced" form by removing from it any option already visible on the main screen.
+
 
 ----
 ## Ver 6.2.007
