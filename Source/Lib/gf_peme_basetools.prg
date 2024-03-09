@@ -255,6 +255,8 @@ Define Class gf_peme_basetools As Custom
 		Local lcClass, lcExt, lcFileName, lcMethod, llEdited, lnDataSession, lnEndRange, lnStartRange
 		Local lnSuccess, loException, loPE, loTools
 	
+		Set Message to 
+		
 		lcExt = Upper(Justext(m.tcFileName))
 	
 		*** From JRN 11/21/2011 : Use EditSourceX from IDE Tools, if available,
@@ -263,6 +265,7 @@ Define Class gf_peme_basetools As Custom
 			loTools = Execscript(_Screen.cThorDispatcher, 'Class= tools from pemeditor')
 			If Not Isnull(m.loTools)
 				m.loTools.EditSourceX(m.tcFileName, m.tcClass, m.tcMethod, m.tnStartRange, m.tnEndRange)
+				Set Message to 
 				Return
 			Endif
 		Endif
