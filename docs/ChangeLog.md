@@ -1,3 +1,9 @@
+## Version 7.0.11 - 2024-03-09
+
+* Two bug fixes related to the new Search Mode combobox
+
+---
+
 ## Version 7.0.10 - Major version update - 2024-03-08
 
 #### Major Enhancements 
