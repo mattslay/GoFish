@@ -1,6 +1,6 @@
 # ![](content/home.png "Home") GoFish!
 ![Go!Fish](./docs/Screenshots/GoFish_image_8.png)   
-**Version 6.2.007, 2023-11-11**   
+**Version 7.0.11 released 2024-03-09**   
 GoFish is an advanced code search tool for fast searching and replacing of Visual FoxPro source code.
 
 [What's new in this release](Change%20Log.md)
@@ -15,7 +15,7 @@ This is project is part of [VFPX](https://vfpx.github.io/)
 
 ![VFPX](https://vfpx.github.io/images/vfpxbanner_small.gif)
 
-Project manager: Doug Hennig, [Lutz Scheffler](https://github.com/lscheffler)   
+Project manager: Doug Hennig, [Jim Nelson](https://github.com/jimrnelson), [Lutz Scheffler](https://github.com/lscheffler)   
 Project location: [GoFish](https://github.com/VFPX/GoFish)   
 
 The main goal of this project is:
