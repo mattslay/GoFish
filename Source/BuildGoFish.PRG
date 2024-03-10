@@ -77,7 +77,7 @@ TEXT to lcCloudVersionFileContents NoShow TextMerge PRETEXT 3
 	Lparameters toUpdateInfo
 
 		###Text to lcNote NoShow
-			<<FileToStr('Changelog_Thor.txt')>>
+			<<Left(Strtran(FileToStr('..\docs\Changelog.md'), Chr[10], Chr[13] + chr[10]), 8000)>>
 		###EndText
 
 		AddProperty(toUpdateInfo, 'AvailableVersion', '<<lcVersionStringForVersionFile>>')
