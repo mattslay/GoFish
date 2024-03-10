@@ -127,6 +127,10 @@ Define Class GoFishSearchEngine As Custom
 
 	*** JRN 2024-02-14 : Used if wild cards using whole word search
 	cWholeWordSearch = ''
+	
+	*** JRN 2024-03-10 : In Code View pane, # lines to precede the match
+	* provided for those where the code view does not auto-align
+	nCodeViewLinesBefore = 1000
 
 *----------------------------------------------------------------------------------
 	Procedure AddColumn(tcTable, tcColumnName, tcColumnDetails)
@@ -2010,6 +2014,18 @@ Result
 *-- Dress up the code that comes before the match line...
 			lcBr   = '<br />'
 			lcLeft = Left(m.tcCode, m.tnMatchStart)
+			
+			* ================================================================================
+			*** JRN 2024-03-10 : truncate lines shown before the match
+			Local lnMaxLines			
+			lnMaxLines = This.nCodeViewLinesBefore
+			Do Case
+				Case m.lnMaxLines <= 0
+					lcLeft = ''
+				Case Occurs(LF, m.lcLeft) > m.lnMaxLines
+					lcLeft = Substr(m.lcLeft, Rat(LF, m.lcLeft, m.lnMaxLines + 1) + 1)
+			Endcase
+						* ================================================================================ 
 			lcLeft = Evl(This.HtmlEncode(m.lcLeft), m.lcBr)
 
 *-- Dress up the matchline...
