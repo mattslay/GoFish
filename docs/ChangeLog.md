@@ -1,3 +1,7 @@
+## Version 7.0.12 - 2024-03-10
+
+* Fix for issue #27, where Code View pane does not always auto-align the match line to be visible.  See Options form, "New in Version 7".
+
 ## Version 7.0.11 - 2024-03-09
 
 * Two bug fixes related to the new Search Mode combobox
