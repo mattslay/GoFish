@@ -180,6 +180,9 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 	*< OBJECTDATA: ObjPath="pfSettings.Page3.contCodeView.Container1.lblExample1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.Page3.contCodeView.Text1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.Page3.contCodeView.Label5" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.Page3.contCodeView.Label7" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.Page3.contCodeView.Spinner4" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="pfSettings.Page3.contCodeView.cmdZoomDefault" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="pfSettings.Page3.Label2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdOK" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdCancel" UniqueID="" Timestamp="" />
@@ -216,6 +219,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		*p: lshowrelativepath
 		*p: lsortscopedropdown
 		*p: lwarnwholeword
+		*p: nbrowserfontsize
 		*p: ncodeviewlinesbefore
 		*p: ncontainerframecolour		&& Frame colour for several containers, in case red is something you do not see.
 		*p: ncss_tr_even_colour		&& CSS für tr:even
@@ -261,6 +265,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		MinHeight = 600
 		MinWidth = 650
 		Name = "GF_Options"
+		nbrowserfontsize = 14
 		ncodeviewlinesbefore = 0
 		ncontainerframecolour = 0
 		ncss_tr_even_colour = 0
@@ -322,6 +327,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 			<memberdata name="lshowrelativepath" display="lShowRelativePath"/>
 			<memberdata name="lsortscopedropdown" display="lSortScopeDropdown"/>
 			<memberdata name="ncodeviewlinesbefore" display="nCodeViewLinesBefore"/>
+			<memberdata name="nbrowserfontsize" display="nBrowserFontSize"/>
 		</VFPData>
 	*</PropValue>
 
@@ -544,10 +550,10 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 	ADD OBJECT 'pfSettings.Page3.contCodeView' AS container WITH ;
 		Anchor = 10, ;
 		BackStyle = 0, ;
-		Height = 159, ;
+		Height = 201, ;
 		Left = 15, ;
 		Name = "contCodeView", ;
-		Top = 34, ;
+		Top = 35, ;
 		Width = 611
 		*< END OBJECT: BaseClass="container" />
 
@@ -578,6 +584,17 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Top = 48, ;
 		Width = 309
 		*< END OBJECT: BaseClass="checkbox" />
+
+	ADD OBJECT 'pfSettings.Page3.contCodeView.cmdZoomDefault' AS commandbutton WITH ;
+		Caption = "Default 14", ;
+		FontSize = 8, ;
+		Height = 22, ;
+		Left = 265, ;
+		Name = "cmdZoomDefault", ;
+		TabIndex = 22, ;
+		Top = 152, ;
+		Width = 71
+		*< END OBJECT: BaseClass="commandbutton" />
 
 	ADD OBJECT 'pfSettings.Page3.contCodeView.Command1' AS commandbutton WITH ;
 		Caption = ". . .", ;
@@ -642,6 +659,34 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		WordWrap = .T.
 		*< END OBJECT: BaseClass="label" />
 
+	ADD OBJECT 'pfSettings.Page3.contCodeView.Label7' AS label WITH ;
+		AutoSize = .T., ;
+		BackStyle = 0, ;
+		Caption = "Code View pane font size (px)", ;
+		Height = 17, ;
+		Left = 93, ;
+		Name = "Label7", ;
+		TabIndex = 23, ;
+		Top = 155, ;
+		Width = 163
+		*< END OBJECT: BaseClass="label" />
+
+	ADD OBJECT 'pfSettings.Page3.contCodeView.Spinner4' AS spinner WITH ;
+		ControlSource = "Thisform.nBrowserFontSize", ;
+		Height = 27, ;
+		InputMask = "99", ;
+		KeyboardHighValue = 24, ;
+		KeyboardLowValue = 8, ;
+		Left = 28, ;
+		Name = "Spinner4", ;
+		SpinnerHighValue =  24.00, ;
+		SpinnerLowValue =   8.00, ;
+		TabIndex = 20, ;
+		Top = 150, ;
+		Value = 14, ;
+		Width = 59
+		*< END OBJECT: BaseClass="spinner" />
+
 	ADD OBJECT 'pfSettings.Page3.contCodeView.Text1' AS textbox WITH ;
 		ControlSource = "Thisform.nCodeViewLinesBefore", ;
 		Height = 25, ;
@@ -659,7 +704,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Height = 86, ;
 		Left = 16, ;
 		Name = "contMiscellaneous", ;
-		Top = 229, ;
+		Top = 271, ;
 		Width = 611
 		*< END OBJECT: BaseClass="container" />
 
@@ -699,7 +744,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		Left = 53, ;
 		Name = "Label1", ;
 		TabIndex = 7, ;
-		Top = 222, ;
+		Top = 264, ;
 		Width = 103
 		*< END OBJECT: BaseClass="label" />
 
@@ -2089,10 +2134,10 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		*< END OBJECT: BaseClass="checkbox" />
 
 	ADD OBJECT 'pfSettings.pagePreferences.cmdZoomDefault' AS commandbutton WITH ;
-		Caption = "Default 1.0", ;
+		Caption = "Default 14", ;
 		FontSize = 8, ;
 		Height = 22, ;
-		Left = 308, ;
+		Left = 260, ;
 		Name = "cmdZoomDefault", ;
 		TabIndex = 22, ;
 		Top = 354, ;
@@ -2171,14 +2216,15 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		*< END OBJECT: BaseClass="label" />
 
 	ADD OBJECT 'pfSettings.pagePreferences.Label7' AS label WITH ;
+		AutoSize = .T., ;
 		BackStyle = 0, ;
-		Caption = "Code Browser zoom factor (0.7 - 2.00)", ;
-		Height = 18, ;
+		Caption = "Code View pane font size (px)", ;
+		Height = 17, ;
 		Left = 88, ;
 		Name = "Label7", ;
 		TabIndex = 23, ;
 		Top = 357, ;
-		Width = 217
+		Width = 163
 		*< END OBJECT: BaseClass="label" />
 
 	ADD OBJECT 'pfSettings.pagePreferences.Label8' AS label WITH ;
@@ -2256,18 +2302,18 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		*< END OBJECT: BaseClass="spinner" />
 
 	ADD OBJECT 'pfSettings.pagePreferences.Spinner4' AS spinner WITH ;
-		ControlSource = "Thisform.nBrowserZoom", ;
+		ControlSource = "Thisform.nBrowserFontSize", ;
 		Height = 27, ;
-		Increment =   0.10, ;
-		InputMask = "9.99", ;
-		KeyboardLowValue = 0, ;
+		InputMask = "99", ;
+		KeyboardHighValue = 24, ;
+		KeyboardLowValue = 8, ;
 		Left = 23, ;
 		Name = "Spinner4", ;
-		SpinnerHighValue =   2.00, ;
-		SpinnerLowValue =   0.70, ;
+		SpinnerHighValue =  24.00, ;
+		SpinnerLowValue =   8.00, ;
 		TabIndex = 20, ;
 		Top = 352, ;
-		Value = 0.1, ;
+		Value = 14, ;
 		Width = 59
 		*< END OBJECT: BaseClass="spinner" />
 
@@ -2919,8 +2965,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 			.nReplaceRisk										 = Evl(Thisform.nReplaceRisk, 1)
 			.lClearApplyFilter									 = Thisform.lClearApplyFilter
 			.lWarnWholeWord										 = Thisform.lWarnWholeWord
-			.nBrowserZoom										 = Thisform.nBrowserZoom
-		*	.Containerright.Container2.containerWebControl.nZoom = Thisform.nBrowserZoom
+			.nBrowserFontSize									 = Thisform.nBrowserFontSize
 			.lRestorePreviousSearchResultsOnStartup				 = Thisform.lRestorePreviousSearchResultsOnStartup
 			.lSaveSearchResults									 = Thisform.lSaveSearchResults
 			.nCodeViewLinesBefore								 = Thisform.nCodeViewLinesBefore
@@ -3129,6 +3174,11 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 		
 	ENDPROC
 
+	PROCEDURE pfSettings.Page3.contCodeView.cmdZoomDefault.Click
+		Thisform.nBrowserFontSize = 14
+		This.Parent.Refresh()
+	ENDPROC
+
 	PROCEDURE pfSettings.Page3.contCodeView.Command1.Click
 		Local lnReturn, lnColour
 		
@@ -3153,6 +3203,32 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 
 	PROCEDURE pfSettings.Page3.contCodeView.Container1.Refresh
 		This.BorderColor = Thisform.nContainerFrameColour
+	ENDPROC
+
+	PROCEDURE pfSettings.Page3.contCodeView.Spinner4.Click
+		Nodefault
+	ENDPROC
+
+	PROCEDURE pfSettings.Page3.contCodeView.Spinner4.DownClick
+		This.Value = This.Value - 0.00
+		
+		Nodefault
+	ENDPROC
+
+	PROCEDURE pfSettings.Page3.contCodeView.Spinner4.UpClick
+		This.Value = This.Value + 0.00
+		
+		nodefault
+	ENDPROC
+
+	PROCEDURE pfSettings.Page3.contCodeView.Spinner4.Valid
+		If This.Value < This.SpinnerLowValue
+			This.Value = This.SpinnerLowValue
+		EndIf
+		
+		If This.Value > This.SpinnerHighValue
+			This.Value = This.SpinnerHighValue
+		Endif
 	ENDPROC
 
 	PROCEDURE pfSettings.Page3.contCodeView.Text1.Click
@@ -3704,7 +3780,7 @@ DEFINE CLASS gf_options AS gf_baseform OF "..\lib\gofishui.vcx"
 	ENDPROC
 
 	PROCEDURE pfSettings.pagePreferences.cmdZoomDefault.Click
-		Thisform.nBrowserZoom = 1.0
+		Thisform.nBrowserFontSize = 14
 		This.Parent.Refresh()
 	ENDPROC
 

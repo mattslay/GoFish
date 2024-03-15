@@ -1,3 +1,14 @@
+## Version 7.0.14 - 2024-03-15
+
+* Code View pane changes:
+    * The "Code Browser zoom factor" spinner has been removed from the Options form, as it wasn't working. (#179)
+    * A new spinner, "Code View pane font size (px)" has replaced it. See Options form, "New in Version 7".
+    * If option "Use IDE colors in Code View pane" is **not** selected, users may supply their own css file, named `HOME(7) + '\GoFish_\GoFish_.css'`
+* Bug fixes:
+    * Buttons to select project or search folder (to right of the scope combobox) not working (#178).
+    * Unable to replace in MNXs (#180). 
+    * Error: file `gf_search_history` not found. (#181, #126, #80)
+
 ## Version 7.0.12 - 2024-03-10
 
 * Fix for issue #27, where Code View pane does not always auto-align the match line to be visible.  See Options form, "New in Version 7".

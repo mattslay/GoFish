@@ -1793,4 +1793,12 @@ EndProc
 	
 		Return m.lcResult
 	
-	Endproc
+	EndProc
+	
+	
+* ================================================================================ 
+    Procedure GF_FileNameToClipboard(tcFileName)
+    	_Cliptext = Trim(m.tcFileName)
+    	Messagebox('File name (full path) copied to clipboard', 64, JustFname(m.tcFileName)) 
+    Endproc
+    

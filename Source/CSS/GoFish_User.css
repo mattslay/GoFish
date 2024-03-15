@@ -1,5 +1,9 @@
 <style type="text/css">
 
+		body {
+		       font-size: <nBrowserFontSize>px;
+		}
+
 		.matchline {
 			border-width: 2px;
 			border-style: solid;

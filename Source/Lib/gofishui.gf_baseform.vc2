@@ -280,6 +280,11 @@ DEFINE CLASS gf_baseform AS form
 		If File(m.lcDbc) Then
 			This.cSavedDBC = Set("Database")
 			Open Database (m.lcDbc)
+			
+			ThisForm.CreateSearchHistoryTable()
+		
+			ThisForm.CreateReplaceIDTable()
+		
 			Return .T.
 		
 		Endif &&File(m.lcDbc)

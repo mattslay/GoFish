@@ -1,6 +1,17 @@
 Lparameters toUpdateInfo
 
 Text to lcNote NoShow
+## Version 7.0.14 - 2024-03-15
+
+* Code View pane changes:
+    * The "Code Browser zoom factor" spinner has been removed from the Options form, as it wasn't working. (#179)
+    * A new spinner, "Code View pane font size (px)" has replaced it. See Options form, "New in Version 7".
+    * If option "Use IDE colors in Code View pane" is **not** selected, users may supply their own css file, named `HOME(7) + '\GoFish_\GoFish_.css'`
+* Bug fixes:
+    * Buttons to select project or search folder (to right of the scope combobox) not working (#178).
+    * Unable to replace in MNXs (#180).
+    * Error: file `gf_search_history` not found. (#181, #126, #80)
+
 ## Version 7.0.12 - 2024-03-10
 
 * Fix for issue #27, where Code View pane does not always auto-align the match line to be visible.  See Options form, "New in Version 7".
@@ -129,27 +140,10 @@ Text to lcNote NoShow
 - Fixed: Sort for full file path and date of search has higher order then the column clicked; fixed #91
 - Fixed:  Filter Builder errors when filter string is equal sign #8
 - Improved: Messagebox text
-- Improved: Different colours for filter in search result #88
-  - Note: Filter expressions in the *Like* style are not highlighted (and never will be)
-- Improved: CSS for "Code Window" in settings folder to alter colours
-- Improved: DotNet-RegExp for some operations (not search)
-
-## Ver 6.2.000
-**Released 2023-04-20**
- Changes
-- Fixed: Update failed when no search was started after first run
-- Improved: First run sets now version to settings DBC
-- Improved: Update messages give info for storage path
-
-## Ver 6.1.000
-**Released 2023-04-15**
- Changes
-- Improved: Update of storage structure by version change
-- Improved: Highlight searched text in opened window; merged #75
-- Improved: Max lengt
+- Improved: Different colours for filter in search resul
 EndText
 
-AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish - 7.0.12 - March 10, 2024 - 20240310')
+AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish - 7.0.14 - March 15, 2024 - 20240315')
 AddProperty(toUpdateInfo, 'SourceFileUrl', 'https://raw.githubusercontent.com/VFPX/GoFish/master/Source/Source.zip')
 AddProperty(toUpdateInfo, 'LinkPrompt', 'GoFish Home Page')
 AddProperty(toUpdateInfo, 'Link', 'https://github.com/VFPX/GoFish')
