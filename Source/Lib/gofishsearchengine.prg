@@ -2691,7 +2691,7 @@ Result
 
 				lnReturn = 3
 
-			Case Inlist(m.lcMatchType, MATCHTYPE_INCLUDE_FILE, '<Expr>', '<Supexpr>', '<Picture>', '<Prompt>', '<Procedure>', ;
+			Case Inlist(m.lcMatchType, MATCHTYPE_INCLUDE_FILE, '<Expr>', '<Supexpr>', '<Picture>', '<Prompt>', '<Procedure>', '<Command>', ;
 					'<Skipfor>', '<Message>', '<Tag>', '<Tag2>');
 					Or ;
 					M.toObject.UserField.FileType = 'DBF'
@@ -3896,9 +3896,14 @@ x
 		lcLineFromFile = Substr(m.lcCode, m.lnMatchStart + 1, m.lnLineToChangeLength)
 
 		If m.lcLineFromFile != m.lcMatchLine && Ensure that line from file still matches the passed in line from the orginal search!!
-			This.SetReplaceError('Source file has changed since original search:', Alltrim(m.toReplace.FilePath), m.toReplace.Id)
-			loResult.lError = .T.
-			Return m.loResult
+			*** JRN 2024-03-13 : For MNXs, MatchLine may have irrelevant trailing CR
+			If m.lcLineFromFile != Trim(m.lcMatchLine, 1, CR, LF) 
+				This.SetReplaceError('Source file has changed since original search:', Alltrim(m.toReplace.FilePath), m.toReplace.Id)
+				loResult.lError = .T.
+				Return m.loResult
+			Else 
+				lcMatchLine = lcLineFromFile
+			EndIf
 		Endif
 
 		lcLeft = Left(m.lcCode, m.lnMatchStart)
@@ -4352,7 +4357,7 @@ x
 
 
 *----------------------------------------------------------------------------------
-	Procedure SearchInCode(tcCode, tuUserField, tlHasProcedures)
+	Procedure SearchInCode(tcCode, tuUserField, tlHasProcedures, lnMaxMatchStart)
 
 		Local;
 			lcErrorMessage         As String,;
@@ -4395,6 +4400,10 @@ x
 				If m.tlHasProcedures And !This.oSearchOptions.lSearchInComments And This.IsComment(m.loMatch.Value)
 					Loop
 				Endif
+				If m.loMatch.FirstIndex > Evl(lnMaxMatchStart, 1E9) 
+					Loop
+				EndIf
+				
 				loProcedure = This.FindProcedureForMatch(m.loProcedureStartPositions, m.loMatch.FirstIndex)
 				loObject    = Createobject('GF_SearchResult')
 
@@ -4559,34 +4568,32 @@ x
 
 *----------------------------------------------------------------------------------
 	Procedure SearchInFileName(tcFile)
-
-		Local;
-			lcCode            As String,;
-			lcErrorMessage    As String,;
-			ldFileDate        As Date,;
-			ldFromDate        As Date,;
-			ldToDate          As Date,;
-			llHasMethods      As Boolean,;
-			lnMatchCount      As Number,;
-			lnSelect          As Number,;
-			loFileResultObject As 'GF_FileResult',;
-			loMatches         As Object,;
-			loSearchResultObject As 'GF_SearchResult'
-
+	
+		Local lcErrorMessage As String
+		Local ldFileDate As Date
+		Local ldFromDate As Date
+		Local ldToDate As Date
+		Local lnMatchCount As Number
+		Local lnSelect As Number
+		Local loFileResultObject As 'GF_FileResult'
+		Local loMatches As Object
+		Local loSearchResultObject As 'GF_SearchResult'
+		Local lcFileToStr, loException
+	
 		lnSelect = Select()
-
-		If !File(m.tcFile)
+	
+		If Not File(m.tcFile)
 			This.lFileNotFound = .T.
 			This.SetSearchError('File not found: ' + m.tcFile)
 			Return 0
 		Endif
-
-*-- Be sure that oRegExForSearch has been setup... Use This.PrepareRegExForSearch() or roll-your-own
+	
+		*-- Be sure that oRegExForSearch has been setup... Use This.PrepareRegExForSearch() or roll-your-own
 		Try
-				loMatches = This.oRegExForSearch.Execute(Justfname(m.tcFile))
-			Catch
+			loMatches = This.oRegExForSearch.Execute(Justfname(m.tcFile))
+		Catch
 		Endtry
-
+	
 		If Type('loMatches') = 'O'
 			lnMatchCount = m.loMatches.Count
 		Else
@@ -4594,58 +4601,63 @@ x
 			This.SetSearchError(m.lcErrorMessage)
 			Return - 1
 		Endif
-
-		If m.lnMatchCount = 0 And !Empty(This.oSearchOptions.cSearchExpression)
+	
+		If m.lnMatchCount = 0 And Not Empty(This.oSearchOptions.cSearchExpression)
 			Return 0
 		Endif
-
+	
 		ldFileDate = This.GetFileDateTime(m.tcFile)
-
+	
 		ldFromDate = Evl(This.oSearchOptions.dTimeStampFrom, {^1900-01-01})
 		ldToDate   = Evl(This.oSearchOptions.dTimeStampTo, {^9999-01-01})
 		ldToDate   = m.ldToDate + 1 &&86400 && Must bump into to next day, since TimeStamp from table has time on it
-
-		If This.oSearchOptions.lTimeStamp And !Between(m.ldFileDate, m.ldFromDate, m.ldToDate)
+	
+		If This.oSearchOptions.lTimeStamp And Not Between(m.ldFileDate, m.ldFromDate, m.ldToDate)
 			Return 0
 		Endif
-
+	
 		loFileResultObject = Createobject('GF_FileResult')	&& This custom class has all the properties that must be populated if you want to
-&& have a cursor created
+		&& have a cursor created
 		With m.loFileResultObject
 			.FileName  = Justfname(m.tcFile)
 			.FilePath  = m.tcFile
-			.MatchType = MATCHTYPE_FILENAME
+			.MatchType = MatchType_Filename
 			.FileType  = Upper(Justext(m.tcFile))
 			.Timestamp = m.ldFileDate
-
-			.MatchLine        = 'File name = "' + .FileName + '"'
+	
+			.MatchLine		  = 'File name = "' + .FileName + '"'
 			.TrimmedMatchLine = .MatchLine
 		Endwith
-
+	
 		loSearchResultObject = Createobject('GF_SearchResult')
 		With m.loSearchResultObject
-			.UserField        = m.loFileResultObject
-			.MatchType        = MATCHTYPE_FILENAME
-			.MatchLine        = 'File name = "' + m.loFileResultObject.FileName + '"'
+			.UserField		  = m.loFileResultObject
+			.MatchType		  = MatchType_Filename
+			.MatchLine		  = 'File name = "' + m.loFileResultObject.FileName + '"'
 			.TrimmedMatchLine = 'File name = "' + m.loFileResultObject.FileName + '"'
 		Endwith
-
+	
 		If This.IsTextFile(m.tcFile)
 			*** JRN 2024-02-05 : Correction to show the entire file
 			* 	(Previously, leading characters got lost)
-			loSearchResultObject.Code = loSearchResultObject.MatchLine 		;
-				+ Replicate('=', Max(Len(loSearchResultObject.MatchLine), 60)) + Chr[13]			;
-				+ Filetostr(tcFile)
+			Try
+				lcFileToStr = Filetostr(m.tcFile)
+			Catch To m.loException
+				lcFileToStr = ''
+			Endtry
+			loSearchResultObject.Code = m.loSearchResultObject.MatchLine						;
+				+ Replicate('=', Max(Len(m.loSearchResultObject.MatchLine), 60)) + Chr[13]		;
+				+ Left(m.lcFileToStr, 7000) 
 		Endif
-
+	
 		This.ProcessSearchResult(m.loSearchResultObject)
-
+	
 		Select (m.lnSelect)
-
+	
 		Return 1
-
+	
 	Endproc
-
+	
 
 *----------------------------------------------------------------------------------
 	Procedure SearchInOpenProjects(tcProject, ttTime, tcUni)
@@ -5153,6 +5165,7 @@ ii
 				llProcessThisMatch = .T.														&& have a cursor created
 				llScxVcx           = Inlist(m.lcExt, 'VCX', 'SCX')
 				lcCode             = Evaluate(m.lcField)
+				lnMaxMatchStart	   = 1E9
 
 				With m.loFileResultObject
 					.Process   = .F.
@@ -5202,14 +5215,17 @@ ii
 
 						*** JRN 2024-02-05 : For some MNX matches, show more info from the same record
 						Case m.lcExt = 'MNX' && and InList(Upper(m.lcField), 'PROMPT', 'COMMAND', 'PROCEDURE', 'SKIPFOR')
-							lcCode = ;
-								Iif(Empty(Prompt), 	  '' , 'Prompt    = "' + This.GetFullMenuPrompt() + '"' + CRLF) + ;
-								Iif(Empty(Command),   '' , 'Command   = ' + Command + CRLF) + ;
-								Iif(Empty(Procedure), '' , 'Procedure = ' + Iif(CR $ Trim(Procedure, 1, CR, LF, Tab,' '), CRLF, '') + Procedure + CRLF) + ;
-								Iif(Empty(SkipFor),   '' , 'SkipFor   = ' + SkipFor + CRLF) + ;
-								Iif(Empty(Message),   '' , 'Message   = ' + Message + CRLF) + ;
-								Iif(Empty(Comment),   '' , 'Comment   = ' + Comment + CRLF) 
-
+							lnMaxMatchStart	   = Len(&lcField)
+							lcCode =																						;
+								&lcField + Iif(Len(&lcField) = Len(Trim(&lcField, 1, CR, LF)), CRLF, '') +					;
+								Replicate('=', 60) + CRLF +																	;
+								Iif(Empty(Prompt), 	  '', 'Prompt    = "' + This.GetFullMenuPrompt() + '"' + CRLF) +		;
+								Iif(Empty(Command),   '', 'Command   = ' + Command + CRLF) +								;
+								Iif(Empty(Procedure), '', 'Procedure = ' + Iif(CR $ Trim(Procedure, 1, CR, LF, Tab, ' '), CRLF, '') + Procedure + CRLF) + ;
+								Iif(Empty(SkipFor),   '', 'SkipFor   = ' + SkipFor + CRLF) +								;
+								Iif(Empty(Message),   '', 'Message   = ' + Message + CRLF) +								;
+								Iif(Empty(Comment),   '', 'Comment   = ' + Comment + CRLF)
+							
 						Case m.lcExt = 'DBC'
 							._Name  = Alltrim(ObjectName)
 							._Class = Alltrim(ObjectType)
@@ -5283,7 +5299,7 @@ ii
 *lcCode = Evaluate(lcField)
 						llHasMethods = Upper(m.lcField) = 'METHODS' Or		;
 							M.lcExt = 'FRX' And Upper(m.lcField) = 'TAG' And Upper(Name) = 'DATAENVIRONMENT'
-						lnMatchCount = This.SearchInCode(m.lcCode, m.loFileResultObject, m.llHasMethods)
+						lnMatchCount = This.SearchInCode(m.lcCode, m.loFileResultObject, m.llHasMethods, lnMaxMatchStart)
 					Else
 * Can't search since there is no cSearchExpression, so we just log the file as a result.
 * This handles TimeStamp searches, where the cSearchExpression is empty

@@ -116,6 +116,9 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		*m: clicktreeviewnode
 		*m: combinefilters
 		*m: confirmreplace
+		*m: createreplaceidtable
+		*m: createsearchhistorytable
+		*m: deleteleftoverfiles
 		*m: deletesearchresults		&& Delete single or all results from history
 		*m: delete_history		&& Delete the history "parent" record
 		*m: delete_historyhits		&& Delete the history records per hit
@@ -286,7 +289,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		*p: lshowrelativepath
 		*p: lsortscopedropdown
 		*p: lwarnwholeword
-		*p: nbrowserzoom
+		*p: nbrowserfontsize
 		*p: ncodeviewlinesbefore
 		*p: ncodewindowposition		&& *** nEnum 1=Below; 2= on Right; 3 = on Left
 		*p: ncontainerframecolour		&& Frame colour for several containers, in case red is something you do not see.
@@ -399,7 +402,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		MinHeight = 425
 		MinWidth = 800
 		Name = "gf_resultsform"
-		nbrowserzoom = 0.9
+		nbrowserfontsize = 14
 		ncodeviewlinesbefore = 1000
 		ncodewindowposition = 1
 		ncontainerframecolour = (RGB(255,  0,  0))
@@ -454,7 +457,6 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 			<memberdata name="cactiveproject" display="cActiveProject"/>
 			<memberdata name="ccurrentid" display="cCurrentId"/>
 			<memberdata name="obrowser" display="oBrowser"/>
-			<memberdata name="nbrowserzoom" display="nBrowserZoom"/>
 			<memberdata name="lsearchformvisible" display="lSearchFormVisible"/>
 			<memberdata name="otree" display="oTree"/>
 			<memberdata name="cfilter" display="cFilter"/>
@@ -553,6 +555,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 			<memberdata name="captureresizingproperties" display="CaptureResizingProperties"/>
 			<memberdata name="lduringforminit" display="lDuringFormInit"/>
 			<memberdata name="lshowrelativepath" display="lShowRelativePath"/>
+			<memberdata name="nbrowserfontsize" display="nBrowserFontSize"/>
 		</VFPData>
 	*</PropValue>
 
@@ -1003,7 +1006,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Name = "oTreeView", ;
 		Top = 0, ;
 		Width = 186
-		*< END OBJECT: BaseClass="olecontrol" OLEObject="c:\windows\syswow64\mscomctl.ocx" Value="0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAEAAAAgAAAAEAAAD+////AAAAAAAAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9/////v////7///8EAAAA/v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////1IAbwBvAHQAIABFAG4AdAByAHkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAUA//////////8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADDI+XgEc9oBAwAAAEACAAAAAAAAAwBPAGwAZQBPAGIAagBlAGMAdABEAGEAdABhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAgEDAAAAAgAAAP////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAagAAAAAAAAADAEEAYwBjAGUAcwBzAE8AYgBqAFMAaQB0AGUARABhAHQAYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgACAP///////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABcAAAAAAAAAAMAQwBoAGEAbgBnAGUAZABQAHIAbwBwAHMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAIA////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAACABAAAAAAAABAAAAAIAAAD+////BQAAAP7///8GAAAABwAAAAgAAAD+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+2kEHHiYXREbFqAMDwKDYoIUM0EggAAAA5EwAABTUAALE8wWoBAAYAIgAAABkAAAARAgAACgAAAAEAAAAB782rXAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACQAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5MzY4MjY1RS04NUZFLTExZDEtOEJFMy0wMDAwRjg3NTREQTEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACADgAAAEhpZGVTZWxlY3Rpb24ABQAAAEwAAAAADAAAAEluZGVudGF0aW9uABEAAABODQAAAAcAAAAAAAAAAAAFACD3xgsGAAAAAAAAAAUAAIBw5xkAAQAAAFwAH97svQEABQC45xkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANEAKAAAATGluZVN0eWxlAAkAAABJCgAAAAEAAAANAAAATW91c2VQb2ludGVyAAkAAABJCgAAAAAAAAAOAAAAUGF0aFNlcGFyYXRvcgAKAAAASAAAAAABAAAAXAYAAABTdHlsZQAJAAAASQoAAAAGAAAADAAAAE9MRURyYWdNb2RlAAkAAABJCgAAAAAAAAAMAAAAT0xFRHJvcE1vZGUACQAAAEkKAAAAAAAAAA4AAABGdWxsUm93U2VsZWN0AAUAAABMAQAAAAoAAABTaW5nbGVTZWwABQAAAEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+		*< END OBJECT: BaseClass="olecontrol" OLEObject="c:\windows\syswow64\mscomctl.ocx" Value="0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAEAAAAgAAAAEAAAD+////AAAAAAAAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9/////v////7///8EAAAA/v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////1IAbwBvAHQAIABFAG4AdAByAHkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAUA//////////8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBwXK0Bd9oBAwAAAEACAAAAAAAAAwBPAGwAZQBPAGIAagBlAGMAdABEAGEAdABhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAgEDAAAAAgAAAP////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAagAAAAAAAAADAEEAYwBjAGUAcwBzAE8AYgBqAFMAaQB0AGUARABhAHQAYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgACAP///////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABcAAAAAAAAAAMAQwBoAGEAbgBnAGUAZABQAHIAbwBwAHMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAIA////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAACABAAAAAAAABAAAAAIAAAD+////BQAAAP7///8GAAAABwAAAAgAAAD+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+2kEHHiYXREbFqAMDwKDYoIUM0EggAAAA5EwAABTUAALE8wWoBAAYAIgAAABkAAAARAgAACgAAAAEAAAAB782rXAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACQAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5MzY4MjY1RS04NUZFLTExZDEtOEJFMy0wMDAwRjg3NTREQTEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACADgAAAEhpZGVTZWxlY3Rpb24ABQAAAEwAAAAADAAAAEluZGVudGF0aW9uABEAAABODQAAAAcAAAAAAAAAAAAFACB53AIGAAAAAAAAAAUAAIBw5xkAAQAAAFwAH97svQEABQC45xkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANEAKAAAATGluZVN0eWxlAAkAAABJCgAAAAEAAAANAAAATW91c2VQb2ludGVyAAkAAABJCgAAAAAAAAAOAAAAUGF0aFNlcGFyYXRvcgAKAAAASAAAAAABAAAAXAYAAABTdHlsZQAJAAAASQoAAAAGAAAADAAAAE9MRURyYWdNb2RlAAkAAABJCgAAAAAAAAAMAAAAT0xFRHJvcE1vZGUACQAAAEkKAAAAAAAAAA4AAABGdWxsUm93U2VsZWN0AAUAAABMAQAAAAoAAABTaW5nbGVTZWwABQAAAEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
 
 	ADD OBJECT 'containerRight' AS container WITH ;
 		Anchor = 15, ;
@@ -2650,6 +2653,37 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		
 	ENDPROC
 
+	PROCEDURE createreplaceidtable
+		*-- Create the table to save the running ID of replace backup folder
+		Local lcFileName
+		
+		lcFileName = Forceext(This.cCR_StoreLocal + 'GF_ReplaceID', 'dbf')
+		If Not File(m.lcFileName)
+			Create Table (m.lcFileName)			;
+				(iID I)
+		
+			Append Blank
+			Replace	iID	 With  1000
+			Use In GF_ReplaceID
+		Endif
+		
+	ENDPROC
+
+	PROCEDURE createsearchhistorytable
+		*-- Create the table to save the search results main info
+		Local lcTableName
+		
+		lcTableName = ForceExt(This.cCR_StoreLocal + 'GF_Search_History', 'dbf') 
+		If Not File(m.lcTableName)
+			Create Table (m.lcTableName)														;
+				(cUni c(11), Datetime c(24), Search c(40), Results c(10), Scope c(150),			;
+				  lSaved L, lReplace L)
+		
+			Use In GF_Search_History
+		Endif
+		
+	ENDPROC
+
 	PROCEDURE Deactivate
 		_vfp.AutoYield = Thisform.lAutoYield
 		
@@ -2659,6 +2693,27 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		*!* *-- This code was added 2012-08-30 to allow GF to work properly with 'IntellisenseX by Dot' from ThorLocal lcDot
 		*!* lcDot = This.cOnKeyLabelDot
 		*!* On Key Label . &lcDot
+		
+	ENDPROC
+
+	PROCEDURE deleteleftoverfiles
+		Local laFiles[1], lcResultsfolder, lnCutOffDate, lnFileCount, lnI, loException
+		
+		lcResultsfolder	= Addbs(Thisform.cCR_StoreLocal + Thisform.cSavedSearchResultsFolder)
+		lnCutOffDate	= Date() - Max(Thisform.nJanitorReplaceHistoryDays, Thisform.nJanitorReplaceHistoryDays) - 4
+		
+		lnFileCount = Adir(laFiles, m.lcResultsfolder + '_*.*')
+		
+		For lnI = 1 To m.lnFileCount
+			If m.laFiles[m.lnI, 3] < m.lnCutOffDate
+				Try
+					Erase (m.lcResultsfolder + m.laFiles[m.lnI, 1])
+				Catch To m.loException
+		
+				Endtry
+			Endif
+		Endfor
+		
 		
 	ENDPROC
 
@@ -4633,77 +4688,79 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 	ENDPROC
 
 	PROCEDURE gridcolumnrightclick
-		Local;
-			lcChoice As String,;
-			lcChoice1 As String,;
-			lcChoice2 As String,;
-			lcChoice3 As String,;
-			lcClass As String,;
-			lcFileName As String,;
-			lcPath  As String,;
-			lcScope As String,;
-			lcSearch As String,;
-			lcUni   As String,;
-			lnBar   As Number,;
-			lnI     As Number,;
-			lnSelect As Number,;
-			lnStart As Integer,;
-			loNode  As Object,;
-			loNodeRoot As Object,;
-			loTag   As Object,;
-			loTree  As Object
+		Local lcChoice As String
+		Local lcChoice1 As String
+		Local lcChoice2 As String
+		Local lcChoice3 As String
+		Local lcClass As String
+		Local lcFileName As String
+		Local lcPath As String
+		Local lcScope As String
+		Local lcSearch As String
+		Local lcUni As String
+		Local lnBar As Number
+		Local lnI As Number
+		Local lnSelect As Number
+		Local lnStart As Integer
+		Local loNode As Object
+		Local loNodeRoot As Object
+		Local loTag As Object
+		Local loTree As Object
+		Local lcChoice4
 		
-		lcUni      = cUni
+		lcUni	   = cUni
 		lcSearch   = Search
-		lcScope    = Scope
-		lcClass    = Lower(Trim(Class))
+		lcScope	   = Scope
+		lcClass	   = Lower(Trim(Class))
 		lcFileName = Lower(Trim(FilePath))
 		
-		lcChoice  = ""
-		lcChoice1 = ""
-		lcChoice2 = ""
-		lcChoice3 = ""
-		lnBar     = 0
+		lcChoice  = ''
+		lcChoice1 = ''
+		lcChoice2 = ''
+		lcChoice3 = ''
+		lnBar	  = 0
 		
-		If !Empty(m.lcFileName)
+		If Not Empty(m.lcFileName)
 			loTree = This.oTree
 		
-			lcChoice1 = "Filter by this File"
+			lcChoice1 = 'Filter by this File'
 		
-			loNodeRoot  = loTree.Nodes[1]
+			loNodeRoot  = m.loTree.Nodes[1]
 		
-			If !This.lCR_SimpleTree And Not Empty(m.lcClass) Then
-				lcChoice2 = "Filter by this Class"
+			If Not This.lCR_SimpleTree And Not Empty(m.lcClass) Then
+				lcChoice2 = 'Filter by this Class'
 		
-				loTag      = m.loNodeRoot.Tag
-				If Vartype(m.loTag) = "O" And m.loTag.gcLevel == "ROOT" Then
-					loNodeRoot = m.loNodeRoot.Child
-				Endif && &&Vartype(m.loTag) = "O" And m.loTag.gcLevel == "ROOT"
-		
-				Do While !Isnull(m.loNodeRoot)
-					loNodeRoot = m.loNodeRoot.Next
+				If This.lCR_Allow 
 					loTag      = m.loNodeRoot.Tag
-					If Vartype(m.loTag) = "O";
-							And m.loTag.gcLevel == "HISTORY";
-							And m.loTag.gcUni == m.lcUni
-						Exit
+					If Vartype(m.loTag) = 'O' And m.loTag.gcLevel == 'ROOT' Then
+						loNodeRoot = m.loNodeRoot.Child
+					Endif && &&Vartype(m.loTag) = "O" And m.loTag.gcLevel == "ROOT"
 		
-					Endif
-				Enddo &&!Isnull(m.loNodeRoot)
+					Do While Not Isnull(m.loNodeRoot)
+						loNodeRoot = m.loNodeRoot.Next
+						loTag	   = m.loNodeRoot.Tag
+						If Vartype(m.loTag) = 'O'						;
+								And m.loTag.gcLevel == 'HISTORY'		;
+								And m.loTag.gcUni == m.lcUni
+							Exit
+		
+						Endif
+					Enddo &&!Isnull(m.loNodeRoot)
+				EndIf
 		
 			Endif &&!This.lCR_SimpleTree And Not Empty(m.lcClass)
 		
 			If Isnull(m.loNodeRoot) Then
-				lcChoice1 = ""
-				lcChoice2 = ""
+				lcChoice1 = ''
+				lcChoice2 = ''
 		
 			Else  &&Isnull(loNodeRoot)
 		
 				loNodeRoot = m.loNodeRoot.Child
 		
 				If Isnull(m.loNodeRoot) Then
-					lcChoice1 = ""
-					lcChoice2 = ""
+					lcChoice1 = ''
+					lcChoice2 = ''
 		
 				Endif &&Isnull(loNodeRoot)
 			Endif &&Isnull(loNodeRoot)
@@ -4713,70 +4770,77 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		
 		lnSelect = Select()
 		Select (This.cSearchResultsAlias)
-		If !Eof() And iReplaceFolder>0 Then
-			lcChoice3 = "Open Backup Replace Folder"
+		If Not Eof() And iReplaceFolder > 0 Then
+			lcChoice3 = 'Open Backup Replace Folder'
 		Endif &&!EOF() AND iReplaceFolder>0
 		Select(m.lnSelect)
 		
-		If !Empty(m.lcChoice1+m.lcChoice2+m.lcChoice3) Then
-			GF_CreateContextMenu("FilterByFile")
+		GF_CreateContextMenu('FilterByFile')
 		
-			If !Empty(m.lcChoice1) Then
-				lnBar	  = m.lnBar + 1
-				Define Bar (m.lnBar) Of FilterByFile Prompt (m.lcChoice1)
-				On Selection Bar (m.lnBar) Of FilterByFile m.lcChoice = [&lcChoice1]
-			Endif &&!EMPTY(m.lcChoice1)
+		If Not Empty(m.lcChoice1) Then
+			lnBar	  = m.lnBar + 1
+			Define Bar (m.lnBar) Of FilterByFile Prompt (m.lcChoice1)
+			On Selection Bar (m.lnBar) Of FilterByFile m.lcChoice = [&lcChoice1]
+		Endif &&!EMPTY(m.lcChoice1)
 		
-			If !Empty(m.lcChoice2) Then
-				lnBar	  = m.lnBar + 1
-				Define Bar (m.lnBar) Of FilterByFile Prompt (m.lcChoice2)
-				On Selection Bar (m.lnBar) Of FilterByFile m.lcChoice = [&lcChoice2]
-			Endif &&!EMPTY(m.lcChoice2)
+		If Not Empty(m.lcChoice2) Then
+			lnBar	  = m.lnBar + 1
+			Define Bar (m.lnBar) Of FilterByFile Prompt (m.lcChoice2)
+			On Selection Bar (m.lnBar) Of FilterByFile m.lcChoice = [&lcChoice2]
+		Endif &&!EMPTY(m.lcChoice2)
 		
-			If !Empty(m.lcChoice3) Then
-				lnBar	  = m.lnBar + 1
-				Define Bar (m.lnBar) Of FilterByFile Prompt (m.lcChoice3)
-				On Selection Bar (m.lnBar) Of FilterByFile m.lcChoice = [&lcChoice3]
-			Endif &&!EMPTY(m.lcChoice3)
+		If Not Empty(m.lcChoice3) Then
+			lnBar	  = m.lnBar + 1
+			Define Bar (m.lnBar) Of FilterByFile Prompt (m.lcChoice3)
+			On Selection Bar (m.lnBar) Of FilterByFile m.lcChoice = [&lcChoice3]
+		Endif &&!EMPTY(m.lcChoice3)
 		
-			Activate Popup FilterByFile
-			Release Popups FilterByFile
+		lcChoice4 = 'Copy file name to clipboard'
+		lnBar	  = m.lnBar + 1
+		Define Bar (m.lnBar) Of FilterByFile Prompt (m.lcChoice4)
+		On Selection Bar (m.lnBar) Of FilterByFile m.lcChoice = [&lcChoice4]
 		
-			Do Case
-				Case m.lcChoice == ""
-				Case m.lcChoice == m.lcChoice1
-					For lnI = m.lnStart To m.loTree.Nodes.Count
-						loNode = loTree.Nodes[m.lni]
-						loTag  = m.loNode.Tag
-						If "O" = Vartype(m.loTag);
-								And m.loTag.gcLevel == "FILE";
-								And m.loTag.gcUni == m.lcUni;
-								And m.loTag.gcFilePath == m.lcFileName
-							This.TreeView_NodeClick(m.loNode)
-						Endif
-					Endfor
+		Activate Popup FilterByFile
+		Release Popups FilterByFile
 		
-				Case m.lcChoice == m.lcChoice2
-					For lnI = m.lnStart To m.loTree.Nodes.Count
-						loNode = loTree.Nodes[m.lni]
-						loTag  = m.loNode.Tag
-						If "O" = Vartype(m.loTag);
-								And m.loTag.gcLevel == "LISTED_CLASS";
-								And m.loTag.gcUni == m.lcUni;
-								And m.loTag.gcFilePath == m.lcFileName;
-								And m.loTag.gcClass == m.lcClass
-							This.TreeView_NodeClick(m.loNode)
-						Endif
-					Endfor
+		Do Case
+			Case m.lcChoice == ''
+			Case m.lcChoice == m.lcChoice1
+				For lnI = m.lnStart To m.loTree.Nodes.Count
+					loNode = m.loTree.Nodes[m.lni]
+					loTag  = m.loNode.Tag
+					If 'O' = Vartype(m.loTag)					;
+							And m.loTag.gcLevel == 'FILE'		;
+							And m.loTag.gcUni == m.lcUni		;
+							And m.loTag.gcFilePath == m.lcFileName
+						This.TreeView_NodeClick(m.loNode)
+					Endif
+				Endfor
 		
-				Case m.lcChoice == m.lcChoice3
-					Select (This.cSearchResultsAlias)
-					lcPath = Addbs(This.cCR_StoreLocal + "GF_ReplaceBackups") + Ltrim(Str(iReplaceFolder,12,0))
-					Select(m.lnSelect)
+			Case m.lcChoice == m.lcChoice2
+				For lnI = m.lnStart To m.loTree.Nodes.Count
+					loNode = m.loTree.Nodes[m.lni]
+					loTag  = m.loNode.Tag
+					If 'O' = Vartype(m.loTag)							;
+							And m.loTag.gcLevel == 'LISTED_CLASS'		;
+							And m.loTag.gcUni == m.lcUni				;
+							And m.loTag.gcFilePath == m.lcFileName		;
+							And m.loTag.gcClass == m.lcClass
+						This.TreeView_NodeClick(m.loNode)
+					Endif
+				Endfor
 		
-					GF_OpenExplorerWindow(m.lcPath)
-			Endcase
-		Endif &&!EMPTY(m.lcChoice1+m.lcChoice2+m.lcChoice3)
+			Case m.lcChoice == m.lcChoice3
+				Select (This.cSearchResultsAlias)
+				lcPath = Addbs(This.cCR_StoreLocal + 'GF_ReplaceBackups') + Ltrim(Str(iReplaceFolder, 12, 0))
+				Select(m.lnSelect)
+		
+				GF_OpenExplorerWindow(m.lcPath)
+		
+			Case m.lcChoice == m.lcChoice4
+				GF_FilenameToClipboard(Trim(FilePath))
+		
+		Endcase
 		
 	ENDPROC
 
@@ -4894,7 +4958,6 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		*-- Load some default setting from form properties, then load stored settings from XML file
 		loGrid.FontSize											 = Thisform.nGridFontSize
 		This.oTree.Font.Size									 = Thisform.nGridFontSize
-		This.Containerright.Container2.containerWebControl.nZoom = This.nBrowserZoom
 		
 		Thisform.FormatGrid()
 		
@@ -5437,17 +5500,21 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 				This.Top = 0
 			Endif
 		
-			With Thisform
-				.nBrowserZoom       = GF_PropNvl(m.loSettingsDefault, "nBrowserZoom", 1, .T.)
-				.nSearchBoxFontSize = GF_PropNvl(m.loSettings, "nSearchBoxFontSize", Thisform.editSearch.FontSize, .T.)
-				.nGridFontSize      = GF_PropNvl(m.loSettingsDefault, "nGridFontSize", Thisform.oGrid.FontSize, .T.)
-				.nTreeViewFontSize  = GF_PropNvl(m.loSettingsDefault, "nTreeViewFontSize", Thisform.oGrid.FontSize, .T.)
-				.nReplaceMode       = GF_PropNvl(m.loSettings, "nReplaceMode", 1)
-		
-				.Containerright.Container2.containerWebControl.nZoom = .nBrowserZoom
-			Endwith
-		
 		Endif
+		
+		With Thisform
+			.nBrowserFontSize       = GF_PropNvl(m.loSettingsDefault, "nBrowserFontSize", 14, .T.)
+			.nSearchBoxFontSize = GF_PropNvl(m.loSettings, "nSearchBoxFontSize", Thisform.editSearch.FontSize, .T.)
+			.nGridFontSize      = GF_PropNvl(m.loSettingsDefault, "nGridFontSize", Thisform.oGrid.FontSize, .T.)
+			.nTreeViewFontSize  = GF_PropNvl(m.loSettingsDefault, "nTreeViewFontSize", Thisform.oGrid.FontSize, .T.)
+		
+			Local lnReplaceMode
+			lnReplaceMode = GF_PropNvl(m.loSettings, 'nReplaceMode', 1)
+			If .nReplaceMode # m.lnReplaceMode
+				.nReplaceMode = m.lnReplaceMode
+			Endif
+			
+		Endwith
 		
 		*-- Load other Form properties from My Settings ------------------------------------
 		With Thisform
@@ -7395,12 +7462,6 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Select (m.lnSelect)
 	ENDPROC
 
-	PROCEDURE Refresh
-		Thisform.nBrowserZoom = Thisform.containerRight.container2.containerWebControl.nZoom
-		
-		DoDefault()
-	ENDPROC
-
 	PROCEDURE refreshresults		&& Refresh (re-search) a result
 		Lparameters;
 			toNode
@@ -7781,6 +7842,10 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		
 		Set Deleted &lcDeleted
 		
+		If this.lCR_Allow = .F.
+			This.DeleteLeftOverFiles()
+		Endif
+		
 		Return
 		
 	ENDPROC
@@ -7802,21 +7867,9 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 			Set Database To (m.lcDbc)
 			DBSetProp(Justfname(m.lcDbc),'DATABASE','COMMENT',_Screen._GoFish.cVersion)
 		
-		*-- Create the table to save the search results main info
-			Create Table (This.cCR_StoreLocal + "GF_Search_History");
-				(cUni c(11), Datetime c(24), Search c(40), Results c(10), Scope c(150),;
-				lSaved L, lReplace L)
+			ThisForm.CreateSearchHistoryTable()
 		
-			Use In GF_Search_History
-		
-		*-- Create the table to save the running ID of replace backup folder
-			Create Table (This.cCR_StoreLocal + "GF_ReplaceID");
-				(iID I)
-		
-			Append Blank
-			Replace;
-				iID With 1000
-			Use In GF_ReplaceID
+			ThisForm.CreateReplaceIDTable()
 		
 		*temp use of var ...
 			lcDbc  = "README.md"
@@ -7960,7 +8013,8 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		*--- Save other custom form properties that to restore next session ----------------
 		*.Add("lIncludeSubDirectoriesCurrent", Thisform.lIncludeSubDirectoriesCurrent)
 		*.Add("lIncludeSubDirectoriesBrowsed", Thisform.lIncludeSubDirectoriesBrowsed)
-				.Add("nBowserZoom", Thisform.containerRight.container2.containerWebControl.nZoom)
+				*** JRN 2024-03-12 : 
+				*	.Add("nBrowserZoom", Thisform.containerRight.container2.containerWebControl.nZoom)
 				.Add("nSearchBoxFontSize", Thisform.nSearchBoxFontSize)
 				.Add("nGridFontSize", Thisform.nGridFontSize)
 				.Add("nTreeViewFontSize", Thisform.nTreeViewFontSize)
@@ -7992,7 +8046,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 				.Add("dLastJanitorRunDate", Thisform.dLastJanitorRunDate)
 				.Add("nTabsToSpaces", Thisform.nTabsToSpaces)
 				.Add("lOnlyFirstMatchInStatement", Thisform.lOnlyFirstMatchInStatement)
-				.Add("nBrowserZoom", Thisform.nBrowserZoom)
+				.Add("nBrowserFontSize", Thisform.nBrowserFontSize)
 		
 				.Add("lShowRelativePath", 			Thisform.lShowRelativePath)
 				.Add("lSortScopeDropdown", 			Thisform.lSortScopeDropdown)
@@ -9141,7 +9195,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		*** JRN 2024-02-05 : Colors for 'Code View':  Match user's colors for normal code windows (Experimental)
 		lcCss = This.GetCustomCss()
 		If Empty(m.lcCss) Or Thisform.lIDEColorsInCodeView = .F.
-			lcCssFile	 = Home(7) + 'GoFish_\GoFish.css'
+			lcCssFile	 = Home(7) + 'GoFish_\GoFish_.css'
 			If Not File(m.lcCssFile)
 				* The default file (path does not matter when part of the APP)
 				lcCssFile	 = _Screen._GoFish.cAppPath + 'CSS\GoFish.css'
@@ -9149,6 +9203,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 			lcCss		 = Iif(File(m.lcCssFile), Filetostr(m.lcCssFile), '')
 		Endif
 		
+		lcCSS = Strtran(m.lcCss, '<nBrowserFontSize>', Transform(Thisform.nBrowserFontSize))
 		lcCSS = Strtran(m.lcCss, '<ContainerFrameColour>', GF_ToRGB(Thisform.nContainerFrameColour))
 		
 		lcJavaScriptFile = _Screen._GoFish.cAppPath + 'HTML\GoFish.js'
@@ -9170,7 +9225,14 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 			Otherwise
 				lnStatementStart = &lcCursor..StatementStart - 1
 				lcStatement		 = &lcCursor..Statement
+				
+				*** JRN 2024-03-11 : remove possible leading LF from lcStatement 
+				If Left(m.lcStatement, 1) = LF
+					lnStatementStart = m.lnStatementStart + 1
+					lcStatement		 = Substr(m.lcStatement, 2)
+				Endif
 		
+				*** JRN 2024-03-11 : maybe a LF is not preceded by a CR
 				If Occurs(Chr[13], m.lcStatement) < Occurs(Chr[10], m.lcStatement)
 					lcStatement = Strtran(m.lcStatement, LF, CRLF, 1, 1)
 				EndIf
@@ -9220,6 +9282,9 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		This.AddProperty("lDeleteStorage", .F.)
 		
 		Do Form GoFish_Options With Thisform && Calls a Modal form...
+		
+		*** JRN 2024-03-13 : Null this baby out so that it is re-created next time needed (if any options changed)
+		Thisform.cCustomCss = null
 		
 		*This.LockScreen = .T.
 		
@@ -9754,8 +9819,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 					Where Id = m.lnID										;
 					Into Array laFilePath
 				If _Tally > 0
-					_Cliptext = Trim(m.laFilePath)
-					Messagebox('File name (full path) copied to clipboard', 64, 'To clipboard')
+					GF_FileNameToClipboard(Trim(m.laFilePath))
 				Else
 					Messagebox('Error determining file name', 16)
 				Endif
@@ -10726,6 +10790,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		
 				Endif &&Thisform.lCR_HistoryTree
 			Endif &&Thisform.lCR_Allow AND Thisform.lCR_HistoryPerScope
+			
 		Endif &&Thisform.lCR_Allowed
 		
 	ENDPROC
@@ -11899,39 +11964,52 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 	ENDPROC
 
 	PROCEDURE imgFolder_Pick.Click
-		Local;
-			lcFolder As String
+		Local lcFolder As String
 		
 		lcFolder = This.Parent.comboSearchScopeHistory.Value
-		If Lower(Justext(m.lcFolder)) == "pjx" Then
+		If Lower(Justext(m.lcFolder)) == 'pjx' Then
 			lcFolder = Justpath(m.lcFolder)
 		Endif &&LOWER(JUSTEXT(m.lcFolder)) == "pjx"
 		
 		lcFolder = Getdir(m.lcFolder)
 		
-		If !Empty(m.lcFolder) Then
-			This.Parent.comboSearchScopeHistory.Value = m.lcFolder
+		If Not Empty(m.lcFolder) Then
+			lcFolder = Lower(Trim(m.lcFolder, 1, '\'))
+		
+			Thisform.oSearchOptions.nSearchScope = 4
+			Thisform.comboSearchScopeHistory.SaveSearchScope(m.lcFolder)
+			Thisform.oSearchOptions.cRecentScope = m.lcFolder
+			Thisform.oSearchOptions.cPath = m.lcFolder
+		
+			Thisform.comboSearchScope.Refresh()
+			Thisform.comboSearchScopeHistory.Refresh()
+			
 		Endif &&!Empty(m.lcFolder)
 		
 	ENDPROC
 
 	PROCEDURE imgProj_Pick.Click
-		Local;
-			lcOldFolder As String,;
-			lcFolder    As String
+		Local lcFolder As String
+		Local lcOldFolder As String
 		
-		lcOldFolder = Fullpath("", "")
+		lcOldFolder = Fullpath('', '')
 		
 		lcFolder = This.Parent.comboSearchScopeHistory.Value
-		If Lower(Justext(m.lcFolder)) == "pjx" Then
+		If Lower(Justext(m.lcFolder)) == 'pjx' Then
 			lcFolder = Justpath(m.lcFolder)
 		Endif &&LOWER(JUSTEXT(m.lcFolder)) == "pjx"
 		Cd (m.lcFolder)
 		
-		lcFolder = Getfile("PJX", "Project")
+		lcFolder = Getfile('PJX', 'Project')
 		
-		If !Empty(m.lcFolder) AND FILE(m.lcFolder) Then
-			This.Parent.comboSearchScopeHistory.Value = m.lcFolder
+		If Not Empty(m.lcFolder) And File(m.lcFolder) Then
+			Thisform.oSearchOptions.nSearchScope = 2
+			Thisform.comboSearchScopeHistory.SaveSearchScope(m.lcFolder)
+			Thisform.oSearchOptions.cRecentScope = Lower(m.lcFolder)
+			ThisForm.oSearchOptions.cProject  = Lower(m.lcFolder)
+		
+			Thisform.comboSearchScope.Refresh()
+			Thisform.comboSearchScopeHistory.Refresh()
 		Endif &&!Empty(m.lcFolder) AND FILE(m.lcFolder)
 		
 		
