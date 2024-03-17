@@ -1,3 +1,8 @@
+## Version 7.0.15 - 2024-03-17
+
+* Remove redundant (and confusing) display in Code View pane for matches in MNXs (#184)
+* Modify use of memo fields in the results grid to eliminate the error when the FPT file exceeds 2G limit. (#49, #158). As this was achieved by removing some no longer needed code, there is an imperceptible speed improvement as well.
+    
 ## Version 7.0.14 - 2024-03-15
 
 * Code View pane changes:

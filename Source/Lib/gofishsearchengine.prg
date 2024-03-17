@@ -1192,7 +1192,7 @@ statementstart
 			MatchStart       = .MatchStart
 			MatchLen         = .MatchLen
 			MatchType        = .MatchType
-			Code             = .Code
+			Code             = '' && .Code && No longer any need to capture this in the memo field.
 		Endwith
 
 		With m.toObject.UserField
@@ -1352,7 +1352,7 @@ statementstart
 	
 			If m.lcExt $ ' SCX VCX '
 				*-- Calculate Line No from procstart and matchstart postitions...
-				lcCodeBlock	= Substr(&tcCursor..Code, m.lnProcStart + 1, m.lnMatchStart - m.lnProcStart)
+				lcCodeBlock	= &tcCursor..ProcCode
 				lnStart		= Getwordcount(m.lcCodeBlock, Chr(13)) - 1 && The LINE NUMBER that match in on within the method
 				lnStart		= Iif(m.lnStart > 0, m.lnStart, 1)
 				Do Case
@@ -2096,11 +2096,12 @@ Result
 				lcRightCode = Substr(m.tcCode, m.tnMatchStart + 1 + m.lnMatchLineLength)
 			Endif
 
-			lnEndProc = Atc('EndProc', m.lcRightCode)
+			*!* ******** JRN Removed 2024-03-16 ******** redundant
+			*!* lnEndProc = Atc('EndProc', m.lcRightCode)
 
-			If m.lnEndProc > 0
-				lcRightCode = Substr(m.lcRightCode, 1, m.lnEndProc + 6) && It ends at "E" of "EndProc", so add 6 to get the rest of the word
-			Endif
+			*!* If m.lnEndProc > 0
+			*!* 	lcRightCode = Substr(m.lcRightCode, 1, m.lnEndProc + 6) && It ends at "E" of "EndProc", so add 6 to get the rest of the word
+			*!* Endif
 
 			lcRight = This.HtmlEncode(m.lcRightCode)
 
@@ -5217,15 +5218,15 @@ ii
 						Case m.lcExt = 'MNX' && and InList(Upper(m.lcField), 'PROMPT', 'COMMAND', 'PROCEDURE', 'SKIPFOR')
 							lnMaxMatchStart	   = Len(&lcField)
 							lcCode =																						;
-								&lcField + Iif(Len(&lcField) = Len(Trim(&lcField, 1, CR, LF)), CRLF, '') +					;
-								Replicate('=', 60) + CRLF +																	;
-								Iif(Empty(Prompt), 	  '', 'Prompt    = "' + This.GetFullMenuPrompt() + '"' + CRLF) +		;
-								Iif(Empty(Command),   '', 'Command   = ' + Command + CRLF) +								;
-								Iif(Empty(Procedure), '', 'Procedure = ' + Iif(CR $ Trim(Procedure, 1, CR, LF, Tab, ' '), CRLF, '') + Procedure + CRLF) + ;
-								Iif(Empty(SkipFor),   '', 'SkipFor   = ' + SkipFor + CRLF) +								;
-								Iif(Empty(Message),   '', 'Message   = ' + Message + CRLF) +								;
-								Iif(Empty(Comment),   '', 'Comment   = ' + Comment + CRLF)
-							
+								Trim(&lcField, 1, CR, LF) + CRLF + CRLF +													;
+								'*' + Replicate('=', 60) + CRLF + '* Related field(s):' + CRLF +							;
+								Iif(Empty(Prompt)    Or lcField = 'PROMPT',    '', 'Prompt    = "' + This.GetFullMenuPrompt() + '"' + CRLF) + ;
+								Iif(Empty(Command)   Or lcField = 'COMMAND',   '', 'Command   = ' + Command + CRLF) +			;
+								Iif(Empty(SkipFor)   Or lcField = 'SKIPFOR',   '', 'SkipFor   = ' + SkipFor + CRLF) +			;
+								Iif(Empty(Message)   Or lcField = 'MESSAGE',   '', 'Message   = "' + Message + '"' + CRLF) +	;
+								Iif(Empty(Comment)   Or lcField = 'COMMENT',   '', 'Comment   = "' + Comment + '"' + CRLF) +	;
+								Iif(Empty(Procedure) Or lcField = 'PROCEDURE', '', 'Procedure = ' + Iif(CR $ Trim(Procedure, 1, CR, LF, Tab, ' '), CRLF, '') + Procedure + CRLF)
+														
 						Case m.lcExt = 'DBC'
 							._Name  = Alltrim(ObjectName)
 							._Class = Alltrim(ObjectType)
