@@ -1,3 +1,7 @@
+## Version 7.0.16 - 2024-03-18
+
+Notes on the previous version (7.0.15) were over-confident about being able to eliminate the problem of files hitting the 2G limit. There has been significant progress in making these problems exceedingly unlikely and this update is one more step in that direction, but it is not possible to promise they will never occur again.
+    
 ## Version 7.0.15 - 2024-03-17
 
 * Remove redundant (and confusing) display in Code View pane for matches in MNXs (#184)
