@@ -1193,6 +1193,7 @@ statementstart
 			MatchLen         = .MatchLen
 			MatchType        = .MatchType
 			Code             = '' && .Code && No longer any need to capture this in the memo field.
+
 		Endwith
 
 		With m.toObject.UserField
@@ -1812,6 +1813,10 @@ Result
 		For Each Result In m.toProcedureStartPositions
 
 			If Result.StartByte > m.tnStartByte
+				If lnX = 1
+					loReturn.StartByte = 0
+					loReturn.EndByte   = Result.StartByte - 1
+				EndIf 
 				Exit
 			Else
 				loReturn = Result
@@ -4417,13 +4422,13 @@ x
 * .ContainingClass =	.oProcedure._ClassName	&& Not used on this object. This line to be deleted after testing. (2012-07-11))
 					.MethodName = .oProcedure._Name
 					.ProcStart  = .oProcedure.StartByte
-					.procend    = .oProcedure.EndByte
+					.procend    = Min(Evl(.oProcedure.EndByte, Len(m.tccode)), .oMatch.FirstIndex + MEMOFIELDMINSIZE)
 					.proccode   = Substr(m.tcCode, .ProcStart + 1, Max(0, .procend - .ProcStart))
-
+					
 					.MatchLine  = .oMatch.Value
 					.MatchStart = .oMatch.FirstIndex
 					.MatchLen   = Len(.oMatch.Value)
-
+					
 					If m.tlHasProcedures
 						.MatchType            = m.loProcedure.Type && Use what was determined by call to FindProcedureForMatch())
 						tuUserField.MatchType = m.loProcedure.Type
