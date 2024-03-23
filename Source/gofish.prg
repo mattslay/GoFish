@@ -184,6 +184,9 @@ Procedure SetupEnvironment
 		AddProperty(m.loGoFish, "dBuildDate", GOFISH_dBUILDDATE)
 		AddProperty(m.loGoFish, "oResultsForm", .Null.)
 
+		AddProperty(m.loGoFish, "cSetDate", Set('Date'))
+		AddProperty(m.loGoFish, "cSetHours", Set('Hours'))
+
 		_Screen.AddProperty("_GoFish", m.loGoFish) && Add this object onto _Screen, so it can accessed from GoFish forms
 
 	Endif

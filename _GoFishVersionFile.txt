@@ -1,6 +1,17 @@
 Lparameters toUpdateInfo
 
 Text to lcNote NoShow
+## Version 7.0.17 - 2024-03-23
+
+* Multiple identical results were occurring for matches in MNXs using regular expressions (#190).
+* Scope setting "Search All Projects" was not working if projects were not all in the same folder (#188)
+* MRU list for search dropdown was misbehaving under some conditions (#187)
+* The "Advanced" form has been simplified and shows only those options not already appearing on the main form.
+
+## Version 7.0.16 - 2024-03-18
+
+Notes on the previous version (7.0.15) were over-confident about being able to eliminate the problem of files hitting the 2G limit. There has been significant progress in making these problems exceedingly unlikely and this update is one more step in that direction, but it is not possible to promise they will never occur again.
+
 ## Version 7.0.15 - 2024-03-17
 
 * Remove redundant (and confusing) display in Code View pane for matches in MNXs (#184)
@@ -124,26 +135,10 @@ Text to lcNote NoShow
 - better UI to set/unset file types
 - optimized speed of folder search
 - ignore git toplevel folder instead of .git
-- ignore GoFish's settings folder, but allow to search the GF_Saved_Search_Results by explicitly selecting it (on your own risk)
-- fixed Button to show menu tree should not appear for MPR files; fixed #102
-- MPR are now in the "Dangerous risk" replace group; closing #109
-- DynamicBackColor for Replacerisk 3 - Dangerous was wrong
-- files not in filter visible in tree; fixed issue #118
-- wrong property used of SF_RegExp
-- searching for file without extension is now allowed in "Advanced Search", "File template". #84
-  - Note: "\*" is all files WITH extension, without extension is like "\*."
-- fixed: Error "invalid path or file name" on startup; fixed #120 (PatrickvonDeetzen)
-- forced to use of APP over PRG
-- Renamed GoFish5 to GoFish
-
-----
-## Ver 6.2.001
-**Released 2023-05-09**
- Changes
-- Fixed: Code - window shows info for files without
+- ignore GoFish's settings folder, but allow to search the GF_
 EndText
 
-AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish - 7.0.16 - March 18, 2024 - 20240318')
+AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish - 7.0.17 - March 23, 2024 - 20240323')
 AddProperty(toUpdateInfo, 'SourceFileUrl', 'https://raw.githubusercontent.com/VFPX/GoFish/master/Source/Source.zip')
 AddProperty(toUpdateInfo, 'LinkPrompt', 'GoFish Home Page')
 AddProperty(toUpdateInfo, 'Link', 'https://github.com/VFPX/GoFish')

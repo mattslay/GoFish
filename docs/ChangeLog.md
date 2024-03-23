@@ -1,3 +1,10 @@
+## Version 7.0.17 - 2024-03-23
+
+* Multiple identical results were occurring for matches in MNXs using regular expressions (#190).
+* Scope setting "Search All Projects" was not working if projects were not all in the same folder (#188)
+* MRU list for search dropdown was misbehaving under some conditions (#187)
+* The "Advanced" form has been simplified and shows only those options not already appearing on the main form.
+    
 ## Version 7.0.16 - 2024-03-18
 
 Notes on the previous version (7.0.15) were over-confident about being able to eliminate the problem of files hitting the 2G limit. There has been significant progress in making these problems exceedingly unlikely and this update is one more step in that direction, but it is not possible to promise they will never occur again.

@@ -278,11 +278,12 @@ DEFINE CLASS gf_combosearchscope AS combobox
 	PROCEDURE savesearchscope
 		Lparameters tcSearchScope
 		
-		Local;
-			lcTable           As String,;
-			lnExpressionsToStore As Number,;
-			lnSelect          As Number
-		*:Global;
+		Local lcTable As String
+		Local lnExpressionsToStore As Number
+		Local lnSelect As Number
+		Local lnItem
+		
+		*:Global		;
 		tcScope
 		
 		lnSelect = Select()
@@ -298,43 +299,47 @@ DEFINE CLASS gf_combosearchscope AS combobox
 		*!*	lcSearchScopeTable = This.cTable
 		lnExpressionsToStore = This.nExpressionsToStore
 		
-		*SF 20221018 -> local storage
-		*lcTable = Home(7) + lcSearchScopeTable + '.dbf'
-		*!*	lcTable = Thisform.cCR_StoreLocal + lcSearchScopeTable + '.dbf'
-		*/SF 20221018 -> local storage
-		
 		tcScope = Rtrim(Alltrim(m.tcSearchScope), 0, '\')
 		
 		This.OpenTable()
 		
-		Locate;
-			For Lower(Rtrim(scope, ' ',  '\')) == Lower(Rtrim(m.tcScope, ' ', '\'))
+		* We need to process this as unordered
+		Set Order To '' In (m.lcTable)
+		
+		Locate		;
+			For Lower(Rtrim(Scope, ' ',  '\')) == Lower(Rtrim(m.tcScope, ' ', '\'))
 		
 		If Found() Then
-		    Replace;
-		     Item With 0;
-		     In (m.lcTable)
+			lnItem = &lcTable..Item
+		
+			Replace	Item  With	0		;
+				In (m.lcTable)
+		
+			Replace All							;
+					Item  With	Item + 1		;
+				In (m.lcTable)					;
+				For Item < m.lnItem
 		
 		Else  &&Found()
-			Insert Into (m.lcTable);
-				(Item, scope) ;
-				Values;
+			Insert Into (m.lcTable)			;
+				(Item, Scope)				;
+				Values						;
 				(0, m.tcSearchScope)
 		
+			Replace All							;
+					Item  With	Item + 1		;
+				In (m.lcTable)
+		
+			Delete  For Item > m.lnExpressionsToStore + 1		;
+					  In (m.lcTable)
+		
 		Endif &&FOUND()
-		
-		Replace All;
-		 Item With Item + 1;
-		 In (m.lcTable)
-		
-		Delete;
-		 For Item > m.lnExpressionsToStore+1;
-		 In (m.lcTable)
 		
 		Use In Select(m.lcTable)
 		Thisform.SaveDBC_Close()
 		
 		This.LoadRows()
+		
 		
 	ENDPROC
 
