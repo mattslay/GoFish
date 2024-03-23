@@ -187,42 +187,56 @@ DEFINE CLASS gf_combosearchexpressionhistory AS combobox
 	PROCEDURE savesearchexpression
 		Lparameters tcSearchExpression
 		
-		Local lcScope, lcTable, lnExpressionsToStore
+		Local lcScope, lcTable, lnExpressionsToStore, lnItem
 		
-		If Empty(tcSearchExpression)
+		If Empty(m.tcSearchExpression)
 			Return
 		Endif
 		
 		lnExpressionsToStore = This.nExpressionsToStore	&&MRU
-		lcTable              = Juststem(This.cTable)
-		lcScope              = Lower(Thisform.GetCurrentScope())
+		lcTable				 = Juststem(This.cTable)
+		lcScope				 = Lower(Thisform.GetCurrentScope())
 		
 		*--- Pull other records from the scope out of expression hist table
 		This.OpenTable()
 		
-		Locate;
+		* We need to process this as unordered
+		Set Order To '' In (m.lcTable)
+		
+		Locate		;
 			For Rtrim(Expression) == Rtrim(m.tcSearchExpression)
 		
-		If !Found() Then
-			Replace All;
-				Item With Item + 1;
+		If Found() Then
+			lnItem = &lcTable..Item
+		
+			Replace	Item  With	0		;
 				In (m.lcTable)
 		
-			Insert Into (m.lcTable);
-				(Expression, Item, scope) ;
-				values;
-				(m.tcSearchExpression, 1, m.lcScope)
+			Replace All							;
+					Item  With	Item + 1		;
+				In (m.lcTable)					;
+				For Item < m.lnItem
 		
-			Delete;
-				FOR Item > m.lnExpressionsToStore;
+		Else  &&Found()
+			Insert Into (m.lcTable)				;
+				(Expression, Item, Scope)		;
+				Values							;
+				(m.tcSearchExpression, 0, m.lcScope)
+		
+			Replace All							;
+					Item  With	Item + 1		;
 				In (m.lcTable)
 		
-		Endif &&!FOUND()
+			Delete  For Item > m.lnExpressionsToStore + 1		;
+					  In (m.lcTable)
+		
+		Endif &&FOUND()
 		
 		Use In Select(m.lcTable)
 		Thisform.SaveDBC_Close()
 		
 		This.LoadRows()
+		
 		
 	ENDPROC
 

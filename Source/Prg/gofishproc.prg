@@ -1802,3 +1802,17 @@ EndProc
     	Messagebox('File name (full path) copied to clipboard', 64, JustFname(m.tcFileName)) 
     Endproc
     
+	
+* ================================================================================ 
+    Procedure GF_InternalTimeStamp
+    	Set Date to AMERICAN
+    	Set Hours to 12
+    Endproc
+    
+	
+* ================================================================================ 
+    Procedure GF_ExternalTimeStamp
+    	Set Date to (_Screen._GoFish.cSetDate)
+    	Set Hours to (_Screen._GoFish.cSetHours)
+    Endproc
+    

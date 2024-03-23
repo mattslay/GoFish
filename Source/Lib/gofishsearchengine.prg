@@ -4693,7 +4693,7 @@ x
 			Use (m.lcProject) Again Shared Alias (m.lcProjectAlias) In 0
 	
 			Insert Into ProjectFiles													;
-				Select  Name,															;
+				Select  Padr(Fullpath(Name, m.lcProjectPath), 200) as Filename,			;
 						Type															;
 					From (m.lcProjectAlias)												;
 					Where Type $ 'EHKMPRVBdTxD' And										;
@@ -4723,7 +4723,6 @@ x
 		For lnX = 1 To Alen(m.laProjectFiles) Step 2
 	
 			lcFile = m.laProjectFiles(m.lnX)
-			lcFile = Fullpath(m.lcFile, m.lcProjectPath)
 			lcFile = Strtran(m.lcFile, Chr(0), '') && Strip out junk char from the end
 	
 			If This.oSearchOptions.lLimitToProjectFolder
@@ -5221,7 +5220,7 @@ ii
 
 						*** JRN 2024-02-05 : For some MNX matches, show more info from the same record
 						Case m.lcExt = 'MNX' && and InList(Upper(m.lcField), 'PROMPT', 'COMMAND', 'PROCEDURE', 'SKIPFOR')
-							lnMaxMatchStart	   = Len(&lcField)
+							lnMaxMatchStart	   = Max(Len(&lcField), 1) && somewhat odd, but used because EVL used later to mean MAXIMUM
 							lcCode =																						;
 								Trim(&lcField, 1, CR, LF) + CRLF + CRLF +													;
 								'*' + Replicate('=', 60) + CRLF + '* Related field(s):' + CRLF +							;

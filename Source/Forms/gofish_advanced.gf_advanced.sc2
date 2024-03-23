@@ -9,9 +9,7 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 
 	*-- OBJECTDATA items order determines ZOrder / El orden de los items OBJECTDATA determina el ZOrder 
 	*< OBJECTDATA: ObjPath="Shape4" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="Label6" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Check1" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="comboSearchExpressionHistory" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Shape2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Shape1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="containerFileTypes" UniqueID="" Timestamp="" />
@@ -39,47 +37,22 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 	*< OBJECTDATA: ObjPath="containerFileTypes.Check2" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="containerFileTypes.chkJava" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="containerFileTypes.chkJSP" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="Label2" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="chkcomment" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="chkMatchWholeWord" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Check3" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Check2" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="chkMatchCase" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="chkTimeStamp" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Label11" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Label12" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pageframeScope" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pageframeScope.Page1.Label10" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pageframeScope.Page1.txtPath" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pageframeScope.Page1.chkLimitToProjectFolder" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pageframeScope.Page2.CboProject" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pageframeScope.Page2.Label10" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pageframeScope.Page2.CmdDir" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pageframeScope.Page2.chkLimitToProjectFolder" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pageframeScope.Page3.chkSubdirectories" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pageframeScope.Page3.txtPath" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pageframeScope.Page3.Label1" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pageframeScope.Page4.chkSubdirectories" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pageframeScope.Page4.Label1" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pageframeScope.Page4.CmdDir" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pageframeScope.Page4.Command1" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pageframeScope.Page4.editPath" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="pageframeScope.Page5.Grid1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Label4" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="editFileTemplate" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="Label5" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Label7" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="CmdGoFish" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdCancel" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="txtTimeStampFrom" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="txtTimeStampTo" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="editSearch" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Label3" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Label1" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="comboSearchExpressionHistoryDropDownArrow" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Command1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdHelp" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="Optiongroup1" UniqueID="" Timestamp="" />
 
 	*<DefinedPropArrayMethod>
 		*m: getcurrentscope
@@ -147,7 +120,7 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 		Height = 25, ;
 		Left = 421, ;
 		Name = "Check1", ;
-		Top = 151, ;
+		Top = 54, ;
 		Width = 85, ;
 		ZOrderSet = 2
 		*< END OBJECT: BaseClass="checkbox" />
@@ -162,11 +135,11 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 		FontName = "Tahoma", ;
 		FontSize = 8, ;
 		Height = 15, ;
-		Left = 212, ;
+		Left = 81, ;
 		Name = "Check2", ;
 		TabIndex = 6, ;
 		ToolTipText = "Ignoring this field eliminates match types <<Property Def>>, <<Property Desc>>, <<Method Def>>, and <<Method Desc>>.", ;
-		Top = 380, ;
+		Top = 303, ;
 		Value = .T., ;
 		Width = 205, ;
 		ZOrderSet = 10
@@ -182,67 +155,13 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 		FontName = "Tahoma", ;
 		FontSize = 8, ;
 		Height = 15, ;
-		Left = 212, ;
+		Left = 81, ;
 		Name = "Check3", ;
 		TabIndex = 6, ;
-		Top = 401, ;
+		Top = 324, ;
 		Value = .T., ;
 		Width = 159, ;
 		ZOrderSet = 10
-		*< END OBJECT: BaseClass="checkbox" />
-
-	ADD OBJECT 'chkcomment' AS checkbox WITH ;
-		Alignment = 0, ;
-		AutoSize = .T., ;
-		Caption = "Search in comments", ;
-		ControlSource = "Thisform.oSearchOptions.lSearchInComments", ;
-		FontSize = 8, ;
-		Height = 16, ;
-		Left = 29, ;
-		Name = "chkcomment", ;
-		TabIndex = 9, ;
-		Top = 378, ;
-		Value = .F., ;
-		Width = 116, ;
-		ZOrderSet = 8
-		*< END OBJECT: BaseClass="checkbox" />
-
-	ADD OBJECT 'chkMatchCase' AS checkbox WITH ;
-		Alignment = 0, ;
-		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "Match \<case", ;
-		ControlSource = "thisform.oSearchOptions.lMatchCase", ;
-		FontBold = .F., ;
-		FontName = "Tahoma", ;
-		FontSize = 8, ;
-		Height = 15, ;
-		Left = 29, ;
-		Name = "chkMatchCase", ;
-		TabIndex = 6, ;
-		Top = 336, ;
-		Value = .T., ;
-		Width = 72, ;
-		ZOrderSet = 10
-		*< END OBJECT: BaseClass="checkbox" />
-
-	ADD OBJECT 'chkMatchWholeWord' AS checkbox WITH ;
-		Alignment = 0, ;
-		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "Match \<whole word", ;
-		ControlSource = "thisform.oSearchOptions.lMatchWholeWord", ;
-		FontBold = .F., ;
-		FontName = "Tahoma", ;
-		FontSize = 8, ;
-		Height = 15, ;
-		Left = 29, ;
-		Name = "chkMatchWholeWord", ;
-		TabIndex = 7, ;
-		Top = 357, ;
-		Value = .T., ;
-		Width = 105, ;
-		ZOrderSet = 9
 		*< END OBJECT: BaseClass="checkbox" />
 
 	ADD OBJECT 'chkTimeStamp' AS checkbox WITH ;
@@ -250,18 +169,18 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 		Anchor = 0, ;
 		AutoSize = .T., ;
 		BackStyle = 0, ;
-		Caption = "TimeStamp Filter", ;
+		Caption = "Date Filter", ;
 		ControlSource = "Thisform.oSearchOptions.lTimeStamp", ;
 		FontBold = .F., ;
 		FontName = "Tahoma", ;
 		FontSize = 8, ;
 		Height = 15, ;
-		Left = 212, ;
+		Left = 81, ;
 		Name = "chkTimeStamp", ;
 		TabIndex = 10, ;
-		Top = 336, ;
+		Top = 259, ;
 		Value = .T., ;
-		Width = 97, ;
+		Width = 68, ;
 		ZOrderSet = 12
 		*< END OBJECT: BaseClass="checkbox" />
 
@@ -307,30 +226,10 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 		PicturePosition = 1, ;
 		SpecialEffect = 2, ;
 		TabIndex = 16, ;
-		Top = 166, ;
+		Top = 69, ;
 		Width = 24, ;
 		ZOrderSet = 29
 		*< END OBJECT: BaseClass="commandbutton" />
-
-	ADD OBJECT 'comboSearchExpressionHistory' AS gf_combosearchexpressionhistory WITH ;
-		Height = 26, ;
-		Left = 47, ;
-		Name = "comboSearchExpressionHistory", ;
-		Top = 8, ;
-		Width = 284, ;
-		ZOrderSet = 3
-		*< END OBJECT: ClassLib="..\lib\gofishui.vcx" BaseClass="combobox" />
-
-	ADD OBJECT 'comboSearchExpressionHistoryDropDownArrow' AS combobox WITH ;
-		Anchor = 8, ;
-		Height = 26, ;
-		Left = 310, ;
-		Name = "comboSearchExpressionHistoryDropDownArrow", ;
-		TabStop = .F., ;
-		Top = 12, ;
-		Width = 21, ;
-		ZOrderSet = 27
-		*< END OBJECT: BaseClass="combobox" />
 
 	ADD OBJECT 'Command1' AS commandbutton WITH ;
 		Anchor = 8, ;
@@ -338,7 +237,7 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 		Height = 20, ;
 		Left = 418, ;
 		Name = "Command1", ;
-		Top = 176, ;
+		Top = 79, ;
 		Width = 79, ;
 		ZOrderSet = 28
 		*< END OBJECT: BaseClass="commandbutton" />
@@ -347,10 +246,10 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 		Anchor = 10, ;
 		BorderWidth = 0, ;
 		Height = 84, ;
-		Left = 11, ;
+		Left = 16, ;
 		Name = "containerFileTypes", ;
 		TabIndex = 5, ;
-		Top = 206, ;
+		Top = 120, ;
 		Width = 493, ;
 		ZOrderSet = 6
 		*< END OBJECT: BaseClass="container" />
@@ -767,24 +666,9 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 		Name = "editFileTemplate", ;
 		TabIndex = 4, ;
 		ToolTipText = "(Ex: cust*.*  or  *edit.prg  or  jobs.*)", ;
-		Top = 166, ;
+		Top = 69, ;
 		Width = 290, ;
 		ZOrderSet = 17
-		*< END OBJECT: BaseClass="editbox" />
-
-	ADD OBJECT 'editSearch' AS editbox WITH ;
-		Anchor = 10, ;
-		ControlSource = "thisform.oSearchOptions.cSearchExpression", ;
-		FontName = "Tahoma", ;
-		FontSize = 9, ;
-		Height = 26, ;
-		Left = 47, ;
-		Name = "editSearch", ;
-		SelectOnEntry = .T., ;
-		TabIndex = 1, ;
-		Top = 8, ;
-		Width = 264, ;
-		ZOrderSet = 24
 		*< END OBJECT: BaseClass="editbox" />
 
 	ADD OBJECT 'Label1' AS label WITH ;
@@ -800,7 +684,7 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 		Left = 24, ;
 		Name = "Label1", ;
 		TabIndex = 18, ;
-		Top = 147, ;
+		Top = 50, ;
 		Width = 66, ;
 		ZOrderSet = 26
 		*< END OBJECT: BaseClass="label" />
@@ -817,10 +701,10 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 		FontSize = 8, ;
 		ForeColor = 0,0,0, ;
 		Height = 15, ;
-		Left = 232, ;
+		Left = 101, ;
 		Name = "Label11", ;
 		TabIndex = 22, ;
-		Top = 359, ;
+		Top = 282, ;
 		Width = 26, ;
 		ZOrderSet = 13
 		*< END OBJECT: BaseClass="label" />
@@ -837,29 +721,12 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 		FontSize = 8, ;
 		ForeColor = 0,0,0, ;
 		Height = 15, ;
-		Left = 367, ;
+		Left = 236, ;
 		Name = "Label12", ;
 		TabIndex = 21, ;
-		Top = 359, ;
+		Top = 282, ;
 		Width = 14, ;
 		ZOrderSet = 14
-		*< END OBJECT: BaseClass="label" />
-
-	ADD OBJECT 'Label2' AS label WITH ;
-		Alignment = 0, ;
-		BackStyle = 0, ;
-		Caption = "\<Search:", ;
-		FontBold = .F., ;
-		FontName = "Tahoma", ;
-		FontSize = 8, ;
-		ForeColor = 0,0,0, ;
-		Height = 16, ;
-		Left = 5, ;
-		Name = "Label2", ;
-		TabIndex = 20, ;
-		Top = 13, ;
-		Width = 51, ;
-		ZOrderSet = 7
 		*< END OBJECT: BaseClass="label" />
 
 	ADD OBJECT 'Label3' AS label WITH ;
@@ -875,60 +742,27 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 		Left = 301, ;
 		Name = "Label3", ;
 		TabIndex = 17, ;
-		Top = 171, ;
+		Top = 74, ;
 		Width = 2, ;
 		ZOrderSet = 25
 		*< END OBJECT: BaseClass="label" />
 
 	ADD OBJECT 'Label4' AS label WITH ;
 		Alignment = 2, ;
+		AutoSize = .T., ;
 		BackStyle = 1, ;
-		Caption = "Options", ;
+		Caption = "Other Options", ;
 		FontBold = .F., ;
 		FontName = "Tahoma", ;
 		FontSize = 8, ;
 		ForeColor = 0,0,0, ;
-		Height = 16, ;
-		Left = 21, ;
+		Height = 15, ;
+		Left = 30, ;
 		Name = "Label4", ;
 		TabIndex = 15, ;
-		Top = 293, ;
-		Width = 49, ;
+		Top = 237, ;
+		Width = 70, ;
 		ZOrderSet = 16
-		*< END OBJECT: BaseClass="label" />
-
-	ADD OBJECT 'Label5' AS label WITH ;
-		Alignment = 0, ;
-		BackStyle = 0, ;
-		Caption = "Scope:", ;
-		FontBold = .F., ;
-		FontName = "Tahoma", ;
-		FontSize = 8, ;
-		ForeColor = 0,0,0, ;
-		Height = 16, ;
-		Left = 5, ;
-		Name = "Label5", ;
-		TabIndex = 19, ;
-		Top = 42, ;
-		Width = 51, ;
-		ZOrderSet = 18
-		*< END OBJECT: BaseClass="label" />
-
-	ADD OBJECT 'Label6' AS label WITH ;
-		Alignment = 2, ;
-		BackStyle = 1, ;
-		Caption = "Search mode", ;
-		FontBold = .F., ;
-		FontName = "Tahoma", ;
-		FontSize = 8, ;
-		ForeColor = 0,0,0, ;
-		Height = 16, ;
-		Left = 18, ;
-		Name = "Label6", ;
-		TabIndex = 15, ;
-		Top = 312, ;
-		Width = 90, ;
-		ZOrderSet = 1
 		*< END OBJECT: BaseClass="label" />
 
 	ADD OBJECT 'Label7' AS label WITH ;
@@ -940,322 +774,24 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 		FontSize = 8, ;
 		ForeColor = 0,0,0, ;
 		Height = 16, ;
-		Left = 21, ;
+		Left = 26, ;
 		Name = "Label7", ;
 		TabIndex = 16, ;
-		Top = 199, ;
+		Top = 113, ;
 		Width = 51, ;
 		ZOrderSet = 19
 		*< END OBJECT: BaseClass="label" />
-
-	ADD OBJECT 'Optiongroup1' AS optiongroup WITH ;
-		ButtonCount = 3, ;
-		ControlSource = "thisform.oSearchOptions.nSearchMode", ;
-		Height = 27, ;
-		Left = 100, ;
-		Name = "Optiongroup1", ;
-		Top = 306, ;
-		Value = 1, ;
-		Width = 393, ;
-		ZOrderSet = 30, ;
-		Option1.Caption = "Plain Search", ;
-		Option1.FontSize = 8, ;
-		Option1.Height = 17, ;
-		Option1.Left = 5, ;
-		Option1.Name = "Option1", ;
-		Option1.Top = 5, ;
-		Option1.Value = 1, ;
-		Option1.Width = 100, ;
-		Option2.Caption = " Wildcards (* and ?)", ;
-		Option2.FontSize = 8, ;
-		Option2.Height = 17, ;
-		Option2.Left = 115, ;
-		Option2.Name = "Option2", ;
-		Option2.ToolTipText = "Uses the LIKE() function to perform wildcard matches.", ;
-		Option2.Top = 5, ;
-		Option2.Width = 118, ;
-		Option3.Caption = "Regular Expression", ;
-		Option3.FontSize = 8, ;
-		Option3.Height = 18, ;
-		Option3.Left = 267, ;
-		Option3.Name = "Option3", ;
-		Option3.Top = 5, ;
-		Option3.Width = 115
-		*< END OBJECT: BaseClass="optiongroup" />
-
-	ADD OBJECT 'pageframeScope' AS pageframe WITH ;
-		Anchor = 10, ;
-		ErasePage = .T., ;
-		Height = 102, ;
-		HelpContextID = 0, ;
-		Left = 47, ;
-		Name = "pageframeScope", ;
-		PageCount = 5, ;
-		TabIndex = 3, ;
-		TabStyle = 1, ;
-		Top = 44, ;
-		Width = 462, ;
-		ZOrderSet = 15, ;
-		Page1.Caption = "Active Project", ;
-		Page1.Name = "Page1", ;
-		Page2.Caption = "Browse Project", ;
-		Page2.Name = "Page2", ;
-		Page3.Caption = "Current Dir", ;
-		Page3.FontSize = 9, ;
-		Page3.Name = "Page3", ;
-		Page4.Caption = "Browse Dir", ;
-		Page4.Name = "Page4", ;
-		Page5.Caption = "All Open Projects", ;
-		Page5.Name = "Page5"
-		*< END OBJECT: BaseClass="pageframe" />
-
-	ADD OBJECT 'pageframeScope.Page1.chkLimitToProjectFolder' AS checkbox WITH ;
-		Alignment = 0, ;
-		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "Limit search to project home directory and sub-folders", ;
-		ControlSource = "thisform.oSearchOptions.lLimitToProjectFolder", ;
-		FontSize = 8, ;
-		Height = 16, ;
-		Left = 8, ;
-		Name = "chkLimitToProjectFolder", ;
-		Top = 46, ;
-		Width = 279
-		*< END OBJECT: BaseClass="checkbox" />
-
-	ADD OBJECT 'pageframeScope.Page1.Label10' AS label WITH ;
-		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "Project", ;
-		FontBold = .F., ;
-		FontName = "Tahoma", ;
-		FontSize = 9, ;
-		ForeColor = 0,0,0, ;
-		Height = 16, ;
-		Left = 8, ;
-		Name = "Label10", ;
-		TabIndex = 27, ;
-		Top = 3, ;
-		Width = 41
-		*< END OBJECT: BaseClass="label" />
-
-	ADD OBJECT 'pageframeScope.Page1.txtPath' AS textbox WITH ;
-		Anchor = 10, ;
-		ControlSource = "Thisform.cActiveProject", ;
-		DisabledForeColor = 0,0,0, ;
-		Enabled = .F., ;
-		FontName = "Tahoma", ;
-		FontSize = 8, ;
-		Height = 21, ;
-		Left = 8, ;
-		Name = "txtPath", ;
-		ReadOnly = .F., ;
-		TabIndex = 3, ;
-		Top = 21, ;
-		Value = (""), ;
-		Width = 416
-		*< END OBJECT: BaseClass="textbox" />
-
-	ADD OBJECT 'pageframeScope.Page2.CboProject' AS combobox WITH ;
-		Anchor = 10, ;
-		ControlSource = "Thisform.oSearchOptions.cProject", ;
-		DisplayCount = 40, ;
-		FontName = "Tahoma", ;
-		Height = 23, ;
-		Left = 8, ;
-		Name = "CboProject", ;
-		RowSource = "Thisform.oSearchEngine.oProjects", ;
-		RowSourceType = 10, ;
-		Style = 2, ;
-		TabIndex = 4, ;
-		Top = 21, ;
-		Width = 389
-		*< END OBJECT: BaseClass="combobox" />
-
-	ADD OBJECT 'pageframeScope.Page2.chkLimitToProjectFolder' AS checkbox WITH ;
-		Alignment = 0, ;
-		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "Limit search to project home directory and sub-folders", ;
-		ControlSource = "thisform.oSearchOptions.lLimitToProjectFolder", ;
-		FontSize = 8, ;
-		Height = 16, ;
-		Left = 8, ;
-		Name = "chkLimitToProjectFolder", ;
-		Top = 46, ;
-		Width = 279
-		*< END OBJECT: BaseClass="checkbox" />
-
-	ADD OBJECT 'pageframeScope.Page2.CmdDir' AS commandbutton WITH ;
-		Anchor = 8, ;
-		Caption = "...", ;
-		FontName = "Tahoma", ;
-		FontSize = 12, ;
-		Height = 21, ;
-		Left = 402, ;
-		Name = "CmdDir", ;
-		TabIndex = 35, ;
-		Top = 22, ;
-		Width = 25
-		*< END OBJECT: BaseClass="commandbutton" />
-
-	ADD OBJECT 'pageframeScope.Page2.Label10' AS label WITH ;
-		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "Project", ;
-		FontBold = .F., ;
-		FontName = "Tahoma", ;
-		FontSize = 9, ;
-		ForeColor = 0,0,0, ;
-		Height = 16, ;
-		Left = 8, ;
-		Name = "Label10", ;
-		TabIndex = 27, ;
-		Top = 3, ;
-		Width = 41
-		*< END OBJECT: BaseClass="label" />
-
-	ADD OBJECT 'pageframeScope.Page3.chkSubdirectories' AS checkbox WITH ;
-		Alignment = 0, ;
-		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "Include Subdirectories", ;
-		ControlSource = "Thisform.oSearchOptions.lIncludeSubDirectories", ;
-		FontSize = 8, ;
-		Height = 16, ;
-		Left = 8, ;
-		Name = "chkSubdirectories", ;
-		TabIndex = 1, ;
-		Top = 46, ;
-		Width = 125
-		*< END OBJECT: BaseClass="checkbox" />
-
-	ADD OBJECT 'pageframeScope.Page3.Label1' AS label WITH ;
-		Alignment = 0, ;
-		BackStyle = 0, ;
-		Caption = "Directory", ;
-		FontBold = .F., ;
-		FontName = "Tahoma", ;
-		FontSize = 9, ;
-		ForeColor = 0,0,0, ;
-		Height = 17, ;
-		Left = 8, ;
-		Name = "Label1", ;
-		TabIndex = 27, ;
-		Top = 4, ;
-		Width = 74
-		*< END OBJECT: BaseClass="label" />
-
-	ADD OBJECT 'pageframeScope.Page3.txtPath' AS textbox WITH ;
-		Anchor = 10, ;
-		ControlSource = "Thisform.cCurrentDir", ;
-		DisabledForeColor = 0,0,0, ;
-		Enabled = .F., ;
-		FontName = "Tahoma", ;
-		FontSize = 8, ;
-		Height = 21, ;
-		Left = 8, ;
-		Name = "txtPath", ;
-		ReadOnly = .F., ;
-		TabIndex = 3, ;
-		Top = 23, ;
-		Value = (""), ;
-		Width = 417
-		*< END OBJECT: BaseClass="textbox" />
-
-	ADD OBJECT 'pageframeScope.Page4.chkSubdirectories' AS checkbox WITH ;
-		Alignment = 0, ;
-		AutoSize = .T., ;
-		BackStyle = 0, ;
-		Caption = "Include Subdirectories", ;
-		ControlSource = "Thisform.oSearchOptions.lIncludeSubDirectories", ;
-		FontSize = 8, ;
-		Height = 16, ;
-		Left = 8, ;
-		Name = "chkSubdirectories", ;
-		TabIndex = 1, ;
-		Top = 46, ;
-		Width = 125
-		*< END OBJECT: BaseClass="checkbox" />
-
-	ADD OBJECT 'pageframeScope.Page4.CmdDir' AS commandbutton WITH ;
-		Anchor = 8, ;
-		Caption = "...", ;
-		FontName = "Tahoma", ;
-		FontSize = 12, ;
-		Height = 21, ;
-		Left = 402, ;
-		Name = "CmdDir", ;
-		TabIndex = 35, ;
-		Top = 22, ;
-		Width = 25
-		*< END OBJECT: BaseClass="commandbutton" />
-
-	ADD OBJECT 'pageframeScope.Page4.Command1' AS commandbutton WITH ;
-		Anchor = 8, ;
-		AutoSize = .T., ;
-		Caption = "Set to Current Dir", ;
-		FontName = "Tahoma", ;
-		FontSize = 8, ;
-		Height = 23, ;
-		Left = 298, ;
-		Name = "Command1", ;
-		TabIndex = 35, ;
-		Top = 46, ;
-		Width = 101
-		*< END OBJECT: BaseClass="commandbutton" />
-
-	ADD OBJECT 'pageframeScope.Page4.editPath' AS editbox WITH ;
-		Anchor = 10, ;
-		ControlSource = "Thisform.oSearchOptions.cPath", ;
-		Height = 23, ;
-		Left = 8, ;
-		Name = "editPath", ;
-		Top = 20, ;
-		Width = 391
-		*< END OBJECT: BaseClass="editbox" />
-
-	ADD OBJECT 'pageframeScope.Page4.Label1' AS label WITH ;
-		Alignment = 0, ;
-		BackStyle = 0, ;
-		Caption = "Directory", ;
-		FontBold = .F., ;
-		FontName = "Tahoma", ;
-		FontSize = 9, ;
-		ForeColor = 0,0,0, ;
-		Height = 17, ;
-		Left = 8, ;
-		Name = "Label1", ;
-		TabIndex = 27, ;
-		Top = 4, ;
-		Width = 74
-		*< END OBJECT: BaseClass="label" />
-
-	ADD OBJECT 'pageframeScope.Page5.Grid1' AS grid WITH ;
-		DeleteMark = .F., ;
-		Enabled = .F., ;
-		FontSize = 8, ;
-		HeaderHeight = 17, ;
-		Height = 67, ;
-		Left = 14, ;
-		Name = "Grid1", ;
-		RecordMark = .F., ;
-		RowHeight = 15, ;
-		ScrollBars = 2, ;
-		Top = 2, ;
-		Width = 434
-		*< END OBJECT: BaseClass="grid" />
 
 	ADD OBJECT 'Shape1' AS shape WITH ;
 		Anchor = 10, ;
 		BorderColor = 128,128,128, ;
 		Curvature = 2, ;
 		Height = 89, ;
-		Left = 9, ;
+		Left = 14, ;
 		Name = "Shape1", ;
 		SpecialEffect = 0, ;
 		Style = 3, ;
-		Top = 204, ;
+		Top = 118, ;
 		Width = 483, ;
 		ZOrderSet = 5
 		*< END OBJECT: BaseClass="shape" />
@@ -1269,7 +805,7 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 		Name = "Shape2", ;
 		SpecialEffect = 0, ;
 		Style = 3, ;
-		Top = 152, ;
+		Top = 55, ;
 		Width = 363, ;
 		ZOrderSet = 4
 		*< END OBJECT: BaseClass="shape" />
@@ -1283,7 +819,7 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 		Name = "Shape4", ;
 		SpecialEffect = 0, ;
 		Style = 3, ;
-		Top = 299, ;
+		Top = 243, ;
 		Width = 496, ;
 		ZOrderSet = 0
 		*< END OBJECT: BaseClass="shape" />
@@ -1295,11 +831,11 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 		FontName = "Tahoma", ;
 		FontSize = 9, ;
 		Height = 23, ;
-		Left = 263, ;
+		Left = 132, ;
 		Name = "txtTimeStampFrom", ;
 		SelectOnEntry = .T., ;
 		TabIndex = 11, ;
-		Top = 354, ;
+		Top = 277, ;
 		Value = {}, ;
 		Width = 95, ;
 		ZOrderSet = 22
@@ -1312,11 +848,11 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 		FontName = "Tahoma", ;
 		FontSize = 9, ;
 		Height = 23, ;
-		Left = 388, ;
+		Left = 257, ;
 		Name = "txtTimeStampTo", ;
 		SelectOnEntry = .T., ;
 		TabIndex = 12, ;
-		Top = 354, ;
+		Top = 277, ;
 		Value = {}, ;
 		Width = 95, ;
 		ZOrderSet = 23
@@ -1394,6 +930,11 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 		Lparameters toGoFishForm
 		
 		Local lnHeight
+		
+		Try 
+			Set Date (_Screen._GoFish.cSetDate)
+		Catch to loException
+		EndTry
 		
 		lnHeight = This.Height && Force form the designer height
 		DoDefault(toGoFishForm)
@@ -1557,20 +1098,6 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 		Thisform.oSearchEngine.ClearReplaceSettings()
 	ENDPROC
 
-	PROCEDURE chkcomment.Click
-		*-- GF$ needs work to support the "Comments" feature...
-		
-		Thisform.oSearchEngine.ClearReplaceSettings()
-	ENDPROC
-
-	PROCEDURE chkMatchCase.Click
-		Thisform.oSearchEngine.ClearReplaceSettings()
-	ENDPROC
-
-	PROCEDURE chkMatchWholeWord.Click
-		Thisform.oSearchEngine.ClearReplaceSettings()
-	ENDPROC
-
 	PROCEDURE chkTimeStamp.Click
 		DoDefault()
 		Thisform.Refresh()
@@ -1643,32 +1170,6 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 		
 		
 		MessageBox(lcText, 0, 'File Template Help')
-	ENDPROC
-
-	PROCEDURE comboSearchExpressionHistoryDropDownArrow.GotFocus
-		Local loCombo
-		
-		*-- Store current value of editbox. I the user presses ESCAPE in the actual combobox,
-		*-- the oringal value can be recovered from here.
-		This.Tag = This.Parent.editSearch.Value
-		
-		loCombo = This.Parent.comboSearchExpressionHistory
-		
-		loCombo.OpenTable()
-		
-		Thisform.comboSearchExpressionHistory.Requery()
-		
-		With loCombo
-			.ListIndex = 1
-			.Visible = .T.
-			.SetFocus()
-		Endwith
-		
-		Keyboard '{ALT+DNARROW}' && To expand the actual dropdown listbox that holds all the values
-	ENDPROC
-
-	PROCEDURE comboSearchExpressionHistoryDropDownArrow.Init
-		this.Top = this.Parent.editSearch.top
 	ENDPROC
 
 	PROCEDURE Command1.Click
@@ -1754,123 +1255,6 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 	PROCEDURE editFileTemplate.InteractiveChange
 		This.Value = This.value
 		Thisform.containerFileTypes.Refresh()
-	ENDPROC
-
-	PROCEDURE editSearch.GotFocus
-		this.Tag = this.Value
-		
-	ENDPROC
-
-	PROCEDURE pageframeScope.Page1.Activate
-		Thisform.SetScope(1)
-	ENDPROC
-
-	PROCEDURE pageframeScope.Page1.txtPath.GotFocus
-		This.Tag = Upper(Alltrim(this.Value))
-	ENDPROC
-
-	PROCEDURE pageframeScope.Page1.txtPath.InteractiveChange
-		DODEFAULT()
-		
-		Thisform.oSearchEngine.ClearReplaceSettings()
-		
-	ENDPROC
-
-	PROCEDURE pageframeScope.Page2.Activate
-		Thisform.SetScope(2)
-		This.cboProject.SetFocus()
-	ENDPROC
-
-	PROCEDURE pageframeScope.Page2.CboProject.Valid
-		Thisform.Refresh()
-	ENDPROC
-
-	PROCEDURE pageframeScope.Page2.CmdDir.Click
-		Local lcProject, lcSelectedProject
-		
-		lcSelectedProject = GetFile('PJX', 'Select Project:', 'Select')
-		
-		If Empty(lcSelectedProject)
-			return 
-		Endif
-		
-		ThisForm.oSearchEngine.SetProject(lcSelectedProject)
-		
-		This.Parent.cboProject.Requery()
-		
-		This.Parent.cboProject.Value = 	Thisform.oSearchEngine.oSearchOptions.cProject
-		
-		Thisform.Refresh()
-		  
-	ENDPROC
-
-	PROCEDURE pageframeScope.Page3.Activate
-		Thisform.SetScope(3)
-	ENDPROC
-
-	PROCEDURE pageframeScope.Page4.Activate
-		Thisform.SetScope(4)
-		This.editPath.SetFocus()
-		This.editPath.SelStart = 0
-		This.editPath.SelLength = 1000
-		
-	ENDPROC
-
-	PROCEDURE pageframeScope.Page4.CmdDir.Click
-		Local lcGetDir, lcSomeDir
-		
-		lcNewPath = GetDir(Thisform.oSearchOptions.cPath, '', '', 16 + 32 + 64)	
-		
-		If !Empty(lcNewPath)
-			Thisform.oSearchOptions.cPath = Lower(Alltrim(lcNewPath, '\'))
-		Endif
-		
-		Thisform.Refresh()
-		
-		
-		
-	ENDPROC
-
-	PROCEDURE pageframeScope.Page4.Command1.Click
-		Thisform.oSearchOptions.cPath = Alltrim(Lower(Thisform.cCurrentDir), '\')
-		
-		Thisform.Refresh()
-		
-		With This.Parent.editPath
-			.SetFocus()
-			.SelStart = Len(Alltrim(Thisform.cCurrentDir, '\'))
-		Endwith
-		
-		
-		
-	ENDPROC
-
-	PROCEDURE pageframeScope.Page4.editPath.InteractiveChange
-		This.Value = This.value
-		Thisform.cmdGoFish.Refresh()
-	ENDPROC
-
-	PROCEDURE pageframeScope.Page5.Activate
-		
-		Thisform.SetScope(5)
-		
-		
-	ENDPROC
-
-	PROCEDURE pageframeScope.Page5.Grid1.Init
-		Local lnI
-		
-		Create Cursor OpenProjects (Project C(240))
-		For lnI = 1 To _vfp.Projects.Count
-			Insert Into OpenProjects Values (_vfp.Projects(m.lnI).Name)
-		Endfor
-		
-		Index On Upper(Project) Tag Order
-		
-		This.RecordSource = 'OpenProjects'
-		This.HeaderHeight = 0
-		
-		
 	ENDPROC
 
 	PROCEDURE txtTimeStampFrom.Refresh
