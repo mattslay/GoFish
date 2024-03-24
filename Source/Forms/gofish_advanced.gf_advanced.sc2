@@ -42,17 +42,17 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 	*< OBJECTDATA: ObjPath="chkTimeStamp" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Label11" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Label12" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="Label4" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="editFileTemplate" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="Label7" UniqueID="" Timestamp="" />
-	*< OBJECTDATA: ObjPath="CmdGoFish" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdCancel" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="txtTimeStampFrom" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Label4" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="txtTimeStampTo" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="editFileTemplate" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Label3" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Label1" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="Label7" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="Command1" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="cmdHelp" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="CmdGoFish" UniqueID="" Timestamp="" />
 
 	*<DefinedPropArrayMethod>
 		*m: getcurrentscope
@@ -973,10 +973,6 @@ DEFINE CLASS gf_advanced AS gf_baseform OF "..\lib\gofishui.vcx"
 		Local lnPage
 		
 		Thisform.oSearchOptions = This.CopyObjectProperties(Thisform.oForm.oSearchEngine.oSearchOptions, CreateObject('Empty'))
-		
-		lnPage = Evl(Thisform.oSearchOptions.nSearchScope, 3)
-		
-		Thisform.pageframeScope.ActivePage = lnPage
 		
 		With Thisform
 			.cActiveProject = Thisform.oForm.cActiveProject

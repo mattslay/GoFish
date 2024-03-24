@@ -105,7 +105,7 @@ DEFINE CLASS form1 AS gf_baseform OF "..\lib\gofishui.vcx"
 		TabIndex = 2, ;
 		Top = 24, ;
 		Width = 734, ;
-		Column1.ControlSource = "Datetime", ;
+		Column1.ControlSource = "tDateTime", ;
 		Column1.Name = "Column1", ;
 		Column1.ReadOnly = .T., ;
 		Column1.Width = 147, ;

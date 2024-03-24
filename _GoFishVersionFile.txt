@@ -138,7 +138,7 @@ Notes on the previous version (7.0.15) were over-confident about being able to e
 - ignore GoFish's settings folder, but allow to search the GF_
 EndText
 
-AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish - 7.0.17 - March 23, 2024 - 20240323')
+AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish - 7.0.18 - March 24, 2024 - 20240324')
 AddProperty(toUpdateInfo, 'SourceFileUrl', 'https://raw.githubusercontent.com/VFPX/GoFish/master/Source/Source.zip')
 AddProperty(toUpdateInfo, 'LinkPrompt', 'GoFish Home Page')
 AddProperty(toUpdateInfo, 'Link', 'https://github.com/VFPX/GoFish')
