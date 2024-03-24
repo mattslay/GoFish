@@ -1,3 +1,10 @@
+## Version 7.0.18 - 2024-03-24
+
+* Date/Time expressions now respect user settings for SET DATE and SET HOURS. (#189)
+* Bug fixes:
+    * Error when closing combobox for scope (#192)
+    * Error opening "Advanced" form
+
 ## Version 7.0.17 - 2024-03-23
 
 * Multiple identical results were occurring for matches in MNXs using regular expressions (#190).

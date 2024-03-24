@@ -227,7 +227,7 @@ DEFINE CLASS gf_combosearchexpressionhistory AS combobox
 					Item  With	Item + 1		;
 				In (m.lcTable)
 		
-			Delete  For Item > m.lnExpressionsToStore + 1		;
+			Delete  For Item > m.lnExpressionsToStore 	;
 					  In (m.lcTable)
 		
 		Endif &&FOUND()
