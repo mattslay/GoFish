@@ -4,7 +4,7 @@
 
 GoFish is an advanced code search tool for fast searching and replacing of Visual FoxPro source code.
 
-[What's new in this release](docs\ChangeLog.md)
+[What's new in this release](docs/ChangeLog.md)
 
 
 _Requires VFP9_
