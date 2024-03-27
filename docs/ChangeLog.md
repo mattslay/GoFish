@@ -1,3 +1,8 @@
+## Version 7.0.19 - 2024-03-27
+
+* Double-clicking on a file or class name in the TreeView will open that file or class for editing.  This restores a feature available in GF 5.
+* Ctrl+Clicking on a column header sorts on that column and removes any secondary or tertiary sorts.
+
 ## Version 7.0.18 - 2024-03-24
 
 * Date/Time expressions now respect user settings for SET DATE and SET HOURS. (#189)

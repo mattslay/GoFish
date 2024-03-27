@@ -1,6 +1,11 @@
 Lparameters toUpdateInfo
 
 Text to lcNote NoShow
+## Version 7.0.19 - 2024-03-27
+
+* Double-clicking on a file or class name in the TreeView will open that file or class for editing.  This restores a feature available in GF 5.
+* Ctrl+Clicking on a column header sorts on that column and removes any secondary or tertiary sorts.
+
 ## Version 7.0.18 - 2024-03-24
 
 * Date/Time expressions now respect user settings for SET DATE and SET HOURS. (#189)
@@ -135,13 +140,10 @@ Notes on the previous version (7.0.15) were over-confident about being able to e
  Changes
 - fixed problem with replace backup folder missing
 - fixed an issue where whole history was populated in tree, while only that of the recent session was turned on
-- fixed an issue with history tree turned on and search not returning result
-- fixed: Scope combo could not be changed with keyboard, if CodeReferences option where turned on.
-- added option to enter * or *.* in Advanced Search \-\> Filetypes \-\> Others to express **ALL**
-- added option to enter
+- fixed an issue
 EndText
 
-AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish - 7.0.19 - March 26, 2024 - 20240326')
+AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish - 7.0.19 - March 27, 2024 - 20240327')
 AddProperty(toUpdateInfo, 'SourceFileUrl', 'https://raw.githubusercontent.com/VFPX/GoFish/master/Source/Source.zip')
 AddProperty(toUpdateInfo, 'LinkPrompt', 'GoFish Home Page')
 AddProperty(toUpdateInfo, 'Link', 'https://github.com/VFPX/GoFish')
