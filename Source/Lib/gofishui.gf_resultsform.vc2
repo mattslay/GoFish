@@ -118,6 +118,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		*m: confirmreplace
 		*m: createreplaceidtable
 		*m: createsearchhistorytable
+		*m: ctrlkeypressed
 		*m: deleteleftoverfiles
 		*m: deletesearchresults		&& Delete single or all results from history
 		*m: delete_history		&& Delete the history "parent" record
@@ -1008,7 +1009,7 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		Name = "oTreeView", ;
 		Top = 0, ;
 		Width = 186
-		*< END OBJECT: BaseClass="olecontrol" OLEObject="c:\windows\syswow64\mscomctl.ocx" Value="0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAEAAAAgAAAAEAAAD+////AAAAAAAAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9/////v////7///8EAAAA/v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////1IAbwBvAHQAIABFAG4AdAByAHkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAUA//////////8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMBKdOcHftoBAwAAAEACAAAAAAAAAwBPAGwAZQBPAGIAagBlAGMAdABEAGEAdABhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAgEDAAAAAgAAAP////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAagAAAAAAAAADAEEAYwBjAGUAcwBzAE8AYgBqAFMAaQB0AGUARABhAHQAYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgACAP///////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABcAAAAAAAAAAMAQwBoAGEAbgBnAGUAZABQAHIAbwBwAHMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAIA////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAACABAAAAAAAABAAAAAIAAAD+////BQAAAP7///8GAAAABwAAAAgAAAD+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+2kEHHiYXREbFqAMDwKDYoIUM0EggAAAA5EwAABTUAALE8wWoBAAYAIgAAABkAAAARAgAACgAAAAEAAAAB782rXAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACQAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5MzY4MjY1RS04NUZFLTExZDEtOEJFMy0wMDAwRjg3NTREQTEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACADgAAAEhpZGVTZWxlY3Rpb24ABQAAAEwAAAAADAAAAEluZGVudGF0aW9uABEAAABODQAAAAcAAAAAAAAAAAAFAFi9pAAGAAAAAAAAAAUAAIBw5xkAAQAAAFwAH97svQEABQC45xkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANEAKAAAATGluZVN0eWxlAAkAAABJCgAAAAEAAAANAAAATW91c2VQb2ludGVyAAkAAABJCgAAAAAAAAAOAAAAUGF0aFNlcGFyYXRvcgAKAAAASAAAAAABAAAAXAYAAABTdHlsZQAJAAAASQoAAAAGAAAADAAAAE9MRURyYWdNb2RlAAkAAABJCgAAAAAAAAAMAAAAT0xFRHJvcE1vZGUACQAAAEkKAAAAAAAAAA4AAABGdWxsUm93U2VsZWN0AAUAAABMAQAAAAoAAABTaW5nbGVTZWwABQAAAEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+		*< END OBJECT: BaseClass="olecontrol" OLEObject="c:\windows\syswow64\mscomctl.ocx" Value="0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAEAAAAgAAAAEAAAD+////AAAAAAAAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9/////v////7///8EAAAA/v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////1IAbwBvAHQAIABFAG4AdAByAHkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAUA//////////8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABtODlMgNoBAwAAAEACAAAAAAAAAwBPAGwAZQBPAGIAagBlAGMAdABEAGEAdABhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAgEDAAAAAgAAAP////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAagAAAAAAAAADAEEAYwBjAGUAcwBzAE8AYgBqAFMAaQB0AGUARABhAHQAYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgACAP///////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABcAAAAAAAAAAMAQwBoAGEAbgBnAGUAZABQAHIAbwBwAHMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAIA////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAACABAAAAAAAABAAAAAIAAAD+////BQAAAP7///8GAAAABwAAAAgAAAD+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+2kEHHiYXREbFqAMDwKDYoIUM0EggAAAA5EwAABTUAALE8wWoBAAYAIgAAABkAAAARAgAACgAAAAEAAAAB782rXAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACQAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5MzY4MjY1RS04NUZFLTExZDEtOEJFMy0wMDAwRjg3NTREQTEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACADgAAAEhpZGVTZWxlY3Rpb24ABQAAAEwAAAAADAAAAEluZGVudGF0aW9uABEAAABODQAAAAcAAAAAAAAAAAAFAMiv5gIGAAAAAAAAAAUAAIDA5xkAAQAAAFwAH97svQEABQAI6BkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANEAKAAAATGluZVN0eWxlAAkAAABJCgAAAAEAAAANAAAATW91c2VQb2ludGVyAAkAAABJCgAAAAAAAAAOAAAAUGF0aFNlcGFyYXRvcgAKAAAASAAAAAABAAAAXAYAAABTdHlsZQAJAAAASQoAAAAGAAAADAAAAE9MRURyYWdNb2RlAAkAAABJCgAAAAAAAAAMAAAAT0xFRHJvcE1vZGUACQAAAEkKAAAAAAAAAA4AAABGdWxsUm93U2VsZWN0AAUAAABMAQAAAAoAAABTaW5nbGVTZWwABQAAAEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
 
 	ADD OBJECT 'containerRight' AS container WITH ;
 		Anchor = 15, ;
@@ -2686,6 +2687,29 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 		
 			Use In GF_Search_History
 		Endif
+		
+	ENDPROC
+
+	PROCEDURE ctrlkeypressed
+		* ================================================================================
+		* ================================================================================
+		#Define VK_LBUTTON (0x01)	&& Left mouse button
+		#Define VK_RBUTTON (0x02)	&& Right mouse button
+		#Define VK_SHIFT   (0x10)	&& SHIFT key
+		#Define VK_CONTROL (0x11)	&& CTRL key
+		#Define VK_MENU	   (0x12)	&& ALT key
+		
+		#Define	VK_LBUTTON_DOWN		Bittest(GetKeyState(VK_LBUTTON), 31)
+		#Define	VK_RBUTTON_DOWN		Bittest(GetKeyState(VK_RBUTTON), 31)
+		#Define	VK_SHIFT_DOWN		Bittest(GetKeyState(VK_SHIFT), 31)
+		#Define	VK_CONTROL_DOWN		Bittest(GetKeyState(VK_CONTROL), 31)
+		#Define	VK_ALT_DOWN			Bittest(GetKeyState(VK_MENU), 31)
+		
+		* Returns .T. if Ctrl Key are pressed
+		Declare short GetKeyState In User32 Integer vKey
+		
+		Return VK_CONTROL_DOWN
+		
 		
 	ENDPROC
 
@@ -9408,6 +9432,13 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 			Thisform.cSortOrderSecondary = Thisform.cSortOrder
 		EndIf
 		
+		If This.CtrlKeyPressed()
+			Thisform.cSortFieldTertiary = ''
+			Thisform.cSortOrderTertiary = ''
+			Thisform.cSortFieldSecondary = ''
+			Thisform.cSortOrderSecondary = ''
+		EndIf 
+		
 		Thisform.cSortField = lcField
 		Thisform.cSortOrder = lcNewSortOrder
 		
@@ -10923,10 +10954,63 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 	ENDPROC
 
 	PROCEDURE containerLeft.oTreeView.DblClick
-		If Vartype(This.SelectedItem)="O" Then
-			Thisform.TreeView_NodeDBLClick (This.SelectedItem)
-		Endif &&Vartype(This.SelectedItem)="O"
+		If Thisform.lCR_Allow
 		
+			If Vartype(This.SelectedItem) = 'O' Then
+				Thisform.treeview_nodedblclick (This.SelectedItem)
+			Endif &&Vartype(This.SelectedItem)="O"
+		
+			Return
+		
+		Endif
+		
+		* ================================================================================
+		* ================================================================================
+		Local loPBT as 'GF_PEME_BaseTools'
+		Local lcClass, lcExt, lcFile, lcKey, llClass, lnCount, loNode
+		
+		lcFile = ''
+		lcExt = ''
+		lcClass = ''
+		llClass = .f.
+		
+		loNode = This.selectedItem
+		lcKey = loNode.Key
+		lnCount = Atc('_', lcKey, 2)
+		lcFile = Substr(lcKey, lnCount + 1)
+		lcExt = JustExt(lcFile)
+		
+		Do Case
+			Case loNode.index = 1 or loNode.parent.index = 1 && One of the Main Root Nodes
+				lcFile = ''
+			
+			Case not Eof(Thisform.cSearchResultsAlias)
+				Thisform.oSearchEngine.EditFromCurrentRow(thisform.cSearchResultsAlias,,Thisform.lMoveNewCodeToTopLeft)
+			
+			Case 'O' = Vartype(loNode.Tag)
+				lcFile = loNode.Tag.Filename
+				lcClass = loNode.Tag.Class
+				
+			Case Empty(lcExt) or lnCount = 0
+				lcClass = loNode.Text
+				lcKey = This.selectedItem.parent.Key
+				lnCount = Atc('_', lcKey, 2)
+				lcFile = Substr(lcKey, lnCount + 1)
+				If File(lcFile) and !Empty(lcClass)
+					llClass = .t.
+				Endif
+				
+		EndCase
+		
+		If Empty(lcFile) or !File(lcFile)
+			Return
+		Endif
+		
+		loPBT = CreateObject('GF_PEME_BaseTools')
+		loPBT.EditSourceX(lcFile, lcClass, 0, 0, '')
+		
+		
+		    
 	ENDPROC
 
 	PROCEDURE containerLeft.oTreeView.Expand
@@ -10976,11 +11060,6 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 				Thisform.ClickTreeviewNode(m.toNode)
 			EndIf 
 		Endif
-	ENDPROC
-
-	PROCEDURE containerLeft.oTreeView.Refresh
-		*** ActiveX Control Method ***
-		
 	ENDPROC
 
 	PROCEDURE containerRight.Container1.chkReplaceMode.Click
@@ -11818,7 +11897,6 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 				Thisform.lMaximizeCodeView = Not Thisform.lMaximizeCodeView
 		Endcase
 		
-		
 		This.Parent.Refresh()
 		
 		
@@ -11888,6 +11966,11 @@ DEFINE CLASS gf_resultsform AS gf_baseform OF "gofishui.vcx"
 
 	PROCEDURE containerRight.Container2.containerWebControl.lblCodeView.Refresh
 		This.Visible = !Thisform.lSearching
+		
+	ENDPROC
+
+	PROCEDURE containerRight.Container2.containerWebControl.obrowser.Refresh
+		*** ActiveX Control Method ***
 		
 	ENDPROC
 
