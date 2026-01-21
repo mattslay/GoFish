@@ -1,0 +1,3 @@
+RESOURCE = 'FOXUSER_9.dbf'
+COMMAND  = DO -GoFish.prg
+*TEDIT    = /N "C:\Program Files\IDM Computer Solutions\UEStudio\UEStudio.exe"

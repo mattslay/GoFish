@@ -1,0 +1,2 @@
+# disable newline conversion on checkout with no conversion on check-in for all files
+* -text

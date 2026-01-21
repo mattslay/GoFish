@@ -1,0 +1,212 @@
+Lparameters toUpdateInfo
+
+Text to lcNote NoShow
+# GoFish Change Log
+
+[Report Issues / Ask Questions / Make Suggestions](https://github.com/VFPX/GoFish/issues)
+
+[FAQ](FAQ.md)
+
+---
+
+## Version 7.1.42 - 2026-01-10
+
+Bug fix when selecting "Code Only"; two fields ('SETUP' and 'CLEANUP') in menus were erroneously not identified as containing code.
+
+## Version 7.1.41 - 2025-01-12
+
+Bug fix in 7.1.40 when using filter form (and possibly other forms)
+
+## Version 7.1.40 - 2025-01-07
+
+Bug fix:
+- Problem with "class not found" error, caused by problems with "Set Procedure" adventures (#324)
+
+Minor UI changes:
+- When loading history
+    - Restores Scope setting 'Files in current Results'
+    - Restores count of matches (upper right corner) and files with matches
+- Correctly updates count of matches and files with matches when filtering the grid.
+
+## Version 7.1.39 - 2024-12-27
+
+Extended definitions for project-related Scope settings when no projects satisfy the Scope criterion:
+- "All Open Projects"
+    - Searches all open projects, if any
+    - Else projects in the current directory, if any
+    - Else files in the current directory.
+- "Active Project"
+    - Searches the active project, if any
+    - Else projects in the current directory, if any
+    - Else files in the current directory.
+- "Projects in current directory"
+    - Searches projects in the current directory, if any
+    - Else files in the current directory.
+
+## Version 7.1.37 - 2024-12-12
+
+- Enhanced notification of errors encountered such that GF is unable to make replacements in a file (most commonly because the file is in use and exclusive access is denied) (#319).
+- Field "Setup" in MNXs was not being searched (#321)
+
+## Version 7.1.36 - 2024-12-05
+
+Bug fixes:
+- Field "Cleanup" in MNXs was not being searched (#321)
+
+## Version 7.1.35 - 2024-11-30
+
+Bug fixes:
+- Using "Filter by this Method" in grid context menu included erroneous records.
+- When restoring saved searches (new, related to recently added option for "Include Files")
+
+## Version 7.1.34 - 2024-11-21
+
+New feature:
+- Menu item "Look Up Reference" in the context menu for a code window can be modified to use GoFish instead of Code References.  To do so, use the Thor configuration screen to mark Thor Tool "Replace code window context menu items" as "Run at startup".
+
+![](../Screenshots/LookUpReference.png)
+
+Bug fix:
+- Scope option "Projects in CurDir()" failed if there were no open projects.
+
+## Version 7.1.33 - 2024-11-19
+
+New feature:
+- "Include Files" option added to Advanced screen, to allow searching additional files not part of the normal scope (project or directory).  See also the right-click context menu on the "Advanced" button. (#314)
+
+Bug fix:
+- Scope option "Projects in CurDir()" did not always include all projects.
+
+## Version 7.1.32 - 2024-11-09
+
+Bug fixes:
+- "Set scope to Active Project" in Options form was not being saved (#310)
+- For some users, when * was used in a wildcard search along with either a left or right parenthesis, no matches were being found (an apparent problem with grep.exe).
+
+## Version 7.1.31 - 2024-11-04
+
+- Fixed "illegal value error" bug occurring when shrinking the form width (#308)
+
+## Version 7.1.30 - 2024-11-01
+
+- Drop-down for search combo box now shows original case instead of converting to lower case (#306)
+
+## Version 7.1.29 - 2024-10-11
+
+New options on "New in V7" page of Options screen:
+- Checkbox for selecting "Dark Mode" when using IDE colors (#262)
+- Spinner for selecting font size for context menus (#301)
+
+## Version 7.1.28 - 2024-10-04
+
+- Bug fixes:
+    - Replacements in menus (MNXs) were failing with mis-leading error messages. (#283)
+
+## Version 7.1.27- 2024-10-03
+
+- Added new context menu items to "Advanced" command button
+    - Use "Skip Files" list
+    - Edit "Skip Files" list
+- Modified "View Record" in grid context menu so that the fields are enabled for copying (even though the changes cannot be saved.)
+- Slight change in wild card searching if the first word (before the *) is too short (less than four characters)
+
+## Version 7.1.26- 2024-09-21
+
+- "Advanced Replacement" changes:
+    - Return null from UDF to delete the line.
+    - Minor cleanup of documentation in the form that comes up when it is used.
+    - Sample PRG now provided demonstrating uses.
+
+## Version 7.1.25- 2024-09-18
+
+- Bug fix:
+    - In right-click context menu of grid (#295)
+
+## Version 7.1.24- 2024-09-15
+
+- Context menus now sensitive to default font size
+- New context menu item "View Record" in grid
+- Bug fixes:
+    - In Filter form, problem in the InteractiveChange event.
+    - Handling of entries in the "COMMENT" field in MNXs.
+
+## Version 7.1.23- 2024-09-06
+
+- Improved handling of Text/EndText statements in wild card searching and display in Code View pane.
+- Improved error reporting for some search errors (#291)
+
+## Version 7.1.22- 2024-08-31
+
+- Matches in MNX files to fields entered in the secondary "Prompt Options" form now open that form.
+- Assignment of some access keys in the results form and grid header context menu (#288)
+
+## Version 7.1.21- 2024-08-22
+
+- Bug fixes:
+    - Matches in field `ResName` in MNX files were not being handled correctly. (#283)
+    - Backups of MNXs during replacements were failing if either 'MPR' or 'MPX' files did not exist (#283)
+
+## Version 7.1.20 - 2024-08-21
+
+- Bug fixes:
+    - Replacements in menus (MNXs) were failing with mis-leading error messages. (#283)
+    - Problem in code view pane after a replacement.
+- Two additions to grid context menu (#282):
+    - Copy highlighted text to clipboard
+    - Gofish for highlighted text
+- Re-assignment of access keys in context menus (#282):
+    - in grid
+    - in treeview
+
+## Version 7.1.19 - 2024-08-08
+
+- Bug fix:
+    - Error when searching active project with "Limit search to project home directory and sub-folders". (#280)
+- Tweaks
+    - to display of command buttons on results form (#275)
+    - to handling of status bar on closing results form
+    - to arrangement of controls on the "New in V7" page on the Options form
+
+## Version 7.1.18 - 2024-07-26
+
+- A new option has been added on the "Options" form to control the default font size used in the GF results form (and other GF forms), allowing for increased readability.
+- The option to display each file name as it is processed now causes the file name to be displayed in the progress form (instead of a Wait Window) and no longer impacts performance.
+- Bug fixes:
+    - Editing "Options UDF" program can cause VFP to crash. (#275)
+    - Grep is no longer disabled for search expressions beginning with `-` (such as `-99`) (#272)
+
+## Version 7.1.17 - 2024-07-18
+
+- Bug fixes:
+    - When searching in directories, which uses grep for faster searches, search expressions beginning wih `-` (such as `-99`) found no matches (#272)
+    - Hard bug when expanding nodes in treeview
+- A new option has been added in the right-click context menu on the "Advanced" button to indicate whether grep is used for faster searches (Default = Yes).  This should not be necessary but apparently there are some rare conditions not yet provided for where grep fails. (#272, #273)
+
+## Version 7.1.16 - 2024-07-16
+
+- Added new "Custom UDF" for modifying any of the search options in GF (#268).
+    - The file name is entered on the Options form, "New in V7" page.
+    - The UDF is called by either right-clicking or ctrl-clicking on the "Advanced" button.
+    - See `Lib\gofishsearchoptions.prg`
+- A new option has been added in the right-click context menu on the "Advanced" button to control whether wildcard searching finds matches across continuation lines (Default = Yes).
+
+## Version 7.1.15 - 2024-07-10
+
+- Bug fixes
+    - In some cases, RegEx searching was not taking advantage of grep to optimize search (#269)
+    - Problems in two items in the grid context menu
+- Added new it
+EndText
+
+* For GF, strip off links at top of change log
+lcNote = Substr(lcNote, At('--', lcNote))
+lcNote = Alltrim(lcNote, 1, ' ', '-', Chr(13), Chr(10)) 
+
+AddProperty(toUpdateInfo, 'AvailableVersion', 'GoFish - 7.1.42 - January 10, 2026 - 20260110')
+AddProperty(toUpdateInfo, 'SourceFileUrl', 'https://raw.githubusercontent.com/VFPX/GoFish/master/Source/Source.zip')
+AddProperty(toUpdateInfo, 'LinkPrompt', 'GoFish Home Page')
+AddProperty(toUpdateInfo, 'Link', 'https://github.com/VFPX/GoFish')
+AddProperty(toUpdateInfo, 'Notes', lcNote)
+
+Execscript (_Screen.cThorDispatcher, 'Result=', toUpdateInfo)
+Return toUpdateInfo

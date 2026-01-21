@@ -1,5 +1,5 @@
 *-------------------------------------------------------------------------------------------------------
-* See http://vfpx.codeplex.com/wikipage?title=GoFish for the lastest GoFish4 Code Search sample programs:
+* See https://github.com/VFPX/GoFish for the lastest GoFish4 Code Search sample programs:
 *-------------------------------------------------------------------------------------------------------
 *-- GoFish4 Search Engine Sample Usage     (Updated 2011-05-18)
 * 

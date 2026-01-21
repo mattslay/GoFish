@@ -103,6 +103,10 @@ Define Class GoFishSearchOptions As Custom
 	* cFilesToSkipFile files to skip over certain files during the search.
 	lSkipFiles                             = .F.
 
+	* A flag to indicate if the user wants to process the files in
+	* cFilesToIncludeFile files to cnclude over certain files during the search.
+	lIncludeFiles                          = .F.
+
 	* Indicates if you want a copy of the code block stored on each search
 	* reesult record (for ResultsCursor) or collection node (for ResultsCollection).
 	lStoreCode                             = .F.
@@ -122,11 +126,45 @@ Define Class GoFishSearchOptions As Custom
 	* Indicates which search mode to use: Plain, LIKE, or RegEx.
 	* See GoFish.h constants file for values.
 	nSearchMode                            = 1
+	lWildCardContinuationLines			   = .T.
+	lOptimizeWithGrep					   = .T.
 
-	* 1 = Active Project, 2=Browse Project, 3 = Current Dir, 4= Browse Directory.
-	nSearchScope                           = 1
+	* 1 = Active Project, 2=Browse Project, 3 = Current Dir, 4= Browse Directory, 5 = All Open Projects
+	nSearchScope                           = 3
+	nPreviousSearchScope				   = 3
+	
+*!* - rk - 2023-10-22 - added property to stop problem in 
+*!* - gofishSearchEngine.prg|SetIncludePattern 
+	oRegExpFileTemplate              = .Null.
+
+	* Indicates whether column 'File Name with Path' shows a Relative Path
+	lShowRelativePath                      = .F.
+
+	* Indicates whether to filter history form by the current Scope
+	lFilterHistoryByScope                  = .F.
+
+	* Name of the field used to filter history form by the current Scope
+	cSearchHistorySort			           = ''
+
+	* Indicates where the projects/folders in the scope dropdown are to be sorted.
+	lSortScopeDropdown			           = .F.
+
+	*** JRN 2024-02-14 : Used if wild cards use whole word search
+	cWholeWordSearch = ''
+
+	*** JRN 2024-05-04 : File extensions searched in current search
+	cSearchExtensions = ''
+	
+	lShowMenuBarNumbers = .F.
+		
+	lCleanUpGrepFiles = .T.
+	
+	lPreVFP9		   = .F.
+	lPreVFP9EditSource = 'EditSource'
+	lUnmatchedParenError = .F.
 
 	*---------------------------------------------------------------------
+
 	Procedure lRegularExpression_Access
 	
 		Return (This.nSearchMode = GF_SEARCH_MODE_REGEX)

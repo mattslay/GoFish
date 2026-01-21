@@ -1,3 +1,5 @@
+#Include GoFish.h		&& Include constants so these, for example "CR", can be used here ...
+
 Define Class gf_peme_basetools As Custom
 
 	lReleaseOnDestroy = .F.
@@ -85,67 +87,75 @@ Define Class gf_peme_basetools As Custom
 
 
 	*----------------------------------------------------------------------------------
-	Procedure BrowseTable(tcFileName, tnRecno)
-
-		Local lcCursor, lnShiftX, lnShiftY, loForm, loTempForm, luSBReturn, lnDataSession
-
-		lcCursor = 'GoFishTableBrowse'
+	Procedure BrowseTable(tcFileName, tnRecno, tlOnlyNormalBrowse)
+	
+		Local lcCursor, llSuperBrowsed, lnDataSession, lnShiftX, lnShiftY, loException, loForm, loTempForm
+	
 		*-- Create a temp form so we can control the Browse window size and location. 
 		*-- Don't want it to fit hte same size and location as the GoFish Window, becuase
 		*-- it looks weird when that happens.
-		loTempForm = .null.
-
-		If Vartype(_Screen.ActiveForm) = 'O'
-			lnShiftX = 50
-			lnShiftY = 125
-			loTempForm = Createobject('Form')
-			loForm = _Screen.ActiveForm
-			loTempForm.Left = loForm.Left + lnShiftX
-			loTempForm.Width = loForm.Width - lnShiftX
-			loTempForm.Top = loForm.Top + lnShiftY
-			loTempForm.Height = loForm.Height - lnShiftY
-			loTempForm.Show()
-		Endif
-
-		If Used(lcCursor)
-			Select (lcCursor)
-		Else
-			Select 0
-		Endif
-
-		luSBReturn = .null.
-
-		*-- Call SuperBrowse, if Thor is present
-		If Type('_Screen.cThorDispatcher') = 'C'
-			lnDataSession = Set('DataSession')
-			Set DataSession To 1
-			Use (tcFileName) Again Alias &lcCursor
-
-			If !Empty(tnRecno)
-				Goto tnRecno
+		loTempForm = .Null.
+	
+		llSuperBrowsed = .F.
+	
+		lnDataSession = Set('DataSession')
+		Set DataSession To 1
+		Select 0
+	
+		lcCursor = Chrtran(Juststem(m.tcFileName), ' ', '_') + Sys(2015)
+		Try
+			Use (m.tcFileName) Again Alias &lcCursor
+		Catch To m.loException
+		Endtry
+	
+		If Used(m.lcCursor)
+	
+			If Not Empty(m.tnRecno)
+				Goto m.tnRecno
 			Endif
-
-			luSBReturn = Execscript(_Screen.cThorDispatcher, 'Thor_Proc_SuperBrowse', lcCursor) != .null.
-			Set DataSession To &lnDataSession
-		EndIf
-
-		*-- Regular brows is Thor not present, or SuperBrowse call failed
-		If luSBReturn = .null.
-			Use (tcFileName) Again Alias &lcCursor
-
-			If !Empty(tnRecno)
-				Goto tnRecno
+	
+			*-- Call SuperBrowse, if Thor is present
+			If Type('_Screen.cThorDispatcher') = 'C' And m.tlOnlyNormalBrowse = .F.
+				llSuperBrowsed = Not Isnull(Execscript(_Screen.cThorDispatcher, 'Thor_Proc_SuperBrowse', m.lcCursor))
 			Endif
+	
+			*-- Regular browse if Thor not present, or SuperBrowse call failed
+			If Not m.llSuperBrowsed
+				*!* ******** JRN Removed 2024-04-14 ********
+				*!* If Vartype(_Screen.ActiveForm) = 'O'
+				*!* 	lnShiftX   = 50
+				*!* 	lnShiftY   = 125
+				*!* 	If Type('_Screen._GoFish.oResultsForm') = 'O' And Not Isnull(_Screen._GoFish.oResultsForm)
+				*!* 		loForm			  = _Screen._GoFish.oResultsForm
+				*!* 	Else
+				*!* 		loForm			  = _Screen.ActiveForm
+				*!* 	Endif
 
-			Browse Last Nowait Title (tcFileName) Normal
-		Endif
+				*!* 	loTempForm = Createobject('Form')
+				*!* 	Try
+				*!* 		loTempForm.Left	  = m.loForm.Left   + m.lnShiftX
+				*!* 		loTempForm.Width  = m.loForm.Width  - m.lnShiftX
+				*!* 		loTempForm.Top	  = m.loForm.Top    + m.lnShiftY
+				*!* 		loTempForm.Height = m.loForm.Height - m.lnShiftY
+				*!* 	Catch To m.loException
 
-		If Vartype(loTempForm) = 'O'
-			loTempForm.Release()
-		Endif
+				*!* 	EndTry
 
-	EndProc
+				*!* 	m.loTempForm.Show()
+				*!* Endif
 
+				Browse Last Nowait Title (m.tcFileName) Normal
+			Endif
+	
+			If Vartype(m.loTempForm) = 'O'
+				m.loTempForm.Release()
+			Endif
+		Endif && Used(m.lcCursor)
+	
+		Set DataSession To &lnDataSession
+	
+	Endproc
+			
 
 	*----------------------------------------------------------------------------------
 	Procedure CheckOutSCC(lcFileName)
@@ -249,74 +259,121 @@ Define Class gf_peme_basetools As Custom
 
 	*----------------------------------------------------------------------------------
 	Procedure EditSourceX(tcFileName, tcClass, tnStartRange, tnEndRange, tcMethod, tnRecno)
-
-		Local lcClass, lcCursor, lcExt, lcFileName, lcMethod, lnEndRange, lnStartRange, loException, loTools
-
-		lcExt = Upper(Justext(tcFileName))
-
+	
+		Local lcClass, lcExt, lcFileName, lcMethod, llEdited, lnDataSession, lnEndRange, lnStartRange
+		Local lnSuccess, loException, loPE, loTools
+	
+		Set Message to 
+		
+		lcExt = Upper(Justext(m.tcFileName))
+	
 		*** From JRN 11/21/2011 : Use EditSourceX from IDE Tools, if available,
 		*** which provides for source control and maintains MRU lists
-		If Type('_Screen.cThorDispatcher') = 'C' and (lcExt <> 'DBF')
-			* tools home page = http://vfpx.codeplex.com/wikipage?title=thor%20tools%20object
-			loTools = Execscript(_Screen.cThorDispatcher, "Class= tools from pemeditor")
-			If Not IsNull(loTools)
-				loTools.EditSourceX(tcFileName, tcClass, tcMethod, tnStartRange, tnEndRange)
+		If Type('_Screen.cThorDispatcher') = 'C' And (m.lcExt # 'DBF')
+			loTools = Execscript(_Screen.cThorDispatcher, 'Class= tools from pemeditor')
+			If Not Isnull(m.loTools)
+				m.loTools.EditSourceX(m.tcFileName, m.tcClass, m.tcMethod, m.tnStartRange, m.tnEndRange)
+				Set Message to 
 				Return
 			Endif
-		EndIf
-
+		Endif
+	
 		*-- If Thor Tool above was not available, then we will handle it locally...
 		*-- Note: This means we will not get CheckOutSCC support, since that requires Thor/Peme from above.
-		lcFileName 		= This.DiskFileName(Trim(tcFileName))
-		lcClass	   		= Trim(Evl(tcClass, ''))
-		lnStartRange	= Evl(tnStartRange, 1)
-		lnEndRange		= Evl(tnEndRange, 1)
-		lcMethod 		= Evl(tcMethod, '')
-
-		This.AddMRUFile(lcFileName, lcClass)
-
+		lcFileName	 = This.DiskFileName(Trim(m.tcFileName))
+		lcClass		 = Trim(Evl(m.tcClass, ''))
+		lnStartRange = Evl(m.tnStartRange, 1)
+		lnEndRange	 = Evl(m.tnEndRange, 1)
+		lcMethod	 = Evl(m.tcMethod, '')
+	
+		This.AddMRUFile(m.lcFileName, m.lcClass)
+	
 		Try
 			Do Case
-				Case lcExt = 'PJX'
-					Modify Project(lcFileName) Nowait
-
-				Case lcExt = 'VCX' And Empty(lcClass)
-					Do(_Browser) With (lcFileName)
-
-				Case lcExt = 'DBC'
-					Modify Database (lcFileName)
-
-				Case lcExt $ ' FRX LBX MNX '
-					Local lnDataSession
+				Case m.lcExt = 'PJX'
+					Modify Project(m.lcFileName) Nowait
+	
+				Case m.lcExt = 'VCX' And Empty(m.lcClass)
+					Do(_Browser) With (m.lcFileName)
+	
+				Case m.lcExt = 'DBC'
+					Modify Database (m.lcFileName)
+	
+				Case m.lcExt $ ' FRX LBX MNX '
 					lnDataSession = Set('Datasession')
 					Set DataSession To 1
-					EditSource(lcFileName)
+	
+					llEdited  = .F.
+					lnSuccess = 0 && oddly, zero on success, else error code
+					*** JRN 2024-02-29 : Per Doug, use Project Explorer to open file if it's around
+					If Type('_screen.oProjectExplorers') = 'O' And _Screen.oProjectExplorers.Count > 0
+						loPE	 = _Screen.oProjectExplorers[1]
+						llEdited = m.loPE.EditFile(m.lcFileName)
+					Endif
+					If Not m.llEdited
+						lnSuccess = Editsource(m.lcFileName)
+					EndIf
+					
+					If m.lnSuccess > 0
+						*** Error handling for wrong object reference call or already/still used files.
+						Messagebox('There was an error opening the file:' + Chr(13) +				;
+							  m.lcFileName + Chr(13) + Chr(13) +									;
+							  'Error-Code: ' + Alltrim(Str(m.lnSuccess)) + Chr(13) +				;
+							  Icase(Inlist(m.lnSuccess, 132, 705), 'File in use. Cannot be opened.', ;
+								m.lnSuccess = 200, 'File not opened due to invalid object reference. Verify the presence of cMethodName in the object referenced by the cClassName parameter.', ;
+								m.lnSuccess = 901, 'File opened but invalid object reference in cMethodName. Check the reference in the cMethodName parameter. Use a reference such as MyForm.MyList.CLICK.', ;
+								'<Unknown Error Code>'))
+					Endif
 					Set DataSession To &lnDataSession
+	
+				Case m.lcExt $ ' VCX SCX '
 
-				Case lcExt $ ' VCX SCX FRX LBX MNX '
-					Editsource(lcFileName, lnStartRange, lcClass, lcMethod)
+					llEdited  = .F.
+					lnSuccess = 0 && oddly, zero on success, else error code					
+					*** JRN 2024-02-29 : Per Doug, use Project Explorer to open file if it's around
+					If Type('_screen.oProjectExplorers') = 'O' And _Screen.oProjectExplorers.Count > 0
+						loPE	 = _Screen.oProjectExplorers[1]
+						llEdited = m.loPE.EditFile(m.lcFileName, m.lnStartRange, m.lcClass, m.lcMethod)
+					Endif
+					If Not m.llEdited
+						lnSuccess = Editsource(m.lcFileName, m.lnStartRange, m.lcClass, m.lcMethod)
+					Endif
 
-				Case 'PRG' == lcExt
-					Modify Command(lcFileName) Range lnStartRange, lnEndRange Nowait
-
-				Case lcExt $ ' MPR QPR TXT H INI '
-					Modify File(lcFileName) Range lnStartRange, lnEndRange Nowait
-
-				Case lcExt = 'DBF'
-					This.BrowseTable(lcFileName, tnRecno)
-
+					If m.lnSuccess > 0
+						*** Error handling for wrong object reference call or already/still used files.
+						Messagebox('There was an error opening the file:' + Chr(13) +				;
+							  m.lcFileName + Chr(13) + Chr(13) +									;
+							  'Error-Code: ' + Alltrim(Str(m.lnSuccess)) + Chr(13) +				;
+							  Icase(Inlist(m.lnSuccess, 132, 705), 'File in use. Cannot be opened.', ;
+								m.lnSuccess = 200, 'File not opened due to invalid object reference. Verify the presence of cMethodName in the object referenced by the cClassName parameter.', ;
+								m.lnSuccess = 925, 'File opened but invalid object reference in cMethodName. Check the reference in the cMethodName parameter. Use a reference such as MyForm.MyList.CLICK.', ;
+								'<Unknown Error Code>') + Chr(13) + Chr(13) +						;
+							  'lnStartRange: ' + Alltrim(Str(m.lnStartRange)) + Chr(13) +			;
+							  'lcClass : ' + m.lcClass + Chr(13) +									;
+							  'lcMethod: ' + m.lcMethod)
+					Endif
+	
+				Case m.lcExt $ 'PRG SPR '
+					Modify Command(m.lcFileName) Range m.lnStartRange, m.lnEndRange Nowait
+	
+				Case m.lcExt $ ' MPR QPR TXT H INI '
+					Modify File(m.lcFileName) Range m.lnStartRange, m.lnEndRange Nowait
+	
+				Case m.lcExt = 'DBF'
+					This.BrowseTable(m.lcFileName, m.tnRecno)
+	
 				Otherwise
-					This.OpenURL(lcFileName) && Throw it off to the OS to handle opening the file.
-
+					This.OpenURL(m.lcFileName) && Throw it off to the OS to handle opening the file.
+	
 			Endcase
-
-		Catch To loException
-
-			This.ShowErrorMsg(loException)
-
+	
+		Catch To m.loException
+	
+			This.ShowErrorMsg(m.loException)
+	
 		Endtry
-	EndProc
-
+	Endproc
+	
 
 	*----------------------------------------------------------------------------------
 	Procedure GetControlCount(loObject)

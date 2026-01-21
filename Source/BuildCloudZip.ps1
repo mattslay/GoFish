@@ -1,81 +1,71 @@
-# This script builds a ZIP file to be uploaded to the FTP site to distribute GoFish5 through
-# Thor Check For Updates.
-#  Github: https://github.com/mattslay/GoFish
-#  email: MattSlay@jordanmachine.com for assistance with GoFish5 and assistance with distributing
+$exclude = "*.bak,*.bat,*.fxp,*.zip"
+# Ensure no spaces before or after comma
+$excludeFiles = $exclude.Split(',')
+# Ensure no spaces before or after comma
+$exclude = "*Documentation*"
+$excludeFolders = $exclude.Split(',')
 
-Clear-Host
+# Get the name of the zip file.
+$zipFileName = "Source.zip"
 
-#=== Variable definitions =========================================
-$sourceFolder = "H:\Work\Repos\GoFish\Source\"
-$localVersionFile = "GoFishVersionFile.txt"
-$cloudVersionFile = "_GoFishVersionFile.txt"
+try
+{ 
+    # Delete the zip file if it exists.
+    $exists = Test-Path ($zipFileName)
+    if ($exists)
+    {
+        del ($zipFileName)
+    }
 
-$beta = $false
+    # Loop through all the files in the project folder except those we don't want
+    # and add them to a zip file.
+    # See https://stackoverflow.com/questions/15294836/how-can-i-exclude-multiple-folders-using-get-childitem-exclude
+    # for how to exclude folders when -Recurse is used
 
-If ($beta -eq $true) {
-	$appName = "GoFish4_Beta"
-	$zipFile = "GoFish4_Beta.zip"
-	$appFile = "GoFish4_Beta.app"
-	$ftpServerPath = "mattslay.com/VFP/GoFish4/Beta/"
+    $files = @(Get-ChildItem . -recurse -file -exclude $excludeFiles |
+        %{ 
+            $allowed = $true
+            foreach ($exclude in $excludeFolders)
+            { 
+                if ((Split-Path $_.FullName -Parent) -ilike $exclude)
+                { 
+                    $allowed = $false
+                    break
+                }
+            }
+            if ($allowed)
+            {
+                $_
+            }
+        }
+    );
+
+    # See https://stackoverflow.com/questions/51392050/compress-archive-and-preserve-relative-paths to compress
+
+    # exclude directory entries and generate fullpath list
+    $filesFullPath = $files | Where-Object -Property Attributes -CContains Archive | ForEach-Object -Process {Write-Output -InputObject $_.FullName}
+
+    #create zip file
+    Add-Type -AssemblyName System.IO.Compression, System.IO.Compression.FileSystem
+    $zip = [System.IO.Compression.ZipFile]::Open((Join-Path -Path $(Resolve-Path -Path ".") -ChildPath $zipFileName), [System.IO.Compression.ZipArchiveMode]::Create)
+
+    #write entries with relative paths as names
+    foreach ($fname in $filesFullPath)
+    {
+        $rname = $(Resolve-Path -Path $fname -Relative) -replace '\.\\',''
+        $zentry = $zip.CreateEntry($rname)
+        $zentryWriter = New-Object -TypeName System.IO.BinaryWriter $zentry.Open()
+        $zentryWriter.Write([System.IO.File]::ReadAllBytes($fname))
+        $zentryWriter.Flush()
+        $zentryWriter.Close()
+    }
+
+    # clean up
+    Get-Variable -exclude Runspace | Where-Object {$_.Value -is [System.IDisposable]} | Foreach-Object {$_.Value.Dispose(); Remove-Variable $_.Name};
 }
-else {
-	$appName = "GoFish5"
-	$zipFile = "GoFish5.zip"
-	$appFile = "GoFish5.app"
-	$ftpServerPath = "mattslay.com/VFP/GoFish5/"
-}
 
-Write-Host "ZIP Package builder - " + $appName
-Write-Host ""
-
-set-location $sourceFolder
-If (Test-Path $zipFile){
-	remove-item $zipFile
-}
-
-#--- Create fully qualified paths to filenames
-$p = $PWD.path + "\"
-$localZipFile = $p + $zipFile
-$localAppFile = $p + $appFile
-$localVersionFile = $p + $localVersionFile
-
-#--- Create an empty ZIP file ---
-set-content $zipFile ("PK" + [char]5 + [char]6 + ("$([char]0)" * 18))
-(dir $zipFile).IsReadOnly = $false	
-
-#--- Prepare to add files to the Zip  ---
-"Building Zip"
-$shellApplication = new-object -com shell.application
-$zipPackage = $shellApplication.NameSpace($localZipFile)
-
-#-- Add local version file to Zip ---
-$zipPackage.CopyHere($localVersionFile)
-Start-Sleep -Milliseconds 10
-
-#-- Add .app file to Zip ---
-$zipPackage.CopyHere($localAppFile)
-Start-Sleep -Milliseconds 1000
-""
-
-
-
-#--- Display results summary ----------------------------
-If ($zipPackage.Items().Count -eq 2)
+catch
 {
-	"ZIP File Created: " +  $zipFile
-    ""
-    "Contents:"
-     "  " + $localAppFile
-     "  " + $localVersionFile
-     ""
-     "You must now upload the ZIP and '_GoFishVersionFile.txt' to the FTP endpoint for distribution through Thor.."
-
+    Write-Host "Error occurred at $(Get-Date): $($Error[0].Exception.Message)"
+	pause
 }
-else
-{
-	"File count in ZIP is not correct."
-}
-	
-	
-
-

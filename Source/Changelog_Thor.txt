@@ -1,0 +1,64 @@
+## Ver 6.2.007
+**Released 2023-11-11**
+### Changes
+- Installing GoFish now provides an option to remove GoFish5.
+
+## Ver 6.2.006
+**Released 2023-10-24**
+### Changes
+- fixed issue with missing property declaration.
+
+## Ver 6.2.005
+**Released 2023-09-07**
+### Changes
+- Added file .FoxBin2Prg_Ignore in local storage directory, to stop FoxBin2Prg after version [1.20.07](https://github.com/lscheffler/foxbin2prg/releases/tag/1.20.07) from processing this directories.
+
+## Ver 6.2.004
+**Released 2023-09-04**
+### Changes
+- fixed problem with replace backup folder missing
+- fixed an issue where whole history was populated in tree, while only that of the recent session was turned on
+- fixed an issue with history tree turned on and search not returning result
+- fixed: Scope combo could not be changed with keyboard, if CodeReferences option where turned on.
+- added option to enter * or *.* in Advanced Search \-\> Filetypes \-\> Others to express **ALL**
+- added option to enter multiple file skeletons to file templates
+- better UI to set/unset file types
+- optimized speed of folder search
+- ignore git toplevel folder instead of .git
+- ignore GoFish's settings folder, but allow to search the GF_Saved_Search_Results by explicitly selecting it (on your own risk)
+- fixed Button to show menu tree should not appear for MPR files; fixed #102
+- MPR are now in the "Dangerous risk" replace group; closing #109
+- DynamicBackColor for Replacerisk 3 - Dangerous was wrong
+- files not in filter visible in tree; fixed issue #118
+- wrong property used of SF_RegExp
+- searching for file without extension is now allowed in "Advanced Search", "File template". #84 
+  - Note: "\*" is all files WITH extension, without extension is like "\*."
+- fixed: Error "invalid path or file name" on startup; fixed #120 (PatrickvonDeetzen)
+- forced to use of APP over PRG
+- Renamed GoFish5 to GoFish
+
+## Ver 6.2.001 **Released 2023-05-09**
+- Fixed: Code - window shows info for files without hit in filter #94  
+- Fixed: If search is restored via "History", restore search settings; fixed #92
+- Fixed: Sort for full file path and date of search has higher order then the column clicked; fixed #91
+- Fixed:  Filter Builder errors when filter string is equal sign #8 
+- Improved: Messagebox text
+- Improved: Different colours for filter in search result #88
+  - Note: Filter expressions in the *Like* style are not highlighted (and never will be)
+- Improved: CSS for "Code Window" in settings folder to alter colours
+- Improved: DotNet-RegExp for some operations (not search)
+
+## Ver 6.2.000 **Released 2023-04-20**
+- Fixed: Update failed when no search was started after first run
+- Improved: First run sets now version to settings DBC
+- Improved: Update messages give info for storage path
+
+## Ver 6.1.000
+**Released 2023-04-15**
+### Changes
+- Improved: Update of storage structure by version change
+- Improved: Highlight searched text in opened window; merged #75
+- Improved: Max length of field FileName set to 100, issue #78
+- Fixed: Files with to long filename where sorted to wrong node, fixing #78
+- Fixed: Error while exporting, fixing #79
+- Fixed: Scope disappears after a project search, fixing #69 
